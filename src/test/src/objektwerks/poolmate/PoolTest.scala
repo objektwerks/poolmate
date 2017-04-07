@@ -9,6 +9,6 @@ class PoolTest extends FunSuite with BeforeAndAfterAll with Matchers {
   override protected def afterAll(): Unit = {
   }
 
-  test("repository") {
+  test("pool") {
   }
 }
