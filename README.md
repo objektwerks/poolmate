@@ -10,13 +10,13 @@ Object Model
 ------------
 * Owner(id, name, email, street, city, state, zip)
 * Pool (id, ownerid, gallons)
-* Cleaned(id, poolid, on, deck, brush, net, basket, filter)
-* Measured(id, poolid, on, tablet, ch, ph, alky, temp)
-* Added(id, poolid, on, tablet, ch)
+* Cleaning(id, poolid, on, deck, brush, net, basket, filter)
+* Measurement(id, poolid, on, tablet, ch, ph, alky, temp)
+* Addition(id, poolid, on, tablet, ch)
 
 Relational Model
 ----------------
-* Owner 1 ---> * Pool 1 ---> * Cleaned | Measured | Added
+* Owner 1 ---> * Pool 1 ---> * Cleaning | Measurement | Addition
 
 Test
 ----
