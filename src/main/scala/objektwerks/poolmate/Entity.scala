@@ -10,7 +10,9 @@ case class Cleaning(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, dec
 
 case class Measurement(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, ci: Int = 5, ph: Int = 5, alky: Int = 5, temp: Int = 75)
 
-case class Additive(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, name: String, kind: String, amount: String)
+case class Additive(id: Int = 0, poolid: Int, chemicalid: Int, on: LocalDate = LocalDate.now, amount: String)
+
+case class Chemical(id: Int = 0, name: String)
 
 object Entity {
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
@@ -22,6 +24,8 @@ object Entity {
   implicit def cleaningOrdering: Ordering[Cleaning] = Ordering.by(_.on)
 
   implicit def measurementOrdering: Ordering[Measurement] = Ordering.by(_.on)
+
+  implicit def chemicalOrdering: Ordering[Chemical] = Ordering.by(_.name)
 
   implicit def additiveOrdering: Ordering[Additive] = Ordering.by(_.on)
 }

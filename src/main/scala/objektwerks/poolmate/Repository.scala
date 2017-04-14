@@ -23,7 +23,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   import profile.api._
 
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld),d => d.toLocalDate)
-  val schema = owners.schema ++ pools.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema
+  val schema = owners.schema ++ pools.schema ++ cleanings.schema ++ measurements.schema ++ chemicals.schema ++ additives.schema
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
@@ -98,14 +98,24 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def list(poolid: Int) = compiledList(poolid).result
   }
 
+  class Chemicals(tag: Tag) extends Table[Chemical](tag, "chemicals") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def name = column[String]("name")
+    def * = (id, name) <> (Chemical.tupled, Chemical.unapply)
+  }
+  object chemicals extends TableQuery(new Chemicals(_)) {
+    val compiledList = Compiled { sortBy(_.name.asc) }
+    def save(chemical: Chemical) = (this returning this.map(_.id)).insertOrUpdate(chemical)
+    def list() = compiledList.result
+  }
+
   class Additives(tag: Tag) extends Table[Additive](tag, "additives") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolid = column[Int]("pool_id")
+    def chemicalid = column[Int]("chemical_id")
     def on = column[LocalDate]("on")
-    def name = column[String]("name")
-    def kind = column[String]("kind")
     def amount = column[String]("amount")
-    def * = (id, poolid, on, name, kind, amount) <> (Additive.tupled, Additive.unapply)
+    def * = (id, poolid, chemicalid, on, amount) <> (Additive.tupled, Additive.unapply)
     def poolFk = foreignKey("pool_additive_fk", poolid, TableQuery[Pools])(_.id)
   }
   object additives extends TableQuery(new Additives(_)) {
