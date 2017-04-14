@@ -1,8 +1,5 @@
 package objektwerks.poolmate
 
-import java.time.LocalDate
-
-import objektwerks.hs.repository._
 import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 
 class RepositoryTest extends FunSuite with BeforeAndAfterAll with Matchers {
