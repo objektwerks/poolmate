@@ -130,8 +130,9 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolid = column[Int]("pool_id")
     def on = column[LocalDate]("on")
+    def cost = column[Double]("cost")
     def description = column[String]("description")
-    def * = (id, poolid, on, description) <> (Repair.tupled, Repair.unapply)
+    def * = (id, poolid, on, cost, description) <> (Repair.tupled, Repair.unapply)
     def poolFk = foreignKey("pool_repair_fk", poolid, TableQuery[Pools])(_.id)
   }
   object repairs extends TableQuery(new Repairs(_)) {
