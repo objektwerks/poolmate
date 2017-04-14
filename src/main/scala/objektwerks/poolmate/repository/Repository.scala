@@ -15,7 +15,7 @@ object Repository {
   def newInstance(configFile: String): Repository = {
     val repository = new Repository(config = DatabaseConfig.forConfig[JdbcProfile]("repository", ConfigFactory.load(configFile)), profile = H2Profile)
     import repository._
-    try { await(pools.list()).length } catch { case _: Throwable => repository.createSchema() }
+    try { await(owners.list()).length } catch { case _: Throwable => repository.createSchema() }
     repository
   }
 }
@@ -24,7 +24,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   import profile.api._
 
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld),d => d.toLocalDate)
-  val schema = owners.schema ++ pools.schema ++ cleanings.schema ++ measurements.schema ++ chemicals.schema ++ additives.schema
+  val schema = owners.schema ++ pools.schema ++ cleanings.schema ++ measurements.schema ++ chemicals.schema ++ additives.schema ++ repairs.schema
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
@@ -123,6 +123,20 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   object additives extends TableQuery(new Additives(_)) {
     val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolid === poolid).sortBy(_.on.asc) }
     def save(additive: Additive) = (this returning this.map(_.id)).insertOrUpdate(additive)
+    def list(poolid: Int) = compiledList(poolid).result
+  }
+
+  class Repairs(tag: Tag) extends Table[Repair](tag, "repairs") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def poolid = column[Int]("pool_id")
+    def on = column[LocalDate]("on")
+    def description = column[String]("description")
+    def * = (id, poolid, on, description) <> (Repair.tupled, Repair.unapply)
+    def poolFk = foreignKey("pool_repair_fk", poolid, TableQuery[Pools])(_.id)
+  }
+  object repairs extends TableQuery(new Repairs(_)) {
+    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolid === poolid).sortBy(_.on.asc) }
+    def save(repair: Repair) = (this returning this.map(_.id)).insertOrUpdate(repair)
     def list(poolid: Int) = compiledList(poolid).result
   }
 }

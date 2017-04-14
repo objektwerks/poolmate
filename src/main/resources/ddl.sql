@@ -4,7 +4,9 @@ create table "cleanings" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"pool
 create table "measurements" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"pool_id" INTEGER NOT NULL,"on" DATE NOT NULL,"ci" INTEGER NOT NULL,"ph" INTEGER NOT NULL,"alky" INTEGER NOT NULL,"temp" INTEGER NOT NULL)
 create table "chemicals" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"name" VARCHAR NOT NULL,"unit" VARCHAR NOT NULL)
 create table "additives" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"pool_id" INTEGER NOT NULL,"chemical_id" INTEGER NOT NULL,"on" DATE NOT NULL,"amount" DOUBLE NOT NULL)
+create table "repairs" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"pool_id" INTEGER NOT NULL,"on" DATE NOT NULL,"description" VARCHAR NOT NULL)
 alter table "pools" add constraint "owner_fk" foreign key("owner_id") references "owners"("id") on update NO ACTION on delete NO ACTION
 alter table "cleanings" add constraint "pool_cleaning_fk" foreign key("pool_id") references "pools"("id") on update NO ACTION on delete NO ACTION
 alter table "measurements" add constraint "pool_measurement_fk" foreign key("pool_id") references "pools"("id") on update NO ACTION on delete NO ACTION
 alter table "additives" add constraint "pool_additive_fk" foreign key("pool_id") references "pools"("id") on update NO ACTION on delete NO ACTION
+alter table "repairs" add constraint "pool_repair_fk" foreign key("pool_id") references "pools"("id") on update NO ACTION on delete NO ACTION
