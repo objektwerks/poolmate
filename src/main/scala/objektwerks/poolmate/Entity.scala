@@ -2,18 +2,18 @@ package objektwerks.poolmate
 
 import java.time.LocalDate
 
-case class Pool(id: Int = 0, name: String = "default_student", born: LocalDate = LocalDate.now.minusYears(7))
+case class Pool(id: Int = 0, owner: String = "default_owner")
 
-case class Log(id: Int = 0, poolid: Int, year: String = "default_grade", started: LocalDate = LocalDate.now, completed: LocalDate = LocalDate.now.plusMonths(6))
+case class Log(id: Int = 0, poolid: Int, created: LocalDate = LocalDate.now)
 
-case class Entry(id: Int = 0, logid: Int, name: String = "default_course", started: LocalDate = LocalDate.now, completed: LocalDate = LocalDate.now.plusMonths(3))
+case class Entry(id: Int = 0, logid: Int, created: LocalDate = LocalDate.now)
 
 object Entity {
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
 
-  implicit def poolOrdering: Ordering[Pool] = Ordering.by(_.born)
+  implicit def poolOrdering: Ordering[Pool] = Ordering.by(_.owner)
 
-  implicit def logOrdering: Ordering[Log] = Ordering.by(_.started)
+  implicit def logOrdering: Ordering[Log] = Ordering.by(_.created)
 
-  implicit def entryOrdering: Ordering[Entry] = Ordering.by(_.started)
+  implicit def entryOrdering: Ordering[Entry] = Ordering.by(_.created)
 }
