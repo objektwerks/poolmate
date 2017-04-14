@@ -23,7 +23,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   import profile.api._
 
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld),d => d.toLocalDate)
-  val schema = owners.schema ++ pools.schema ++ cleanings.schema ++ measurements.schema ++ additions.schema
+  val schema = owners.schema ++ pools.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
@@ -77,7 +77,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
   object cleanings extends TableQuery(new Cleanings(_)) {
     val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolid === poolid).sortBy(_.on.asc) }
-    def save(cleaned: Cleaning) = (this returning this.map(_.id)).insertOrUpdate(cleaned)
+    def save(cleaning: Cleaning) = (this returning this.map(_.id)).insertOrUpdate(cleaning)
     def list(poolid: Int) = compiledList(poolid).result
   }
 
@@ -94,22 +94,22 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
   object measurements extends TableQuery(new Measurements(_)) {
     val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolid === poolid).sortBy(_.on.asc) }
-    def save(measured: Measurement) = (this returning this.map(_.id)).insertOrUpdate(measured)
+    def save(measurement: Measurement) = (this returning this.map(_.id)).insertOrUpdate(measurement)
     def list(poolid: Int) = compiledList(poolid).result
   }
 
-  class Additions(tag: Tag) extends Table[Addition](tag, "additions") {
+  class Additives(tag: Tag) extends Table[Additive](tag, "additives") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolid = column[Int]("pool_id")
     def on = column[LocalDate]("on")
     def tablets = column[Int]("tablets")
     def ch = column[Int]("ch")
-    def * = (id, poolid, on, tablets, ch) <> (Addition.tupled, Addition.unapply)
-    def poolFk = foreignKey("pool_addition_fk", poolid, TableQuery[Pools])(_.id)
+    def * = (id, poolid, on, tablets, ch) <> (Additive.tupled, Additive.unapply)
+    def poolFk = foreignKey("pool_additive_fk", poolid, TableQuery[Pools])(_.id)
   }
-  object additions extends TableQuery(new Additions(_)) {
+  object additives extends TableQuery(new Additives(_)) {
     val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolid === poolid).sortBy(_.on.asc) }
-    def save(added: Addition) = (this returning this.map(_.id)).insertOrUpdate(added)
+    def save(additive: Additive) = (this returning this.map(_.id)).insertOrUpdate(additive)
     def list(poolid: Int) = compiledList(poolid).result
   }
 }

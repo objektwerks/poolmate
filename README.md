@@ -12,11 +12,11 @@ Object Model
 * Pool (id, ownerid, gallons)
 * Cleaning(id, poolid, on, deck, brush, net, basket, filter)
 * Measurement(id, poolid, on, tablet, ch, ph, alky, temp)
-* Addition(id, poolid, on, tablet, ch)
+* Additive(id, poolid, on, tablet, ch)
 
 Relational Model
 ----------------
-* Owner 1 ---> * Pool 1 ---> * Cleaning | Measurement | Addition
+* Owner 1 ---> * Pool 1 ---> * Cleaning | Measurement | Additive
 
 Test
 ----
