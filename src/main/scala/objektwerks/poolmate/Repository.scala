@@ -23,7 +23,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   import profile.api._
 
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld),d => d.toLocalDate)
-  val schema = pools.schema ++ logs.schema ++ entries.schema
+  val schema = pools.schema ++ measurements.schema
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
@@ -36,8 +36,9 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def owner = column[String]("name")
-    def * = (id, owner) <> (Pool.tupled, Pool.unapply)
+    def gallons = column[Double]("gallons")
+    def owner = column[String]("owner")
+    def * = (id, gallons, owner) <> (Pool.tupled, Pool.unapply)
   }
   object pools extends TableQuery(new Pools(_)) {
     val compiledList = Compiled { sortBy(_.owner.asc) }
@@ -45,29 +46,16 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def list() = compiledList.result
   }
 
-  class Logs(tag: Tag) extends Table[Log](tag, "logs") {
+  class Measurements(tag: Tag) extends Table[Measurement](tag, "measurements") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolid = column[Int]("pool_id")
     def created = column[LocalDate]("created")
-    def * = (id, poolid, created) <> (Log.tupled, Log.unapply)
+    def * = (id, poolid, created) <> (Measurement.tupled, Measurement.unapply)
     def poolFk = foreignKey("pool_fk", poolid, TableQuery[Pools])(_.id)
   }
-  object logs extends TableQuery(new Logs(_)) {
+  object measurements extends TableQuery(new Measurements(_)) {
     val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolid === poolid).sortBy(_.created.asc) }
-    def save(log: Log) = (this returning this.map(_.id)).insertOrUpdate(log)
+    def save(measurement: Measurement) = (this returning this.map(_.id)).insertOrUpdate(measurement)
     def list(poolid: Int) = compiledList(poolid).result
-  }
-
-  class Entries(tag: Tag) extends Table[Entry](tag, "entries") {
-    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def logid = column[Int]("log_id")
-    def created = column[LocalDate]("created")
-    def * = (id, logid, created) <> (Entry.tupled, Entry.unapply)
-    def logFk = foreignKey("log_fk", logid, TableQuery[Logs])(_.id)
-  }
-  object entries extends TableQuery(new Entries(_)) {
-    val compiledList = Compiled { logid: Rep[Int] => filter(_.logid === logid).sortBy(_.created.asc) }
-    def save(entry: Entry) = (this returning this.map(_.id)).insertOrUpdate(entry)
-    def list(logid: Int) = compiledList(logid).result
   }
 }

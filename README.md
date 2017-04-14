@@ -8,13 +8,12 @@ GPL.V3 ( See ./GPL.V3 )
 
 Object Model
 ------------
-* Pool (id, owner)
-* Log (id, poolid, created)
-* Entry (id, logid, created, deck, brush, basket, filter, tablet, chlorine, phosphate, alkalinity)
+* Pool (id, gallons, owner)
+* Measurement (id, poolid, created, deck, brush, net, basket, filter, tablet, chlorine, pH, alkalinity, temp)
 
 Relational Model
 ----------------
-* Pool 1 ---> * Log 1 ---> * Entry
+* Pool 1 ---> * Measurement
 
 Test
 ----
