@@ -102,9 +102,10 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolid = column[Int]("pool_id")
     def on = column[LocalDate]("on")
-    def tablets = column[Int]("tablets")
-    def ci = column[Double]("ci")
-    def * = (id, poolid, on, tablets, ci) <> (Additive.tupled, Additive.unapply)
+    def name = column[String]("name")
+    def kind = column[String]("kind")
+    def amount = column[String]("amount")
+    def * = (id, poolid, on, name, kind, amount) <> (Additive.tupled, Additive.unapply)
     def poolFk = foreignKey("pool_additive_fk", poolid, TableQuery[Pools])(_.id)
   }
   object additives extends TableQuery(new Additives(_)) {
