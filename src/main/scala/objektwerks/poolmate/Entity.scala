@@ -6,7 +6,7 @@ case class Owner(id: Int = 0, name: String, email: String, street: String, city:
 
 case class Pool(id: Int = 0, ownerid: Int, gallons: Double = 1000.00)
 
-case class Cleaning(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true, net: Boolean = true, basket: Boolean = true, filter: Boolean = true)
+case class Cleaning(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true, net: Boolean = true, basket: Boolean = true, filter: Boolean = false)
 
 case class Measurement(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, ci: Int = 5, ph: Int = 5, alky: Int = 5, temp: Int = 75)
 
