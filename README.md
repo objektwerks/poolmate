@@ -10,7 +10,7 @@ Object Model
 ------------
 * Pool (id, owner)
 * Log (id, poolid, created)
-* Entry (id, logid, created)
+* Entry (id, logid, created, deck, brush, basket, filter, tablet, chlorine, phosphate, alkalinity)
 
 Relational Model
 ----------------
