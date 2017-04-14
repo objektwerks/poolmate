@@ -102,7 +102,8 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   class Chemicals(tag: Tag) extends Table[Chemical](tag, "chemicals") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def name = column[String]("name")
-    def * = (id, name) <> (Chemical.tupled, Chemical.unapply)
+    def unit = column[String]("unit")
+    def * = (id, name, unit) <> (Chemical.tupled, Chemical.unapply)
   }
   object chemicals extends TableQuery(new Chemicals(_)) {
     val compiledList = Compiled { sortBy(_.name.asc) }
@@ -115,7 +116,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolid = column[Int]("pool_id")
     def chemicalid = column[Int]("chemical_id")
     def on = column[LocalDate]("on")
-    def amount = column[String]("amount")
+    def amount = column[Double]("amount")
     def * = (id, poolid, chemicalid, on, amount) <> (Additive.tupled, Additive.unapply)
     def poolFk = foreignKey("pool_additive_fk", poolid, TableQuery[Pools])(_.id)
   }
