@@ -14,7 +14,7 @@ case class Chemical(id: Int = 0, name: String, unit: String)
 
 case class Additive(id: Int = 0, poolid: Int, chemicalid: Int, on: LocalDate = LocalDate.now, amount: Double = 1.0)
 
-case class Repair(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, cost: Double = 100.00, description: String)
+case class Repair(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, cost: Double = 1.00, description: String)
 
 object Entity {
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
