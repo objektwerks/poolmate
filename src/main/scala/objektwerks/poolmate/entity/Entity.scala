@@ -1,4 +1,4 @@
-package objektwerks.poolmate
+package objektwerks.poolmate.entity
 
 import java.time.LocalDate
 

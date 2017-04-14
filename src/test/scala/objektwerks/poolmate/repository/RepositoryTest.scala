@@ -1,4 +1,4 @@
-package objektwerks.poolmate
+package objektwerks.poolmate.repository
 
 import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 

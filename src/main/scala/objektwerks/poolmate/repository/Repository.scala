@@ -1,9 +1,10 @@
-package objektwerks.poolmate
+package objektwerks.poolmate.repository
 
 import java.sql.Date
 import java.time.LocalDate
 
 import com.typesafe.config.ConfigFactory
+import objektwerks.poolmate.entity._
 import slick.basic.DatabaseConfig
 import slick.jdbc.{H2Profile, JdbcProfile}
 
