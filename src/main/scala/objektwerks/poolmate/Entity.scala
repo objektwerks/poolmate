@@ -8,9 +8,9 @@ case class Pool(id: Int = 0, ownerid: Int, gallons: Double = 1000.00)
 
 case class Cleaning(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true, net: Boolean = true, basket: Boolean = true, filter: Boolean = true)
 
-case class Measurement(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, ch: Int = 5, ph: Int = 5, alky: Int = 5, temp: Int = 75)
+case class Measurement(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, ci: Int = 5, ph: Int = 5, alky: Int = 5, temp: Int = 75)
 
-case class Additive(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, tablets: Int = 0, ch: Int = 0)
+case class Additive(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, tablets: Int = 0, ci: Double = 0)
 
 object Entity {
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)

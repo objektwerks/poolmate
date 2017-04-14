@@ -11,8 +11,8 @@ Object Model
 * Owner(id, name, email, street, city, state, zip)
 * Pool (id, ownerid, gallons)
 * Cleaning(id, poolid, on, deck, brush, net, basket, filter)
-* Measurement(id, poolid, on, tablet, ch, ph, alky, temp)
-* Additive(id, poolid, on, tablet, ch)
+* Measurement(id, poolid, on, tablet, ci, ph, alky, temp)
+* Additive(id, poolid, on, tablet, ci)
 
 Relational Model
 ----------------
