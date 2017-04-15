@@ -11,7 +11,7 @@ Object Model
 * Owner(id, name, email, street, city, state, zip)
 * Pool (id, ownerid, gallons)
 * Cleaning(id, poolid, on, deck, brush, net, basket, filter)
-* Measurement(id, poolid, on, tablet, ci, ph, alky, stablizer, temp)
+* Measurement(id, poolid, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid)
 * Chemical(id, name, unit)
 * Additive(id, poolid, chemicalid, on, amount)
 * Repair(id, poolid, cost, description)
@@ -22,10 +22,13 @@ Relational Model
 
 Measurements
 ------------
-1. pH 6.2 - 8.4         OK = 7.2 - 7.8
-2. chlorine 0 - 10      OK = 1 - 5
-3. alkalinity 0 - 240   OK = 80 - 120
-4. stabilizer 0 - 300   OK = 30 - 100
+1. total hardness 0 - 1000  ok = 250 - 500
+2. total chlorine 0 - 10    ok = 1 - 5
+3. total bromine 0 - 20     ok = 2 - 10
+4. free chlorine 0 - 10     ok = 1 - 5
+5. ph 6.2 - 8.4             ok = 7.2 - 7.8
+6. total alkalinity 0 - 240 ok = 80 - 120
+7. cyanuric acid 0 - 300    ok = 30 - 100
 
 Test
 ----
