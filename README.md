@@ -22,10 +22,10 @@ Relational Model
 
 Measurements
 ------------
-1. pH 6.2 - 8.4           OK = 7.2 - 7.8
-2. chlorine 0 - 10        OK = 1 - 5
-3. alkalinity 0 - 240     OK = 80 - 120
-4. stabilizder 0 - 300    OK = 30 - 100
+1. pH 6.2 - 8.4         OK = 7.2 - 7.8
+2. chlorine 0 - 10      OK = 1 - 5
+3. alkalinity 0 - 240   OK = 80 - 120
+4. stabilizer 0 - 300   OK = 30 - 100
 
 Test
 ----
