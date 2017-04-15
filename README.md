@@ -11,7 +11,7 @@ Object Model
 * Owner(id, name, email, street, city, state, zip)
 * Pool (id, ownerid, gallons)
 * Cleaning(id, poolid, on, deck, brush, net, basket, filter)
-* Measurement(id, poolid, on, tablet, ci, ph, alky, temp)
+* Measurement(id, poolid, on, tablet, ci, ph, alky, stablizer, temp)
 * Chemical(id, name, unit)
 * Additive(id, poolid, chemicalid, on, amount)
 * Repair(id, poolid, cost, description)

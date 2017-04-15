@@ -86,11 +86,12 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolid = column[Int]("pool_id")
     def on = column[LocalDate]("on")
+    def ph = column[Double]("ph")
     def ci = column[Int]("ci")
-    def ph = column[Int]("ph")
     def alky = column[Int]("alky")
+    def stabilizer = column[Int]("stabilizer")
     def temp = column[Int]("temp")
-    def * = (id, poolid, on, ci, ph, alky, temp) <> (Measurement.tupled, Measurement.unapply)
+    def * = (id, poolid, on, ph, ci, alky, stabilizer, temp) <> (Measurement.tupled, Measurement.unapply)
     def poolFk = foreignKey("pool_measurement_fk", poolid, TableQuery[Pools])(_.id)
   }
   object measurements extends TableQuery(new Measurements(_)) {

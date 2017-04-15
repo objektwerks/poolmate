@@ -8,7 +8,7 @@ case class Pool(id: Int = 0, ownerid: Int, gallons: Double = 1000.00)
 
 case class Cleaning(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true, net: Boolean = true, basket: Boolean = true, filter: Boolean = false)
 
-case class Measurement(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, ci: Int = 5, ph: Int = 5, alky: Int = 5, temp: Int = 75)
+case class Measurement(id: Int = 0, poolid: Int, on: LocalDate = LocalDate.now, ph: Double = 7.5, ci: Int = 3, alky: Int = 120, stabilizer: Int = 50, temp: Int = 75)
 
 case class Chemical(id: Int = 0, name: String, unit: String)
 
