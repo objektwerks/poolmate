@@ -20,6 +20,13 @@ Relational Model
 ----------------
 * Owner 1 ---> * Pool 1 ---> * Cleaning | Measurement | Repair | Additive 1 ---> 1 Chemical
 
+Measurements
+------------
+1. pH 6.2 - 8.4           OK = 7.2 - 7.8
+2. chlorine 0 - 10        OK = 1 - 5
+3. alkalinity 0 - 240     OK = 80 - 120
+4. stabilizder 0 - 300    OK = 30 - 100
+
 Test
 ----
 1. sbt clean test
