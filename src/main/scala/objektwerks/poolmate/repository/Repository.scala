@@ -53,10 +53,10 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def ownerid = column[Int]("owner_id")
+    def ownerId = column[Int]("owner_id")
     def gallons = column[Double]("gallons")
-    def * = (id, ownerid, gallons) <> (Pool.tupled, Pool.unapply)
-    def ownerFk = foreignKey("owner_fk", ownerid, TableQuery[Owners])(_.id)
+    def * = (id, ownerId, gallons) <> (Pool.tupled, Pool.unapply)
+    def ownerFk = foreignKey("owner_fk", ownerId, TableQuery[Owners])(_.id)
   }
   object pools extends TableQuery(new Pools(_)) {
     val compiledList = Compiled { sortBy(_.gallons.asc) }
@@ -66,7 +66,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   class Cleanings(tag: Tag) extends Table[Cleaning](tag, "cleanings") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def poolid = column[Int]("pool_id")
+    def poolId = column[Int]("pool_id")
     def on = column[LocalDate]("on")
     def deck = column[Boolean]("deck")
     def brush = column[Boolean]("brush")
@@ -75,18 +75,18 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def skimmerBasket = column[Boolean]("skimmer_basket")
     def pumpBasket = column[Boolean]("pump_basket")
     def pumpFilter = column[Boolean]("pump_filter")
-    def * = (id, poolid, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter) <> (Cleaning.tupled, Cleaning.unapply)
-    def poolFk = foreignKey("pool_cleaning_fk", poolid, TableQuery[Pools])(_.id)
+    def * = (id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter) <> (Cleaning.tupled, Cleaning.unapply)
+    def poolFk = foreignKey("pool_cleaning_fk", poolId, TableQuery[Pools])(_.id)
   }
   object cleanings extends TableQuery(new Cleanings(_)) {
-    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolid === poolid).sortBy(_.on.asc) }
+    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolId === poolid).sortBy(_.on.asc) }
     def save(cleaning: Cleaning) = (this returning this.map(_.id)).insertOrUpdate(cleaning)
     def list(poolid: Int) = compiledList(poolid).result
   }
 
   class Measurements(tag: Tag) extends Table[Measurement](tag, "measurements") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def poolid = column[Int]("pool_id")
+    def poolId = column[Int]("pool_id")
     def on = column[LocalDate]("on")
     def temp = column[Int]("temp")
     def totalHardness = column[Int]("total_hardness")
@@ -96,11 +96,11 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def pH = column[Double]("ph")
     def totalAlkalinity = column[Int]("total_alkalinity")
     def cyanuricAcid = column[Int]("cyanuric_acid")
-    def * = (id, poolid, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid) <> (Measurement.tupled, Measurement.unapply)
-    def poolFk = foreignKey("pool_measurement_fk", poolid, TableQuery[Pools])(_.id)
+    def * = (id, poolId, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid) <> (Measurement.tupled, Measurement.unapply)
+    def poolFk = foreignKey("pool_measurement_fk", poolId, TableQuery[Pools])(_.id)
   }
   object measurements extends TableQuery(new Measurements(_)) {
-    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolid === poolid).sortBy(_.on.asc) }
+    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolId === poolid).sortBy(_.on.asc) }
     def save(measurement: Measurement) = (this returning this.map(_.id)).insertOrUpdate(measurement)
     def list(poolid: Int) = compiledList(poolid).result
   }
@@ -119,30 +119,30 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   class Additives(tag: Tag) extends Table[Additive](tag, "additives") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def poolid = column[Int]("pool_id")
-    def chemicalid = column[Int]("chemical_id")
+    def poolId = column[Int]("pool_id")
+    def chemicalId = column[Int]("chemical_id")
     def on = column[LocalDate]("on")
     def amount = column[Double]("amount")
-    def * = (id, poolid, chemicalid, on, amount) <> (Additive.tupled, Additive.unapply)
-    def poolFk = foreignKey("pool_additive_fk", poolid, TableQuery[Pools])(_.id)
+    def * = (id, poolId, chemicalId, on, amount) <> (Additive.tupled, Additive.unapply)
+    def poolFk = foreignKey("pool_additive_fk", poolId, TableQuery[Pools])(_.id)
   }
   object additives extends TableQuery(new Additives(_)) {
-    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolid === poolid).sortBy(_.on.asc) }
+    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolId === poolid).sortBy(_.on.asc) }
     def save(additive: Additive) = (this returning this.map(_.id)).insertOrUpdate(additive)
     def list(poolid: Int) = compiledList(poolid).result
   }
 
   class Repairs(tag: Tag) extends Table[Repair](tag, "repairs") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def poolid = column[Int]("pool_id")
+    def poolId = column[Int]("pool_id")
     def on = column[LocalDate]("on")
     def cost = column[Double]("cost")
     def description = column[String]("description")
-    def * = (id, poolid, on, cost, description) <> (Repair.tupled, Repair.unapply)
-    def poolFk = foreignKey("pool_repair_fk", poolid, TableQuery[Pools])(_.id)
+    def * = (id, poolId, on, cost, description) <> (Repair.tupled, Repair.unapply)
+    def poolFk = foreignKey("pool_repair_fk", poolId, TableQuery[Pools])(_.id)
   }
   object repairs extends TableQuery(new Repairs(_)) {
-    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolid === poolid).sortBy(_.on.asc) }
+    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolId === poolid).sortBy(_.on.asc) }
     def save(repair: Repair) = (this returning this.map(_.id)).insertOrUpdate(repair)
     def list(poolid: Int) = compiledList(poolid).result
   }
