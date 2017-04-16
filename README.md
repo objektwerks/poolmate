@@ -10,7 +10,7 @@ Object Model
 ------------
 * Owner(id, name, email, street, city, state, zip)
 * Pool (id, ownerid, gallons)
-* Cleaning(id, poolid, on, deck, brush, vacuum, net, basket, filter)
+* Cleaning(id, poolid, on, deck, brush, vacuum, net, skimmerBasket, pumpBasket, pumpFilter)
 * Measurement(id, poolid, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid)
 * Chemical(id, name, unit)
 * Additive(id, poolid, chemicalid, on, amount)
