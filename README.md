@@ -9,12 +9,12 @@ GPL.V3 ( See ./GPL.V3 )
 Object Model
 ------------
 * Owner(id, name, email, street, city, state, zip)
-* Pool (id, ownerid, gallons)
-* Cleaning(id, poolid, on, deck, brush, vacuum, net, skimmerBasket, pumpBasket, pumpFilter)
-* Measurement(id, poolid, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid)
+* Pool (id, ownerId, gallons)
+* Cleaning(id, poolId, on, deck, brush, vacuum, net, skimmerBasket, pumpBasket, pumpFilter)
+* Measurement(id, poolId, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid)
 * Chemical(id, name, unit)
-* Additive(id, poolid, chemicalid, on, amount)
-* Repair(id, poolid, cost, description)
+* Additive(id, poolId, chemicalId, on, amount)
+* Repair(id, poolId, cost, description)
 
 Relational Model
 ----------------
