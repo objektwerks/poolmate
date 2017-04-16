@@ -70,10 +70,11 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def on = column[LocalDate]("on")
     def deck = column[Boolean]("deck")
     def brush = column[Boolean]("brush")
+    def vacuum = column[Boolean]("vacuum")
     def net = column[Boolean]("net")
     def basket = column[Boolean]("basket")
     def filter = column[Boolean]("filter")
-    def * = (id, poolid, on, deck, brush, net, basket, filter) <> (Cleaning.tupled, Cleaning.unapply)
+    def * = (id, poolid, on, deck, brush, vacuum, net, basket, filter) <> (Cleaning.tupled, Cleaning.unapply)
     def poolFk = foreignKey("pool_cleaning_fk", poolid, TableQuery[Pools])(_.id)
   }
   object cleanings extends TableQuery(new Cleanings(_)) {
