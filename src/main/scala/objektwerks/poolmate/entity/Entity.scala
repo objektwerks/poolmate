@@ -1,6 +1,6 @@
 package objektwerks.poolmate.entity
 
-import java.time.LocalDate
+import java.time.{LocalDate, LocalTime}
 
 case class Owner(id: Int = 0, name: String, email: String, street: String, city: String, state: String, zip: Int)
 
@@ -15,13 +15,15 @@ case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, 
                        totalChlorine: Int = 3, totalBromine: Int = 5, freeChlorine: Int = 3, pH: Double = 7.5, totalAlkalinity: Int = 100,
                        cyanuricAcid: Int = 50)
 
-case class Chemical(id: Int = 0, name: String, unit: String)
-
-case class Additive(id: Int = 0, poolId: Int, chemicalId: Int, on: LocalDate = LocalDate.now, amount: Double = 1.0)
+case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String = "chlorine", unit: String = "gallon", amount: Double = 1.0)
 
 case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double = 0.00, description: String)
 
+case class Timer(id: Int = 0, poolId: Int, on: LocalTime, off: LocalTime)
+
 object Entity {
+  implicit def localTimeOrdering: Ordering[LocalTime] = Ordering.by(_.toSecondOfDay)
+
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
 
   implicit def ownerOrdering: Ordering[Owner] = Ordering.by(_.name)
@@ -32,9 +34,9 @@ object Entity {
 
   implicit def measurementOrdering: Ordering[Measurement] = Ordering.by(_.on)
 
-  implicit def chemicalOrdering: Ordering[Chemical] = Ordering.by(_.name)
-
   implicit def additiveOrdering: Ordering[Additive] = Ordering.by(_.on)
 
   implicit def repairOrdering: Ordering[Repair] = Ordering.by(_.on)
+
+  implicit def timerOrdering: Ordering[Timer] = Ordering.by(_.on)
 }

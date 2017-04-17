@@ -12,9 +12,9 @@ Object Model
 * Pool (id, ownerId, gallons, surface, pump, timer, heater)
 * Cleaning(id, poolId, on, deck, brush, vacuum, net, skimmerBasket, pumpBasket, pumpFilter)
 * Measurement(id, poolId, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid)
-* Chemical(id, name, unit)
-* Additive(id, poolId, chemicalId, on, amount)
+* Additive(id, poolId, on, chemical, unit, amount)
 * Repair(id, poolId, cost, description)
+* Timer(id, poolId, on, off)
 
 Relational Model
 ----------------

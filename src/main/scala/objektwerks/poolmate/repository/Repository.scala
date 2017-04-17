@@ -1,7 +1,7 @@
 package objektwerks.poolmate.repository
 
-import java.sql.Date
-import java.time.LocalDate
+import java.sql.{Date, Time}
+import java.time.{LocalDate, LocalTime}
 
 import com.typesafe.config.ConfigFactory
 import objektwerks.poolmate.entity._
@@ -23,8 +23,9 @@ object Repository {
 class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfile, val awaitDuration: Duration = 1 second) {
   import profile.api._
 
+  implicit val timeMapper = MappedColumnType.base[LocalTime, Time](lt => Time.valueOf(lt), t => t.toLocalTime)
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld),d => d.toLocalDate)
-  val schema = owners.schema ++ pools.schema ++ cleanings.schema ++ measurements.schema ++ chemicals.schema ++ additives.schema ++ repairs.schema
+  val schema = owners.schema ++ pools.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ repairs.schema ++ timers.schema
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
@@ -109,25 +110,14 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def list(poolid: Int) = compiledList(poolid).result
   }
 
-  class Chemicals(tag: Tag) extends Table[Chemical](tag, "chemicals") {
-    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def name = column[String]("name")
-    def unit = column[String]("unit")
-    def * = (id, name, unit) <> (Chemical.tupled, Chemical.unapply)
-  }
-  object chemicals extends TableQuery(new Chemicals(_)) {
-    val compiledList = Compiled { sortBy(_.name.asc) }
-    def save(chemical: Chemical) = (this returning this.map(_.id)).insertOrUpdate(chemical)
-    def list() = compiledList.result
-  }
-
   class Additives(tag: Tag) extends Table[Additive](tag, "additives") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolId = column[Int]("pool_id")
-    def chemicalId = column[Int]("chemical_id")
     def on = column[LocalDate]("on")
+    def chemical = column[String]("chemical")
+    def unit = column[String]("unit")
     def amount = column[Double]("amount")
-    def * = (id, poolId, chemicalId, on, amount) <> (Additive.tupled, Additive.unapply)
+    def * = (id, poolId, on, chemical, unit, amount) <> (Additive.tupled, Additive.unapply)
     def poolFk = foreignKey("pool_additive_fk", poolId, TableQuery[Pools])(_.id)
   }
   object additives extends TableQuery(new Additives(_)) {
@@ -148,6 +138,20 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   object repairs extends TableQuery(new Repairs(_)) {
     val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolId === poolid).sortBy(_.on.asc) }
     def save(repair: Repair) = (this returning this.map(_.id)).insertOrUpdate(repair)
+    def list(poolid: Int) = compiledList(poolid).result
+  }
+
+  class Timers(tag: Tag) extends Table[Timer](tag, "timers") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def poolId = column[Int]("pool_id")
+    def on = column[LocalTime]("on")
+    def off = column[LocalTime]("off")
+    def * = (id, poolId, on, off) <> (Timer.tupled, Timer.unapply)
+    def poolFk = foreignKey("pool_timer_fk", poolId, TableQuery[Pools])(_.id)
+  }
+  object timers extends TableQuery(new Timers(_)) {
+    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolId === poolid).sortBy(_.on.asc) }
+    def save(timer: Timer) = (this returning this.map(_.id)).insertOrUpdate(timer)
     def list(poolid: Int) = compiledList(poolid).result
   }
 }
