@@ -1,11 +1,14 @@
-create table "owners" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"name" VARCHAR NOT NULL,"email" VARCHAR NOT NULL,"street" VARCHAR NOT NULL,"city" VARCHAR NOT NULL,"state" VARCHAR NOT NULL,"zip" INTEGER NOT NULL)
-create table "pools" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"owner_id" INTEGER NOT NULL,"gallons" DOUBLE NOT NULL,"surface" VARCHAR NOT NULL,"pump" VARCHAR NOT NULL,"timer" VARCHAR NOT NULL,"heater" VARCHAR NOT NULL)
+create table "locations" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"street" VARCHAR NOT NULL,"city" VARCHAR NOT NULL,"state" VARCHAR NOT NULL,"zip" INTEGER NOT NULL)
+create table "owners" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"location_id" INTEGER NOT NULL,"name" VARCHAR NOT NULL,"email" VARCHAR NOT NULL)
+create table "pools" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"owner_id" INTEGER NOT NULL,"location_id" INTEGER NOT NULL,"gallons" DOUBLE NOT NULL,"surface" VARCHAR NOT NULL,"pump" VARCHAR NOT NULL,"timer" VARCHAR NOT NULL,"heater" VARCHAR NOT NULL)
 create table "cleanings" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"pool_id" INTEGER NOT NULL,"on" DATE NOT NULL,"deck" BOOLEAN NOT NULL,"brush" BOOLEAN NOT NULL,"net" BOOLEAN NOT NULL,"vacuum" BOOLEAN NOT NULL,"skimmer_basket" BOOLEAN NOT NULL,"pump_basket" BOOLEAN NOT NULL,"pump_filter" BOOLEAN NOT NULL)
 create table "measurements" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"pool_id" INTEGER NOT NULL,"on" DATE NOT NULL,"temp" INTEGER NOT NULL,"total_hardness" INTEGER NOT NULL,"total_chlorine" INTEGER NOT NULL,"total_bromine" INTEGER NOT NULL,"free_chlorine" INTEGER NOT NULL,"ph" DOUBLE NOT NULL,"total_alkalinity" INTEGER NOT NULL,"cyanuric_acid" INTEGER NOT NULL)
 create table "additives" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"pool_id" INTEGER NOT NULL,"on" DATE NOT NULL,"chemical" VARCHAR NOT NULL,"unit" VARCHAR NOT NULL,"amount" DOUBLE NOT NULL)
 create table "repairs" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"pool_id" INTEGER NOT NULL,"on" DATE NOT NULL,"cost" DOUBLE NOT NULL,"description" VARCHAR NOT NULL)
 create table "timers" ("id" INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,"pool_id" INTEGER NOT NULL,"on" TIME NOT NULL,"off" TIME NOT NULL)
-alter table "pools" add constraint "owner_fk" foreign key("owner_id") references "owners"("id") on update NO ACTION on delete NO ACTION
+alter table "owners" add constraint "owner_location_fk" foreign key("location_id") references "locations"("id") on update NO ACTION on delete NO ACTION
+alter table "pools" add constraint "pool_location_fk" foreign key("location_id") references "locations"("id") on update NO ACTION on delete NO ACTION
+alter table "pools" add constraint "pool_owner_fk" foreign key("owner_id") references "owners"("id") on update NO ACTION on delete NO ACTION
 alter table "cleanings" add constraint "pool_cleaning_fk" foreign key("pool_id") references "pools"("id") on update NO ACTION on delete NO ACTION
 alter table "measurements" add constraint "pool_measurement_fk" foreign key("pool_id") references "pools"("id") on update NO ACTION on delete NO ACTION
 alter table "additives" add constraint "pool_additive_fk" foreign key("pool_id") references "pools"("id") on update NO ACTION on delete NO ACTION
