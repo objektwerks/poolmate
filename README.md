@@ -18,7 +18,7 @@ Object Model
 
 Relational Model
 ----------------
-* Owner 1 ---> * Pool 1 ---> * Cleaning | Measurement | Repair | Additive 1 ---> 1 Chemical
+* Owner 1 ---> * Pool 1 ---> * Cleaning | Measurement | Additive | Repair | Timer
 
 Measurements
 ------------
