@@ -55,7 +55,11 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def ownerId = column[Int]("owner_id")
     def gallons = column[Double]("gallons")
-    def * = (id, ownerId, gallons) <> (Pool.tupled, Pool.unapply)
+    def surface = column[String]("surface")
+    def pump = column[String]("pump")
+    def timer = column[String]("timer")
+    def heater = column[String]("heater")
+    def * = (id, ownerId, gallons, surface, pump, timer, heater) <> (Pool.tupled, Pool.unapply)
     def ownerFk = foreignKey("owner_fk", ownerId, TableQuery[Owners])(_.id)
   }
   object pools extends TableQuery(new Pools(_)) {

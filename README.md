@@ -9,7 +9,7 @@ GPL.V3 ( See ./GPL.V3 )
 Object Model
 ------------
 * Owner(id, name, email, street, city, state, zip)
-* Pool (id, ownerId, gallons)
+* Pool (id, ownerId, gallons, surface, pump, timer, heater)
 * Cleaning(id, poolId, on, deck, brush, vacuum, net, skimmerBasket, pumpBasket, pumpFilter)
 * Measurement(id, poolId, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid)
 * Chemical(id, name, unit)

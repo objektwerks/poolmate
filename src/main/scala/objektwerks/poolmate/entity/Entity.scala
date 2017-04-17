@@ -4,7 +4,8 @@ import java.time.LocalDate
 
 case class Owner(id: Int = 0, name: String, email: String, street: String, city: String, state: String, zip: Int)
 
-case class Pool(id: Int = 0, ownerId: Int, gallons: Double = 1000.00)
+case class Pool(id: Int = 0, ownerId: Int, gallons: Double = 1000.00, surface: String = "default", pump: String = "default",
+                timer: String = "default", heater: String = "default")
 
 case class Cleaning(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true,
                     net: Boolean = true, vacuum: Boolean = false, skimmerBasket: Boolean = true, pumpBasket: Boolean = false,
