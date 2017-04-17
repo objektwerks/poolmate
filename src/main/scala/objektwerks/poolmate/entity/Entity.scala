@@ -28,6 +28,8 @@ object Entity {
 
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
 
+  implicit def locationOrdering: Ordering[Location] = Ordering.by(l => (l.city, l.state))
+
   implicit def ownerOrdering: Ordering[Owner] = Ordering.by(_.name)
 
   implicit def poolOrdering: Ordering[Pool] = Ordering.by(_.gallons)
