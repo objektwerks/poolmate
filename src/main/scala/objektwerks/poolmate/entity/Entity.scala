@@ -4,9 +4,9 @@ import java.time.{LocalDate, LocalTime}
 
 case class Location(id: Int = 0, street: String, city: String, state: String, zip: Int)
 
-case class Owner(id: Int = 0, locationId: Int, poolId: Int, since: LocalDate, first: String, last: String, email: String)
+case class Pool(id: Int = 0, locationId: Int, built: LocalDate, gallons: Double, surface: String, pump: String, timer: String, heater: String)
 
-case class Pool(id: Int = 0, currentOwnerId: Int, locationId: Int, built: LocalDate, gallons: Double, surface: String, pump: String, timer: String, heater: String)
+case class Owner(id: Int = 0, locationId: Int, poolId: Int, since: LocalDate, first: String, last: String, email: String)
 
 case class Surface(id: Int = 0, poolId: Int, installed: LocalDate, kind: String)
 
@@ -37,9 +37,9 @@ object Entity {
 
   implicit def locationOrdering: Ordering[Location] = Ordering.by(l => (l.city, l.state))
 
-  implicit def ownerOrdering: Ordering[Owner] = Ordering.by(o => (o.since, o.last))
+  implicit def poolOrdering: Ordering[Pool] = Ordering.by(p => (p.built, p.gallons))
 
-  implicit def poolOrdering: Ordering[Pool] = Ordering.by(_.gallons)
+  implicit def ownerOrdering: Ordering[Owner] = Ordering.by(o => (o.since, o.last))
 
   implicit def surfaceOrdering: Ordering[Surface] = Ordering.by(s => (s.installed, s.kind))
 

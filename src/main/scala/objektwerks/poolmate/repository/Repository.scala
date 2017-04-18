@@ -25,7 +25,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   implicit val timeMapper = MappedColumnType.base[LocalTime, Time](lt => Time.valueOf(lt), t => t.toLocalTime)
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld), d => d.toLocalDate)
-  val schema = locations.schema ++ owners.schema ++ pools.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++
+  val schema = locations.schema ++ pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++
     heaters.schema ++ lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ repairs.schema
   val db = config.db
 
@@ -51,6 +51,24 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def list() = compiledList.result
   }
 
+  class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def locationId = column[Int]("location_id")
+    def built = column[LocalDate]("built")
+    def gallons = column[Double]("gallons")
+    def surface = column[String]("surface")
+    def pump = column[String]("pump")
+    def timer = column[String]("timer")
+    def heater = column[String]("heater")
+    def * = (id, locationId, built, gallons, surface, pump, timer, heater) <> (Pool.tupled, Pool.unapply)
+    def locationFk = foreignKey("pool_location_fk", locationId, TableQuery[Locations])(_.id)
+  }
+  object pools extends TableQuery(new Pools(_)) {
+    val compiledList = Compiled { sortBy(p => (p.built.asc, p.gallons.asc)) }
+    def save(pool: Pool) = (this returning this.map(_.id)).insertOrUpdate(pool)
+    def list() = compiledList.result
+  }
+
   class Owners(tag: Tag) extends Table[Owner](tag, "owners") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def locationId = column[Int]("location_id")
@@ -66,26 +84,6 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   object owners extends TableQuery(new Owners(_)) {
     val compiledList = Compiled { sortBy(o => (o.since.asc, o.last.asc)) }
     def save(owner: Owner) = (this returning this.map(_.id)).insertOrUpdate(owner)
-    def list() = compiledList.result
-  }
-
-  class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
-    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def currentOwnerId = column[Int]("current_owner_id")
-    def locationId = column[Int]("location_id")
-    def built = column[LocalDate]("built")
-    def gallons = column[Double]("gallons")
-    def surface = column[String]("surface")
-    def pump = column[String]("pump")
-    def timer = column[String]("timer")
-    def heater = column[String]("heater")
-    def * = (id, currentOwnerId, locationId, built, gallons, surface, pump, timer, heater) <> (Pool.tupled, Pool.unapply)
-    def ownerFk = foreignKey("pool_owner_fk", currentOwnerId, TableQuery[Owners])(_.id)
-    def locationFk = foreignKey("pool_location_fk", locationId, TableQuery[Locations])(_.id)
-  }
-  object pools extends TableQuery(new Pools(_)) {
-    val compiledList = Compiled { sortBy(_.gallons.asc) }
-    def save(pool: Pool) = (this returning this.map(_.id)).insertOrUpdate(pool)
     def list() = compiledList.result
   }
 
