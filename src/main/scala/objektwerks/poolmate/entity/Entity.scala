@@ -4,10 +4,9 @@ import java.time.{LocalDate, LocalTime}
 
 case class Location(id: Int = 0, street: String, city: String, state: String, zip: Int)
 
-case class Owner(id: Int = 0, locationId: Int, name: String, email: String)
+case class Owner(id: Int = 0, locationId: Int, poolId: Int, first: String, last: String, email: String)
 
-case class Pool(id: Int = 0, ownerId: Int, locationId: Int, gallons: Double = 1000.00, surface: String = "default",
-                pump: String = "default", timer: String = "default", heater: String = "default")
+case class Pool(id: Int = 0, currentOwnerId: Int, locationId: Int, gallons: Double, surface: String, pump: String, timer: String, heater: String)
 
 case class Cleaning(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true,
                     net: Boolean = true, vacuum: Boolean = false, skimmerBasket: Boolean = true, pumpBasket: Boolean = false,
@@ -30,7 +29,7 @@ object Entity {
 
   implicit def locationOrdering: Ordering[Location] = Ordering.by(l => (l.city, l.state))
 
-  implicit def ownerOrdering: Ordering[Owner] = Ordering.by(_.name)
+  implicit def ownerOrdering: Ordering[Owner] = Ordering.by(_.last)
 
   implicit def poolOrdering: Ordering[Pool] = Ordering.by(_.gallons)
 

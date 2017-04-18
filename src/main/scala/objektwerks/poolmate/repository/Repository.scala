@@ -53,28 +53,31 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   class Owners(tag: Tag) extends Table[Owner](tag, "owners") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def locationId = column[Int]("location_id")
-    def name = column[String]("name")
+    def poolId = column[Int]("pool_id")
+    def first = column[String]("first")
+    def last = column[String]("last")
     def email = column[String]("email")
-    def * = (id, locationId, name, email) <> (Owner.tupled, Owner.unapply)
+    def * = (id, locationId, poolId, first, last, email) <> (Owner.tupled, Owner.unapply)
     def locationFk = foreignKey("owner_location_fk", locationId, TableQuery[Locations])(_.id)
+    def poolFk = foreignKey("owner_pool_fk", poolId, TableQuery[Pools])(_.id)
   }
   object owners extends TableQuery(new Owners(_)) {
-    val compiledList = Compiled { sortBy(_.name.asc) }
+    val compiledList = Compiled { sortBy(_.last.asc) }
     def save(owner: Owner) = (this returning this.map(_.id)).insertOrUpdate(owner)
     def list() = compiledList.result
   }
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def ownerId = column[Int]("owner_id")
+    def currentOwnerId = column[Int]("current_owner_id")
     def locationId = column[Int]("location_id")
     def gallons = column[Double]("gallons")
     def surface = column[String]("surface")
     def pump = column[String]("pump")
     def timer = column[String]("timer")
     def heater = column[String]("heater")
-    def * = (id, ownerId, locationId, gallons, surface, pump, timer, heater) <> (Pool.tupled, Pool.unapply)
-    def ownerFk = foreignKey("pool_owner_fk", ownerId, TableQuery[Owners])(_.id)
+    def * = (id, currentOwnerId, locationId, gallons, surface, pump, timer, heater) <> (Pool.tupled, Pool.unapply)
+    def ownerFk = foreignKey("pool_owner_fk", currentOwnerId, TableQuery[Owners])(_.id)
     def locationFk = foreignKey("pool_location_fk", locationId, TableQuery[Locations])(_.id)
   }
   object pools extends TableQuery(new Pools(_)) {
