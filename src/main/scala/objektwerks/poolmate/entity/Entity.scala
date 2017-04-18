@@ -16,9 +16,9 @@ case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, 
                        totalChlorine: Int = 3, totalBromine: Int = 5, freeChlorine: Int = 3, pH: Double = 7.5, totalAlkalinity: Int = 100,
                        cyanuricAcid: Int = 50)
 
-case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String = "chlorine", unit: String = "gallon", amount: Double = 1.0)
+case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String, unit: String, amount: Double)
 
-case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double = 0.00, description: String)
+case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double, description: String)
 
 case class Timer(id: Int = 0, poolId: Int, on: LocalTime, off: LocalTime)
 

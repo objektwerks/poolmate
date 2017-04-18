@@ -25,13 +25,13 @@ Relational Model
 
 Measurements
 ------------
-1. total hardness 0 - 1000      ok = 250 - 500
-2. total chlorine 0 - 10        ok = 1 - 5
-3. total bromine 0 - 20         ok = 2 - 10
-4. free chlorine 0 - 10         ok = 1 - 5
-5. ph 6.2 - 8.4                 ok = 7.2 - 7.8
-6. total alkalinity 0 - 240     ok = 80 - 120
-7. cyanuric acid 0 - 300        ok = 30 - 100
+1. total hardness 0 - 1000      ok = 250 - 500      ideal = 374
+2. total chlorine 0 - 10        ok = 1 - 5          ideal = 3
+3. total bromine 0 - 20         ok = 2 - 10         ideal = 5
+4. free chlorine 0 - 10         ok = 1 - 5          ideal = 3
+5. ph 6.2 - 8.4                 ok = 7.2 - 7.8      ideal = 7.5
+6. total alkalinity 0 - 240     ok = 80 - 120       ideal = 100
+7. cyanuric acid 0 - 300        ok = 30 - 100       ideal = 50
 
 Test
 ----
