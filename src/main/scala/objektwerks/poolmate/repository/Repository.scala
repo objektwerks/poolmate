@@ -55,15 +55,16 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def locationId = column[Int]("location_id")
     def poolId = column[Int]("pool_id")
+    def since = column[LocalDate]("since")
     def first = column[String]("first")
     def last = column[String]("last")
     def email = column[String]("email")
-    def * = (id, locationId, poolId, first, last, email) <> (Owner.tupled, Owner.unapply)
+    def * = (id, locationId, poolId, since, first, last, email) <> (Owner.tupled, Owner.unapply)
     def locationFk = foreignKey("owner_location_fk", locationId, TableQuery[Locations])(_.id)
     def poolFk = foreignKey("owner_pool_fk", poolId, TableQuery[Pools])(_.id)
   }
   object owners extends TableQuery(new Owners(_)) {
-    val compiledList = Compiled { sortBy(_.last.asc) }
+    val compiledList = Compiled { sortBy(o => (o.since.asc, o.last.asc)) }
     def save(owner: Owner) = (this returning this.map(_.id)).insertOrUpdate(owner)
     def list() = compiledList.result
   }
@@ -72,12 +73,13 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def currentOwnerId = column[Int]("current_owner_id")
     def locationId = column[Int]("location_id")
+    def built = column[LocalDate]("built")
     def gallons = column[Double]("gallons")
     def surface = column[String]("surface")
     def pump = column[String]("pump")
     def timer = column[String]("timer")
     def heater = column[String]("heater")
-    def * = (id, currentOwnerId, locationId, gallons, surface, pump, timer, heater) <> (Pool.tupled, Pool.unapply)
+    def * = (id, currentOwnerId, locationId, built, gallons, surface, pump, timer, heater) <> (Pool.tupled, Pool.unapply)
     def ownerFk = foreignKey("pool_owner_fk", currentOwnerId, TableQuery[Owners])(_.id)
     def locationFk = foreignKey("pool_location_fk", locationId, TableQuery[Locations])(_.id)
   }
