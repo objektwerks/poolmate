@@ -24,8 +24,9 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   import profile.api._
 
   implicit val timeMapper = MappedColumnType.base[LocalTime, Time](lt => Time.valueOf(lt), t => t.toLocalTime)
-  implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld),d => d.toLocalDate)
-  val schema = locations.schema ++ owners.schema ++ pools.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ repairs.schema ++ timers.schema
+  implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld), d => d.toLocalDate)
+  val schema = locations.schema ++ owners.schema ++ pools.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++
+    heaters.schema ++ lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ repairs.schema
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
@@ -86,6 +87,76 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def list() = compiledList.result
   }
 
+  class Surfaces(tag: Tag) extends Table[Surface](tag, "surfaces") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def poolId = column[Int]("pool_id")
+    def installed = column[LocalDate]("installed")
+    def kind = column[String]("kind")
+    def * = (id, poolId, installed, kind) <> (Surface.tupled, Surface.unapply)
+    def poolFk = foreignKey("pool_surface_fk", poolId, TableQuery[Pools])(_.id)
+  }
+  object surfaces extends TableQuery(new Surfaces(_)) {
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.installed.asc) }
+    def save(surface: Surface) = (this returning this.map(_.id)).insertOrUpdate(surface)
+    def list(poolId: Int) = compiledList(poolId).result
+  }
+
+  class Pumps(tag: Tag) extends Table[Pump](tag, "pumps") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def poolId = column[Int]("pool_id")
+    def installed = column[LocalDate]("installed")
+    def model = column[String]("model")
+    def * = (id, poolId, installed, model) <> (Pump.tupled, Pump.unapply)
+    def poolFk = foreignKey("pool_pump_fk", poolId, TableQuery[Pools])(_.id)
+  }
+  object pumps extends TableQuery(new Pumps(_)) {
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.installed.asc) }
+    def save(pump: Pump) = (this returning this.map(_.id)).insertOrUpdate(pump)
+    def list(poolId: Int) = compiledList(poolId).result
+  }
+
+  class Timers(tag: Tag) extends Table[Timer](tag, "timers") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def poolId = column[Int]("pool_id")
+    def installed = column[LocalDate]("installed")
+    def model = column[String]("model")
+    def * = (id, poolId, installed, model) <> (Timer.tupled, Timer.unapply)
+    def poolFk = foreignKey("pool_timer_fk", poolId, TableQuery[Pools])(_.id)
+  }
+  object timers extends TableQuery(new Timers(_)) {
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.installed.asc) }
+    def save(timer: Timer) = (this returning this.map(_.id)).insertOrUpdate(timer)
+    def list(poolId: Int) = compiledList(poolId).result
+  }
+
+  class Heaters(tag: Tag) extends Table[Heater](tag, "heaters") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def poolId = column[Int]("pool_id")
+    def installed = column[LocalDate]("installed")
+    def model = column[String]("model")
+    def * = (id, poolId, installed, model) <> (Heater.tupled, Heater.unapply)
+    def poolFk = foreignKey("pool_heater_fk", poolId, TableQuery[Pools])(_.id)
+  }
+  object heaters extends TableQuery(new Heaters(_)) {
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.installed.asc) }
+    def save(heater: Heater) = (this returning this.map(_.id)).insertOrUpdate(heater)
+    def list(poolId: Int) = compiledList(poolId).result
+  }
+
+  class Lifecycles(tag: Tag) extends Table[Lifecycle](tag, "lifecycles") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def poolId = column[Int]("pool_id")
+    def pumpOn = column[LocalTime]("pump_on")
+    def pumpOff = column[LocalTime]("pump_off")
+    def * = (id, poolId, pumpOn, pumpOff) <> (Lifecycle.tupled, Lifecycle.unapply)
+    def poolFk = foreignKey("pool_lifecycle_fk", poolId, TableQuery[Pools])(_.id)
+  }
+  object lifecycles extends TableQuery(new Lifecycles(_)) {
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.pumpOn.asc) }
+    def save(lifecycle: Lifecycle) = (this returning this.map(_.id)).insertOrUpdate(lifecycle)
+    def list(poolId: Int) = compiledList(poolId).result
+  }
+
   class Cleanings(tag: Tag) extends Table[Cleaning](tag, "cleanings") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolId = column[Int]("pool_id")
@@ -103,7 +174,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   object cleanings extends TableQuery(new Cleanings(_)) {
     val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolId === poolid).sortBy(_.on.asc) }
     def save(cleaning: Cleaning) = (this returning this.map(_.id)).insertOrUpdate(cleaning)
-    def list(poolid: Int) = compiledList(poolid).result
+    def list(poolId: Int) = compiledList(poolId).result
   }
 
   class Measurements(tag: Tag) extends Table[Measurement](tag, "measurements") {
@@ -122,9 +193,9 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolFk = foreignKey("pool_measurement_fk", poolId, TableQuery[Pools])(_.id)
   }
   object measurements extends TableQuery(new Measurements(_)) {
-    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolId === poolid).sortBy(_.on.asc) }
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.on.asc) }
     def save(measurement: Measurement) = (this returning this.map(_.id)).insertOrUpdate(measurement)
-    def list(poolid: Int) = compiledList(poolid).result
+    def list(poolId: Int) = compiledList(poolId).result
   }
 
   class Additives(tag: Tag) extends Table[Additive](tag, "additives") {
@@ -138,9 +209,9 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolFk = foreignKey("pool_additive_fk", poolId, TableQuery[Pools])(_.id)
   }
   object additives extends TableQuery(new Additives(_)) {
-    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolId === poolid).sortBy(_.on.asc) }
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.on.asc) }
     def save(additive: Additive) = (this returning this.map(_.id)).insertOrUpdate(additive)
-    def list(poolid: Int) = compiledList(poolid).result
+    def list(poolId: Int) = compiledList(poolId).result
   }
 
   class Repairs(tag: Tag) extends Table[Repair](tag, "repairs") {
@@ -153,22 +224,8 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolFk = foreignKey("pool_repair_fk", poolId, TableQuery[Pools])(_.id)
   }
   object repairs extends TableQuery(new Repairs(_)) {
-    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolId === poolid).sortBy(_.on.asc) }
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.on.asc) }
     def save(repair: Repair) = (this returning this.map(_.id)).insertOrUpdate(repair)
-    def list(poolid: Int) = compiledList(poolid).result
-  }
-
-  class Timers(tag: Tag) extends Table[Timer](tag, "timers") {
-    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def poolId = column[Int]("pool_id")
-    def on = column[LocalTime]("on")
-    def off = column[LocalTime]("off")
-    def * = (id, poolId, on, off) <> (Timer.tupled, Timer.unapply)
-    def poolFk = foreignKey("pool_timer_fk", poolId, TableQuery[Pools])(_.id)
-  }
-  object timers extends TableQuery(new Timers(_)) {
-    val compiledList = Compiled { poolid: Rep[Int] => filter(_.poolId === poolid).sortBy(_.on.asc) }
-    def save(timer: Timer) = (this returning this.map(_.id)).insertOrUpdate(timer)
-    def list(poolid: Int) = compiledList(poolid).result
+    def list(poolId: Int) = compiledList(poolId).result
   }
 }

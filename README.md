@@ -10,18 +10,23 @@ Object Model
 ------------
 * Location(id, street, city, state, zip)
 * Owner(id, locationId, poolId, first, last, email)
-* Pool (id, currentOwnerId, locationId, gallons, surface, pump, timer, heater)
+* Pool(id, currentOwnerId, locationId, gallons, surface, pump, timer, heater)
+* Surface(id, poolId, installed, kind)
+* Pump(id, poolId, installed, model)
+* Timer(id, poolId, installed, model)
+* Heater(id, poolId, installed, model)
+* Lifecycle(id, poolId, pumpOn, pumpOff)
 * Cleaning(id, poolId, on, deck, brush, vacuum, net, skimmerBasket, pumpBasket, pumpFilter)
 * Measurement(id, poolId, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid)
 * Additive(id, poolId, on, chemical, unit, amount)
 * Repair(id, poolId, cost, description)
-* Timer(id, poolId, on, off)
 
 Relational Model
 ----------------
 * Pool 1 ---> 1 Location
 * Pool 1 <---> * Owner 1 ---> 1 Location
-* Pool 1 ---> * Cleaning | Measurement | Additive | Repair | Timer
+* Pool 1 ---> * Surface | Pump | Timer | Heater
+* Pool 1 ---> * Cleaning | Measurement | Additive | Repair
 
 Measurements
 ------------
