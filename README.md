@@ -18,7 +18,7 @@ Object Model
 * Cleaning(id, poolId, on, deck, brush, vacuum, net, skimmerBasket, pumpBasket, pumpFilter)
 * Measurement(id, poolId, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid)
 * Additive(id, poolId, on, chemical, unit, amount)
-* Repair(id, poolId, cost, description)
+* Repair(id, poolId, on, cost, description)
 
 Relational Model
 ----------------
