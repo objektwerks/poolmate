@@ -30,7 +30,7 @@ Relational Model
 
 Measurements
 ------------
-1. total hardness 0 - 1000      ok = 250 - 500      ideal = 374
+1. total hardness 0 - 1000      ok = 250 - 500      ideal = 375
 2. total chlorine 0 - 10        ok = 1 - 5          ideal = 3
 3. total bromine 0 - 20         ok = 2 - 10         ideal = 5
 4. free chlorine 0 - 10         ok = 1 - 5          ideal = 3
