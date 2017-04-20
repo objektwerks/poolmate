@@ -14,15 +14,16 @@ case class Timer(id: Int = 0, poolId: Int, installed: LocalDate, model: String)
 
 case class Heater(id: Int = 0, poolId: Int, installed: LocalDate, model: String)
 
-case class Lifecycle(id: Int = 0, poolId: Int, created: LocalDate = LocalDate.now, active: Boolean = true, pumpOn: LocalTime, pumpOff: LocalTime)
+case class Lifecycle(id: Int = 0, poolId: Int, created: LocalDate = LocalDate.now, active: Boolean = true,
+                     pumpOn: LocalTime, pumpOff: LocalTime)
 
 case class Cleaning(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true,
                     net: Boolean = true, vacuum: Boolean = false, skimmerBasket: Boolean = true, pumpBasket: Boolean = false,
                     pumpFilter: Boolean = false)
 
-case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, temp: Int = 75, totalHardness: Int = 375,
-                       totalChlorine: Int = 3, totalBromine: Int = 5, freeChlorine: Int = 3, pH: Double = 7.5, totalAlkalinity: Int = 100,
-                       cyanuricAcid: Int = 50)
+case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, temp: Int = 75, hardness: Int = 375,
+                       totalChlorine: Int = 3, bromine: Int = 5, freeChlorine: Int = 3, pH: Double = 7.5,
+                       alkalinity: Int = 100, cyanuricAcid: Int = 50)
 
 case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String, unit: String, amount: Double)
 

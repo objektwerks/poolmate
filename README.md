@@ -16,7 +16,7 @@ Object Model
 * Heater(id, poolId, installed, model)
 * Lifecycle(id, poolId, created, active, pumpOn, pumpOff)
 * Cleaning(id, poolId, on, deck, brush, vacuum, net, skimmerBasket, pumpBasket, pumpFilter)
-* Measurement(id, poolId, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid)
+* Measurement(id, poolId, on, temp, hardness, totalChlorine, bromine, freeChlorine, pH, alkalinity, cyanuricAcid)
 * Additive(id, poolId, on, chemical, unit, amount)
 * Repair(id, poolId, on, cost, description)
 

@@ -166,14 +166,14 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolId = column[Int]("pool_id")
     def on = column[LocalDate]("on")
     def temp = column[Int]("temp")
-    def totalHardness = column[Int]("total_hardness")
+    def hardness = column[Int]("hardness")
     def totalChlorine = column[Int]("total_chlorine")
-    def totalBromine = column[Int]("total_bromine")
+    def bromine = column[Int]("bromine")
     def freeChlorine = column[Int]("free_chlorine")
     def pH = column[Double]("ph")
-    def totalAlkalinity = column[Int]("total_alkalinity")
+    def alkalinity = column[Int]("alkalinity")
     def cyanuricAcid = column[Int]("cyanuric_acid")
-    def * = (id, poolId, on, temp, totalHardness, totalChlorine, totalBromine, freeChlorine, pH, totalAlkalinity, cyanuricAcid) <> (Measurement.tupled, Measurement.unapply)
+    def * = (id, poolId, on, temp, hardness, totalChlorine, bromine, freeChlorine, pH, alkalinity, cyanuricAcid) <> (Measurement.tupled, Measurement.unapply)
     def poolFk = foreignKey("pool_measurement_fk", poolId, TableQuery[Pools])(_.id)
   }
   object measurements extends TableQuery(new Measurements(_)) {
