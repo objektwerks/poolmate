@@ -11,7 +11,7 @@ class Model(repository: Repository) {
   import repository._
 
   val poolList = ObservableBuffer[Pool]()
-  val selectedPoolId = ObjectProperty[Int](0)
+  val selectedPoolId = ObjectProperty[Int](1)
 
   def listPools(): Unit = {
     poolList.clear()
