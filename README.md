@@ -34,6 +34,11 @@ Measurements
 6. total alkalinity 0 - 240     ok = 80 - 120       ideal = 100
 7. cyanuric acid 0 - 300        ok = 30 - 100       ideal = 50
 
+UI
+--
+west pane - pools, owners, surfaces, pumps, timers, heaters
+east pane - cleanings, measurements, repairs
+
 Test
 ----
 1. sbt clean test
