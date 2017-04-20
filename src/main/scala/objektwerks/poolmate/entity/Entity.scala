@@ -33,7 +33,7 @@ object Entity {
 
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
 
-  implicit def poolOrdering: Ordering[Pool] = Ordering.by(p => (p.built, p.gallons))
+  implicit def poolOrdering: Ordering[Pool] = Ordering.by(p => (p.zip, p.city))
 
   implicit def ownerOrdering: Ordering[Owner] = Ordering.by(o => (o.since, o.last))
 

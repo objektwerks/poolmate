@@ -48,7 +48,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def * = (id, built, gallons, street, city, state, zip) <> (Pool.tupled, Pool.unapply)
   }
   object pools extends TableQuery(new Pools(_)) {
-    val compiledList = Compiled { sortBy(p => (p.built.asc, p.gallons.asc)) }
+    val compiledList = Compiled { sortBy(p => (p.zip.asc, p.city.asc)) }
     def save(pool: Pool) = (this returning this.map(_.id)).insertOrUpdate(pool)
     def list() = compiledList.result
   }
