@@ -2,11 +2,9 @@ package objektwerks.poolmate.entity
 
 import java.time.{LocalDate, LocalTime}
 
-case class Location(id: Int = 0, street: String, city: String, state: String, zip: Int)
+case class Pool(id: Int = 0, built: LocalDate, gallons: Double, street: String, city: String, state: String, zip: Int)
 
-case class Pool(id: Int = 0, locationId: Int, built: LocalDate, gallons: Double, surface: String, pump: String, timer: String, heater: String)
-
-case class Owner(id: Int = 0, locationId: Int, poolId: Int, since: LocalDate, first: String, last: String, email: String)
+case class Owner(id: Int = 0, poolId: Int, since: LocalDate, first: String, last: String, email: String)
 
 case class Surface(id: Int = 0, poolId: Int, installed: LocalDate, kind: String)
 
@@ -34,8 +32,6 @@ object Entity {
   implicit def localTimeOrdering: Ordering[LocalTime] = Ordering.by(_.toSecondOfDay)
 
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
-
-  implicit def locationOrdering: Ordering[Location] = Ordering.by(l => (l.city, l.state))
 
   implicit def poolOrdering: Ordering[Pool] = Ordering.by(p => (p.built, p.gallons))
 

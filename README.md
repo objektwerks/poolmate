@@ -8,9 +8,8 @@ GPL.V3 ( See ./GPL.V3 )
 
 Object Model
 ------------
-* Location(id, street, city, state, zip)
-* Pool(id, locationId, built, gallons, surface, pump, timer, heater)
-* Owner(id, locationId, poolId, since, first, last, email)
+* Pool(id, street, city, state, zip, built, gallons, surface, pump, timer, heater)
+* Owner(id, poolId, since, first, last, email)
 * Surface(id, poolId, installed, kind)
 * Pump(id, poolId, installed, model)
 * Timer(id, poolId, installed, model)
@@ -23,8 +22,7 @@ Object Model
 
 Relational Model
 ----------------
-* Pool 1 ---> 1 Location
-* Pool 1 ---> * Owner 1 ---> 1 Location
+* Pool 1 ---> * Owner
 * Pool 1 ---> * Surface | Pump | Timer | Heater
 * Pool 1 ---> * Cleaning | Measurement | Additive | Repair
 

@@ -25,8 +25,8 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   implicit val timeMapper = MappedColumnType.base[LocalTime, Time](lt => Time.valueOf(lt), t => t.toLocalTime)
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld), d => d.toLocalDate)
-  val schema = locations.schema ++ pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++
-    heaters.schema ++ lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ repairs.schema
+  val schema = pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++ heaters.schema ++
+               lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ repairs.schema
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
@@ -37,31 +37,15 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   def createSchema() = await(DBIO.seq(schema.create))
   def dropSchema() = await(DBIO.seq(schema.drop))
 
-  class Locations(tag: Tag) extends Table[Location](tag, "locations") {
+  class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def built = column[LocalDate]("built")
+    def gallons = column[Double]("gallons")
     def street = column[String]("street")
     def city = column[String]("city")
     def state = column[String]("state")
     def zip = column[Int]("zip")
-    def * = (id, street, city, state, zip) <> (Location.tupled, Location.unapply)
-  }
-  object locations extends TableQuery(new Locations(_)) {
-    val compiledList = Compiled { sortBy(l => (l.city.asc, l.state.asc)) }
-    def save(location: Location) = (this returning this.map(_.id)).insertOrUpdate(location)
-    def list() = compiledList.result
-  }
-
-  class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
-    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def locationId = column[Int]("location_id")
-    def built = column[LocalDate]("built")
-    def gallons = column[Double]("gallons")
-    def surface = column[String]("surface")
-    def pump = column[String]("pump")
-    def timer = column[String]("timer")
-    def heater = column[String]("heater")
-    def * = (id, locationId, built, gallons, surface, pump, timer, heater) <> (Pool.tupled, Pool.unapply)
-    def locationFk = foreignKey("pool_location_fk", locationId, TableQuery[Locations])(_.id)
+    def * = (id, built, gallons, street, city, state, zip) <> (Pool.tupled, Pool.unapply)
   }
   object pools extends TableQuery(new Pools(_)) {
     val compiledList = Compiled { sortBy(p => (p.built.asc, p.gallons.asc)) }
@@ -71,15 +55,13 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   class Owners(tag: Tag) extends Table[Owner](tag, "owners") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def locationId = column[Int]("location_id")
     def poolId = column[Int]("pool_id")
     def since = column[LocalDate]("since")
     def first = column[String]("first")
     def last = column[String]("last")
     def email = column[String]("email")
-    def * = (id, locationId, poolId, since, first, last, email) <> (Owner.tupled, Owner.unapply)
-    def locationFk = foreignKey("owner_location_fk", locationId, TableQuery[Locations])(_.id)
-    def poolFk = foreignKey("owner_pool_fk", poolId, TableQuery[Pools])(_.id)
+    def * = (id, poolId, since, first, last, email) <> (Owner.tupled, Owner.unapply)
+    def poolFk = foreignKey("pool_owner_fk", poolId, TableQuery[Pools])(_.id)
   }
   object owners extends TableQuery(new Owners(_)) {
     val compiledList = Compiled { sortBy(o => (o.since.asc, o.last.asc)) }
