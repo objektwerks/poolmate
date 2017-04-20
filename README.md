@@ -22,9 +22,7 @@ Object Model
 
 Relational Model
 ----------------
-* Pool 1 ---> * Owner
-* Pool 1 ---> * Surface | Pump | Timer | Heater
-* Pool 1 ---> * Cleaning | Measurement | Additive | Repair
+* Pool 1 ---> * Owner | Surface | Pump | Timer | Heater | Repair | Cleaning | Measurement | Additive
 
 Measurements
 ------------
