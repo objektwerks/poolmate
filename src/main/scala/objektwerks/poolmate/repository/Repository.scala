@@ -128,13 +128,15 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   class Lifecycles(tag: Tag) extends Table[Lifecycle](tag, "lifecycles") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolId = column[Int]("pool_id")
+    def created = column[LocalDate]("created")
+    def active = column[Boolean]("active")
     def pumpOn = column[LocalTime]("pump_on")
     def pumpOff = column[LocalTime]("pump_off")
-    def * = (id, poolId, pumpOn, pumpOff) <> (Lifecycle.tupled, Lifecycle.unapply)
+    def * = (id, poolId, created, active, pumpOn, pumpOff) <> (Lifecycle.tupled, Lifecycle.unapply)
     def poolFk = foreignKey("pool_lifecycle_fk", poolId, TableQuery[Pools])(_.id)
   }
   object lifecycles extends TableQuery(new Lifecycles(_)) {
-    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.pumpOn.asc) }
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.created.asc) }
     def save(lifecycle: Lifecycle) = (this returning this.map(_.id)).insertOrUpdate(lifecycle)
     def list(poolId: Int) = compiledList(poolId).result
   }

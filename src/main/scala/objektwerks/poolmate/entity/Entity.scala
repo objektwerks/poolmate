@@ -14,7 +14,7 @@ case class Timer(id: Int = 0, poolId: Int, installed: LocalDate, model: String)
 
 case class Heater(id: Int = 0, poolId: Int, installed: LocalDate, model: String)
 
-case class Lifecycle(id: Int = 0, poolId: Int, pumpOn: LocalTime, pumpOff: LocalTime)
+case class Lifecycle(id: Int = 0, poolId: Int, created: LocalDate = LocalDate.now, active: Boolean = true, pumpOn: LocalTime, pumpOff: LocalTime)
 
 case class Cleaning(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true,
                     net: Boolean = true, vacuum: Boolean = false, skimmerBasket: Boolean = true, pumpBasket: Boolean = false,
@@ -45,7 +45,7 @@ object Entity {
 
   implicit def heaterOrdering: Ordering[Heater] = Ordering.by(_.installed)
 
-  implicit def lifecycleOrdering: Ordering[Lifecycle] = Ordering.by(_.pumpOn)
+  implicit def lifecycleOrdering: Ordering[Lifecycle] = Ordering.by(_.created)
 
   implicit def cleaningOrdering: Ordering[Cleaning] = Ordering.by(_.on)
 
