@@ -24,7 +24,7 @@ object Entity {
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
   implicit def poolOrdering: Ordering[Pool] = Ordering.by(p => (p.zip, p.city))
   implicit def ownerOrdering: Ordering[Owner] = Ordering.by(o => (o.since, o.last))
-  implicit def surfaceOrdering: Ordering[Surface] = Ordering.by(s => (s.installed, s.kind))
+  implicit def surfaceOrdering: Ordering[Surface] = Ordering.by(_.installed)
   implicit def pumpOrdering: Ordering[Pump] = Ordering.by(_.installed)
   implicit def timerOrdering: Ordering[Timer] = Ordering.by(_.installed)
   implicit def heaterOrdering: Ordering[Heater] = Ordering.by(_.installed)
