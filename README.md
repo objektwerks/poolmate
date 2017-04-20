@@ -8,7 +8,7 @@ GPL.V3 ( See ./GPL.V3 )
 
 Object Model
 ------------
-* Pool(id, street, city, state, zip, built, gallons, surface, pump, timer, heater)
+* Pool(id, built, gallons, street, city, state, zip)
 * Owner(id, poolId, since, first, last, email)
 * Surface(id, poolId, installed, kind)
 * Pump(id, poolId, installed, model)
