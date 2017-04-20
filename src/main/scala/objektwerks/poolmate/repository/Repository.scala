@@ -15,7 +15,7 @@ object Repository {
   def newInstance(configFile: String): Repository = {
     val repository = new Repository(config = DatabaseConfig.forConfig[JdbcProfile]("repository", ConfigFactory.load(configFile)), profile = H2Profile)
     import repository._
-    try { await(owners.list()).length } catch { case _: Throwable => repository.createSchema() }
+    try { await(pools.list()).length } catch { case _: Throwable => repository.createSchema() }
     repository
   }
 }
