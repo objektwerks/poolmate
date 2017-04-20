@@ -136,7 +136,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolFk = foreignKey("pool_lifecycle_fk", poolId, TableQuery[Pools])(_.id)
   }
   object lifecycles extends TableQuery(new Lifecycles(_)) {
-    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.created.asc) }
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(l => (l.active.asc, l.created.asc)) }
     def save(lifecycle: Lifecycle) = (this returning this.map(_.id)).insertOrUpdate(lifecycle)
     def list(poolId: Int) = compiledList(poolId).result
   }

@@ -45,7 +45,7 @@ object Entity {
 
   implicit def heaterOrdering: Ordering[Heater] = Ordering.by(_.installed)
 
-  implicit def lifecycleOrdering: Ordering[Lifecycle] = Ordering.by(_.created)
+  implicit def lifecycleOrdering: Ordering[Lifecycle] = Ordering.by(l => (l.active, l.created))
 
   implicit def cleaningOrdering: Ordering[Cleaning] = Ordering.by(_.on)
 
