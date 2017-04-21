@@ -190,6 +190,25 @@ class Model(repository: Repository) {
   val measurementList = ObservableBuffer[Measurement]()
   val selectedMeasurementId = ObjectProperty[Int](0)
 
+  def listMeasurements(poolId: Int): Unit = {
+    measurementList.clear()
+    measurementList ++= await(measurements.list(poolId))
+  }
+
+  def addMeasurement(measurement: Measurement): Measurement = {
+    val newId = await(measurements.save(measurement))
+    val newMeasurement = measurement.copy(id = newId.get)
+    measurementList += newMeasurement
+    selectedMeasurementId.value = newMeasurement.id
+    newMeasurement
+  }
+
+  def updateMeasurement(selectedIndex: Int, measurement: Measurement): Unit = {
+    await(measurements.save(measurement))
+    measurementList.update(selectedIndex, measurement)
+    measurementList.sorted
+  }
+
   val additiveList = ObservableBuffer[Additive]()
   val selectedAdditiveId = ObjectProperty[Int](0)
 
