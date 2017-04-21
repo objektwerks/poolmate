@@ -146,6 +146,25 @@ class Model(repository: Repository) {
   val lifecycleList = ObservableBuffer[Lifecycle]()
   val selectedLifecycleId = ObjectProperty[Int](0)
 
+  def listLifecycles(poolId: Int): Unit = {
+    lifecycleList.clear()
+    lifecycleList ++= await(lifecycles.list(poolId))
+  }
+
+  def addLifecycle(lifecycle: Lifecycle): Lifecycle = {
+    val newId = await(lifecycles.save(lifecycle))
+    val newLifecycle = lifecycle.copy(id = newId.get)
+    lifecycleList += newLifecycle
+    selectedLifecycleId.value = newLifecycle.id
+    newLifecycle
+  }
+
+  def updateLifecycle(selectedIndex: Int, lifecycle: Lifecycle): Unit = {
+    await(lifecycles.save(lifecycle))
+    lifecycleList.update(selectedIndex, lifecycle)
+    lifecycleList.sorted
+  }
+
   val cleaningList = ObservableBuffer[Cleaning]()
   val selectedCleaningId = ObjectProperty[Int](0)
 
