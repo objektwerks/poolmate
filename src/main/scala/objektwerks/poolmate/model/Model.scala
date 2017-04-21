@@ -102,8 +102,28 @@ class Model(repository: Repository) {
   val timerList = ObservableBuffer[Timer]()
   val selectedTimerId = ObjectProperty[Int](0)
 
+  def listTimers(poolId: Int): Unit = {
+    timerList.clear()
+    timerList ++= await(timers.list(poolId))
+  }
+
+  def addTimer(timer: Timer): Timer = {
+    val newId = await(timers.save(timer))
+    val newTimer = timer.copy(id = newId.get)
+    timerList += newTimer
+    selectedTimerId.value = newTimer.id
+    newTimer
+  }
+
+  def updateTimer(selectedIndex: Int, timer: Timer): Unit = {
+    await(timers.save(timer))
+    timerList.update(selectedIndex, timer)
+    timerList.sorted
+  }
+
   val heaterList = ObservableBuffer[Heater]()
   val selectedHeaterId = ObjectProperty[Int](0)
+
 
   val lifecycleList = ObservableBuffer[Lifecycle]()
   val selectedLifecycleId = ObjectProperty[Int](0)
