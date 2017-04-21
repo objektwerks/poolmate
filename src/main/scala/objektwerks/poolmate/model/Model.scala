@@ -212,6 +212,25 @@ class Model(repository: Repository) {
   val additiveList = ObservableBuffer[Additive]()
   val selectedAdditiveId = ObjectProperty[Int](0)
 
+  def listAdditives(poolId: Int): Unit = {
+    additiveList.clear()
+    additiveList ++= await(additives.list(poolId))
+  }
+
+  def addAdditive(additive: Additive): Additive = {
+    val newId = await(additives.save(additive))
+    val newAdditive = additive.copy(id = newId.get)
+    additiveList += newAdditive
+    selectedAdditiveId.value = newAdditive.id
+    newAdditive
+  }
+
+  def updateAdditive(selectedIndex: Int, additive: Additive): Unit = {
+    await(additives.save(additive))
+    additiveList.update(selectedIndex, additive)
+    additiveList.sorted
+  }
+
   val repairList = ObservableBuffer[Repair]()
   val selectedRepairId = ObjectProperty[Int](0)
 }
