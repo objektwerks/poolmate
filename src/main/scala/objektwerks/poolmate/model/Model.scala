@@ -233,4 +233,23 @@ class Model(repository: Repository) {
 
   val repairList = ObservableBuffer[Repair]()
   val selectedRepairId = ObjectProperty[Int](0)
+
+  def listRepairs(poolId: Int): Unit = {
+    repairList.clear()
+    repairList ++= await(repairs.list(poolId))
+  }
+
+  def addRepair(repair: Repair): Repair = {
+    val newId = await(repairs.save(repair))
+    val newRepair = repair.copy(id = newId.get)
+    repairList += newRepair
+    selectedRepairId.value = newRepair.id
+    newRepair
+  }
+
+  def updateRepair(selectedIndex: Int, repair: Repair): Unit = {
+    await(repairs.save(repair))
+    repairList.update(selectedIndex, repair)
+    repairList.sorted
+  }
 }
