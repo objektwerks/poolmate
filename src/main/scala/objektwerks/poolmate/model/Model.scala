@@ -1,6 +1,6 @@
 package objektwerks.poolmate.model
 
-import objektwerks.poolmate.entity.{Owner, Pool}
+import objektwerks.poolmate.entity._
 import objektwerks.poolmate.entity.Entity._
 import objektwerks.poolmate.repository.Repository
 
@@ -54,4 +54,32 @@ class Model(repository: Repository) {
     ownerList.update(selectedIndex, owner)
     ownerList.sorted
   }
+
+  val surfaceList = ObservableBuffer[Surface]()
+  val selectedSurfaceId = ObjectProperty[Int](0)
+
+
+  val pumpList = ObservableBuffer[Pump]()
+  val selectedPumpId = ObjectProperty[Int](0)
+
+  val timerList = ObservableBuffer[Timer]()
+  val selectedTimerId = ObjectProperty[Int](0)
+
+  val heaterList = ObservableBuffer[Heater]()
+  val selectedHeaterId = ObjectProperty[Int](0)
+
+  val lifecycleList = ObservableBuffer[Lifecycle]()
+  val selectedLifecycleId = ObjectProperty[Int](0)
+
+  val cleaningList = ObservableBuffer[Cleaning]()
+  val selectedCleaningId = ObjectProperty[Int](0)
+
+  val measurementList = ObservableBuffer[Measurement]()
+  val selectedMeasurementId = ObjectProperty[Int](0)
+
+  val additiveList = ObservableBuffer[Additive]()
+  val selectedAdditiveId = ObjectProperty[Int](0)
+
+  val repairList = ObservableBuffer[Repair]()
+  val selectedRepairId = ObjectProperty[Int](0)
 }
