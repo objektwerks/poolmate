@@ -64,9 +64,9 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolFk = foreignKey("pool_owner_fk", poolId, TableQuery[Pools])(_.id)
   }
   object owners extends TableQuery(new Owners(_)) {
-    val compiledList = Compiled { sortBy(o => (o.since.asc, o.last.asc)) }
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(o => (o.since.asc, o.last.asc)) }
     def save(owner: Owner) = (this returning this.map(_.id)).insertOrUpdate(owner)
-    def list() = compiledList.result
+    def list(poolId: Int) = compiledList(poolId).result
   }
 
   class Surfaces(tag: Tag) extends Table[Surface](tag, "surfaces") {
