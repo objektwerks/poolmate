@@ -168,6 +168,25 @@ class Model(repository: Repository) {
   val cleaningList = ObservableBuffer[Cleaning]()
   val selectedCleaningId = ObjectProperty[Int](0)
 
+  def listCleanings(poolId: Int): Unit = {
+    cleaningList.clear()
+    cleaningList ++= await(cleanings.list(poolId))
+  }
+
+  def addCleaning(cleaning: Cleaning): Cleaning = {
+    val newId = await(cleanings.save(cleaning))
+    val newCleaning = cleaning.copy(id = newId.get)
+    cleaningList += newCleaning
+    selectedCleaningId.value = newCleaning.id
+    newCleaning
+  }
+
+  def updateCleaning(selectedIndex: Int, cleaning: Cleaning): Unit = {
+    await(cleanings.save(cleaning))
+    cleaningList.update(selectedIndex, cleaning)
+    cleaningList.sorted
+  }
+
   val measurementList = ObservableBuffer[Measurement]()
   val selectedMeasurementId = ObjectProperty[Int](0)
 
