@@ -36,9 +36,9 @@ class Model(repository: Repository) {
   val ownerList = ObservableBuffer[Owner]()
   val selectedOwnerId = ObjectProperty[Int](0)
 
-  def listOwners(): Unit = {
+  def listOwners(poolId: Int): Unit = {
     ownerList.clear()
-    ownerList ++= await(owners.list())
+    ownerList ++= await(owners.list(poolId))
   }
 
   def addOwner(owner: Owner): Owner = {
@@ -58,9 +58,46 @@ class Model(repository: Repository) {
   val surfaceList = ObservableBuffer[Surface]()
   val selectedSurfaceId = ObjectProperty[Int](0)
 
+  def listSurfaces(poolId: Int): Unit = {
+    surfaceList.clear()
+    surfaceList ++= await(surfaces.list(poolId))
+  }
+
+  def addSurface(surface: Surface): Surface = {
+    val newId = await(surfaces.save(surface))
+    val newSurface = surface.copy(id = newId.get)
+    surfaceList += newSurface
+    selectedSurfaceId.value = newSurface.id
+    newSurface
+  }
+
+  def updateSurface(selectedIndex: Int, surface: Surface): Unit = {
+    await(surfaces.save(surface))
+    surfaceList.update(selectedIndex, surface)
+    surfaceList.sorted
+  }
 
   val pumpList = ObservableBuffer[Pump]()
   val selectedPumpId = ObjectProperty[Int](0)
+
+  def listPumps(poolId: Int): Unit = {
+    pumpList.clear()
+    pumpList ++= await(pumps.list(poolId))
+  }
+
+  def addPump(pump: Pump): Pump = {
+    val newId = await(pumps.save(pump))
+    val newPump = pump.copy(id = newId.get)
+    pumpList += newPump
+    selectedPumpId.value = newPump.id
+    newPump
+  }
+
+  def updatePump(selectedIndex: Int, pump: Pump): Unit = {
+    await(pumps.save(pump))
+    pumpList.update(selectedIndex, pump)
+    pumpList.sorted
+  }
 
   val timerList = ObservableBuffer[Timer]()
   val selectedTimerId = ObjectProperty[Int](0)
