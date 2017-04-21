@@ -124,6 +124,24 @@ class Model(repository: Repository) {
   val heaterList = ObservableBuffer[Heater]()
   val selectedHeaterId = ObjectProperty[Int](0)
 
+  def listHeaters(poolId: Int): Unit = {
+    heaterList.clear()
+    heaterList ++= await(heaters.list(poolId))
+  }
+
+  def addHeater(heater: Heater): Heater = {
+    val newId = await(heaters.save(heater))
+    val newHeater = heater.copy(id = newId.get)
+    heaterList += newHeater
+    selectedHeaterId.value = newHeater.id
+    newHeater
+  }
+
+  def updateHeater(selectedIndex: Int, heater: Heater): Unit = {
+    await(heaters.save(heater))
+    heaterList.update(selectedIndex, heater)
+    heaterList.sorted
+  }
 
   val lifecycleList = ObservableBuffer[Lifecycle]()
   val selectedLifecycleId = ObjectProperty[Int](0)
