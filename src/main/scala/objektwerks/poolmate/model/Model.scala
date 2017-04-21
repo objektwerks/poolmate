@@ -16,6 +16,15 @@ class Model(repository: Repository) {
   def listPools(): Unit = {
     poolList.clear()
     ownerList.clear()
+    surfaceList.clear()
+    pumpList.clear()
+    timerList.clear()
+    heaterList.clear()
+    lifecycleList.clear()
+    cleaningList.clear()
+    measurementList.clear()
+    additiveList.clear()
+    repairList.clear()
     poolList ++= await(pools.list())
   }
 
