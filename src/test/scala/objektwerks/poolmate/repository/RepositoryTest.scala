@@ -1,19 +1,11 @@
 package objektwerks.poolmate.repository
 
-import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
+import org.scalatest.FunSuite
 
-class RepositoryTest extends FunSuite with BeforeAndAfterAll with Matchers {
-  val repository = Repository.newInstance("test.conf")
-  import repository._
-
-  override protected def beforeAll(): Unit = {
-    schema.createStatements foreach println
-  }
-
-  override protected def afterAll(): Unit = {
-    close()
-  }
-
+class RepositoryTest extends FunSuite {
   test("repository") {
+    val repository = Repository.newInstance("test.conf")
+    repository.schema.createStatements foreach println
+    repository.close()
   }
 }
