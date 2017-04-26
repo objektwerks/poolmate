@@ -19,11 +19,11 @@ class PoolPane(conf: Config, model: Model) extends VBox  {
       new TableColumn[Pool, String] { text = conf.getString("pool-table-column-gallons"); cellValueFactory = { _.value.pGallons } },
       new TableColumn[Pool, String] { text = conf.getString("pool-table-column-city"); cellValueFactory = { _.value.pCity } }
     )
-    prefHeight = 200
+    prefHeight = 100
   }
   poolTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val poolAddButton = new Button { graphic = Images.addImageView(); prefHeight = 25 }
-  val poolEditButton = new Button { graphic = Images.editImageView(); prefHeight = 25; disable = true }
+  val poolAddButton = new Button { graphic = Images.addImageView() }
+  val poolEditButton = new Button { graphic = Images.editImageView(); disable = true }
   val poolToolBar = new HBox { spacing = 6; children = List(poolAddButton, poolEditButton) }
 
   spacing = 6
