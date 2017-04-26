@@ -18,7 +18,7 @@ class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]()  {
   val cityTextField = new TextField { text = pool.city }
   val stateTextField = new TextField { text = pool.state }
   val zipTextField = new TextField { text = pool.zip.toString }
-  val components = Map[String, Region](
+  val controls = Map[String, Region](
     conf.getString("pool-built") -> builtDatePicker,
     conf.getString("pool-gallons") -> gallonsTextField,
     conf.getString("pool-street") -> streetTextField,
@@ -26,7 +26,7 @@ class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]()  {
     conf.getString("pool-state") -> stateTextField,
     conf.getString("pool-zip") -> zipTextField
   )
-  val controlGridPane = new ControlGridPane(components)
+  val controlGridPane = new ControlGridPane(controls)
   val dialog = dialogPane()
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
