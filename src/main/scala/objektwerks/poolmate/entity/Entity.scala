@@ -2,7 +2,8 @@ package objektwerks.poolmate.entity
 
 import java.time.{LocalDate, LocalTime}
 
-case class Pool(id: Int = 0, built: LocalDate, gallons: Double, street: String, city: String, state: String, zip: Int)
+case class Pool(id: Int = 0, built: LocalDate = LocalDate.now, gallons: Int = 0, street: String = "street",
+                city: String = "city", state: String = "state", zip: Int = 12345)
 case class Owner(id: Int = 0, poolId: Int, since: LocalDate, first: String, last: String, email: String)
 case class Surface(id: Int = 0, poolId: Int, installed: LocalDate, kind: String)
 case class Pump(id: Int = 0, poolId: Int, installed: LocalDate, model: String)

@@ -40,7 +40,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def built = column[LocalDate]("built")
-    def gallons = column[Double]("gallons")
+    def gallons = column[Int]("gallons")
     def street = column[String]("street")
     def city = column[String]("city")
     def state = column[String]("state")
