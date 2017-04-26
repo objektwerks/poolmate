@@ -26,7 +26,7 @@ class PoolPane(conf: Config, model: Model) extends VBox  {
   val poolToolBar = new HBox { spacing = 6; children = List(poolAddButton, poolEditButton) }
 
   spacing = 6
-  children = List(poolLabel, poolToolBar)
+  children = List(poolLabel, poolTableView, poolToolBar)
 
   poolTableView.selectionModel().selectedItemProperty().addListener { (_, _, selectedPool) =>
     // model.update executes a remove and add on items. the remove passes a null selectedPool!
