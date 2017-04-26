@@ -17,9 +17,11 @@ class PoolPane(conf: Config, model: Model) extends VBox  {
     columns ++= List(
       new TableColumn[Pool, String] { text = conf.getString("pool-table-column-built"); cellValueFactory = { _.value.pBuilt } },
       new TableColumn[Pool, String] { text = conf.getString("pool-table-column-gallons"); cellValueFactory = { _.value.pGallons } },
-      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-city"); cellValueFactory = { _.value.pCity } }
+      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-city"); cellValueFactory = { _.value.pCity } },
+      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-state"); cellValueFactory = { _.value.pState } }
     )
     prefHeight = 100
+    items = model.poolList
   }
   poolTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val poolAddButton = new Button { graphic = Images.addImageView() }
