@@ -20,30 +20,71 @@ case class Pool(id: Int = 0, built: LocalDate = LocalDate.now, gallons: Int = 10
   val pool = this
 }
 
-case class Owner(id: Int = 0, poolId: Int, since: LocalDate, first: String, last: String, email: String)
+case class Owner(id: Int = 0, poolId: Int, since: LocalDate, first: String, last: String, email: String) {
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-case class Surface(id: Int = 0, poolId: Int, installed: LocalDate, kind: String)
+  val pId = new IntegerProperty(this, "id", id)
+}
 
-case class Pump(id: Int = 0, poolId: Int, installed: LocalDate, model: String)
+case class Surface(id: Int = 0, poolId: Int, installed: LocalDate, kind: String) {
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-case class Timer(id: Int = 0, poolId: Int, installed: LocalDate, model: String)
+  val pId = new IntegerProperty(this, "id", id)
+}
 
-case class Heater(id: Int = 0, poolId: Int, installed: LocalDate, model: String)
+case class Pump(id: Int = 0, poolId: Int, installed: LocalDate, model: String) {
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+  val pId = new IntegerProperty(this, "id", id)
+}
+
+case class Timer(id: Int = 0, poolId: Int, installed: LocalDate, model: String) {
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+  val pId = new IntegerProperty(this, "id", id)
+}
+
+case class Heater(id: Int = 0, poolId: Int, installed: LocalDate, model: String) {
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+  val pId = new IntegerProperty(this, "id", id)
+}
 
 case class Lifecycle(id: Int = 0, poolId: Int, created: LocalDate = LocalDate.now, active: Boolean = true,
-                     pumpOn: LocalTime, pumpOff: LocalTime)
+                     pumpOn: LocalTime, pumpOff: LocalTime) {
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+  val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
+
+  val pId = new IntegerProperty(this, "id", id)
+}
 
 case class Cleaning(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true,
                     net: Boolean = true, vacuum: Boolean = false, skimmerBasket: Boolean = true, pumpBasket: Boolean = false,
-                    pumpFilter: Boolean = false)
+                    pumpFilter: Boolean = false) {
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+  val pId = new IntegerProperty(this, "id", id)
+}
 
 case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, temp: Int = 75, hardness: Int = 375,
                        totalChlorine: Int = 3, bromine: Int = 5, freeChlorine: Int = 3, pH: Double = 7.5,
-                       alkalinity: Int = 100, cyanuricAcid: Int = 50)
+                       alkalinity: Int = 100, cyanuricAcid: Int = 50) {
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String, unit: String, amount: Double)
+  val pId = new IntegerProperty(this, "id", id)
+}
 
-case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double, description: String)
+case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String, unit: String, amount: Double) {
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+  val pId = new IntegerProperty(this, "id", id)
+}
+
+case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double, description: String) {
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+  val pId = new IntegerProperty(this, "id", id)
+}
 
 object Entity {
   implicit def localTimeOrdering: Ordering[LocalTime] = Ordering.by(_.toSecondOfDay)
