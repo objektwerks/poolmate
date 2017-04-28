@@ -36,7 +36,7 @@ class PoolPane(conf: Config, model: Model) extends VBox  {
   poolTableView.selectionModel().selectedItemProperty().addListener { (_, _, selectedPool) =>
     // model.update executes a remove and add on items. the remove passes a null selectedPool!
     if (selectedPool != null) {
-      model.selectedPoolId.value = selectedPool.idProperty.value
+      model.selectedPoolId.value = selectedPool.id
       poolEditButton.disable = false
     }
   }
