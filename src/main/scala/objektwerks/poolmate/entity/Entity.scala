@@ -3,11 +3,12 @@ package objektwerks.poolmate.entity
 import java.time.format.DateTimeFormatter
 import java.time.{LocalDate, LocalTime}
 
-import scalafx.beans.property.StringProperty
+import scalafx.beans.property.{IntegerProperty, StringProperty}
 
 case class Pool(id: Int = 0, built: LocalDate = LocalDate.now, gallons: Int = 10000, street: String = "street", city: String = "city", state: String = "state", zip: Int = 12345) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
+  val idProperty = new IntegerProperty(this, "id", id)
   val builtProperty = new StringProperty(this, "built", built.format(dateFormatter))
   val gallonsProperty = new StringProperty(this, "gallons", gallons.toString)
   val streetProperty = new StringProperty(this, "street", street)
@@ -21,6 +22,7 @@ case class Pool(id: Int = 0, built: LocalDate = LocalDate.now, gallons: Int = 10
 case class Owner(id: Int = 0, poolId: Int, since: LocalDate = LocalDate.now, first: String = "first", last: String = "last", email: String = "email@email.org") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
+  val idProperty = new IntegerProperty(this, "id", id)
   val sinceProperty = new StringProperty(this, "since", since.format(dateFormatter))
   val firstProperty = new StringProperty(this, "first", first)
   val lastroperty = new StringProperty(this, "last", last)
@@ -37,6 +39,7 @@ case class Surface(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.no
 case class Pump(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, model: String = "model") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
+  val idProperty = new IntegerProperty(this, "id", id)
   val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
   val modelProperty = new StringProperty(this, "model", model)
 }
@@ -44,6 +47,7 @@ case class Pump(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, 
 case class Timer(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, model: String = "model") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
+  val idProperty = new IntegerProperty(this, "id", id)
   val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
   val modelProperty = new StringProperty(this, "model", model)
 }
@@ -51,6 +55,7 @@ case class Timer(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now,
 case class Heater(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, model: String = "model") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
+  val idProperty = new IntegerProperty(this, "id", id)
   val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
   val modelProperty = new StringProperty(this, "model", model)
 }
@@ -60,6 +65,7 @@ case class Lifecycle(id: Int = 0, poolId: Int, created: LocalDate = LocalDate.no
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
   val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
 
+  val idProperty = new IntegerProperty(this, "id", id)
   val createdProperty = new StringProperty(this, "created", created.format(dateFormatter))
   val activeProperty = new StringProperty(this, "active", active.toString)
   val pumpOnProperty = new StringProperty(this, "pumpOn", pumpOn.format(timeFormatter))
@@ -70,6 +76,7 @@ case class Cleaning(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, dec
                     vacuum: Boolean = false, skimmerBasket: Boolean = true, pumpBasket: Boolean = false, pumpFilter: Boolean = false) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
+  val idProperty = new IntegerProperty(this, "id", id)
   val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
   val deckProperty = new StringProperty(this, "deck", deck.toString)
   val brushProperty = new StringProperty(this, "brush", brush.toString)
@@ -84,6 +91,7 @@ case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, 
                        bromine: Int = 5, freeChlorine: Int = 3, pH: Double = 7.5, alkalinity: Int = 100, cyanuricAcid: Int = 50) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
+  val idProperty = new IntegerProperty(this, "id", id)
   val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
   val tempProperty = new StringProperty(this, "temp", temp.toString)
   val hardnessProperty = new StringProperty(this, "hardness", hardness.toString)
@@ -98,6 +106,7 @@ case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, 
 case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String = "chlorine", unit: String = "gallons", amount: Double = 1.0) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
+  val idProperty = new IntegerProperty(this, "id", id)
   val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
   val chemicalProperty = new StringProperty(this, "chemical", chemical)
   val unitProperty = new StringProperty(this, "unit", unit)
@@ -107,6 +116,7 @@ case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, che
 case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double = 0.0, description: String = "description") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
+  val idProperty = new IntegerProperty(this, "id", id)
   val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
   val costProperty = new StringProperty(this, "cost", cost.toString)
   val descriptionProperty = new StringProperty(this, "description", description)
