@@ -1,17 +1,17 @@
 package objektwerks.poolmate.model
 
-import objektwerks.poolmate.entity._
 import objektwerks.poolmate.entity.Entity._
+import objektwerks.poolmate.entity._
 import objektwerks.poolmate.repository.Repository
 
-import scalafx.beans.property.ObjectProperty
+import scalafx.beans.property.IntegerProperty
 import scalafx.collections.ObservableBuffer
 
 class Model(repository: Repository) {
   import repository._
 
   val poolList = ObservableBuffer[Pool]()
-  val selectedPoolId = ObjectProperty[Int](0)
+  val selectedPoolId = IntegerProperty(0)
 
   def listPools(): Unit = {
     poolList.clear()
@@ -43,7 +43,7 @@ class Model(repository: Repository) {
   }
 
   val ownerList = ObservableBuffer[Owner]()
-  val selectedOwnerId = ObjectProperty[Int](0)
+  val selectedOwnerId = IntegerProperty(0)
 
   def listOwners(poolId: Int): Unit = {
     ownerList.clear()
@@ -65,7 +65,7 @@ class Model(repository: Repository) {
   }
 
   val surfaceList = ObservableBuffer[Surface]()
-  val selectedSurfaceId = ObjectProperty[Int](0)
+  val selectedSurfaceId = IntegerProperty(0)
 
   def listSurfaces(poolId: Int): Unit = {
     surfaceList.clear()
@@ -87,7 +87,7 @@ class Model(repository: Repository) {
   }
 
   val pumpList = ObservableBuffer[Pump]()
-  val selectedPumpId = ObjectProperty[Int](0)
+  val selectedPumpId = IntegerProperty(0)
 
   def listPumps(poolId: Int): Unit = {
     pumpList.clear()
@@ -109,7 +109,7 @@ class Model(repository: Repository) {
   }
 
   val timerList = ObservableBuffer[Timer]()
-  val selectedTimerId = ObjectProperty[Int](0)
+  val selectedTimerId = IntegerProperty(0)
 
   def listTimers(poolId: Int): Unit = {
     timerList.clear()
@@ -131,7 +131,7 @@ class Model(repository: Repository) {
   }
 
   val heaterList = ObservableBuffer[Heater]()
-  val selectedHeaterId = ObjectProperty[Int](0)
+  val selectedHeaterId = IntegerProperty(0)
 
   def listHeaters(poolId: Int): Unit = {
     heaterList.clear()
@@ -153,7 +153,7 @@ class Model(repository: Repository) {
   }
 
   val lifecycleList = ObservableBuffer[Lifecycle]()
-  val selectedLifecycleId = ObjectProperty[Int](0)
+  val selectedLifecycleId = IntegerProperty(0)
 
   def listLifecycles(poolId: Int): Unit = {
     lifecycleList.clear()
@@ -175,7 +175,7 @@ class Model(repository: Repository) {
   }
 
   val cleaningList = ObservableBuffer[Cleaning]()
-  val selectedCleaningId = ObjectProperty[Int](0)
+  val selectedCleaningId = IntegerProperty(0)
 
   def listCleanings(poolId: Int): Unit = {
     cleaningList.clear()
@@ -197,7 +197,7 @@ class Model(repository: Repository) {
   }
 
   val measurementList = ObservableBuffer[Measurement]()
-  val selectedMeasurementId = ObjectProperty[Int](0)
+  val selectedMeasurementId = IntegerProperty(0)
 
   def listMeasurements(poolId: Int): Unit = {
     measurementList.clear()
@@ -219,7 +219,7 @@ class Model(repository: Repository) {
   }
 
   val additiveList = ObservableBuffer[Additive]()
-  val selectedAdditiveId = ObjectProperty[Int](0)
+  val selectedAdditiveId = IntegerProperty(0)
 
   def listAdditives(poolId: Int): Unit = {
     additiveList.clear()
@@ -241,7 +241,7 @@ class Model(repository: Repository) {
   }
 
   val repairList = ObservableBuffer[Repair]()
-  val selectedRepairId = ObjectProperty[Int](0)
+  val selectedRepairId = IntegerProperty(0)
 
   def listRepairs(poolId: Int): Unit = {
     repairList.clear()
