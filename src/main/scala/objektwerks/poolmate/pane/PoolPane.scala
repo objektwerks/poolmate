@@ -15,10 +15,13 @@ class PoolPane(conf: Config, model: Model) extends VBox  {
   val poolLabel = new Label { text = conf.getString("pools") }
   val poolTableView = new TableView[Pool]() {
     columns ++= List(
-      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-built"); cellValueFactory = { _.value.pBuilt } },
-      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-gallons"); cellValueFactory = { _.value.pGallons } },
-      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-city"); cellValueFactory = { _.value.pCity } },
-      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-state"); cellValueFactory = { _.value.pState } }
+      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-built"); cellValueFactory = { _.value.builtProperty } },
+      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-gallons"); cellValueFactory = { _.value.gallonsProperty } },
+      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-street"); cellValueFactory = { _.value.streetProperty } },
+      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-city"); cellValueFactory = { _.value.cityProperty } },
+      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-state"); cellValueFactory = { _.value.stateProperty },
+      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-zip"); cellValueFactory = { _.value.zipProperty } },
+      }
     )
     prefHeight = 100
     items = model.poolList

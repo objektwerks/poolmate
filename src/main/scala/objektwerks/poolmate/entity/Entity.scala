@@ -3,61 +3,56 @@ package objektwerks.poolmate.entity
 import java.time.format.DateTimeFormatter
 import java.time.{LocalDate, LocalTime}
 
-import scalafx.beans.property.{IntegerProperty, StringProperty}
+import scalafx.beans.property.StringProperty
 
-case class Pool(id: Int = 0, built: LocalDate = LocalDate.now, gallons: Int = 10000, street: String = "street",
-                city: String = "city", state: String = "state", zip: Int = 12345) {
+case class Pool(id: Int = 0, built: LocalDate = LocalDate.now, gallons: Int = 10000, street: String = "street", city: String = "city", state: String = "state", zip: Int = 12345) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-  val pId = new IntegerProperty(this, "id", id)
-  val pBuilt = new StringProperty(this, "built", built.format(dateFormatter))
-  val pGallons = new StringProperty(this, "gallons", gallons.toString)
-  val pStreet = new StringProperty(this, "street", street)
-  val pCity = new StringProperty(this, "city", city)
-  val pState = new StringProperty(this, "state", state)
-  val pZip = new StringProperty(this, "zip", zip.toString)
+  val builtProperty = new StringProperty(this, "built", built.format(dateFormatter))
+  val gallonsProperty = new StringProperty(this, "gallons", gallons.toString)
+  val streetProperty = new StringProperty(this, "street", street)
+  val cityProperty = new StringProperty(this, "city", city)
+  val stateProperty = new StringProperty(this, "state", state)
+  val zipProperty = new StringProperty(this, "zip", zip.toString)
 
   val pool = this
 }
 
-case class Owner(id: Int = 0, poolId: Int, since: LocalDate, first: String, last: String, email: String) {
+case class Owner(id: Int = 0, poolId: Int, since: LocalDate = LocalDate.now, first: String = "first", last: String = "last", email: String = "email@email.org") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-  val pId = new IntegerProperty(this, "id", id)
-  val pPoolId = new IntegerProperty(this, "poolId", poolId)
-  val pSince = new StringProperty(this, "since", since.format(dateFormatter))
+  val sinceProperty = new StringProperty(this, "since", since.format(dateFormatter))
+  val firstProperty = new StringProperty(this, "first", first)
+  val lastroperty = new StringProperty(this, "last", last)
+  val emailProperty = new StringProperty(this, "email", email)
 }
 
-case class Surface(id: Int = 0, poolId: Int, installed: LocalDate, kind: String) {
+case class Surface(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, kind: String = "kind") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-  val pId = new IntegerProperty(this, "id", id)
-  val pPoolId = new IntegerProperty(this, "poolId", poolId)
-  val pInstalled = new StringProperty(this, "installed", installed.format(dateFormatter))
+  val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
+  val kindProperty = new StringProperty(this, "kind", kind)
 }
 
-case class Pump(id: Int = 0, poolId: Int, installed: LocalDate, model: String) {
+case class Pump(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, model: String = "model") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-  val pId = new IntegerProperty(this, "id", id)
-  val pPoolId = new IntegerProperty(this, "poolId", poolId)
-  val pInstalled = new StringProperty(this, "installed", installed.format(dateFormatter))
+  val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
+  val modelProperty = new StringProperty(this, "model", model)
 }
 
-case class Timer(id: Int = 0, poolId: Int, installed: LocalDate, model: String) {
+case class Timer(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, model: String = "model") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-  val pId = new IntegerProperty(this, "id", id)
-  val pPoolId = new IntegerProperty(this, "poolId", poolId)
-  val pInstalled = new StringProperty(this, "installed", installed.format(dateFormatter))
+  val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
+  val modelProperty = new StringProperty(this, "model", model)
 }
 
-case class Heater(id: Int = 0, poolId: Int, installed: LocalDate, model: String) {
+case class Heater(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, model: String = "model") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-  val pId = new IntegerProperty(this, "id", id)
-  val pPoolId = new IntegerProperty(this, "poolId", poolId)
-  val pInstalled = new StringProperty(this, "installed", installed.format(dateFormatter))
+  val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
+  val modelProperty = new StringProperty(this, "model", model)
 }
 
 case class Lifecycle(id: Int = 0, poolId: Int, created: LocalDate = LocalDate.now, active: Boolean = true,
@@ -65,45 +60,56 @@ case class Lifecycle(id: Int = 0, poolId: Int, created: LocalDate = LocalDate.no
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
   val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
 
-  val pId = new IntegerProperty(this, "id", id)
-  val pPoolId = new IntegerProperty(this, "poolId", poolId)
-  val pCreated = new StringProperty(this, "created", created.format(dateFormatter))
+  val createdProperty = new StringProperty(this, "created", created.format(dateFormatter))
+  val activeProperty = new StringProperty(this, "active", active.toString)
+  val pumpOnProperty = new StringProperty(this, "pumpOn", pumpOn.format(timeFormatter))
+  val pumpOffProperty = new StringProperty(this, "pumpOff", pumpOff.format(timeFormatter))
 }
 
-case class Cleaning(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true,
-                    net: Boolean = true, vacuum: Boolean = false, skimmerBasket: Boolean = true, pumpBasket: Boolean = false,
-                    pumpFilter: Boolean = false) {
+case class Cleaning(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true, net: Boolean = true,
+                    vacuum: Boolean = false, skimmerBasket: Boolean = true, pumpBasket: Boolean = false, pumpFilter: Boolean = false) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-  val pId = new IntegerProperty(this, "id", id)
-  val pPoolId = new IntegerProperty(this, "poolId", poolId)
-  val pOn = new StringProperty(this, "on", on.format(dateFormatter))
+  val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
+  val deckProperty = new StringProperty(this, "deck", deck.toString)
+  val brushProperty = new StringProperty(this, "brush", brush.toString)
+  val netProperty = new StringProperty(this, "net", net.toString)
+  val vacuumProperty = new StringProperty(this, "vaccum", vacuum.toString)
+  val skimmerBasketProperty = new StringProperty(this, "skimmerBasket", skimmerBasket.toString)
+  val pumpBasketProperty = new StringProperty(this, "pumpBasket", pumpBasket.toString)
+  val pumpFilterProperty = new StringProperty(this, "pumpFilter", pumpFilter.toString)
 }
 
-case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, temp: Int = 75, hardness: Int = 375,
-                       totalChlorine: Int = 3, bromine: Int = 5, freeChlorine: Int = 3, pH: Double = 7.5,
-                       alkalinity: Int = 100, cyanuricAcid: Int = 50) {
+case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, temp: Int = 75, hardness: Int = 375, totalChlorine: Int = 3,
+                       bromine: Int = 5, freeChlorine: Int = 3, pH: Double = 7.5, alkalinity: Int = 100, cyanuricAcid: Int = 50) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-  val pId = new IntegerProperty(this, "id", id)
-  val pPoolId = new IntegerProperty(this, "poolId", poolId)
-  val pOn = new StringProperty(this, "on", on.format(dateFormatter))
+  val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
+  val tempProperty = new StringProperty(this, "temp", temp.toString)
+  val hardnessProperty = new StringProperty(this, "hardness", hardness.toString)
+  val totalChlorineProperty = new StringProperty(this, "totalChlorine", totalChlorine.toString)
+  val bromineProperty = new StringProperty(this, "bromine", bromine.toString)
+  val freeChlorineProperty = new StringProperty(this, "freeChlorine", freeChlorine.toString)
+  val pHProperty = new StringProperty(this, "pH", pH.toString)
+  val alkalinityProperty = new StringProperty(this, "alkalinity", alkalinity.toString)
+  val cyanuricAcidProperty = new StringProperty(this, "cyanuricAcid", cyanuricAcid.toString)
 }
 
-case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String, unit: String, amount: Double) {
+case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String = "chlorine", unit: String = "gallons", amount: Double = 1.0) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-  val pId = new IntegerProperty(this, "id", id)
-  val pPoolId = new IntegerProperty(this, "poolId", poolId)
-  val pOn = new StringProperty(this, "on", on.format(dateFormatter))
+  val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
+  val chemicalProperty = new StringProperty(this, "chemical", chemical)
+  val unitProperty = new StringProperty(this, "unit", unit)
+  val amountProperty = new StringProperty(this, "amount", amount.toString)
 }
 
-case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double, description: String) {
+case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double = 0.0, description: String = "description") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-  val pId = new IntegerProperty(this, "id", id)
-  val pPoolId = new IntegerProperty(this, "poolId", poolId)
-  val pOn = new StringProperty(this, "on", on.format(dateFormatter))
+  val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
+  val costProperty = new StringProperty(this, "cost", cost.toString)
+  val descriptionProperty = new StringProperty(this, "description", description)
 }
 
 object Entity {
