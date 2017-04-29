@@ -104,6 +104,14 @@ case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, che
   val amountProperty = new StringProperty(this, "amount", amount.toString)
 }
 
+case class Supply(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double = 0.0, description: String = "description") {
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+  val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
+  val costProperty = new StringProperty(this, "cost", cost.toString)
+  val descriptionProperty = new StringProperty(this, "description", description)
+}
+
 case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double = 0.0, description: String = "description") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
@@ -136,6 +144,8 @@ object Entity {
   implicit def measurementOrdering: Ordering[Measurement] = Ordering.by(_.on)
 
   implicit def additiveOrdering: Ordering[Additive] = Ordering.by(_.on)
+
+  implicit def supplyOrdering: Ordering[Supply] = Ordering.by(_.on)
 
   implicit def repairOrdering: Ordering[Repair] = Ordering.by(_.on)
 }

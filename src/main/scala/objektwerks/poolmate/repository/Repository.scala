@@ -26,7 +26,8 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   implicit val timeMapper = MappedColumnType.base[LocalTime, Time](lt => Time.valueOf(lt), t => t.toLocalTime)
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld), d => d.toLocalDate)
   val schema = pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++ heaters.schema ++
-               lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ repairs.schema
+               lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ supplies.schema ++
+               repairs.schema
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
@@ -195,6 +196,21 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   object additives extends TableQuery(new Additives(_)) {
     val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.on.asc) }
     def save(additive: Additive) = (this returning this.map(_.id)).insertOrUpdate(additive)
+    def list(poolId: Int) = compiledList(poolId).result
+  }
+
+  class Supplies(tag: Tag) extends Table[Supply](tag, "supplies") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def poolId = column[Int]("pool_id")
+    def on = column[LocalDate]("on")
+    def cost = column[Double]("cost")
+    def description = column[String]("description")
+    def * = (id, poolId, on, cost, description) <> (Supply.tupled, Supply.unapply)
+    def poolFk = foreignKey("pool_supply_fk", poolId, TableQuery[Pools])(_.id)
+  }
+  object supplies extends TableQuery(new Supplies(_)) {
+    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.on.asc) }
+    def save(supply: Supply) = (this returning this.map(_.id)).insertOrUpdate(supply)
     def list(poolId: Int) = compiledList(poolId).result
   }
 

@@ -18,11 +18,12 @@ Object Model
 * Cleaning(id, poolId, on, deck, brush, vacuum, net, skimmerBasket, pumpBasket, pumpFilter)
 * Measurement(id, poolId, on, temp, hardness, totalChlorine, bromine, freeChlorine, pH, alkalinity, cyanuricAcid)
 * Additive(id, poolId, on, chemical, unit, amount)
+* Supply(id, poolId, on, cost, description)
 * Repair(id, poolId, on, cost, description)
 
 Relational Model
 ----------------
-* Pool 1 ---> * Owner | Surface | Pump | Timer | Heater | Repair | Cleaning | Measurement | Additive
+* Pool 1 ---> * Owner | Surface | Pump | Timer | Heater | Repair | Cleaning | Measurement | Additive | Supply
 
 Measurements
 ------------
@@ -37,7 +38,7 @@ Measurements
 UI
 --
 west pane - pools, owners, surfaces, pumps, timers, heaters
-east pane - cleanings, measurements, repairs
+east pane - cleanings, measurements, supplies, repairs
 
 Test
 ----
