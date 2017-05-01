@@ -24,6 +24,7 @@ class Model(repository: Repository) {
     cleaningList.clear()
     measurementList.clear()
     additiveList.clear()
+    supplyList.clear()
     repairList.clear()
     poolList ++= await(pools.list())
   }
@@ -238,6 +239,28 @@ class Model(repository: Repository) {
     await(additives.save(additive))
     additiveList.update(selectedIndex, additive)
     additiveList.sorted
+  }
+
+  val supplyList = ObservableBuffer[Supply]()
+  val selectedSupplyId = IntegerProperty(0)
+
+  def listSupplies(poolId: Int): Unit = {
+    supplyList.clear()
+    supplyList ++= await(supplies.list(poolId))
+  }
+
+  def addSupply(supply: Supply): Supply = {
+    val newId = await(supplies.save(supply))
+    val newSupply = supply.copy(id = newId.get)
+    supplyList += newSupply
+    selectedSupplyId.value = newSupply.id
+    newSupply
+  }
+
+  def updateSupply(selectedIndex: Int, supply: Supply): Unit = {
+    await(supplies.save(supply))
+    supplyList.update(selectedIndex, supply)
+    supplyList.sorted
   }
 
   val repairList = ObservableBuffer[Repair]()

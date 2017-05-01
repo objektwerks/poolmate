@@ -104,20 +104,22 @@ case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, che
   val amountProperty = new StringProperty(this, "amount", amount.toString)
 }
 
-case class Supply(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double = 0.0, description: String = "description") {
+case class Supply(id: Int = 0, poolId: Int, purchased: LocalDate = LocalDate.now, item: String = "chlorine", unit: String = "gallons", amount: Double = 1.0, cost: Double = 0.0) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-  val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
+  val purchasedProperty = new StringProperty(this, "purchased", purchased.format(dateFormatter))
+  val itemProperty = new StringProperty(this, "item", item)
+  val unitProperty = new StringProperty(this, "unit", unit)
+  val amountProperty = new StringProperty(this, "amount", amount.toString)
   val costProperty = new StringProperty(this, "cost", cost.toString)
-  val descriptionProperty = new StringProperty(this, "description", description)
 }
 
-case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, cost: Double = 0.0, description: String = "description") {
+case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, repair: String = "repair", cost: Double = 0.0) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
   val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
+  val repairProperty = new StringProperty(this, "description", repair)
   val costProperty = new StringProperty(this, "cost", cost.toString)
-  val descriptionProperty = new StringProperty(this, "description", description)
 }
 
 object Entity {
@@ -145,7 +147,7 @@ object Entity {
 
   implicit def additiveOrdering: Ordering[Additive] = Ordering.by(_.on)
 
-  implicit def supplyOrdering: Ordering[Supply] = Ordering.by(_.on)
+  implicit def supplyOrdering: Ordering[Supply] = Ordering.by(_.purchased)
 
   implicit def repairOrdering: Ordering[Repair] = Ordering.by(_.on)
 }
