@@ -25,6 +25,8 @@ case class Owner(id: Int = 0, poolId: Int, since: LocalDate = LocalDate.now, fir
   val firstProperty = new StringProperty(this, "first", first)
   val lastroperty = new StringProperty(this, "last", last)
   val emailProperty = new StringProperty(this, "email", email)
+
+  val owner = this
 }
 
 case class Surface(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, kind: String = "kind") {
@@ -32,6 +34,8 @@ case class Surface(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.no
 
   val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
   val kindProperty = new StringProperty(this, "kind", kind)
+
+  val surface = this
 }
 
 case class Pump(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, model: String = "model") {
@@ -39,6 +43,8 @@ case class Pump(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, 
 
   val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
   val modelProperty = new StringProperty(this, "model", model)
+
+  val pump = this
 }
 
 case class Timer(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, model: String = "model") {
@@ -46,6 +52,8 @@ case class Timer(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now,
 
   val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
   val modelProperty = new StringProperty(this, "model", model)
+
+  val timer = this
 }
 
 case class Heater(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now, model: String = "model") {
@@ -53,6 +61,8 @@ case class Heater(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now
 
   val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
   val modelProperty = new StringProperty(this, "model", model)
+
+  val heater = this
 }
 
 case class Lifecycle(id: Int = 0, poolId: Int, created: LocalDate = LocalDate.now, active: Boolean = true,
@@ -64,6 +74,8 @@ case class Lifecycle(id: Int = 0, poolId: Int, created: LocalDate = LocalDate.no
   val activeProperty = new StringProperty(this, "active", active.toString)
   val pumpOnProperty = new StringProperty(this, "pumpOn", pumpOn.format(timeFormatter))
   val pumpOffProperty = new StringProperty(this, "pumpOff", pumpOff.format(timeFormatter))
+
+  val lifecycle = this
 }
 
 case class Cleaning(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, deck: Boolean = true, brush: Boolean = true, net: Boolean = true,
@@ -78,6 +90,8 @@ case class Cleaning(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, dec
   val skimmerBasketProperty = new StringProperty(this, "skimmerBasket", skimmerBasket.toString)
   val pumpBasketProperty = new StringProperty(this, "pumpBasket", pumpBasket.toString)
   val pumpFilterProperty = new StringProperty(this, "pumpFilter", pumpFilter.toString)
+
+  val cleaning = this
 }
 
 case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, temp: Int = 75, hardness: Int = 375, totalChlorine: Int = 3,
@@ -93,6 +107,8 @@ case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, 
   val pHProperty = new StringProperty(this, "pH", pH.toString)
   val alkalinityProperty = new StringProperty(this, "alkalinity", alkalinity.toString)
   val cyanuricAcidProperty = new StringProperty(this, "cyanuricAcid", cyanuricAcid.toString)
+
+  val measurement = this
 }
 
 case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String = "chlorine", unit: String = "gallons", amount: Double = 1.0) {
@@ -102,6 +118,8 @@ case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, che
   val chemicalProperty = new StringProperty(this, "chemical", chemical)
   val unitProperty = new StringProperty(this, "unit", unit)
   val amountProperty = new StringProperty(this, "amount", amount.toString)
+
+  val additive = this
 }
 
 case class Supply(id: Int = 0, poolId: Int, purchased: LocalDate = LocalDate.now, item: String = "chlorine", unit: String = "gallons", amount: Double = 1.0, cost: Double = 0.0) {
@@ -112,14 +130,18 @@ case class Supply(id: Int = 0, poolId: Int, purchased: LocalDate = LocalDate.now
   val unitProperty = new StringProperty(this, "unit", unit)
   val amountProperty = new StringProperty(this, "amount", amount.toString)
   val costProperty = new StringProperty(this, "cost", cost.toString)
+
+  val supply = this
 }
 
-case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, repair: String = "repair", cost: Double = 0.0) {
+case class Repair(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, item: String = "repair", cost: Double = 0.0) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
   val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
-  val repairProperty = new StringProperty(this, "description", repair)
+  val itemProperty = new StringProperty(this, "item", item)
   val costProperty = new StringProperty(this, "cost", cost.toString)
+
+  val repair = this
 }
 
 object Entity {
