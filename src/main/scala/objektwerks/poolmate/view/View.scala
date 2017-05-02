@@ -13,8 +13,9 @@ class View(conf: Config, model: Model) {
   val poolPane = new PoolPane(conf, model)
   val ownerPane = new OwnerPane(conf, model)
   val surfacePane = new SurfacePane(conf, model)
+  val timerPane = new TimerPane(conf, model)
   val pumpPane = new PumpPane(conf, model)
-  val westPane = new VBox { spacing = 6; padding = Insets(6); children = List(poolPane, ownerPane, surfacePane, pumpPane) }
+  val westPane = new VBox { spacing = 6; padding = Insets(6); children = List(poolPane, ownerPane, surfacePane, pumpPane, timerPane) }
   val eastPane = new VBox { spacing = 6; padding = Insets(6); children = List() }
 
   val menuPane = new MenuPane(conf)
