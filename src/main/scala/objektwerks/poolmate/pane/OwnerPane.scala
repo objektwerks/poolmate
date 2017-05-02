@@ -11,7 +11,7 @@ import scalafx.scene.control.TableColumn._
 import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
-class OwnerPane(conf: Config, model: Model) extends VBox  {
+class OwnerPane(conf: Config, model: Model) extends VBox {
   val ownerLabel = new Label { text = conf.getString("owners") }
   val ownerTableView = new TableView[Owner]() {
     columns ++= List(

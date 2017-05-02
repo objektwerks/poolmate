@@ -10,7 +10,7 @@ import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-class OwnerDialog(conf: Config, owner: Owner) extends Dialog[Owner]()  {
+class OwnerDialog(conf: Config, owner: Owner) extends Dialog[Owner]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   val sinceDatePicker = new DatePicker { value = owner.since }
   val firstTextField = new TextField { text = owner.first }
