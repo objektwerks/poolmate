@@ -65,8 +65,7 @@ case class Heater(id: Int = 0, poolId: Int, installed: LocalDate = LocalDate.now
   val heater = this
 }
 
-case class Lifecycle(id: Int = 0, poolId: Int, created: LocalDate = LocalDate.now, active: Boolean = true,
-                     pumpOn: LocalTime, pumpOff: LocalTime) {
+case class Lifecycle(id: Int = 0, poolId: Int, created: LocalDate = LocalDate.now, active: Boolean = true, pumpOn: LocalTime, pumpOff: LocalTime) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
   val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
 
