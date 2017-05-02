@@ -2,7 +2,7 @@ package objektwerks.poolmate.dialog
 
 import com.typesafe.config.Config
 import objektwerks.poolmate.App
-import objektwerks.poolmate.entity.Surface
+import objektwerks.poolmate.entity.Pump
 import objektwerks.poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -10,13 +10,13 @@ import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-class SurfaceDialog(conf: Config, surface: Surface) extends Dialog[Surface]() {
+class PumpDialog(conf: Config, pump: Pump) extends Dialog[Pump]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val installedDatePicker = new DatePicker { value = surface.installed }
-  val kindTextField = new TextField { text = surface.kind }
+  val installedDatePicker = new DatePicker { value = pump.installed }
+  val modelTextField = new TextField { text = pump.model }
   val controls = List[(String, Region)](
-    conf.getString("surface-installed") -> installedDatePicker,
-    conf.getString("surface-kind") -> kindTextField
+    conf.getString("pump-installed") -> installedDatePicker,
+    conf.getString("pump-model") -> modelTextField
   )
   val controlGridPane = new ControlGridPane(controls)
   val dialog = dialogPane()
@@ -25,14 +25,14 @@ class SurfaceDialog(conf: Config, surface: Surface) extends Dialog[Surface]() {
 
   initOwner(App.stage)
   title = conf.getString("title")
-  headerText = conf.getString("save-surface")
+  headerText = conf.getString("save-pump")
 
   val saveButton = dialog.lookupButton(saveButtonType)
-  kindTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
+  modelTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      surface.copy(installed = installedDatePicker.value.value, kind = kindTextField.text.value)
+      pump.copy(installed = installedDatePicker.value.value, model = modelTextField.text.value)
     else null
   }
 }

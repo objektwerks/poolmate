@@ -2,7 +2,7 @@ package objektwerks.poolmate.view
 
 import com.typesafe.config.Config
 import objektwerks.poolmate.model.Model
-import objektwerks.poolmate.pane.{MenuPane, OwnerPane, PoolPane, SurfacePane}
+import objektwerks.poolmate.pane._
 
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
@@ -13,7 +13,8 @@ class View(conf: Config, model: Model) {
   val poolPane = new PoolPane(conf, model)
   val ownerPane = new OwnerPane(conf, model)
   val surfacePane = new SurfacePane(conf, model)
-  val westPane = new VBox { spacing = 6; padding = Insets(6); children = List(poolPane, ownerPane, surfacePane) }
+  val pumpPane = new PumpPane(conf, model)
+  val westPane = new VBox { spacing = 6; padding = Insets(6); children = List(poolPane, ownerPane, surfacePane, pumpPane) }
   val eastPane = new VBox { spacing = 6; padding = Insets(6); children = List() }
 
   val menuPane = new MenuPane(conf)
