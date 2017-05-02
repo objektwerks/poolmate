@@ -38,7 +38,7 @@ Measurements
 UI
 --
 west pane - pools, owners, surfaces, pumps, timers, heaters
-east pane - cleanings, measurements, supplies, repairs
+east pane - lifecycles, cleanings, measurements, supplies, repairs
 
 Test
 ----
