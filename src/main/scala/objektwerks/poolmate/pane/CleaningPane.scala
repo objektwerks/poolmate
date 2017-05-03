@@ -24,7 +24,6 @@ class CleaningPane(conf: Config, model: Model) extends VBox {
       new TableColumn[Cleaning, String] { text = conf.getString("cleaning-table-column-pump-basket"); cellValueFactory = { _.value.pumpBasketProperty } },
       new TableColumn[Cleaning, String] { text = conf.getString("cleaning-table-column-pump-filter"); cellValueFactory = { _.value.pumpFilterProperty } }
     )
-    prefHeight = 100
     items = model.cleaningList
   }
   cleaningTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single

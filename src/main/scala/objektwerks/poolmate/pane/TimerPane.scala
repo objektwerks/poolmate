@@ -18,7 +18,6 @@ class TimerPane(conf: Config, model: Model) extends VBox {
       new TableColumn[Timer, String] { text = conf.getString("timer-table-column-installed"); cellValueFactory = { _.value.installedProperty } },
       new TableColumn[Timer, String] { text = conf.getString("timer-table-column-model"); cellValueFactory = { _.value.modelProperty } }
     )
-    prefHeight = 100
     items = model.timerList
   }
   timerTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single

@@ -21,7 +21,6 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
       new TableColumn[Supply, String] { text = conf.getString("supply-table-column-amount"); cellValueFactory = { _.value.amountProperty } },
       new TableColumn[Supply, String] { text = conf.getString("supply-table-column-cost"); cellValueFactory = { _.value.costProperty } }
     )
-    prefHeight = 100
     items = model.supplyList
   }
   supplyTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single

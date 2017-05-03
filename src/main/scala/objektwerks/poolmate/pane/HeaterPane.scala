@@ -18,7 +18,6 @@ class HeaterPane(conf: Config, model: Model) extends VBox {
       new TableColumn[Heater, String] { text = conf.getString("heater-table-column-installed"); cellValueFactory = { _.value.installedProperty } },
       new TableColumn[Heater, String] { text = conf.getString("heater-table-column-model"); cellValueFactory = { _.value.modelProperty } }
     )
-    prefHeight = 100
     items = model.heaterList
   }
   heaterTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single

@@ -18,7 +18,6 @@ class SurfacePane(conf: Config, model: Model) extends VBox {
       new TableColumn[Surface, String] { text = conf.getString("surface-table-column-installed"); cellValueFactory = { _.value.installedProperty } },
       new TableColumn[Surface, String] { text = conf.getString("surface-table-column-kind"); cellValueFactory = { _.value.kindProperty } }
     )
-    prefHeight = 100
     items = model.surfaceList
   }
   surfaceTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single

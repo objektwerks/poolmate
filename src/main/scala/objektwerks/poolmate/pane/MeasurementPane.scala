@@ -25,7 +25,6 @@ class MeasurementPane(conf: Config, model: Model) extends VBox {
       new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-alkalinity"); cellValueFactory = { _.value.alkalinityProperty } },
       new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-cyanuric-acid"); cellValueFactory = { _.value.cyanuricAcidProperty } }
     )
-    prefHeight = 100
     items = model.measurementList
   }
   measurementTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single

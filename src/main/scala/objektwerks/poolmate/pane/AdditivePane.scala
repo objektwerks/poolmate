@@ -20,7 +20,6 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
       new TableColumn[Additive, String] { text = conf.getString("additive-table-column-unit"); cellValueFactory = { _.value.unitProperty } },
       new TableColumn[Additive, String] { text = conf.getString("additive-table-column-amount"); cellValueFactory = { _.value.amountProperty } }
     )
-    prefHeight = 100
     items = model.additiveList
   }
   additiveTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single

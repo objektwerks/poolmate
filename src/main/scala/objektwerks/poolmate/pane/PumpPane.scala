@@ -18,7 +18,6 @@ class PumpPane(conf: Config, model: Model) extends VBox {
       new TableColumn[Pump, String] { text = conf.getString("pump-table-column-installed"); cellValueFactory = { _.value.installedProperty } },
       new TableColumn[Pump, String] { text = conf.getString("pump-table-column-model"); cellValueFactory = { _.value.modelProperty } }
     )
-    prefHeight = 100
     items = model.pumpList
   }
   pumpTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single

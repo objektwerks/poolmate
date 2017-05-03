@@ -19,7 +19,6 @@ class RepairPane(conf: Config, model: Model) extends VBox {
       new TableColumn[Repair, String] { text = conf.getString("repair-table-column-item"); cellValueFactory = { _.value.itemProperty } },
       new TableColumn[Repair, String] { text = conf.getString("repair-table-column-cost"); cellValueFactory = { _.value.costProperty } }
     )
-    prefHeight = 100
     items = model.repairList
   }
   repairTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
