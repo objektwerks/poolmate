@@ -20,7 +20,6 @@ class OwnerPane(conf: Config, model: Model) extends VBox {
       new TableColumn[Owner, String] { text = conf.getString("owner-table-column-last"); cellValueFactory = { _.value.lastroperty } },
       new TableColumn[Owner, String] { text = conf.getString("owner-table-column-email"); cellValueFactory = { _.value.emailProperty } }
     )
-    prefHeight = 100
     items = model.ownerList
   }
   ownerTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single

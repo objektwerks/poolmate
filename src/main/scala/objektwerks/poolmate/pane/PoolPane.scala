@@ -22,7 +22,6 @@ class PoolPane(conf: Config, model: Model) extends VBox  {
       new TableColumn[Pool, String] { text = conf.getString("pool-table-column-state"); cellValueFactory = { _.value.stateProperty } },
       new TableColumn[Pool, String] { text = conf.getString("pool-table-column-zip"); cellValueFactory = { _.value.zipProperty } }
     )
-    prefHeight = 100
     items = model.poolList
   }
   poolTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
