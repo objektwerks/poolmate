@@ -37,16 +37,9 @@ Measurements
 
 UI
 --
+tabs - surfaces, pumps, timers, heaters, repairs **, supplies **, lifecycles, cleanings, measurements **, additives **
 north pane - pools, owners
 south pane - parts, repairs, supplies, timers, cleanings, measurements
-
-parts tab - surfaces, pumps, timers, heaters
-repairs tab - repairs **
-supplies tab - supplies **
-timers tab - lifecycles
-cleanings tab - cleanings
-measurements tab - measurements **
-additives tab - additives **
 
 ** Charts
 
