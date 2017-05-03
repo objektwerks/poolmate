@@ -46,6 +46,7 @@ supplies tab - supplies **
 timers tab - lifecycles
 cleanings tab - cleanings
 measurements tab - measurements **
+additives tab - additives **
 
 ** Charts
 
