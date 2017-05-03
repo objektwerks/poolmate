@@ -20,10 +20,11 @@ class View(conf: Config, model: Model) {
 
   val lifecyclePane = new LifecyclePane(conf, model)
   val cleaningPane = new CleaningPane(conf, model)
+  val measurementPane = new MeasurementPane(conf, model)
   val additivePane = new AdditivePane(conf, model)
   val supplyPane = new SupplyPane(conf, model)
   val repairPane = new RepairPane(conf, model)
-  val eastPane = new VBox { spacing = 6; padding = Insets(6); children = List(lifecyclePane, cleaningPane, additivePane, supplyPane, repairPane) }
+  val eastPane = new VBox { spacing = 6; padding = Insets(6); children = List(lifecyclePane, cleaningPane, measurementPane, additivePane, supplyPane, repairPane) }
 
   val menuPane = new MenuPane(conf)
   val splitPane = new SplitPane { vgrow = Priority.Always; hgrow = Priority.Always; padding = Insets(6); items.addAll(westPane, eastPane) }
