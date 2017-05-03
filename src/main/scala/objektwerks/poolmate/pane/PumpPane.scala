@@ -12,7 +12,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class PumpPane(conf: Config, model: Model) extends VBox {
-  val pumpLabel = new Label { text = conf.getString("pumps") }
   val pumpTableView = new TableView[Pump]() {
     columns ++= List(
       new TableColumn[Pump, String] { text = conf.getString("pump-table-column-installed"); cellValueFactory = { _.value.installedProperty } },
@@ -26,7 +25,7 @@ class PumpPane(conf: Config, model: Model) extends VBox {
   val pumpToolBar = new HBox { spacing = 6; children = List(pumpAddButton, pumpEditButton) }
 
   spacing = 6
-  children = List(pumpLabel, pumpTableView, pumpToolBar)
+  children = List(pumpTableView, pumpToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listPumps(selectedPoolId.intValue)

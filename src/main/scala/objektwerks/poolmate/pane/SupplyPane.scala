@@ -12,7 +12,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class SupplyPane(conf: Config, model: Model) extends VBox {
-  val supplyLabel = new Label { text = conf.getString("supplies") }
   val supplyTableView = new TableView[Supply]() {
     columns ++= List(
       new TableColumn[Supply, String] { text = conf.getString("supply-table-column-purchased"); cellValueFactory = { _.value.purchasedProperty } },
@@ -29,7 +28,7 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
   val supplyToolBar = new HBox { spacing = 6; children = List(supplyAddButton, supplyEditButton) }
 
   spacing = 6
-  children = List(supplyLabel, supplyTableView, supplyToolBar)
+  children = List(supplyTableView, supplyToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listSupplies(selectedPoolId.intValue)

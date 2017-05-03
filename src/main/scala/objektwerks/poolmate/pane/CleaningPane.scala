@@ -12,7 +12,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class CleaningPane(conf: Config, model: Model) extends VBox {
-  val cleaningLabel = new Label { text = conf.getString("cleanings") }
   val cleaningTableView = new TableView[Cleaning]() {
     columns ++= List(
       new TableColumn[Cleaning, String] { text = conf.getString("cleaning-table-column-on"); cellValueFactory = { _.value.onProperty } },
@@ -32,7 +31,7 @@ class CleaningPane(conf: Config, model: Model) extends VBox {
   val cleaningToolBar = new HBox { spacing = 6; children = List(cleaningAddButton, cleaningEditButton) }
 
   spacing = 6
-  children = List(cleaningLabel, cleaningTableView, cleaningToolBar)
+  children = List(cleaningTableView, cleaningToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listCleanings(selectedPoolId.intValue)

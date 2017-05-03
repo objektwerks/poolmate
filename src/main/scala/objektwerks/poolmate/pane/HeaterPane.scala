@@ -12,7 +12,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class HeaterPane(conf: Config, model: Model) extends VBox {
-  val heaterLabel = new Label { text = conf.getString("heaters") }
   val heaterTableView = new TableView[Heater]() {
     columns ++= List(
       new TableColumn[Heater, String] { text = conf.getString("heater-table-column-installed"); cellValueFactory = { _.value.installedProperty } },
@@ -26,7 +25,7 @@ class HeaterPane(conf: Config, model: Model) extends VBox {
   val heaterToolBar = new HBox { spacing = 6; children = List(heaterAddButton, heaterEditButton) }
 
   spacing = 6
-  children = List(heaterLabel, heaterTableView, heaterToolBar)
+  children = List(heaterTableView, heaterToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listHeaters(selectedPoolId.intValue)

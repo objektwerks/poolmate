@@ -12,7 +12,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class LifecyclePane(conf: Config, model: Model) extends VBox {
-  val lifecycleLabel = new Label { text = conf.getString("lifecycles") }
   val lifecycleTableView = new TableView[Lifecycle]() {
     columns ++= List(
       new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-table-column-created"); cellValueFactory = { _.value.createdProperty } },
@@ -28,7 +27,7 @@ class LifecyclePane(conf: Config, model: Model) extends VBox {
   val lifecycleToolBar = new HBox { spacing = 6; children = List(lifecycleAddButton, lifecycleEditButton) }
 
   spacing = 6
-  children = List(lifecycleLabel, lifecycleTableView, lifecycleToolBar)
+  children = List(lifecycleTableView, lifecycleToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listLifecycles(selectedPoolId.intValue)

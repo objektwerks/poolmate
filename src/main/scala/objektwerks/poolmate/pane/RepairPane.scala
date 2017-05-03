@@ -12,7 +12,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class RepairPane(conf: Config, model: Model) extends VBox {
-  val repairLabel = new Label { text = conf.getString("repairs") }
   val repairTableView = new TableView[Repair]() {
     columns ++= List(
       new TableColumn[Repair, String] { text = conf.getString("repair-table-column-on"); cellValueFactory = { _.value.onProperty } },
@@ -27,7 +26,7 @@ class RepairPane(conf: Config, model: Model) extends VBox {
   val repairToolBar = new HBox { spacing = 6; children = List(repairAddButton, repairEditButton) }
 
   spacing = 6
-  children = List(repairLabel, repairTableView, repairToolBar)
+  children = List(repairTableView, repairToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listRepairs(selectedPoolId.intValue)

@@ -12,7 +12,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class MeasurementPane(conf: Config, model: Model) extends VBox {
-  val measurementLabel = new Label { text = conf.getString("measurements") }
   val measurementTableView = new TableView[Measurement]() {
     columns ++= List(
       new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-on"); cellValueFactory = { _.value.onProperty } },
@@ -33,7 +32,7 @@ class MeasurementPane(conf: Config, model: Model) extends VBox {
   val measurementToolBar = new HBox { spacing = 6; children = List(measurementAddButton, measurementEditButton) }
 
   spacing = 6
-  children = List(measurementLabel, measurementTableView, measurementToolBar)
+  children = List(measurementTableView, measurementToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listMeasurements(selectedPoolId.intValue)

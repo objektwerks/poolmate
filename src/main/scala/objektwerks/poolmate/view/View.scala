@@ -19,6 +19,10 @@ class View(conf: Config, model: Model) {
   val ownersContent = new VBox { spacing = 6; padding = Insets(6); children = List(ownerPane) }
   val ownersTab = new Tab { text = conf.getString("owners-tab"); content = ownersContent }
 
+  val supplyPane = new SupplyPane(conf, model)
+  val suppliesContent = new VBox { spacing = 6; padding = Insets(6); children = List(supplyPane) }
+  val suppliesTab = new Tab { text = conf.getString("supplies-tab"); content = suppliesContent }
+
   val lifecyclePane = new LifecyclePane(conf, model)
   val lifecyclesContent = new VBox { spacing = 6; padding = Insets(6); children = List(lifecyclePane) }
   val lifecyclesTab = new Tab { text = conf.getString("lifecycles-tab"); content = lifecyclesContent }
@@ -35,7 +39,7 @@ class View(conf: Config, model: Model) {
   val additivesContent = new VBox { spacing = 6; padding = Insets(6); children = List(additivePane) }
   val additivesTab = new Tab { text = conf.getString("additives-tab"); content = additivesContent }
 
-  val northPane = new TabPane { padding = Insets(6); tabs = ObservableBuffer(poolsTab, ownersTab, lifecyclesTab, cleaningsTab, measurementsTab, additivesTab) }
+  val northPane = new TabPane { padding = Insets(6); tabs = ObservableBuffer(poolsTab, ownersTab, suppliesTab, lifecyclesTab, cleaningsTab, measurementsTab, additivesTab) }
 
   val surfacePane = new SurfacePane(conf, model)
   val surfacesContent = new VBox { spacing = 6; padding = Insets(6); children = List(surfacePane) }
@@ -57,18 +61,15 @@ class View(conf: Config, model: Model) {
   val repairsContent = new VBox { spacing = 6; padding = Insets(6); children = List(repairPane) }
   val repairsTab = new Tab { text = conf.getString("repairs-tab"); content = repairsContent }
 
-  val supplyPane = new SupplyPane(conf, model)
-  val suppliesContent = new VBox { spacing = 6; padding = Insets(6); children = List(supplyPane) }
-  val suppliesTab = new Tab { text = conf.getString("supplies-tab"); content = suppliesContent }
-
-  val southPane = new TabPane { padding = Insets(6); tabs = ObservableBuffer(surfacesTab, timersTab, pumpsTab, heatersTab, repairsTab, suppliesTab, lifecyclesTab, cleaningsTab, measurementsTab, additivesTab) }
+  val southPane = new TabPane { padding = Insets(6); tabs = ObservableBuffer(surfacesTab, timersTab, pumpsTab, heatersTab, repairsTab) }
 
   val menuPane = new MenuPane(conf)
   val splitPane = new SplitPane { orientation = Orientation.Vertical ; vgrow = Priority.Always; hgrow = Priority.Always; padding = Insets(6); items.addAll(northPane, southPane) }
-  splitPane.setDividerPositions(0.3, 0.7)
+  splitPane.setDividerPositions(0.7, 0.3)
   splitPane.autosize()
 
-  val contentPane = new VBox { prefHeight = 600; prefWidth = 800; spacing = 6; padding = Insets(6); children = List(menuPane, splitPane) }
+  val contentPane = new VBox { prefHeight = conf.getInt("height"); prefWidth = conf.getInt("width"); spacing = 6; padding = Insets(6); children = List(menuPane, splitPane) }
   val sceneGraph = new Scene { root = contentPane }
 
-  model.listPools()}
+  model.listPools()
+}

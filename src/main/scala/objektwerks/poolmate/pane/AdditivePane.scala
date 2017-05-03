@@ -12,7 +12,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class AdditivePane(conf: Config, model: Model) extends VBox {
-  val additiveLabel = new Label { text = conf.getString("additives") }
   val additiveTableView = new TableView[Additive]() {
     columns ++= List(
       new TableColumn[Additive, String] { text = conf.getString("additive-table-column-on"); cellValueFactory = { _.value.onProperty } },
@@ -28,7 +27,7 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
   val additiveToolBar = new HBox { spacing = 6; children = List(additiveAddButton, additiveEditButton) }
 
   spacing = 6
-  children = List(additiveLabel, additiveTableView, additiveToolBar)
+  children = List(additiveTableView, additiveToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listAdditives(selectedPoolId.intValue)

@@ -12,7 +12,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class SurfacePane(conf: Config, model: Model) extends VBox {
-  val surfaceLabel = new Label { text = conf.getString("surfaces") }
   val surfaceTableView = new TableView[Surface]() {
     columns ++= List(
       new TableColumn[Surface, String] { text = conf.getString("surface-table-column-installed"); cellValueFactory = { _.value.installedProperty } },
@@ -26,7 +25,7 @@ class SurfacePane(conf: Config, model: Model) extends VBox {
   val surfaceToolBar = new HBox { spacing = 6; children = List(surfaceAddButton, surfaceEditButton) }
 
   spacing = 6
-  children = List(surfaceLabel, surfaceTableView, surfaceToolBar)
+  children = List(surfaceTableView, surfaceToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listSurfaces(selectedPoolId.intValue)
