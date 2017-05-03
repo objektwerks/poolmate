@@ -17,7 +17,9 @@ class View(conf: Config, model: Model) {
   val pumpPane = new PumpPane(conf, model)
   val heaterPane = new HeaterPane(conf, model)
   val westPane = new VBox { spacing = 6; padding = Insets(6); children = List(poolPane, ownerPane, surfacePane, pumpPane, timerPane, heaterPane) }
-  val eastPane = new VBox { spacing = 6; padding = Insets(6); children = List() }
+
+  val lifecyclePane = new LifecyclePane(conf, model)
+  val eastPane = new VBox { spacing = 6; padding = Insets(6); children = List(lifecyclePane) }
 
   val menuPane = new MenuPane(conf)
   val splitPane = new SplitPane { vgrow = Priority.Always; hgrow = Priority.Always; padding = Insets(6); items.addAll(westPane, eastPane) }
