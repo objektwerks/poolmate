@@ -65,7 +65,7 @@ class View(conf: Config, model: Model) {
 
   val menuPane = new MenuPane(conf)
   val splitPane = new SplitPane { orientation = Orientation.Vertical ; vgrow = Priority.Always; hgrow = Priority.Always; padding = Insets(6); items.addAll(northPane, southPane) }
-  splitPane.setDividerPositions(0.7, 0.3)
+  splitPane.setDividerPositions(0.6, 0.4)
   splitPane.autosize()
 
   val contentPane = new VBox { prefHeight = conf.getInt("height"); prefWidth = conf.getInt("width"); spacing = 6; padding = Insets(6); children = List(menuPane, splitPane) }
