@@ -13,6 +13,7 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class OwnerPane(conf: Config, model: Model) extends VBox {
+  val ownerLabel = new Label { text = conf.getString("owners") }
   val ownerTableView = new TableView[Owner]() {
     columns ++= List(
       new TableColumn[Owner, String] { text = conf.getString("owner-table-column-since"); cellValueFactory = { _.value.sinceProperty } },
@@ -29,7 +30,7 @@ class OwnerPane(conf: Config, model: Model) extends VBox {
 
   spacing = 6
   padding = Insets(6)
-  children = List(ownerTableView, ownerToolBar)
+  children = List(ownerLabel, ownerTableView, ownerToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listOwners(selectedPoolId.intValue)

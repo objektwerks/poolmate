@@ -13,6 +13,7 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class PoolPane(conf: Config, model: Model) extends VBox  {
+  val poolLabel = new Label { text = conf.getString("pools") }
   val poolTableView = new TableView[Pool]() {
     columns ++= List(
       new TableColumn[Pool, String] { text = conf.getString("pool-table-column-built"); cellValueFactory = { _.value.builtProperty } },
@@ -31,7 +32,7 @@ class PoolPane(conf: Config, model: Model) extends VBox  {
 
   spacing = 6
   padding = Insets(6)
-  children = List(poolTableView, poolToolBar)
+  children = List(poolLabel, poolTableView, poolToolBar)
 
   poolTableView.selectionModel().selectedItemProperty().addListener { (_, _, selectedPool) =>
     // model.update executes a remove and add on items. the remove passes a null selectedPool!
