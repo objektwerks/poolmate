@@ -26,7 +26,8 @@ class View(conf: Config, model: Model) {
   val additivePane = new AdditivePane(conf, model)
   val additivesTab = new Tab { text = conf.getString("additives-tab"); closable = false; content = additivePane }
 
-  val eastTabPane = new TabPane { padding = Insets(6); tabs = ObservableBuffer(suppliesTab, lifecyclesTab, cleaningsTab, measurementsTab, additivesTab) }
+  val eastTabPane = new TabPane { tabs = ObservableBuffer(suppliesTab, lifecyclesTab, cleaningsTab, measurementsTab, additivesTab) }
+  val eastPane = new VBox { children = List(eastTabPane) }
 
   val surfacePane = new SurfacePane(conf, model)
   val surfacesTab = new Tab { text = conf.getString("surfaces-tab"); closable = false; content = surfacePane }
@@ -50,9 +51,8 @@ class View(conf: Config, model: Model) {
   val westPane = new VBox { children = List(poolPane, ownerPane, westTabPane) }
 
   val menuPane = new MenuPane(conf)
-  val splitPane = new SplitPane { orientation = Orientation.Horizontal; padding = Insets(6); items.addAll(westPane, eastTabPane) }
+  val splitPane = new SplitPane { orientation = Orientation.Horizontal; padding = Insets(6); items.addAll(westPane, eastPane) }
   splitPane.setDividerPositions(0.4, 0.6)
-  splitPane.autosize()
 
   val contentPane = new VBox { prefHeight = conf.getInt("height"); prefWidth = conf.getInt("width"); spacing = 6; padding = Insets(6); children = List(menuPane, splitPane) }
   val sceneGraph = new Scene { root = contentPane }
