@@ -8,7 +8,7 @@ import scalafx.collections.ObservableBuffer
 import scalafx.geometry.{Insets, Orientation}
 import scalafx.scene.Scene
 import scalafx.scene.control.{SplitPane, Tab, TabPane}
-import scalafx.scene.layout.{Priority, VBox}
+import scalafx.scene.layout.VBox
 
 class View(conf: Config, model: Model) {
   val supplyPane = new SupplyPane(conf, model)
@@ -50,7 +50,7 @@ class View(conf: Config, model: Model) {
   val westPane = new VBox { children = List(poolPane, ownerPane, westTabPane) }
 
   val menuPane = new MenuPane(conf)
-  val splitPane = new SplitPane { orientation = Orientation.Horizontal; vgrow = Priority.Always; hgrow = Priority.Always; padding = Insets(6); items.addAll(westPane, eastTabPane) }
+  val splitPane = new SplitPane { orientation = Orientation.Horizontal; padding = Insets(6); items.addAll(westPane, eastTabPane) }
   splitPane.setDividerPositions(0.4, 0.6)
   splitPane.autosize()
 
