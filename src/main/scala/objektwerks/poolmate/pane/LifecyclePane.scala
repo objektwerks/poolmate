@@ -7,6 +7,7 @@ import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
 
 import scalafx.Includes._
+import scalafx.geometry.Insets
 import scalafx.scene.control.TableColumn._
 import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
@@ -27,6 +28,7 @@ class LifecyclePane(conf: Config, model: Model) extends VBox {
   val lifecycleToolBar = new HBox { spacing = 6; children = List(lifecycleAddButton, lifecycleEditButton) }
 
   spacing = 6
+  padding = Insets(6)
   children = List(lifecycleTableView, lifecycleToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>

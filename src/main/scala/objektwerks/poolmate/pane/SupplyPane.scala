@@ -7,6 +7,7 @@ import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
 
 import scalafx.Includes._
+import scalafx.geometry.Insets
 import scalafx.scene.control.TableColumn._
 import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
@@ -28,6 +29,7 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
   val supplyToolBar = new HBox { spacing = 6; children = List(supplyAddButton, supplyEditButton) }
 
   spacing = 6
+  padding = Insets(6)
   children = List(supplyTableView, supplyToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>

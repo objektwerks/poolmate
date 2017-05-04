@@ -12,54 +12,42 @@ import scalafx.scene.layout.{Priority, VBox}
 
 class View(conf: Config, model: Model) {
   val poolPane = new PoolPane(conf, model)
-  val poolsContent = new VBox { spacing = 6; padding = Insets(6); children = List(poolPane) }
-  val poolsTab = new Tab { text = conf.getString("pools-tab"); closable = false; content = poolsContent }
+  val poolsTab = new Tab { text = conf.getString("pools-tab"); closable = false; content = poolPane }
 
   val ownerPane = new OwnerPane(conf, model)
-  val ownersContent = new VBox { spacing = 6; padding = Insets(6); children = List(ownerPane) }
-  val ownersTab = new Tab { text = conf.getString("owners-tab"); closable = false; content = ownersContent }
+  val ownersTab = new Tab { text = conf.getString("owners-tab"); closable = false; content = ownerPane }
 
   val supplyPane = new SupplyPane(conf, model)
-  val suppliesContent = new VBox { spacing = 6; padding = Insets(6); children = List(supplyPane) }
-  val suppliesTab = new Tab { text = conf.getString("supplies-tab"); closable = false; content = suppliesContent }
+  val suppliesTab = new Tab { text = conf.getString("supplies-tab"); closable = false; content = supplyPane }
 
   val lifecyclePane = new LifecyclePane(conf, model)
-  val lifecyclesContent = new VBox { spacing = 6; padding = Insets(6); children = List(lifecyclePane) }
-  val lifecyclesTab = new Tab { text = conf.getString("lifecycles-tab"); closable = false; content = lifecyclesContent }
+  val lifecyclesTab = new Tab { text = conf.getString("lifecycles-tab"); closable = false; content = lifecyclePane }
 
   val cleaningPane = new CleaningPane(conf, model)
-  val cleaningsContent = new VBox { spacing = 6; padding = Insets(6); children = List(cleaningPane) }
-  val cleaningsTab = new Tab { text = conf.getString("cleanings-tab"); closable = false; content = cleaningsContent }
+  val cleaningsTab = new Tab { text = conf.getString("cleanings-tab"); closable = false; content = cleaningPane }
 
   val measurementPane = new MeasurementPane(conf, model)
-  val measurementsContent = new VBox { spacing = 6; padding = Insets(6); children = List(measurementPane) }
-  val measurementsTab = new Tab { text = conf.getString("measurements-tab"); closable = false; content = measurementsContent }
+  val measurementsTab = new Tab { text = conf.getString("measurements-tab"); closable = false; content = measurementPane }
 
   val additivePane = new AdditivePane(conf, model)
-  val additivesContent = new VBox { spacing = 6; padding = Insets(6); children = List(additivePane) }
-  val additivesTab = new Tab { text = conf.getString("additives-tab"); closable = false; content = additivesContent }
+  val additivesTab = new Tab { text = conf.getString("additives-tab"); closable = false; content = additivePane }
 
   val northPane = new TabPane { padding = Insets(6); tabs = ObservableBuffer(poolsTab, ownersTab, suppliesTab, lifecyclesTab, cleaningsTab, measurementsTab, additivesTab) }
 
   val surfacePane = new SurfacePane(conf, model)
-  val surfacesContent = new VBox { spacing = 6; padding = Insets(6); children = List(surfacePane) }
-  val surfacesTab = new Tab { text = conf.getString("surfaces-tab"); closable = false; content = surfacesContent }
+  val surfacesTab = new Tab { text = conf.getString("surfaces-tab"); closable = false; content = surfacePane }
 
   val timerPane = new TimerPane(conf, model)
-  val timersContent = new VBox { spacing = 6; padding = Insets(6); children = List(timerPane) }
-  val timersTab = new Tab { text = conf.getString("timers-tab"); closable = false; content = timersContent }
+  val timersTab = new Tab { text = conf.getString("timers-tab"); closable = false; content = timerPane }
 
   val pumpPane = new PumpPane(conf, model)
-  val pumpsContent = new VBox { spacing = 6; padding = Insets(6); children = List(pumpPane) }
-  val pumpsTab = new Tab { text = conf.getString("pumps-tab"); closable = false; content = pumpsContent }
+  val pumpsTab = new Tab { text = conf.getString("pumps-tab"); closable = false; content = pumpPane }
 
   val heaterPane = new HeaterPane(conf, model)
-  val heatersContent = new VBox { spacing = 6; padding = Insets(6); children = List(heaterPane) }
-  val heatersTab = new Tab { text = conf.getString("heaters-tab"); closable = false; content = heatersContent }
+  val heatersTab = new Tab { text = conf.getString("heaters-tab"); closable = false; content = heaterPane }
 
   val repairPane = new RepairPane(conf, model)
-  val repairsContent = new VBox { spacing = 6; padding = Insets(6); children = List(repairPane) }
-  val repairsTab = new Tab { text = conf.getString("repairs-tab"); closable = false; content = repairsContent }
+  val repairsTab = new Tab { text = conf.getString("repairs-tab"); closable = false; content = repairPane }
 
   val southPane = new TabPane { padding = Insets(6); tabs = ObservableBuffer(surfacesTab, timersTab, pumpsTab, heatersTab, repairsTab) }
 

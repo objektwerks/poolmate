@@ -7,6 +7,7 @@ import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
 
 import scalafx.Includes._
+import scalafx.geometry.Insets
 import scalafx.scene.control.TableColumn._
 import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
@@ -29,6 +30,7 @@ class PoolPane(conf: Config, model: Model) extends VBox  {
   val poolToolBar = new HBox { spacing = 6; children = List(poolAddButton, poolEditButton) }
 
   spacing = 6
+  padding = Insets(6)
   children = List(poolTableView, poolToolBar)
 
   poolTableView.selectionModel().selectedItemProperty().addListener { (_, _, selectedPool) =>

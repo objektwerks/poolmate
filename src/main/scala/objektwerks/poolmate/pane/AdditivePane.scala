@@ -7,6 +7,7 @@ import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
 
 import scalafx.Includes._
+import scalafx.geometry.Insets
 import scalafx.scene.control.TableColumn._
 import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
@@ -27,6 +28,7 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
   val additiveToolBar = new HBox { spacing = 6; children = List(additiveAddButton, additiveEditButton) }
 
   spacing = 6
+  padding = Insets(6)
   children = List(additiveTableView, additiveToolBar)
 
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
