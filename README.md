@@ -37,8 +37,8 @@ Measurements
 
 UI
 --
-north pane - pools, owners, supplies **, lifecycles, cleanings, measurements **, additives **
-south pane - surfaces, pumps, timers, heaters, repairs **
+east pane - supplies **, lifecycles, cleanings, measurements **, additives **
+west pane - pools, owners, surfaces, pumps, timers, heaters, repairs **
 
 ** Charts
 
