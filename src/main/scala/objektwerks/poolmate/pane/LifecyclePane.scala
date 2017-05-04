@@ -20,6 +20,7 @@ class LifecyclePane(conf: Config, model: Model) extends VBox {
       new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-table-column-pump-on"); cellValueFactory = { _.value.pumpOnProperty } },
       new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-table-column-pump-off"); cellValueFactory = { _.value.pumpOffProperty } }
     )
+    prefHeight = conf.getInt("height")
     items = model.lifecycleList
   }
   lifecycleTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
