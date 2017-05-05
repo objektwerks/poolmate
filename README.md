@@ -39,10 +39,8 @@ Measurements
 
 UI
 --
-east pane - supplies **, lifecycles, cleanings, measurements **, additives **
-west pane - pools, owners, surfaces, pumps, timers, heaters, repairs **
-
-** Charts
+east pane - supplies, lifecycles, cleanings, measurements, additives
+west pane - pools, owners, surfaces, pumps, timers, heaters, repairs
 
 Charts
 ------
@@ -51,7 +49,7 @@ Charts
 3. additives - bar chart ( x = on, c = chemical, y = amount )
 4. repairs - line chart ( x = on, y = cost )
 
-** all line chart for each measured chemical
+** a line chart for each measured chemical
 
 Test
 ----
