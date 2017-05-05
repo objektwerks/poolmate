@@ -1,7 +1,7 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.dialog.SupplyDialog
+import objektwerks.poolmate.dialog.{SupplyChartDialog, SupplyDialog}
 import objektwerks.poolmate.entity.Supply
 import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
@@ -27,7 +27,8 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
   supplyTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val supplyAddButton = new Button { graphic = Images.addImageView() }
   val supplyEditButton = new Button { graphic = Images.editImageView(); disable = true }
-  val supplyToolBar = new HBox { spacing = 6; children = List(supplyAddButton, supplyEditButton) }
+  val supplyChartButton = new Button { graphic = Images.barChartImageView(); disable = true }
+  val supplyToolBar = new HBox { spacing = 6; children = List(supplyAddButton, supplyEditButton, supplyChartButton) }
 
   spacing = 6
   padding = Insets(6)
@@ -43,6 +44,7 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
     if (selectedSupply != null) {
       model.selectedSupplyId.value = selectedSupply.id
       supplyEditButton.disable = false
+      supplyChartButton.disable = false
     }
   }
 
@@ -53,6 +55,8 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
   supplyAddButton.onAction = { _ => add() }
 
   supplyEditButton.onAction = { _ => update() }
+
+  supplyChartButton.onAction = { _ => new SupplyChartDialog(conf, model.supplyList, model).showAndWait() }
 
   def add(): Unit = {
     new SupplyDialog(conf, Supply(poolId = model.selectedPoolId.toInt)).showAndWait() match {
