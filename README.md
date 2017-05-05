@@ -54,10 +54,9 @@ Charts
 Todo
 ----
 1. Lifecycle pump off greaterThan pump on constraint
-2. Measurement sliders for each chemical measurement range
-3. Additive lookup for chemical and unit
-4. Supply lookup for unit
-5. Lookup for unit of measure ( ounces, gallons, pounds )
+2. Additive lookup for chemical and unit
+3. Supply lookup for unit
+4. Lookup for unit of measure ( ounces, gallons, pounds )
 
 Test
 ----
