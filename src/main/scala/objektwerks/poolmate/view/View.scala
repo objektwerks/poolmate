@@ -11,6 +11,9 @@ import scalafx.scene.control.{SplitPane, Tab, TabPane}
 import scalafx.scene.layout.VBox
 
 class View(conf: Config, model: Model) {
+  val repairPane = new RepairPane(conf, model)
+  val repairsTab = new Tab { text = conf.getString("repairs-tab"); closable = false; content = repairPane }
+
   val supplyPane = new SupplyPane(conf, model)
   val suppliesTab = new Tab { text = conf.getString("supplies-tab"); closable = false; content = supplyPane }
 
@@ -26,7 +29,7 @@ class View(conf: Config, model: Model) {
   val additivePane = new AdditivePane(conf, model)
   val additivesTab = new Tab { text = conf.getString("additives-tab"); closable = false; content = additivePane }
 
-  val eastTabPane = new TabPane { tabs = ObservableBuffer(suppliesTab, lifecyclesTab, cleaningsTab, measurementsTab, additivesTab) }
+  val eastTabPane = new TabPane { tabs = ObservableBuffer(repairsTab, suppliesTab, lifecyclesTab, cleaningsTab, measurementsTab, additivesTab) }
   val eastPane = new VBox { children = List(eastTabPane) }
 
   val surfacePane = new SurfacePane(conf, model)
@@ -41,10 +44,7 @@ class View(conf: Config, model: Model) {
   val heaterPane = new HeaterPane(conf, model)
   val heatersTab = new Tab { text = conf.getString("heaters-tab"); closable = false; content = heaterPane }
 
-  val repairPane = new RepairPane(conf, model)
-  val repairsTab = new Tab { text = conf.getString("repairs-tab"); closable = false; content = repairPane }
-
-  val westTabPane = new TabPane { padding = Insets(6); tabs = ObservableBuffer(surfacesTab, timersTab, pumpsTab, heatersTab, repairsTab) }
+  val westTabPane = new TabPane { padding = Insets(6); tabs = ObservableBuffer(surfacesTab, timersTab, pumpsTab, heatersTab) }
 
   val poolPane = new PoolPane(conf, model)
   val ownerPane = new OwnerPane(conf, model)
@@ -52,7 +52,7 @@ class View(conf: Config, model: Model) {
 
   val menuPane = new MenuPane(conf)
   val splitPane = new SplitPane { orientation = Orientation.Horizontal; padding = Insets(6); items.addAll(westPane, eastPane) }
-  splitPane.setDividerPositions(0.4, 0.6)
+  splitPane.setDividerPositions(0.3, 0.7)
 
   val contentPane = new VBox { prefHeight = conf.getInt("height"); prefWidth = conf.getInt("width"); spacing = 6; padding = Insets(6); children = List(menuPane, splitPane) }
   val sceneGraph = new Scene { root = contentPane }
