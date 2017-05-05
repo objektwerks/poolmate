@@ -7,30 +7,41 @@ import objektwerks.poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
-import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
+import scalafx.scene.control._
 import scalafx.scene.layout.Region
+
+/*
+1. total hardness 0 - 1000      ok = 250 - 500      ideal = 375
+2. total chlorine 0 - 10        ok = 1 - 5          ideal = 3
+3. total bromine 0 - 20         ok = 2 - 10         ideal = 5
+4. free chlorine 0 - 10         ok = 1 - 5          ideal = 3
+5. ph 6.2 - 8.4                 ok = 7.2 - 7.8      ideal = 7.5
+6. total alkalinity 0 - 240     ok = 80 - 120       ideal = 100
+7. cyanuric acid 0 - 300        ok = 30 - 100       ideal = 50
+
+ */
 
 class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[Measurement]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   val onDatePicker = new DatePicker { value = measurement.on }
-  val tempTextField = new TextField { text = measurement.temp.toString }
-  val hardnessTextField = new TextField { text = measurement.hardness.toString }
-  val totalChlorineTextField = new TextField { text = measurement.totalChlorine.toString }
-  val bromineTextField = new TextField { text = measurement.bromine.toString }
-  val freeChlorineTextField = new TextField { text = measurement.freeChlorine.toString }
-  val pHTextField = new TextField { text = measurement.pH.toString }
-  val alkalinityTextField = new TextField { text = measurement.alkalinity.toString }
-  val cyanuricAcidTextField = new TextField { text = measurement.cyanuricAcid.toString }
+  val tempSlider = new Slider { min = 0.0; max = 100.0; majorTickUnit = 10.0; value = measurement.temp }
+  val hardnessSlider = new Slider { min = 0.0; max = 1000.0; majorTickUnit = 100.0; value = measurement.hardness }
+  val totalChlorineSlider = new Slider { min = 0.0; max = 10.0; majorTickUnit = 1.0; value = measurement.totalChlorine }
+  val bromineSlider = new Slider { min = 0.0; max = 20.0; majorTickUnit = 1.0; value = measurement.bromine }
+  val freeChlorineSlider = new Slider { min = 0.0; max = 10.0;; majorTickUnit = 1.0; value = measurement.freeChlorine }
+  val phSlider = new Slider { min = 6.2; max = 8.4; majorTickUnit = 0.2; value = measurement.pH }
+  val alkalinitySlider = new Slider { min = 0.0; max = 240; majorTickUnit = 20.0; value = measurement.alkalinity }
+  val cyanuricAcidSlider = new Slider { min = 0.0; max = 300.0; majorTickUnit = 25.0; value = measurement.cyanuricAcid }
   val controls = List[(String, Region)](
     conf.getString("measurement-on") -> onDatePicker,
-    conf.getString("measurement-temp") -> tempTextField,
-    conf.getString("measurement-hardness") -> hardnessTextField,
-    conf.getString("measurement-total-chlorine") -> totalChlorineTextField,
-    conf.getString("measurement-bromine") -> bromineTextField,
-    conf.getString("measurement-free-chlorine") -> freeChlorineTextField,
-    conf.getString("measurement-ph") -> pHTextField,
-    conf.getString("measurement-alkalinity") -> alkalinityTextField,
-    conf.getString("measurement-cyanuric-acid") -> cyanuricAcidTextField
+    conf.getString("measurement-temp") -> tempSlider,
+    conf.getString("measurement-hardness") -> hardnessSlider,
+    conf.getString("measurement-total-chlorine") -> totalChlorineSlider,
+    conf.getString("measurement-bromine") -> bromineSlider,
+    conf.getString("measurement-free-chlorine") -> freeChlorineSlider,
+    conf.getString("measurement-ph") -> phSlider,
+    conf.getString("measurement-alkalinity") -> alkalinitySlider,
+    conf.getString("measurement-cyanuric-acid") -> cyanuricAcidSlider
   )
   val controlGridPane = new ControlGridPane(controls)
   val dialog = dialogPane()
@@ -42,30 +53,17 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
   headerText = conf.getString("save-measurement")
 
   val saveButton = dialog.lookupButton(saveButtonType)
-
-  val isNotInt = (text: String) => !text.matches("[0-9]*")
-  tempTextField.text.onChange { (_, oldValue, newValue) => if (isNotInt(newValue)) tempTextField.text.value = oldValue }
-  hardnessTextField.text.onChange { (_, oldValue, newValue) => if (isNotInt(newValue)) hardnessTextField.text.value = oldValue }
-  totalChlorineTextField.text.onChange { (_, oldValue, newValue) => if (isNotInt(newValue)) totalChlorineTextField.text.value = oldValue }
-  bromineTextField.text.onChange { (_, oldValue, newValue) => if (isNotInt(newValue)) bromineTextField.text.value = oldValue }
-  freeChlorineTextField.text.onChange { (_, oldValue, newValue) => if (isNotInt(newValue)) freeChlorineTextField.text.value = oldValue }
-  alkalinityTextField.text.onChange { (_, oldValue, newValue) => if (isNotInt(newValue)) alkalinityTextField.text.value = oldValue }
-  cyanuricAcidTextField.text.onChange { (_, oldValue, newValue) => if (isNotInt(newValue)) cyanuricAcidTextField.text.value = oldValue }
-
-  val isNotDouble = (text: String) => !text.matches("[0-9]{1,13}(\\.[0-9]+)?")
-  pHTextField.text.onChange { (_, oldValue, newValue) => if (isNotDouble(newValue)) pHTextField.text.value = oldValue }
-
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
       measurement.copy(on = onDatePicker.value.value,
-                       temp = tempTextField.text.value.toInt,
-                       hardness = hardnessTextField.text.value.toInt,
-                       totalChlorine = totalChlorineTextField.text.value.toInt,
-                       bromine = bromineTextField.text.value.toInt,
-                       freeChlorine = freeChlorineTextField.text.value.toInt,
-                       pH = pHTextField.text.value.toDouble,
-                       alkalinity = alkalinityTextField.text.value.toInt,
-                       cyanuricAcid = cyanuricAcidTextField.text.value.toInt)
+                       temp = tempSlider.value.toInt,
+                       hardness = hardnessSlider.value.toInt,
+                       totalChlorine = totalChlorineSlider.value.toInt,
+                       bromine = bromineSlider.value.toInt,
+                       freeChlorine = freeChlorineSlider.value.toInt,
+                       pH = phSlider.value.toDouble,
+                       alkalinity = alkalinitySlider.value.toInt,
+                       cyanuricAcid = cyanuricAcidSlider.value.toInt)
     else null
   }
 }
