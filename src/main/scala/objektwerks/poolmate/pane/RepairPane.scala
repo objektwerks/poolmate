@@ -1,7 +1,7 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.dialog.RepairDialog
+import objektwerks.poolmate.dialog.{RepairChartDialog, RepairDialog}
 import objektwerks.poolmate.entity.Repair
 import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
@@ -24,7 +24,8 @@ class RepairPane(conf: Config, model: Model) extends VBox {
   repairTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val repairAddButton = new Button { graphic = Images.addImageView() }
   val repairEditButton = new Button { graphic = Images.editImageView(); disable = true }
-  val repairToolBar = new HBox { spacing = 6; children = List(repairAddButton, repairEditButton) }
+  val repairChartButton = new Button { graphic = Images.barChartImageView(); disable = true }
+  val repairToolBar = new HBox { spacing = 6; children = List(repairAddButton, repairEditButton, repairChartButton) }
 
   spacing = 6
   padding = Insets(6)
@@ -40,6 +41,7 @@ class RepairPane(conf: Config, model: Model) extends VBox {
     if (selectedRepair != null) {
       model.selectedRepairId.value = selectedRepair.id
       repairEditButton.disable = false
+      repairChartButton.disable = false
     }
   }
 
@@ -50,6 +52,8 @@ class RepairPane(conf: Config, model: Model) extends VBox {
   repairAddButton.onAction = { _ => add() }
 
   repairEditButton.onAction = { _ => update() }
+
+  repairChartButton.onAction = { _ => new RepairChartDialog(conf, model.repairList, model).showAndWait() }
 
   def add(): Unit = {
     new RepairDialog(conf, Repair(poolId = model.selectedPoolId.toInt)).showAndWait() match {
