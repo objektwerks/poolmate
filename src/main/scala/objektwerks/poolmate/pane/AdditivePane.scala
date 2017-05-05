@@ -1,7 +1,7 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.dialog.AdditiveDialog
+import objektwerks.poolmate.dialog.{AdditiveChartDialog, AdditiveDialog}
 import objektwerks.poolmate.entity.Additive
 import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
@@ -26,7 +26,8 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
   additiveTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val additiveAddButton = new Button { graphic = Images.addImageView() }
   val additiveEditButton = new Button { graphic = Images.editImageView(); disable = true }
-  val additiveToolBar = new HBox { spacing = 6; children = List(additiveAddButton, additiveEditButton) }
+  val additiveChartButton = new Button { graphic = Images.barChartImageView(); disable = true }
+  val additiveToolBar = new HBox { spacing = 6; children = List(additiveAddButton, additiveEditButton, additiveChartButton) }
 
   spacing = 6
   padding = Insets(6)
@@ -42,6 +43,7 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
     if (selectedAdditive != null) {
       model.selectedAdditiveId.value = selectedAdditive.id
       additiveEditButton.disable = false
+      additiveChartButton.disable = false
     }
   }
 
@@ -52,6 +54,8 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
   additiveAddButton.onAction = { _ => add() }
 
   additiveEditButton.onAction = { _ => update() }
+
+  additiveChartButton.onAction = { _ => new AdditiveChartDialog(conf, model.additiveList, model).showAndWait() }
 
   def add(): Unit = {
     new AdditiveDialog(conf, Additive(poolId = model.selectedPoolId.toInt)).showAndWait() match {
