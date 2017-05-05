@@ -31,7 +31,7 @@ class MeasurementPane(conf: Config, model: Model) extends VBox {
   measurementTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val measurementAddButton = new Button { graphic = Images.addImageView() }
   val measurementEditButton = new Button { graphic = Images.editImageView(); disable = true }
-  val measurementChartButton = new Button { graphic = Images.barChartImageView(); disable = true }
+  val measurementChartButton = new Button { graphic = Images.lineChartImageView(); disable = true }
   val measurementToolBar = new HBox { spacing = 6; children = List(measurementAddButton, measurementEditButton, measurementChartButton) }
 
   spacing = 6

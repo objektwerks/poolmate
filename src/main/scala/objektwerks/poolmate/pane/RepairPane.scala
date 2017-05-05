@@ -24,7 +24,7 @@ class RepairPane(conf: Config, model: Model) extends VBox {
   repairTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val repairAddButton = new Button { graphic = Images.addImageView() }
   val repairEditButton = new Button { graphic = Images.editImageView(); disable = true }
-  val repairChartButton = new Button { graphic = Images.barChartImageView(); disable = true }
+  val repairChartButton = new Button { graphic = Images.lineChartImageView(); disable = true }
   val repairToolBar = new HBox { spacing = 6; children = List(repairAddButton, repairEditButton, repairChartButton) }
 
   spacing = 6
