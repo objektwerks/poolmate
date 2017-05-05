@@ -13,18 +13,19 @@ import scalafx.scene.layout.VBox
 
 class RepairChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val repairs = model.repairList
-  val monthFormatter = DateTimeFormatter.ofPattern("MM")
-  val minMonth = repairs.map(a => a.on.format(monthFormatter).toInt).min
-  val maxMonth = repairs.map(a => a.on.format(monthFormatter).toInt).max
+  val yearFormatter = DateTimeFormatter.ofPattern("yyyy")
+  val years = repairs.map(a => a.on.format(yearFormatter).toInt)
+  val minYear = years.min
+  val maxYear = years.max
 
-  val xAxis = NumberAxis(axisLabel = s"${conf.getString("repair-chart-months")} [$minMonth - $maxMonth]", lowerBound = minMonth, upperBound = maxMonth + 1, tickUnit = 1)
+  val xAxis = NumberAxis(axisLabel = s"${conf.getString("repair-chart-years")} [$minYear - $maxYear]", lowerBound = minYear, upperBound = maxYear + 1, tickUnit = 1)
   val yAxis = NumberAxis(axisLabel = conf.getString("repair-chart-costs"), lowerBound = 0, upperBound = 1000.00, tickUnit = 100.00)
   val chart = LineChart[Number, Number](xAxis, yAxis)
 
   val series = new XYChart.Series[Number, Number]{ name = conf.getString("repair-chart-cost") }
-  val monthDayFormatter = DateTimeFormatter.ofPattern("MM.dd")
+  val monthFormatter = DateTimeFormatter.ofPattern("MM")
   repairs foreach { repair =>
-    series.data() += XYChart.Data[Number, Number]( repair.on.format(monthDayFormatter).toDouble, repair.cost.toInt )
+    series.data() += XYChart.Data[Number, Number]( repair.on.format(monthFormatter).toInt, repair.cost.toInt )
   }
   chart.data = series
 
