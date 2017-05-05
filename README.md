@@ -37,8 +37,8 @@ Measurements
  
 ** ounces, gallons, pounds
 
-UI
---
+View
+----
 east pane - supplies, lifecycles, cleanings, measurements, additives
 west pane - pools, owners, surfaces, pumps, timers, heaters, repairs
 
