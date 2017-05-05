@@ -60,7 +60,7 @@ class MeasurementPane(conf: Config, model: Model) extends VBox {
 
   measurementEditButton.onAction = { _ => update() }
 
-  measurementChartButton.onAction = { _ => new MeasurementChartDialog(conf, model.measurementList, model).showAndWait() }
+  measurementChartButton.onAction = { _ => new MeasurementChartDialog(conf, model).showAndWait() }
 
   def add(): Unit = {
     new MeasurementDialog(conf, Measurement(poolId = model.selectedPoolId.toInt)).showAndWait() match {

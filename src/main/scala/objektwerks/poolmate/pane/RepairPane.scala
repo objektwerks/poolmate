@@ -53,7 +53,7 @@ class RepairPane(conf: Config, model: Model) extends VBox {
 
   repairEditButton.onAction = { _ => update() }
 
-  repairChartButton.onAction = { _ => new RepairChartDialog(conf, model.repairList, model).showAndWait() }
+  repairChartButton.onAction = { _ => new RepairChartDialog(conf, model).showAndWait() }
 
   def add(): Unit = {
     new RepairDialog(conf, Repair(poolId = model.selectedPoolId.toInt)).showAndWait() match {

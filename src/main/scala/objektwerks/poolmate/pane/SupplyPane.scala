@@ -56,7 +56,7 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
 
   supplyEditButton.onAction = { _ => update() }
 
-  supplyChartButton.onAction = { _ => new SupplyChartDialog(conf, model.supplyList, model).showAndWait() }
+  supplyChartButton.onAction = { _ => new SupplyChartDialog(conf, model).showAndWait() }
 
   def add(): Unit = {
     new SupplyDialog(conf, Supply(poolId = model.selectedPoolId.toInt)).showAndWait() match {

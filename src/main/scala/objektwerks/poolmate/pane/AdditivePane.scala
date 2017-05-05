@@ -55,7 +55,7 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
 
   additiveEditButton.onAction = { _ => update() }
 
-  additiveChartButton.onAction = { _ => new AdditiveChartDialog(conf, model.additiveList, model).showAndWait() }
+  additiveChartButton.onAction = { _ => new AdditiveChartDialog(conf, model).showAndWait() }
 
   def add(): Unit = {
     new AdditiveDialog(conf, Additive(poolId = model.selectedPoolId.toInt)).showAndWait() match {
