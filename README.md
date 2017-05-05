@@ -34,6 +34,8 @@ Measurements
 5. ph 6.2 - 8.4                 ok = 7.2 - 7.8      ideal = 7.5
 6. total alkalinity 0 - 240     ok = 80 - 120       ideal = 100
 7. cyanuric acid 0 - 300        ok = 30 - 100       ideal = 50
+ 
+** ounces, gallons, pounds
 
 UI
 --
@@ -41,6 +43,15 @@ east pane - supplies **, lifecycles, cleanings, measurements **, additives **
 west pane - pools, owners, surfaces, pumps, timers, heaters, repairs **
 
 ** Charts
+
+Charts
+------
+1. supplies - bar chart ( x = on, c = item, y = cost )
+2. measurements - line chart ( x = on, y = chemical ** )
+3. additives - bar chart ( x = on, c = chemical, y = amount )
+4. repairs - line chart ( x = on, y = cost )
+
+** all line chart for each measured chemical
 
 Test
 ----
