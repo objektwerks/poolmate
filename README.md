@@ -19,7 +19,7 @@ Object Model
 * Measurement(id, poolId, on, temp, hardness, totalChlorine, bromine, freeChlorine, pH, alkalinity, cyanuricAcid)
 * Additive(id, poolId, on, chemical, unit, amount)
 * Supply(id, poolId, purchased, item, unit, amount, cost)
-* Repair(id, poolId, on, repair, cost
+* Repair(id, poolId, on, repair, cost)
 
 Relational Model
 ----------------
