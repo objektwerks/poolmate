@@ -1,7 +1,7 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.dialog.MeasurementDialog
+import objektwerks.poolmate.dialog.{MeasurementChartDialog, MeasurementDialog}
 import objektwerks.poolmate.entity.Measurement
 import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
@@ -31,7 +31,8 @@ class MeasurementPane(conf: Config, model: Model) extends VBox {
   measurementTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val measurementAddButton = new Button { graphic = Images.addImageView() }
   val measurementEditButton = new Button { graphic = Images.editImageView(); disable = true }
-  val measurementToolBar = new HBox { spacing = 6; children = List(measurementAddButton, measurementEditButton) }
+  val measurementChartButton = new Button { graphic = Images.barChartImageView(); disable = true }
+  val measurementToolBar = new HBox { spacing = 6; children = List(measurementAddButton, measurementEditButton, measurementChartButton) }
 
   spacing = 6
   padding = Insets(6)
@@ -47,6 +48,7 @@ class MeasurementPane(conf: Config, model: Model) extends VBox {
     if (selectedMeasurement != null) {
       model.selectedMeasurementId.value = selectedMeasurement.id
       measurementEditButton.disable = false
+      measurementChartButton.disable = false
     }
   }
 
@@ -57,6 +59,8 @@ class MeasurementPane(conf: Config, model: Model) extends VBox {
   measurementAddButton.onAction = { _ => add() }
 
   measurementEditButton.onAction = { _ => update() }
+
+  measurementChartButton.onAction = { _ => new MeasurementChartDialog(conf, model.measurementList, model).showAndWait() }
 
   def add(): Unit = {
     new MeasurementDialog(conf, Measurement(poolId = model.selectedPoolId.toInt)).showAndWait() match {
