@@ -44,9 +44,9 @@ west pane - pools, owners, surfaces, pumps, timers, heaters, repairs
 
 Charts
 ------
-1. supplies - bar chart ( x = on, c = item, y = cost )
+1. supplies - bar chart ( x = on, y = cost, c = item )
 2. measurements - line chart ( x = on, y = chemical ** )
-3. additives - bar chart ( x = on, c = chemical, y = amount )
+3. additives - bar chart ( x = on, y = amount, c = chemical )
 4. repairs - line chart ( x = on, y = cost )
 
 ** a line chart for each measured chemical
