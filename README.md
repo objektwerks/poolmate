@@ -51,6 +51,14 @@ Charts
 
 ** a line chart for each measured chemical
 
+Todo
+----
+1. Lifecycle pump off greaterThan pump on constraint
+2. Measurement sliders for each chemical measurement range
+3. Additive lookup for chemical and unit
+4. Supply lookup for unit
+5. Lookup for unit of measure ( ounces, gallons, pounds )
+
 Test
 ----
 1. sbt clean test
