@@ -49,7 +49,7 @@ Charts
 3. additives - bar chart ( x = on, y = amount, c = chemical )
 4. repairs - line chart ( x = on, y = cost )
 
-** a line chart for each measured chemical
+** a line chart for each measured chemical, to include temp
 
 Todo
 ----
