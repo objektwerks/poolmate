@@ -33,6 +33,9 @@ class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecyc
   headerText = conf.getString("save-lifecycle")
 
   val saveButton = dialog.lookupButton(saveButtonType)
+  pumpOffTimePicker.localTimeProperty.onChange { (_, oldLocalTime, newLocalTime) =>
+    if (newLocalTime.getHour <= pumpOnTimePicker.localTimeProperty.get.getHour) pumpOffTimePicker.localTimeProperty.value = oldLocalTime
+  }
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
