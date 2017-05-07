@@ -35,7 +35,7 @@ Measurements
 6. total alkalinity 0 - 240     ok = 80 - 120       ideal = 100
 7. cyanuric acid 0 - 300        ok = 30 - 100       ideal = 50
  
-** ounces, gallons, pounds
+** Units - ounces, gallons, pounds
 
 View
 ----
@@ -53,9 +53,7 @@ Charts
 
 Todo
 ----
-1. Additive lookup for chemical and unit
-2. Supply lookup for unit
-3. Lookup for unit ( ounces, gallons, pounds )
+1. Unit lookup for Additive and Supply
 
 Test
 ----
