@@ -33,7 +33,6 @@ class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecyc
   headerText = conf.getString("save-lifecycle")
 
   val saveButton = dialog.lookupButton(saveButtonType)
-  activeCheckBox.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
