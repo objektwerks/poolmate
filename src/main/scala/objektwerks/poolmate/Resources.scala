@@ -2,10 +2,13 @@ package objektwerks.poolmate
 
 import com.typesafe.config.ConfigFactory
 
+import scalafx.collections.ObservableBuffer
 import scalafx.scene.image.{Image, ImageView}
 
 object Resources {
   val conf = ConfigFactory.load("app.conf")
+
+  def units(): ObservableBuffer[String] = ObservableBuffer[String](conf.getString("units").split(','))
 
   def appImage(): Image = new Image(Resources.getClass.getResourceAsStream("/images/pool.png"))
 
