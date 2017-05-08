@@ -71,72 +71,56 @@ object MeasurementCharts {
 
   def buildTempLineChart(conf: Config, measurements: ObservableBuffer[Measurement], minYear: Int, maxYear: Int): LineChart[Number, Number] = {
     val (chart, series) = buildLineChart(conf, minYear, maxYear, yLabel = conf.getString("measurement-header-temp"), yUpperBound = 100.0, yTickUnit = 10.0)
-    measurements foreach { measurement =>
-      series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.temp )
-    }
+    measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.temp ) }
     chart.data = series
     chart
   }
 
   def buildHardnessLineChart(conf: Config, measurements: ObservableBuffer[Measurement], minYear: Int, maxYear: Int): LineChart[Number, Number] = {
     val (chart, series) = buildLineChart(conf, minYear, maxYear, yLabel = conf.getString("measurement-header-hardness"), yUpperBound = 1000.0, yTickUnit = 100.0)
-    measurements foreach { measurement =>
-      series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.hardness )
-    }
+    measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.hardness ) }
     chart.data = series
     chart
   }
 
   def buildTotalChlorineLineChart(conf: Config, measurements: ObservableBuffer[Measurement], minYear: Int, maxYear: Int): LineChart[Number, Number] = {
     val (chart, series) = buildLineChart(conf, minYear, maxYear, yLabel = conf.getString("measurement-header-total-chlorine"), yUpperBound = 10.0, yTickUnit = 1.0)
-    measurements foreach { measurement =>
-      series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.totalChlorine )
-    }
+    measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.totalChlorine ) }
     chart.data = series
     chart
   }
 
   def buildBromineLineChart(conf: Config, measurements: ObservableBuffer[Measurement], minYear: Int, maxYear: Int): LineChart[Number, Number] = {
     val (chart, series) = buildLineChart(conf, minYear, maxYear, yLabel = conf.getString("measurement-header-bromine"), yUpperBound = 20.0, yTickUnit = 1.0)
-    measurements foreach { measurement =>
-      series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.bromine )
-    }
+    measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.bromine ) }
     chart.data = series
     chart
   }
 
   def buildFreeChlorineLineChart(conf: Config, measurements: ObservableBuffer[Measurement], minYear: Int, maxYear: Int): LineChart[Number, Number] = {
     val (chart, series) = buildLineChart(conf, minYear, maxYear, yLabel = conf.getString("measurement-header-free-chlorine"), yUpperBound = 10.0, yTickUnit = 1.0)
-    measurements foreach { measurement =>
-      series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.freeChlorine )
-    }
+    measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.freeChlorine ) }
     chart.data = series
     chart
   }
 
   def buildPhLineChart(conf: Config, measurements: ObservableBuffer[Measurement], minYear: Int, maxYear: Int): LineChart[Number, Number] = {
     val (chart, series) = buildLineChart(conf, minYear, maxYear, yLabel = conf.getString("measurement-header-ph"), yLowerBound = 6.2, yUpperBound = 8.4, yTickUnit = 0.2)
-    measurements foreach { measurement =>
-      series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.pH )
-    }
+    measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.pH ) }
     chart.data = series
     chart
   }
 
   def buildAlkalinityLineChart(conf: Config, measurements: ObservableBuffer[Measurement], minYear: Int, maxYear: Int): LineChart[Number, Number] = {
     val (chart, series) = buildLineChart(conf, minYear, maxYear, yLabel = conf.getString("measurement-header-alkalinity"), yUpperBound = 240.0, yTickUnit = 20.0)
-    measurements foreach { measurement =>
-      series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.alkalinity )
-    }
+    measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.alkalinity ) }
     chart.data = series
     chart
   }
 
   def buildCyanuricAcidLineChart(conf: Config, measurements: ObservableBuffer[Measurement], minYear: Int, maxYear: Int): LineChart[Number, Number] = {
     val (chart, series) = buildLineChart(conf, minYear, maxYear, yLabel = conf.getString("measurement-header-cyanuric-acid"), yUpperBound = 300.0, yTickUnit = 25.0)
-    measurements foreach { measurement =>
-      series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.cyanuricAcid )
-    }
+    measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(monthFormatter).toInt, measurement.cyanuricAcid ) }
     chart.data = series
     chart
   }
