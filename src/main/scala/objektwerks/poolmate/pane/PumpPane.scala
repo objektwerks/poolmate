@@ -1,7 +1,7 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.Resources
+import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.dialog.PumpDialog
 import objektwerks.poolmate.entity.Pump
 import objektwerks.poolmate.model.Model
@@ -21,8 +21,8 @@ class PumpPane(conf: Config, model: Model) extends VBox {
     items = model.pumpList
   }
   pumpTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val pumpAddButton = new Button { graphic = Resources.addImageView() }
-  val pumpEditButton = new Button { graphic = Resources.editImageView(); disable = true }
+  val pumpAddButton = new Button { graphic = addImageView() }
+  val pumpEditButton = new Button { graphic = editImageView(); disable = true }
   val pumpToolBar = new HBox { spacing = 6; children = List(pumpAddButton, pumpEditButton) }
 
   spacing = 6

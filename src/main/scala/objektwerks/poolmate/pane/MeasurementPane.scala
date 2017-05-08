@@ -1,7 +1,7 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.Resources
+import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.dialog.{MeasurementChartDialog, MeasurementDialog}
 import objektwerks.poolmate.entity.Measurement
 import objektwerks.poolmate.model.Model
@@ -29,9 +29,9 @@ class MeasurementPane(conf: Config, model: Model) extends VBox {
     items = model.measurementList
   }
   measurementTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val measurementAddButton = new Button { graphic = Resources.addImageView() }
-  val measurementEditButton = new Button { graphic = Resources.editImageView(); disable = true }
-  val measurementChartButton = new Button { graphic = Resources.lineChartImageView(); disable = true }
+  val measurementAddButton = new Button { graphic = addImageView() }
+  val measurementEditButton = new Button { graphic = editImageView(); disable = true }
+  val measurementChartButton = new Button { graphic = lineChartImageView(); disable = true }
   val measurementToolBar = new HBox { spacing = 6; children = List(measurementAddButton, measurementEditButton, measurementChartButton) }
 
   spacing = 6

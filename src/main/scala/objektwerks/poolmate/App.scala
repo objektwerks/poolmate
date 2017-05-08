@@ -2,13 +2,12 @@ package objektwerks.poolmate
 
 import objektwerks.poolmate.model.Model
 import objektwerks.poolmate.repository.Repository
+import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.view.View
 
 import scalafx.application.JFXApp
 
 object App extends JFXApp {
-  import Resources._
-
   val repository = Repository.newInstance("repository.conf")
   val model = new Model(repository)
   val view = new View(conf, model)

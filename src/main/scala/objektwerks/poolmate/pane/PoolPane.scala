@@ -1,10 +1,10 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.Resources
 import objektwerks.poolmate.dialog.PoolDialog
 import objektwerks.poolmate.entity.Pool
 import objektwerks.poolmate.model.Model
+import objektwerks.poolmate.Resources._
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
@@ -24,8 +24,8 @@ class PoolPane(conf: Config, model: Model) extends VBox  {
     items = model.poolList
   }
   poolTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val poolAddButton = new Button { graphic = Resources.addImageView() }
-  val poolEditButton = new Button { graphic = Resources.editImageView(); disable = true }
+  val poolAddButton = new Button { graphic = addImageView() }
+  val poolEditButton = new Button { graphic = editImageView(); disable = true }
   val poolToolBar = new HBox { spacing = 6; children = List(poolAddButton, poolEditButton) }
 
   spacing = 6

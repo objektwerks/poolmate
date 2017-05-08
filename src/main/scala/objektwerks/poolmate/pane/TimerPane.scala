@@ -1,7 +1,7 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.Resources
+import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.dialog.TimerDialog
 import objektwerks.poolmate.entity.Timer
 import objektwerks.poolmate.model.Model
@@ -21,8 +21,8 @@ class TimerPane(conf: Config, model: Model) extends VBox {
     items = model.timerList
   }
   timerTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val timerAddButton = new Button { graphic = Resources.addImageView() }
-  val timerEditButton = new Button { graphic = Resources.editImageView(); disable = true }
+  val timerAddButton = new Button { graphic = addImageView() }
+  val timerEditButton = new Button { graphic = editImageView(); disable = true }
   val timerToolBar = new HBox { spacing = 6; children = List(timerAddButton, timerEditButton) }
 
   spacing = 6

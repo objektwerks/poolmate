@@ -1,7 +1,7 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.Resources
+import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.dialog.HeaterDialog
 import objektwerks.poolmate.entity.Heater
 import objektwerks.poolmate.model.Model
@@ -21,8 +21,8 @@ class HeaterPane(conf: Config, model: Model) extends VBox {
     items = model.heaterList
   }
   heaterTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val heaterAddButton = new Button { graphic = Resources.addImageView() }
-  val heaterEditButton = new Button { graphic = Resources.editImageView(); disable = true }
+  val heaterAddButton = new Button { graphic = addImageView() }
+  val heaterEditButton = new Button { graphic = editImageView(); disable = true }
   val heaterToolBar = new HBox { spacing = 6; children = List(heaterAddButton, heaterEditButton) }
 
   spacing = 6

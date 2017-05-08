@@ -1,7 +1,7 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.Resources
+import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.dialog.{RepairChartDialog, RepairDialog}
 import objektwerks.poolmate.entity.Repair
 import objektwerks.poolmate.model.Model
@@ -22,9 +22,9 @@ class RepairPane(conf: Config, model: Model) extends VBox {
     items = model.repairList
   }
   repairTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val repairAddButton = new Button { graphic = Resources.addImageView() }
-  val repairEditButton = new Button { graphic = Resources.editImageView(); disable = true }
-  val repairChartButton = new Button { graphic = Resources.lineChartImageView(); disable = true }
+  val repairAddButton = new Button { graphic = addImageView() }
+  val repairEditButton = new Button { graphic = editImageView(); disable = true }
+  val repairChartButton = new Button { graphic = lineChartImageView(); disable = true }
   val repairToolBar = new HBox { spacing = 6; children = List(repairAddButton, repairEditButton, repairChartButton) }
 
   spacing = 6

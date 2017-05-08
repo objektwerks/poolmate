@@ -1,7 +1,7 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.Resources
+import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.dialog.OwnerDialog
 import objektwerks.poolmate.entity.Owner
 import objektwerks.poolmate.model.Model
@@ -24,8 +24,8 @@ class OwnerPane(conf: Config, model: Model) extends VBox {
     items = model.ownerList
   }
   ownerTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val ownerAddButton = new Button { graphic = Resources.addImageView() }
-  val ownerEditButton = new Button { graphic = Resources.editImageView(); disable = true }
+  val ownerAddButton = new Button { graphic = addImageView() }
+  val ownerEditButton = new Button { graphic = editImageView(); disable = true }
   val ownerToolBar = new HBox { spacing = 6; children = List(ownerAddButton, ownerEditButton) }
 
   spacing = 6

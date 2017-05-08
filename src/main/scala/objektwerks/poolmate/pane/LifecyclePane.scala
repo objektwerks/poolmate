@@ -1,7 +1,7 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
-import objektwerks.poolmate.Resources
+import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.dialog.LifecycleDialog
 import objektwerks.poolmate.entity.Lifecycle
 import objektwerks.poolmate.model.Model
@@ -24,8 +24,8 @@ class LifecyclePane(conf: Config, model: Model) extends VBox {
     items = model.lifecycleList
   }
   lifecycleTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val lifecycleAddButton = new Button { graphic = Resources.addImageView() }
-  val lifecycleEditButton = new Button { graphic = Resources.editImageView(); disable = true }
+  val lifecycleAddButton = new Button { graphic = addImageView() }
+  val lifecycleEditButton = new Button { graphic = editImageView(); disable = true }
   val lifecycleToolBar = new HBox { spacing = 6; children = List(lifecycleAddButton, lifecycleEditButton) }
 
   spacing = 6
