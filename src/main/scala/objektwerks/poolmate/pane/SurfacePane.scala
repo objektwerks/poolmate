@@ -1,9 +1,9 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
+import objektwerks.poolmate.Resources
 import objektwerks.poolmate.dialog.SurfaceDialog
 import objektwerks.poolmate.entity.Surface
-import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
 
 import scalafx.Includes._
@@ -21,8 +21,8 @@ class SurfacePane(conf: Config, model: Model) extends VBox {
     items = model.surfaceList
   }
   surfaceTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val surfaceAddButton = new Button { graphic = Images.addImageView() }
-  val surfaceEditButton = new Button { graphic = Images.editImageView(); disable = true }
+  val surfaceAddButton = new Button { graphic = Resources.addImageView() }
+  val surfaceEditButton = new Button { graphic = Resources.editImageView(); disable = true }
   val surfaceToolBar = new HBox { spacing = 6; children = List(surfaceAddButton, surfaceEditButton) }
 
   spacing = 6

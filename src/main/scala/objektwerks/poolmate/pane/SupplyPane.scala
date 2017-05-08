@@ -1,9 +1,9 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
+import objektwerks.poolmate.Resources
 import objektwerks.poolmate.dialog.{SupplyChartDialog, SupplyDialog}
 import objektwerks.poolmate.entity.Supply
-import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
 
 import scalafx.Includes._
@@ -25,9 +25,9 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
     items = model.supplyList
   }
   supplyTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val supplyAddButton = new Button { graphic = Images.addImageView() }
-  val supplyEditButton = new Button { graphic = Images.editImageView(); disable = true }
-  val supplyChartButton = new Button { graphic = Images.barChartImageView(); disable = true }
+  val supplyAddButton = new Button { graphic = Resources.addImageView() }
+  val supplyEditButton = new Button { graphic = Resources.editImageView(); disable = true }
+  val supplyChartButton = new Button { graphic = Resources.barChartImageView(); disable = true }
   val supplyToolBar = new HBox { spacing = 6; children = List(supplyAddButton, supplyEditButton, supplyChartButton) }
 
   spacing = 6

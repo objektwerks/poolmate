@@ -1,9 +1,9 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
+import objektwerks.poolmate.Resources
 import objektwerks.poolmate.dialog.{AdditiveChartDialog, AdditiveDialog}
 import objektwerks.poolmate.entity.Additive
-import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
 
 import scalafx.Includes._
@@ -24,9 +24,9 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
     items = model.additiveList
   }
   additiveTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val additiveAddButton = new Button { graphic = Images.addImageView() }
-  val additiveEditButton = new Button { graphic = Images.editImageView(); disable = true }
-  val additiveChartButton = new Button { graphic = Images.barChartImageView(); disable = true }
+  val additiveAddButton = new Button { graphic = Resources.addImageView() }
+  val additiveEditButton = new Button { graphic = Resources.editImageView(); disable = true }
+  val additiveChartButton = new Button { graphic = Resources.barChartImageView(); disable = true }
   val additiveToolBar = new HBox { spacing = 6; children = List(additiveAddButton, additiveEditButton, additiveChartButton) }
 
   spacing = 6

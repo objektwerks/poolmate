@@ -1,9 +1,9 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
+import objektwerks.poolmate.Resources
 import objektwerks.poolmate.dialog.CleaningDialog
 import objektwerks.poolmate.entity.Cleaning
-import objektwerks.poolmate.image.Images
 import objektwerks.poolmate.model.Model
 
 import scalafx.Includes._
@@ -28,8 +28,8 @@ class CleaningPane(conf: Config, model: Model) extends VBox {
     items = model.cleaningList
   }
   cleaningTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val cleaningAddButton = new Button { graphic = Images.addImageView() }
-  val cleaningEditButton = new Button { graphic = Images.editImageView(); disable = true }
+  val cleaningAddButton = new Button { graphic = Resources.addImageView() }
+  val cleaningEditButton = new Button { graphic = Resources.editImageView(); disable = true }
   val cleaningToolBar = new HBox { spacing = 6; children = List(cleaningAddButton, cleaningEditButton) }
 
   spacing = 6

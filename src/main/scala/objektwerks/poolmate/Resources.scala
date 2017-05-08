@@ -1,9 +1,13 @@
-package objektwerks.poolmate.image
+package objektwerks.poolmate
+
+import com.typesafe.config.ConfigFactory
 
 import scalafx.scene.image.{Image, ImageView}
 
-object Images {
-  def appImage(): Image = new Image(Images.getClass.getResourceAsStream("/images/pool.png"))
+object Resources {
+  val conf = ConfigFactory.load("app.conf")
+
+  def appImage(): Image = new Image(Resources.getClass.getResourceAsStream("/images/pool.png"))
 
   def addImageView(): ImageView = loadImageView("/images/add.png")
 
@@ -14,7 +18,7 @@ object Images {
   def lineChartImageView(): ImageView = loadImageView("/images/line.chart.png")
 
   def loadImageView(path: String): ImageView = new ImageView {
-    image = new Image(Images.getClass.getResourceAsStream(path))
+    image = new Image(Resources.getClass.getResourceAsStream(path))
     fitHeight = 25
     fitWidth = 25
     preserveRatio = true
