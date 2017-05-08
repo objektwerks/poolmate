@@ -15,9 +15,9 @@ import scalafx.scene.layout.{HBox, VBox}
 class RepairPane(conf: Config, model: Model) extends VBox {
   val repairTableView = new TableView[Repair]() {
     columns ++= List(
-      new TableColumn[Repair, String] { text = conf.getString("repair-table-column-on"); cellValueFactory = { _.value.onProperty } },
-      new TableColumn[Repair, String] { text = conf.getString("repair-table-column-item"); cellValueFactory = { _.value.itemProperty } },
-      new TableColumn[Repair, String] { text = conf.getString("repair-table-column-cost"); cellValueFactory = { _.value.costProperty } }
+      new TableColumn[Repair, String] { text = conf.getString("repair-header-on"); cellValueFactory = { _.value.onProperty } },
+      new TableColumn[Repair, String] { text = conf.getString("repair-header-item"); cellValueFactory = { _.value.itemProperty } },
+      new TableColumn[Repair, String] { text = conf.getString("repair-header-cost"); cellValueFactory = { _.value.costProperty } }
     )
     items = model.repairList
   }

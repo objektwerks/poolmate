@@ -15,11 +15,11 @@ import scalafx.scene.layout.{HBox, VBox}
 class SupplyPane(conf: Config, model: Model) extends VBox {
   val supplyTableView = new TableView[Supply]() {
     columns ++= List(
-      new TableColumn[Supply, String] { text = conf.getString("supply-table-column-purchased"); cellValueFactory = { _.value.purchasedProperty } },
-      new TableColumn[Supply, String] { text = conf.getString("supply-table-column-item"); cellValueFactory = { _.value.itemProperty } },
-      new TableColumn[Supply, String] { text = conf.getString("supply-table-column-unit"); cellValueFactory = { _.value.unitProperty } },
-      new TableColumn[Supply, String] { text = conf.getString("supply-table-column-amount"); cellValueFactory = { _.value.amountProperty } },
-      new TableColumn[Supply, String] { text = conf.getString("supply-table-column-cost"); cellValueFactory = { _.value.costProperty } }
+      new TableColumn[Supply, String] { text = conf.getString("supply-header-purchased"); cellValueFactory = { _.value.purchasedProperty } },
+      new TableColumn[Supply, String] { text = conf.getString("supply-header-item"); cellValueFactory = { _.value.itemProperty } },
+      new TableColumn[Supply, String] { text = conf.getString("supply-header-unit"); cellValueFactory = { _.value.unitProperty } },
+      new TableColumn[Supply, String] { text = conf.getString("supply-header-amount"); cellValueFactory = { _.value.amountProperty } },
+      new TableColumn[Supply, String] { text = conf.getString("supply-header-cost"); cellValueFactory = { _.value.costProperty } }
     )
     prefHeight = conf.getInt("height")
     items = model.supplyList

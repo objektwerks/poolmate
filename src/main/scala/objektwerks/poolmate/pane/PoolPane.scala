@@ -16,10 +16,10 @@ class PoolPane(conf: Config, model: Model) extends VBox  {
   val poolLabel = new Label { text = conf.getString("pools") }
   val poolTableView = new TableView[Pool]() {
     columns ++= List(
-      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-built"); cellValueFactory = { _.value.builtProperty } },
-      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-gallons"); cellValueFactory = { _.value.gallonsProperty } },
-      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-street"); cellValueFactory = { _.value.streetProperty } },
-      new TableColumn[Pool, String] { text = conf.getString("pool-table-column-city"); cellValueFactory = { _.value.cityProperty } }
+      new TableColumn[Pool, String] { text = conf.getString("pool-header-built"); cellValueFactory = { _.value.builtProperty } },
+      new TableColumn[Pool, String] { text = conf.getString("pool-header-gallons"); cellValueFactory = { _.value.gallonsProperty } },
+      new TableColumn[Pool, String] { text = conf.getString("pool-header-street"); cellValueFactory = { _.value.streetProperty } },
+      new TableColumn[Pool, String] { text = conf.getString("pool-header-city"); cellValueFactory = { _.value.cityProperty } }
     )
     items = model.poolList
   }

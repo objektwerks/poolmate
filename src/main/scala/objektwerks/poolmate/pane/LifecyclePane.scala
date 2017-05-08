@@ -15,10 +15,10 @@ import scalafx.scene.layout.{HBox, VBox}
 class LifecyclePane(conf: Config, model: Model) extends VBox {
   val lifecycleTableView = new TableView[Lifecycle]() {
     columns ++= List(
-      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-table-column-created"); cellValueFactory = { _.value.createdProperty } },
-      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-table-column-active"); cellValueFactory = { _.value.activeProperty } },
-      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-table-column-pump-on"); cellValueFactory = { _.value.pumpOnProperty } },
-      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-table-column-pump-off"); cellValueFactory = { _.value.pumpOffProperty } }
+      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-header-created"); cellValueFactory = { _.value.createdProperty } },
+      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-header-active"); cellValueFactory = { _.value.activeProperty } },
+      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-header-pump-on"); cellValueFactory = { _.value.pumpOnProperty } },
+      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-header-pump-off"); cellValueFactory = { _.value.pumpOffProperty } }
     )
     prefHeight = conf.getInt("height")
     items = model.lifecycleList

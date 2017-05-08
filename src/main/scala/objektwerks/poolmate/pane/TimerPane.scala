@@ -15,8 +15,8 @@ import scalafx.scene.layout.{HBox, VBox}
 class TimerPane(conf: Config, model: Model) extends VBox {
   val timerTableView = new TableView[Timer]() {
     columns ++= List(
-      new TableColumn[Timer, String] { text = conf.getString("timer-table-column-installed"); cellValueFactory = { _.value.installedProperty } },
-      new TableColumn[Timer, String] { text = conf.getString("timer-table-column-model"); cellValueFactory = { _.value.modelProperty } }
+      new TableColumn[Timer, String] { text = conf.getString("timer-header-installed"); cellValueFactory = { _.value.installedProperty } },
+      new TableColumn[Timer, String] { text = conf.getString("timer-header-model"); cellValueFactory = { _.value.modelProperty } }
     )
     items = model.timerList
   }

@@ -15,10 +15,10 @@ import scalafx.scene.layout.{HBox, VBox}
 class AdditivePane(conf: Config, model: Model) extends VBox {
   val additiveTableView = new TableView[Additive]() {
     columns ++= List(
-      new TableColumn[Additive, String] { text = conf.getString("additive-table-column-on"); cellValueFactory = { _.value.onProperty } },
-      new TableColumn[Additive, String] { text = conf.getString("additive-table-column-chemical"); cellValueFactory = { _.value.chemicalProperty } },
-      new TableColumn[Additive, String] { text = conf.getString("additive-table-column-unit"); cellValueFactory = { _.value.unitProperty } },
-      new TableColumn[Additive, String] { text = conf.getString("additive-table-column-amount"); cellValueFactory = { _.value.amountProperty } }
+      new TableColumn[Additive, String] { text = conf.getString("additive-header-on"); cellValueFactory = { _.value.onProperty } },
+      new TableColumn[Additive, String] { text = conf.getString("additive-header-chemical"); cellValueFactory = { _.value.chemicalProperty } },
+      new TableColumn[Additive, String] { text = conf.getString("additive-header-unit"); cellValueFactory = { _.value.unitProperty } },
+      new TableColumn[Additive, String] { text = conf.getString("additive-header-amount"); cellValueFactory = { _.value.amountProperty } }
     )
     prefHeight = conf.getInt("height")
     items = model.additiveList

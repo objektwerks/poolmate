@@ -15,14 +15,14 @@ import scalafx.scene.layout.{HBox, VBox}
 class CleaningPane(conf: Config, model: Model) extends VBox {
   val cleaningTableView = new TableView[Cleaning]() {
     columns ++= List(
-      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-table-column-on"); cellValueFactory = { _.value.onProperty } },
-      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-table-column-deck"); cellValueFactory = { _.value.deckProperty } },
-      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-table-column-brush"); cellValueFactory = { _.value.brushProperty } },
-      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-table-column-net"); cellValueFactory = { _.value.netProperty } },
-      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-table-column-vacuum"); cellValueFactory = { _.value.vacuumProperty } },
-      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-table-column-skimmer-basket"); cellValueFactory = { _.value.skimmerBasketProperty } },
-      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-table-column-pump-basket"); cellValueFactory = { _.value.pumpBasketProperty } },
-      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-table-column-pump-filter"); cellValueFactory = { _.value.pumpFilterProperty } }
+      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-header-on"); cellValueFactory = { _.value.onProperty } },
+      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-header-deck"); cellValueFactory = { _.value.deckProperty } },
+      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-header-brush"); cellValueFactory = { _.value.brushProperty } },
+      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-header-net"); cellValueFactory = { _.value.netProperty } },
+      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-header-vacuum"); cellValueFactory = { _.value.vacuumProperty } },
+      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-header-skimmer-basket"); cellValueFactory = { _.value.skimmerBasketProperty } },
+      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-header-pump-basket"); cellValueFactory = { _.value.pumpBasketProperty } },
+      new TableColumn[Cleaning, String] { text = conf.getString("cleaning-header-pump-filter"); cellValueFactory = { _.value.pumpFilterProperty } }
     )
     prefHeight = conf.getInt("height")
     items = model.cleaningList

@@ -15,8 +15,8 @@ import scalafx.scene.layout.{HBox, VBox}
 class HeaterPane(conf: Config, model: Model) extends VBox {
   val heaterTableView = new TableView[Heater]() {
     columns ++= List(
-      new TableColumn[Heater, String] { text = conf.getString("heater-table-column-installed"); cellValueFactory = { _.value.installedProperty } },
-      new TableColumn[Heater, String] { text = conf.getString("heater-table-column-model"); cellValueFactory = { _.value.modelProperty } }
+      new TableColumn[Heater, String] { text = conf.getString("heater-header-installed"); cellValueFactory = { _.value.installedProperty } },
+      new TableColumn[Heater, String] { text = conf.getString("heater-header-model"); cellValueFactory = { _.value.modelProperty } }
     )
     items = model.heaterList
   }

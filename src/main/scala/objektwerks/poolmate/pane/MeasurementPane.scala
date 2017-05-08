@@ -15,15 +15,15 @@ import scalafx.scene.layout.{HBox, VBox}
 class MeasurementPane(conf: Config, model: Model) extends VBox {
   val measurementTableView = new TableView[Measurement]() {
     columns ++= List(
-      new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-on"); cellValueFactory = { _.value.onProperty } },
-      new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-temp"); cellValueFactory = { _.value.tempProperty } },
-      new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-hardness"); cellValueFactory = { _.value.hardnessProperty } },
-      new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-total-chlorine"); cellValueFactory = { _.value.totalChlorineProperty } },
-      new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-bromine"); cellValueFactory = { _.value.bromineProperty } },
-      new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-free-chlorine"); cellValueFactory = { _.value.freeChlorineProperty } },
-      new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-ph"); cellValueFactory = { _.value.pHProperty } },
-      new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-alkalinity"); cellValueFactory = { _.value.alkalinityProperty } },
-      new TableColumn[Measurement, String] { text = conf.getString("measurement-table-column-cyanuric-acid"); cellValueFactory = { _.value.cyanuricAcidProperty } }
+      new TableColumn[Measurement, String] { text = conf.getString("measurement-header-on"); cellValueFactory = { _.value.onProperty } },
+      new TableColumn[Measurement, String] { text = conf.getString("measurement-header-temp"); cellValueFactory = { _.value.tempProperty } },
+      new TableColumn[Measurement, String] { text = conf.getString("measurement-header-hardness"); cellValueFactory = { _.value.hardnessProperty } },
+      new TableColumn[Measurement, String] { text = conf.getString("measurement-header-total-chlorine"); cellValueFactory = { _.value.totalChlorineProperty } },
+      new TableColumn[Measurement, String] { text = conf.getString("measurement-header-bromine"); cellValueFactory = { _.value.bromineProperty } },
+      new TableColumn[Measurement, String] { text = conf.getString("measurement-header-free-chlorine"); cellValueFactory = { _.value.freeChlorineProperty } },
+      new TableColumn[Measurement, String] { text = conf.getString("measurement-header-ph"); cellValueFactory = { _.value.pHProperty } },
+      new TableColumn[Measurement, String] { text = conf.getString("measurement-header-alkalinity"); cellValueFactory = { _.value.alkalinityProperty } },
+      new TableColumn[Measurement, String] { text = conf.getString("measurement-header-cyanuric-acid"); cellValueFactory = { _.value.cyanuricAcidProperty } }
     )
     prefHeight = conf.getInt("height")
     items = model.measurementList

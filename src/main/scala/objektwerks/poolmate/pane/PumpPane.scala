@@ -15,8 +15,8 @@ import scalafx.scene.layout.{HBox, VBox}
 class PumpPane(conf: Config, model: Model) extends VBox {
   val pumpTableView = new TableView[Pump]() {
     columns ++= List(
-      new TableColumn[Pump, String] { text = conf.getString("pump-table-column-installed"); cellValueFactory = { _.value.installedProperty } },
-      new TableColumn[Pump, String] { text = conf.getString("pump-table-column-model"); cellValueFactory = { _.value.modelProperty } }
+      new TableColumn[Pump, String] { text = conf.getString("pump-header-installed"); cellValueFactory = { _.value.installedProperty } },
+      new TableColumn[Pump, String] { text = conf.getString("pump-header-model"); cellValueFactory = { _.value.modelProperty } }
     )
     items = model.pumpList
   }

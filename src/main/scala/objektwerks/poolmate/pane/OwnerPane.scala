@@ -16,10 +16,10 @@ class OwnerPane(conf: Config, model: Model) extends VBox {
   val ownerLabel = new Label { text = conf.getString("owners") }
   val ownerTableView = new TableView[Owner]() {
     columns ++= List(
-      new TableColumn[Owner, String] { text = conf.getString("owner-table-column-since"); cellValueFactory = { _.value.sinceProperty } },
-      new TableColumn[Owner, String] { text = conf.getString("owner-table-column-first"); cellValueFactory = { _.value.firstProperty } },
-      new TableColumn[Owner, String] { text = conf.getString("owner-table-column-last"); cellValueFactory = { _.value.lastroperty } },
-      new TableColumn[Owner, String] { text = conf.getString("owner-table-column-email"); cellValueFactory = { _.value.emailProperty } }
+      new TableColumn[Owner, String] { text = conf.getString("owner-header-since"); cellValueFactory = { _.value.sinceProperty } },
+      new TableColumn[Owner, String] { text = conf.getString("owner-header-first"); cellValueFactory = { _.value.firstProperty } },
+      new TableColumn[Owner, String] { text = conf.getString("owner-header-last"); cellValueFactory = { _.value.lastroperty } },
+      new TableColumn[Owner, String] { text = conf.getString("owner-header-email"); cellValueFactory = { _.value.emailProperty } }
     )
     items = model.ownerList
   }
