@@ -1,5 +1,7 @@
 package objektwerks.poolmate.dialog
 
+import java.text.DecimalFormat
+
 import com.typesafe.config.Config
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Measurement
@@ -11,6 +13,8 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, Region}
 
 class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[Measurement]() {
+  val doubleFormatter = new DecimalFormat("#.00")
+
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   val onDatePicker = new DatePicker { value = measurement.on }
 
@@ -35,10 +39,10 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
   val freeChlorineControl = new HBox { spacing = 3; children = List(freeChlorineSlider, freeChlorineLabel) }
 
   val phSlider = new Slider { prefWidth = 600; min = 6.2; max = 8.4; majorTickUnit = 0.2; showTickLabels = true; showTickMarks = true; value = measurement.pH }
-  val phLabel = new Label { text = measurement.pH.toString }
+  val phLabel = new Label { text = doubleFormatter.format(measurement.pH) }
   val phControl = new HBox { spacing = 3; children = List(phSlider, phLabel) }
 
-  val alkalinitySlider = new Slider { prefWidth = 600; prefWidth = 200; min = 0; max = 240; majorTickUnit = 20; showTickMarks = true; showTickLabels = true; value = measurement.alkalinity }
+  val alkalinitySlider = new Slider { prefWidth = 600; min = 0; max = 240; majorTickUnit = 20; showTickMarks = true; showTickLabels = true; value = measurement.alkalinity }
   val alkalinityLabel = new Label { text = measurement.alkalinity.toString }
   val alkalinityControl = new HBox { spacing = 3; children = List(alkalinitySlider, alkalinityLabel) }
 
@@ -71,7 +75,7 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
   totalChlorineSlider.value.onChange { (_, _, newValue) => totalChlorineLabel.text = newValue.intValue.toString }
   bromineSlider.value.onChange { (_, _, newValue) => bromineLabel.text = newValue.intValue.toString }
   freeChlorineSlider.value.onChange { (_, _, newValue) => freeChlorineLabel.text = newValue.intValue.toString }
-  phSlider.value.onChange { (_, _, newValue) => phLabel.text = newValue.doubleValue.toString }
+  phSlider.value.onChange { (_, _, newValue) => phLabel.text = doubleFormatter.format(newValue.doubleValue()) }
   alkalinitySlider.value.onChange { (_, _, newValue) => alkalinityLabel.text = newValue.intValue.toString }
   cyanuricAcidSlider.value.onChange { (_, _, newValue) => cyanuricAcidLabel.text = newValue.intValue.toString }
 
