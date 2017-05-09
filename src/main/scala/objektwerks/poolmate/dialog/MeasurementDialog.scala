@@ -13,14 +13,14 @@ import scalafx.scene.layout.Region
 class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[Measurement]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   val onDatePicker = new DatePicker { value = measurement.on }
-  val tempSlider = new Slider { prefWidth = 600; min = 0.0; max = 100.0; majorTickUnit = 10.0; showTickLabels = true; showTickMarks = true; value = measurement.temp }
-  val hardnessSlider = new Slider { prefWidth = 600; min = 0.0; max = 1000.0; majorTickUnit = 100.0; showTickLabels = true; showTickMarks = true; value = measurement.hardness }
-  val totalChlorineSlider = new Slider { prefWidth = 600; min = 0.0; max = 10.0; majorTickUnit = 1.0; showTickLabels = true; showTickMarks = true; value = measurement.totalChlorine }
-  val bromineSlider = new Slider { prefWidth = 600; min = 0.0; max = 20.0; majorTickUnit = 1.0; showTickLabels = true; showTickMarks = true; value = measurement.bromine }
-  val freeChlorineSlider = new Slider { prefWidth = 600; min = 0.0; max = 10.0;; majorTickUnit = 1.0; showTickLabels = true; showTickMarks = true; value = measurement.freeChlorine }
+  val tempSlider = new Slider { prefWidth = 600; min = 0; max = 100; majorTickUnit = 10; showTickLabels = true; showTickMarks = true; value = measurement.temp }
+  val hardnessSlider = new Slider { prefWidth = 600; min = 0; max = 1000; majorTickUnit = 100; showTickLabels = true; showTickMarks = true; value = measurement.hardness }
+  val totalChlorineSlider = new Slider { prefWidth = 600; min = 0; max = 10; majorTickUnit = 1; showTickLabels = true; showTickMarks = true; value = measurement.totalChlorine }
+  val bromineSlider = new Slider { prefWidth = 600; min = 0.0; max = 20; majorTickUnit = 1; showTickLabels = true; showTickMarks = true; value = measurement.bromine }
+  val freeChlorineSlider = new Slider { prefWidth = 600; min = 0; max = 10; majorTickUnit = 1; showTickLabels = true; showTickMarks = true; value = measurement.freeChlorine }
   val phSlider = new Slider { prefWidth = 600; min = 6.2; max = 8.4; majorTickUnit = 0.2; showTickLabels = true; showTickMarks = true; value = measurement.pH }
-  val alkalinitySlider = new Slider { prefWidth = 600; prefWidth = 200; min = 0.0; max = 240; majorTickUnit = 20.0; showTickMarks = true; showTickLabels = true; value = measurement.alkalinity }
-  val cyanuricAcidSlider = new Slider { prefWidth = 600; min = 0.0; max = 300.0; majorTickUnit = 25.0; showTickLabels = true; showTickMarks = true; value = measurement.cyanuricAcid }
+  val alkalinitySlider = new Slider { prefWidth = 600; prefWidth = 200; min = 0; max = 240; majorTickUnit = 20; showTickMarks = true; showTickLabels = true; value = measurement.alkalinity }
+  val cyanuricAcidSlider = new Slider { prefWidth = 600; min = 0; max = 300; majorTickUnit = 25; showTickLabels = true; showTickMarks = true; value = measurement.cyanuricAcid }
   val controls = List[(String, Region)](
     conf.getString("measurement-on") -> onDatePicker,
     conf.getString("measurement-temp") -> tempSlider,
