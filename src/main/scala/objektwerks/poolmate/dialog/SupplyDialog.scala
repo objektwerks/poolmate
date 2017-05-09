@@ -34,9 +34,8 @@ class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply]() {
   headerText = conf.getString("save-supply")
 
   val saveButton = dialog.lookupButton(saveButtonType)
-  val isNotDouble = (text: String) => !text.matches("[0-9]{1,13}(\\.[0-9]+)?")
-  amountTextField.text.onChange { (_, oldValue, newValue) => if (isNotDouble(newValue)) amountTextField.text.value = oldValue }
-  costTextField.text.onChange { (_, oldValue, newValue) => if (isNotDouble(newValue)) costTextField.text.value = oldValue }
+  amountTextField.text.onChange { (_, oldValue, newValue) => if (isNotNumeric(newValue)) amountTextField.text.value = oldValue }
+  costTextField.text.onChange { (_, oldValue, newValue) => if (isNotNumeric(newValue)) costTextField.text.value = oldValue }
   itemTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
 
   resultConverter = dialogButton => {

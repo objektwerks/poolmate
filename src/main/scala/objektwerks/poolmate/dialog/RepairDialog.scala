@@ -30,8 +30,7 @@ class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair]() {
   headerText = conf.getString("save-repair")
 
   val saveButton = dialog.lookupButton(saveButtonType)
-  val isNotDouble = (text: String) => !text.matches("[0-9]{1,13}(\\.[0-9]+)?")
-  costTextField.text.onChange { (_, oldValue, newValue) => if (isNotDouble(newValue)) costTextField.text.value = oldValue }
+  costTextField.text.onChange { (_, oldValue, newValue) => if (isNotNumeric(newValue)) costTextField.text.value = oldValue }
   itemTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
 
   resultConverter = dialogButton => {

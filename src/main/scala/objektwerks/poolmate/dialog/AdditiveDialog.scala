@@ -32,8 +32,7 @@ class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive](
   headerText = conf.getString("save-additive")
 
   val saveButton = dialog.lookupButton(saveButtonType)
-  val isNotDouble = (text: String) => !text.matches("[0-9]{1,13}(\\.[0-9]+)?")
-  amountTextField.text.onChange { (_, oldValue, newValue) => if (isNotDouble(newValue)) amountTextField.text.value = oldValue }
+  amountTextField.text.onChange { (_, oldValue, newValue) => if (isNotNumeric(newValue)) amountTextField.text.value = oldValue }
   chemicalTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
 
   resultConverter = dialogButton => {

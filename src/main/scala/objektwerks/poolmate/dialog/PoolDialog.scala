@@ -36,12 +36,11 @@ class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]()  {
   headerText = conf.getString("save-pool")
 
   val saveButton = dialog.lookupButton(saveButtonType)
-  val isNotInt = (text: String) => !text.matches("[0-9]*")
-  gallonsTextField.text.onChange { (_, oldValue, newValue) => if (isNotInt(newValue)) gallonsTextField.text.value = oldValue }
+  gallonsTextField.text.onChange { (_, oldValue, newValue) => if (isNotNumeric(newValue)) gallonsTextField.text.value = oldValue }
   streetTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
   cityTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
   stateTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
-  zipTextField.text.onChange { (_, oldValue, newValue) => if (isNotInt(newValue)) zipTextField.text.value = oldValue }
+  zipTextField.text.onChange { (_, oldValue, newValue) => if (isNotNumeric(newValue)) zipTextField.text.value = oldValue }
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
