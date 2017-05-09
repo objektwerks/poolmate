@@ -56,13 +56,14 @@ class Model(repository: Repository) {
     val newOwner = owner.copy(id = newId.get)
     ownerList += newOwner
     selectedOwnerId.value = newOwner.id
+    ownerList.sorted.reverse
     newOwner
   }
 
   def updateOwner(selectedIndex: Int, owner: Owner): Unit = {
     await(owners.save(owner))
     ownerList.update(selectedIndex, owner)
-    ownerList.sorted
+    ownerList.sorted.reverse
   }
 
   val surfaceList = ObservableBuffer[Surface]()
@@ -78,13 +79,14 @@ class Model(repository: Repository) {
     val newSurface = surface.copy(id = newId.get)
     surfaceList += newSurface
     selectedSurfaceId.value = newSurface.id
+    surfaceList.sorted.reverse
     newSurface
   }
 
   def updateSurface(selectedIndex: Int, surface: Surface): Unit = {
     await(surfaces.save(surface))
     surfaceList.update(selectedIndex, surface)
-    surfaceList.sorted
+    surfaceList.sorted.reverse
   }
 
   val pumpList = ObservableBuffer[Pump]()
@@ -100,13 +102,14 @@ class Model(repository: Repository) {
     val newPump = pump.copy(id = newId.get)
     pumpList += newPump
     selectedPumpId.value = newPump.id
+    pumpList.sorted.reverse
     newPump
   }
 
   def updatePump(selectedIndex: Int, pump: Pump): Unit = {
     await(pumps.save(pump))
     pumpList.update(selectedIndex, pump)
-    pumpList.sorted
+    pumpList.sorted.reverse
   }
 
   val timerList = ObservableBuffer[Timer]()
@@ -122,13 +125,14 @@ class Model(repository: Repository) {
     val newTimer = timer.copy(id = newId.get)
     timerList += newTimer
     selectedTimerId.value = newTimer.id
+    timerList.sorted.reverse
     newTimer
   }
 
   def updateTimer(selectedIndex: Int, timer: Timer): Unit = {
     await(timers.save(timer))
     timerList.update(selectedIndex, timer)
-    timerList.sorted
+    timerList.sorted.reverse
   }
 
   val heaterList = ObservableBuffer[Heater]()
@@ -144,13 +148,14 @@ class Model(repository: Repository) {
     val newHeater = heater.copy(id = newId.get)
     heaterList += newHeater
     selectedHeaterId.value = newHeater.id
+    heaterList.sorted.reverse
     newHeater
   }
 
   def updateHeater(selectedIndex: Int, heater: Heater): Unit = {
     await(heaters.save(heater))
     heaterList.update(selectedIndex, heater)
-    heaterList.sorted
+    heaterList.sorted.reverse
   }
 
   val lifecycleList = ObservableBuffer[Lifecycle]()
@@ -166,13 +171,14 @@ class Model(repository: Repository) {
     val newLifecycle = lifecycle.copy(id = newId.get)
     lifecycleList += newLifecycle
     selectedLifecycleId.value = newLifecycle.id
+    lifecycleList.sorted.reverse
     newLifecycle
   }
 
   def updateLifecycle(selectedIndex: Int, lifecycle: Lifecycle): Unit = {
     await(lifecycles.save(lifecycle))
     lifecycleList.update(selectedIndex, lifecycle)
-    lifecycleList.sorted
+    lifecycleList.sorted.reverse
   }
 
   val cleaningList = ObservableBuffer[Cleaning]()
@@ -188,13 +194,14 @@ class Model(repository: Repository) {
     val newCleaning = cleaning.copy(id = newId.get)
     cleaningList += newCleaning
     selectedCleaningId.value = newCleaning.id
+    cleaningList.sorted.reverse
     newCleaning
   }
 
   def updateCleaning(selectedIndex: Int, cleaning: Cleaning): Unit = {
     await(cleanings.save(cleaning))
     cleaningList.update(selectedIndex, cleaning)
-    cleaningList.sorted
+    cleaningList.sorted.reverse
   }
 
   val measurementList = ObservableBuffer[Measurement]()
@@ -210,13 +217,14 @@ class Model(repository: Repository) {
     val newMeasurement = measurement.copy(id = newId.get)
     measurementList += newMeasurement
     selectedMeasurementId.value = newMeasurement.id
+    measurementList.sorted.reverse
     newMeasurement
   }
 
   def updateMeasurement(selectedIndex: Int, measurement: Measurement): Unit = {
     await(measurements.save(measurement))
     measurementList.update(selectedIndex, measurement)
-    measurementList.sorted
+    measurementList.sorted.reverse
   }
 
   val additiveList = ObservableBuffer[Additive]()
@@ -232,13 +240,14 @@ class Model(repository: Repository) {
     val newAdditive = additive.copy(id = newId.get)
     additiveList += newAdditive
     selectedAdditiveId.value = newAdditive.id
+    additiveList.sorted.reverse
     newAdditive
   }
 
   def updateAdditive(selectedIndex: Int, additive: Additive): Unit = {
     await(additives.save(additive))
     additiveList.update(selectedIndex, additive)
-    additiveList.sorted
+    additiveList.sorted.reverse
   }
 
   val supplyList = ObservableBuffer[Supply]()
@@ -254,13 +263,14 @@ class Model(repository: Repository) {
     val newSupply = supply.copy(id = newId.get)
     supplyList += newSupply
     selectedSupplyId.value = newSupply.id
+    supplyList.sorted.reverse
     newSupply
   }
 
   def updateSupply(selectedIndex: Int, supply: Supply): Unit = {
     await(supplies.save(supply))
     supplyList.update(selectedIndex, supply)
-    supplyList.sorted
+    supplyList.sorted.reverse
   }
 
   val repairList = ObservableBuffer[Repair]()
@@ -276,12 +286,13 @@ class Model(repository: Repository) {
     val newRepair = repair.copy(id = newId.get)
     repairList += newRepair
     selectedRepairId.value = newRepair.id
+    repairList.sorted.reverse
     newRepair
   }
 
   def updateRepair(selectedIndex: Int, repair: Repair): Unit = {
     await(repairs.save(repair))
     repairList.update(selectedIndex, repair)
-    repairList.sorted
+    repairList.sorted.reverse
   }
 }
