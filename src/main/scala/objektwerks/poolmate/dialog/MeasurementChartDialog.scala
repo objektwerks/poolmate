@@ -62,7 +62,7 @@ object MeasurementCharts {
 
   def buildLineChart(conf: Config, minDate: Double, maxDate: Double, yLabel: String, yLowerBound: Double = 0, yUpperBound: Double, yTickUnit: Double):
                     (LineChart[Number, Number], XYChart.Series[Number, Number]) = {
-    val xAxis = NumberAxis(axisLabel = s"${conf.getString("measurement-chart-year-day")} [$minDate - $maxDate]", lowerBound = minDate, upperBound = maxDate.toInt + 1, tickUnit = 1)
+    val xAxis = NumberAxis(axisLabel = s"${conf.getString("measurement-chart-year-day")} [$minDate - $maxDate]", lowerBound = minDate, upperBound = maxDate, tickUnit = 1)
     val yAxis = NumberAxis(axisLabel = yLabel, lowerBound = yLowerBound, upperBound = yUpperBound, tickUnit = yTickUnit)
     val chart = LineChart[Number, Number](xAxis, yAxis)
     val series = new XYChart.Series[Number, Number]{ name = conf.getString("measurement-chart") }
