@@ -88,7 +88,7 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
                        totalChlorine = totalChlorineSlider.value.toInt,
                        bromine = bromineSlider.value.toInt,
                        freeChlorine = freeChlorineSlider.value.toInt,
-                       pH = phSlider.value.toDouble,
+                       pH = phLabel.text.value.toDouble,
                        alkalinity = alkalinitySlider.value.toInt,
                        cyanuricAcid = cyanuricAcidSlider.value.toInt)
     else null
