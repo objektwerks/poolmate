@@ -110,7 +110,7 @@ case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, 
   val measurement = this
 }
 
-case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String = "chlorine", unit: String = "gallons", amount: Double = 1.0) {
+case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, chemical: String = "cl", unit: String = "gl", amount: Double = 1.0) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
   val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
@@ -121,7 +121,7 @@ case class Additive(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, che
   val additive = this
 }
 
-case class Supply(id: Int = 0, poolId: Int, purchased: LocalDate = LocalDate.now, item: String = "chlorine", unit: String = "gallons", amount: Double = 1.0, cost: Double = 0.0) {
+case class Supply(id: Int = 0, poolId: Int, purchased: LocalDate = LocalDate.now, item: String = "cl", unit: String = "gl", amount: Double = 1.0, cost: Double = 0.0) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
   val purchasedProperty = new StringProperty(this, "purchased", purchased.format(dateFormatter))

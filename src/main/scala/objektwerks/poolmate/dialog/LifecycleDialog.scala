@@ -21,7 +21,7 @@ class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecyc
     conf.getString("lifecycle-created") -> createdDatePicker,
     conf.getString("lifecycle-active") -> activeCheckBox,
     conf.getString("lifecycle-pump-on") -> pumpOnTimePicker,
-    conf.getString("lifecycle-pump-ff") -> pumpOffTimePicker
+    conf.getString("lifecycle-pump-off") -> pumpOffTimePicker
   )
   val controlGridPane = new ControlGridPane(controls)
   val dialog = dialogPane()
