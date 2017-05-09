@@ -50,7 +50,7 @@ class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
 
   val dialog = dialogPane()
   dialog.buttonTypes = List(ButtonType.Close)
-  dialog.content = new VBox { spacing = 6; children = List(chartsTabPane) }
+  dialog.content = new VBox { spacing = 6; padding = Insets(6); children = List(chartsTabPane) }
 
   initOwner(App.stage)
   title = conf.getString("measurement-chart")
