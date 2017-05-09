@@ -54,7 +54,7 @@ class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
 
   initOwner(App.stage)
   title = conf.getString("measurement-chart")
-  headerText = conf.getString("measurements-charts")
+  headerText = conf.getString("measurement-charts")
 }
 
 object MeasurementCharts {

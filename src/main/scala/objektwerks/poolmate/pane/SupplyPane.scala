@@ -25,7 +25,7 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
     items = model.supplyList
   }
   supplyTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val supplyAddButton = new Button { graphic = addImageView() }
+  val supplyAddButton = new Button { graphic = addImageView(); disable = true }
   val supplyEditButton = new Button { graphic = editImageView(); disable = true }
   val supplyChartButton = new Button { graphic = barChartImageView(); disable = true }
   val supplyToolBar = new HBox { spacing = 6; children = List(supplyAddButton, supplyEditButton, supplyChartButton) }

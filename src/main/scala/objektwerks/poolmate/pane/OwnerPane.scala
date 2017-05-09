@@ -24,7 +24,7 @@ class OwnerPane(conf: Config, model: Model) extends VBox {
     items = model.ownerList
   }
   ownerTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val ownerAddButton = new Button { graphic = addImageView() }
+  val ownerAddButton = new Button { graphic = addImageView(); disable = true }
   val ownerEditButton = new Button { graphic = editImageView(); disable = true }
   val ownerToolBar = new HBox { spacing = 6; children = List(ownerAddButton, ownerEditButton) }
 

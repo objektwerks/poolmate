@@ -21,7 +21,7 @@ class PumpPane(conf: Config, model: Model) extends VBox {
     items = model.pumpList
   }
   pumpTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val pumpAddButton = new Button { graphic = addImageView() }
+  val pumpAddButton = new Button { graphic = addImageView(); disable = true }
   val pumpEditButton = new Button { graphic = editImageView(); disable = true }
   val pumpToolBar = new HBox { spacing = 6; children = List(pumpAddButton, pumpEditButton) }
 
