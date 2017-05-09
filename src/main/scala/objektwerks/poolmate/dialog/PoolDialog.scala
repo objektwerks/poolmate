@@ -47,7 +47,7 @@ class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]()  {
     if (dialogButton == saveButtonType)
       pool.copy(built = builtDatePicker.value.value,
                 gallons = Integer.parseInt(gallonsTextField.text.value),
-                street = stateTextField.text.value,
+                street = streetTextField.text.value,
                 city = cityTextField.text.value,
                 state = stateTextField.text.value,
                 zip = Integer.parseInt(zipTextField.text.value))
