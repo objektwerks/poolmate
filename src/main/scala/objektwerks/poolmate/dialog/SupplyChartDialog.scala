@@ -20,12 +20,12 @@ class SupplyChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val chart = BarChart[String, Number](xAxis, yAxis)
   chart.categoryGap = 25.0
 
-  val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy")
   supplies foreach { supply =>
     val series = new XYChart.Series[String, Number] {
-      val yearDay = supply.purchased.format(dateFormatter)
-      name = yearDay
-      data() += XYChart.Data[String, Number](yearDay, supply.cost)
+      val year = supply.purchased.format(dateFormatter)
+      name = year
+      data() += XYChart.Data[String, Number](year, supply.cost)
     }
     chart.data() += series
   }

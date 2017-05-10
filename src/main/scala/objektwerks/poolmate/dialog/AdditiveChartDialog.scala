@@ -20,12 +20,12 @@ class AdditiveChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val chart = BarChart[String, Number](xAxis, yAxis)
   chart.categoryGap = 25.0
 
-  val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy")
   additives foreach { additive =>
     val series = new XYChart.Series[String, Number] {
-      val yearDay = additive.on.format(dateFormatter)
-      name = yearDay
-      data() += XYChart.Data[String, Number](yearDay, additive.amount)
+      val year = additive.on.format(dateFormatter)
+      name = year
+      data() += XYChart.Data[String, Number](year, additive.amount)
     }
     chart.data() += series
   }
