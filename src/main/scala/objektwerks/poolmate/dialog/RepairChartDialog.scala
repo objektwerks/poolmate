@@ -7,19 +7,21 @@ import objektwerks.poolmate.App
 import objektwerks.poolmate.model.Model
 
 import scalafx.Includes._
+import scalafx.geometry.Insets
 import scalafx.scene.chart.{LineChart, NumberAxis, XYChart}
 import scalafx.scene.control.{ButtonType, Dialog}
 import scalafx.scene.layout.VBox
 
 class RepairChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val repairs = model.repairList
-  val yearFormatter = DateTimeFormatter.ofPattern("yyyy")
-  val years = repairs.map(a => a.on.format(yearFormatter).toInt)
-  val minYear = years.min
-  val maxYear = years.max
+  val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
+  val dates = repairs.map(a => a.on.format(dateFormatter).toDouble)
+  val minDate = dates.min
+  val maxDate = dates.max
 
-  val xAxis = NumberAxis(axisLabel = s"${conf.getString("repair-chart-years")} [$minYear - $maxYear]", lowerBound = minYear, upperBound = maxYear + 1, tickUnit = 1)
-  val yAxis = NumberAxis(axisLabel = conf.getString("repair-chart-costs"), lowerBound = 0, upperBound = 1000.00, tickUnit = 100.00)
+
+  val xAxis = NumberAxis(axisLabel = s"${conf.getString("repair-chart-years")} [$minDate - $maxDate]", lowerBound = minDate, upperBound = maxDate, tickUnit = 1)
+  val yAxis = NumberAxis(axisLabel = conf.getString("repair-chart-costs"), lowerBound = 0.0, upperBound = 1000.00, tickUnit = 100.00)
   val chart = LineChart[Number, Number](xAxis, yAxis)
 
   val series = new XYChart.Series[Number, Number]{ name = conf.getString("repair-chart-cost") }
@@ -28,6 +30,7 @@ class RepairChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
     series.data() += XYChart.Data[Number, Number]( repair.on.format(monthFormatter).toInt, repair.cost.toInt )
   }
   chart.data = series
+  chart.padding = Insets(6)
 
   val dialog = dialogPane()
   dialog.buttonTypes = List(ButtonType.Close)
