@@ -14,18 +14,16 @@ import scalafx.scene.layout.VBox
 
 class AdditiveChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val additives = model.additiveList
-  val xAxis = CategoryAxis(additives.map(s => s.chemical).distinct)
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy")
+  val xAxis = CategoryAxis(additives.map(a => a.on.format(dateFormatter)).distinct)
   xAxis.label = conf.getString("additive-chart-additives")
   val yAxis = NumberAxis(axisLabel = conf.getString("additive-chart-amounts"), lowerBound = 0.0, upperBound = 10.00, tickUnit = 1.00)
   val chart = BarChart[String, Number](xAxis, yAxis)
   chart.categoryGap = 25.0
 
-  val dateFormatter = DateTimeFormatter.ofPattern("yyyy")
   additives foreach { additive =>
     val series = new XYChart.Series[String, Number] {
-      val year = additive.on.format(dateFormatter)
-      name = year
-      data() += XYChart.Data[String, Number](year, additive.amount)
+      data() += XYChart.Data[String, Number](additive.chemical, additive.amount)
     }
     chart.data() += series
   }
