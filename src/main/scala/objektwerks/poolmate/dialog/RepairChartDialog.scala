@@ -20,15 +20,12 @@ class RepairChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val maxDate = dates.max
 
 
-  val xAxis = NumberAxis(axisLabel = s"${conf.getString("repair-chart-years")} [$minDate - $maxDate]", lowerBound = minDate, upperBound = maxDate, tickUnit = 1)
-  val yAxis = NumberAxis(axisLabel = conf.getString("repair-chart-costs"), lowerBound = 0.0, upperBound = 1000.00, tickUnit = 100.00)
+  val xAxis = NumberAxis(axisLabel = s"${conf.getString("repair-chart-year-day")} [$minDate - $maxDate]", lowerBound = minDate, upperBound = maxDate, tickUnit = 1)
+  val yAxis = NumberAxis(axisLabel = s"${conf.getString("repair-chart-costs")}", lowerBound = 0.0, upperBound = 1000.00, tickUnit = 100.00)
   val chart = LineChart[Number, Number](xAxis, yAxis)
 
-  val series = new XYChart.Series[Number, Number]{ name = conf.getString("repair-chart-cost") }
-  val monthFormatter = DateTimeFormatter.ofPattern("MM")
-  repairs foreach { repair =>
-    series.data() += XYChart.Data[Number, Number]( repair.on.format(monthFormatter).toInt, repair.cost.toInt )
-  }
+  val series = new XYChart.Series[Number, Number] { name = conf.getString("repairs") }
+  repairs foreach { repair => series.data() += XYChart.Data[Number, Number]( repair.on.format(dateFormatter).toDouble, repair.cost ) }
   chart.data = series
   chart.padding = Insets(6)
 

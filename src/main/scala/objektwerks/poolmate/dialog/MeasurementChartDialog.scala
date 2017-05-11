@@ -65,7 +65,7 @@ object MeasurementCharts {
     val xAxis = NumberAxis(axisLabel = s"${conf.getString("measurement-chart-year-day")} [$minDate - $maxDate]", lowerBound = minDate, upperBound = maxDate, tickUnit = 1)
     val yAxis = NumberAxis(axisLabel = yLabel, lowerBound = yLowerBound, upperBound = yUpperBound, tickUnit = yTickUnit)
     val chart = LineChart[Number, Number](xAxis, yAxis)
-    val series = new XYChart.Series[Number, Number]{ name = conf.getString("measurement-chart") }
+    val series = new XYChart.Series[Number, Number]{ name = conf.getString("measurements") }
     chart.padding = Insets(6)
     (chart, series)
   }
