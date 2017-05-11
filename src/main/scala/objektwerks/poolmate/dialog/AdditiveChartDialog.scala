@@ -15,19 +15,22 @@ import scalafx.scene.layout.VBox
 class AdditiveChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val additives = model.additiveList
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy")
-  val xAxis = CategoryAxis(additives.map(a => a.on.format(dateFormatter)).distinct)
+  val years = additives.map(a => a.on.format(dateFormatter)).distinct
+  val xAxis = CategoryAxis(years)
   xAxis.label = conf.getString("additive-chart-additives")
-  val yAxis = NumberAxis(axisLabel = conf.getString("additive-chart-amounts"), lowerBound = 0.0, upperBound = 10.00, tickUnit = 1.00)
+  val yAxis = NumberAxis(axisLabel = conf.getString("additive-chart-amounts"), lowerBound = 0.0, upperBound = 100.00, tickUnit = 10.00)
   val chart = BarChart[String, Number](xAxis, yAxis)
   chart.categoryGap = 25.0
+  chart.padding = Insets(6)
 
-  additives foreach { additive =>
+  years foreach { year =>
     val series = new XYChart.Series[String, Number] {
-      data() += XYChart.Data[String, Number](additive.chemical, additive.amount)
+      val filteredYear = additives.filter(s => year == s.on.format(dateFormatter))
+      name = filteredYear.map(_.chemical).distinct.head
+      data() += XYChart.Data[String, Number](year, filteredYear.map(_.amount).sum)
     }
     chart.data() += series
   }
-  chart.padding = Insets(6)
 
   val dialog = dialogPane()
   dialog.buttonTypes = List(ButtonType.Close)

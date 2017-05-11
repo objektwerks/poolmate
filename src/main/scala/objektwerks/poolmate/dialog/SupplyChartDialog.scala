@@ -15,19 +15,22 @@ import scalafx.scene.layout.VBox
 class SupplyChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val supplies = model.supplyList
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy")
-  val xAxis = CategoryAxis(supplies.map(s => s.purchased.format(dateFormatter)).distinct)
+  val years = supplies.map(s => s.purchased.format(dateFormatter)).distinct
+  val xAxis = CategoryAxis(years)
   xAxis.label = conf.getString("supply-chart-supplies")
-  val yAxis = NumberAxis(axisLabel = conf.getString("supply-chart-costs"), lowerBound = 0.0, upperBound = 100.00, tickUnit = 10.00)
+  val yAxis = NumberAxis(axisLabel = conf.getString("supply-chart-costs"), lowerBound = 0.0, upperBound = 1000.00, tickUnit = 100.00)
   val chart = BarChart[String, Number](xAxis, yAxis)
   chart.categoryGap = 25.0
+  chart.padding = Insets(6)
 
-  supplies foreach { supply =>
+  years foreach { year =>
     val series = new XYChart.Series[String, Number] {
-      data() += XYChart.Data[String, Number](supply.item, supply.cost)
+      val filteredYear = supplies.filter(s => year == s.purchased.format(dateFormatter))
+      name = filteredYear.map(_.item).distinct.head
+      data() += XYChart.Data[String, Number](year, filteredYear.map(_.cost).sum)
     }
     chart.data() += series
   }
-  chart.padding = Insets(6)
 
   val dialog = dialogPane()
   dialog.buttonTypes = List(ButtonType.Close)
