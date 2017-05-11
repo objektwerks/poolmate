@@ -24,12 +24,16 @@ class AdditiveChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   chart.padding = Insets(6)
 
   years foreach { year =>
-    val series = new XYChart.Series[String, Number] {
-      val filteredYear = additives.filter(s => year == s.on.format(dateFormatter))
-      name = filteredYear.map(_.chemical).distinct.head
-      data() += XYChart.Data[String, Number](year, filteredYear.map(_.amount).sum)
+    val filteredYear = additives.filter(s => year == s.on.format(dateFormatter))
+    val groupedChemicals = filteredYear.groupBy(_.chemical)
+    groupedChemicals foreach { group =>
+      val (chemical, additivesByChemical) = group
+      val series = new XYChart.Series[String, Number] {
+        name = chemical
+        data() += XYChart.Data[String, Number](year, additivesByChemical.map(_.amount).sum)
+      }
+      chart.data() += series
     }
-    chart.data() += series
   }
 
   val dialog = dialogPane()

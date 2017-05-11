@@ -24,12 +24,17 @@ class SupplyChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   chart.padding = Insets(6)
 
   years foreach { year =>
-    val series = new XYChart.Series[String, Number] {
-      val filteredYear = supplies.filter(s => year == s.purchased.format(dateFormatter))
-      name = filteredYear.map(_.item).distinct.head
-      data() += XYChart.Data[String, Number](year, filteredYear.map(_.cost).sum)
+    val filteredYear = supplies.filter(s => year == s.purchased.format(dateFormatter))
+    val groupedItems = filteredYear.groupBy(_.item)
+    groupedItems foreach { group =>
+      val (item, suppliesByItem) = group
+      val series = new XYChart.Series[String, Number] {
+        name = item
+        data() += XYChart.Data[String, Number](year, suppliesByItem.map(_.cost).sum)
+      }
+      chart.data() += series
+
     }
-    chart.data() += series
   }
 
   val dialog = dialogPane()
