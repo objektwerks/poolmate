@@ -37,6 +37,7 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listSupplies(selectedPoolId.intValue)
     supplyAddButton.disable = false
+    supplyChartButton.disable = if (model.supplyList.nonEmpty) false else true
   }
 
   supplyTableView.selectionModel().selectedItemProperty().addListener { (_, _, selectedSupply) =>

@@ -36,6 +36,7 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listAdditives(selectedPoolId.intValue)
     additiveAddButton.disable = false
+    additiveChartButton.disable = if (model.additiveList.nonEmpty) false else true
   }
 
   additiveTableView.selectionModel().selectedItemProperty().addListener { (_, _, selectedAdditive) =>

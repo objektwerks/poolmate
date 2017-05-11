@@ -41,6 +41,7 @@ class MeasurementPane(conf: Config, model: Model) extends VBox {
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listMeasurements(selectedPoolId.intValue)
     measurementAddButton.disable = false
+    measurementChartButton.disable = if (model.measurementList.nonEmpty) false else true
   }
 
   measurementTableView.selectionModel().selectedItemProperty().addListener { (_, _, selectedMeasurement) =>

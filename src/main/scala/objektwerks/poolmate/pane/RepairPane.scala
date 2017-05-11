@@ -35,6 +35,7 @@ class RepairPane(conf: Config, model: Model) extends VBox {
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listRepairs(selectedPoolId.intValue)
     repairAddButton.disable = false
+    repairChartButton.disable = if (model.repairList.nonEmpty) false else true
   }
 
   repairTableView.selectionModel().selectedItemProperty().addListener { (_, _, selectedRepair) =>
