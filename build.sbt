@@ -1,6 +1,6 @@
 name := "poolmate"
 organization := "objektwerks"
-version := "0.1"
+version := "0.2-SNAPSHOT"
 scalaVersion := "2.12.2"
 ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 libraryDependencies ++= {
