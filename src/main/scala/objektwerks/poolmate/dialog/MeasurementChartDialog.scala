@@ -1,5 +1,6 @@
 package objektwerks.poolmate.dialog
 
+import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
 import com.typesafe.config.Config
@@ -58,13 +59,14 @@ class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
 
 object MeasurementCharts {
   val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
+  val doubleFormatter = new DecimalFormat("#.00")
 
   def buildLineChart(conf: Config, minDate: Double, maxDate: Double, yLabel: String, yLowerBound: Double = 0, yUpperBound: Double, yTickUnit: Double):
                     (LineChart[Number, Number], XYChart.Series[Number, Number]) = {
     val xAxis = NumberAxis(axisLabel = s"${conf.getString("measurement-chart-year-day")} [$minDate - $maxDate]", lowerBound = minDate, upperBound = maxDate, tickUnit = 1)
     val yAxis = NumberAxis(axisLabel = yLabel, lowerBound = yLowerBound, upperBound = yUpperBound, tickUnit = yTickUnit)
     val chart = LineChart[Number, Number](xAxis, yAxis)
-    val series = new XYChart.Series[Number, Number]{ name = conf.getString("measurements") }
+    val series = new XYChart.Series[Number, Number]()
     chart.padding = Insets(6)
     (chart, series)
   }
@@ -73,6 +75,10 @@ object MeasurementCharts {
     val (chart, series) = buildLineChart(conf, minDate, maxDate, yLabel = conf.getString("measurement-chart-temp"), yUpperBound = 100, yTickUnit = 10)
     measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(dateFormatter).toDouble, measurement.temp ) }
     chart.data = series
+    val min = measurements.map(r => r.temp).min
+    val max = measurements.map(r => r.temp).max
+    val avg = measurements.map(r => r.temp).sum / measurements.length
+    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
   }
 
@@ -80,6 +86,10 @@ object MeasurementCharts {
     val (chart, series) = buildLineChart(conf, minDate, maxDate, yLabel = conf.getString("measurement-chart-hardness"), yUpperBound = 1000, yTickUnit = 100)
     measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(dateFormatter).toDouble, measurement.hardness ) }
     chart.data = series
+    val min = measurements.map(r => r.hardness).min
+    val max = measurements.map(r => r.hardness).max
+    val avg = measurements.map(r => r.hardness).sum / measurements.length
+    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
   }
 
@@ -87,6 +97,10 @@ object MeasurementCharts {
     val (chart, series) = buildLineChart(conf, minDate, maxDate, yLabel = conf.getString("measurement-chart-total-chlorine"), yUpperBound = 10, yTickUnit = 1)
     measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(dateFormatter).toDouble, measurement.totalChlorine ) }
     chart.data = series
+    val min = measurements.map(r => r.totalChlorine).min
+    val max = measurements.map(r => r.totalChlorine).max
+    val avg = measurements.map(r => r.totalChlorine).sum / measurements.length
+    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
   }
 
@@ -94,6 +108,10 @@ object MeasurementCharts {
     val (chart, series) = buildLineChart(conf, minDate, maxDate, yLabel = conf.getString("measurement-chart-bromine"), yUpperBound = 20, yTickUnit = 1)
     measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(dateFormatter).toDouble, measurement.bromine ) }
     chart.data = series
+    val min = measurements.map(r => r.bromine).min
+    val max = measurements.map(r => r.bromine).max
+    val avg = measurements.map(r => r.bromine).sum / measurements.length
+    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
   }
 
@@ -101,6 +119,10 @@ object MeasurementCharts {
     val (chart, series) = buildLineChart(conf, minDate, maxDate, yLabel = conf.getString("measurement-chart-free-chlorine"), yUpperBound = 10, yTickUnit = 1)
     measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(dateFormatter).toDouble, measurement.freeChlorine ) }
     chart.data = series
+    val min = measurements.map(r => r.freeChlorine).min
+    val max = measurements.map(r => r.freeChlorine).max
+    val avg = measurements.map(r => r.freeChlorine).sum / measurements.length
+    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
   }
 
@@ -108,6 +130,10 @@ object MeasurementCharts {
     val (chart, series) = buildLineChart(conf, minDate, maxDate, yLabel = conf.getString("measurement-chart-ph"), yLowerBound = 6.2, yUpperBound = 8.4, yTickUnit = 0.2)
     measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(dateFormatter).toDouble, measurement.pH ) }
     chart.data = series
+    val min = doubleFormatter.format(measurements.map(r => r.pH).min)
+    val max = doubleFormatter.format(measurements.map(r => r.pH).max)
+    val avg = doubleFormatter.format(measurements.map(r => r.pH).sum / measurements.length)
+    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
   }
 
@@ -115,6 +141,10 @@ object MeasurementCharts {
     val (chart, series) = buildLineChart(conf, minDate, maxDate, yLabel = conf.getString("measurement-chart-alkalinity"), yUpperBound = 240, yTickUnit = 20)
     measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(dateFormatter).toDouble, measurement.alkalinity ) }
     chart.data = series
+    val min = measurements.map(r => r.alkalinity).min
+    val max = measurements.map(r => r.alkalinity).max
+    val avg = measurements.map(r => r.alkalinity).sum / measurements.length
+    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
   }
 
@@ -122,6 +152,10 @@ object MeasurementCharts {
     val (chart, series) = buildLineChart(conf, minDate, maxDate, yLabel = conf.getString("measurement-chart-cyanuric-acid"), yUpperBound = 300, yTickUnit = 25)
     measurements foreach { measurement => series.data() += XYChart.Data[Number, Number]( measurement.on.format(dateFormatter).toDouble, measurement.cyanuricAcid ) }
     chart.data = series
+    val min = measurements.map(r => r.cyanuricAcid).min
+    val max = measurements.map(r => r.cyanuricAcid).max
+    val avg = measurements.map(r => r.cyanuricAcid).sum / measurements.length
+    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
   }
 }
