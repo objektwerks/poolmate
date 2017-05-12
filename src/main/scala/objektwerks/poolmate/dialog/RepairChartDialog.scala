@@ -23,7 +23,11 @@ class RepairChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val chart = LineChart[Number, Number](xAxis, yAxis)
   chart.padding = Insets(6)
 
-  val series = new XYChart.Series[Number, Number] { name = conf.getString("repairs") }
+  val minCost = repairs.map(r => r.cost).min.toInt
+  val maxCost = repairs.map(r => r.cost).max.toInt
+  val avgCost = (repairs.map(r => r.cost).sum / repairs.length).toInt
+
+  val series = new XYChart.Series[Number, Number] { name = s"${conf.getString("min")} $minCost  ${conf.getString("max")} $maxCost  ${conf.getString("avg")} $avgCost" }
   repairs foreach { repair => series.data() += XYChart.Data[Number, Number]( repair.on.format(dateFormatter).toDouble, repair.cost ) }
   chart.data = series
 
