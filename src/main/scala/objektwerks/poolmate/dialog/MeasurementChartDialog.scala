@@ -17,9 +17,8 @@ import scalafx.scene.layout.VBox
 class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val measurements = model.measurementList
   val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
-  val dates = measurements.map(a => a.on.format(dateFormatter).toDouble)
-  val minDate = dates.min
-  val maxDate = dates.max
+  val minDate = measurements.map(m => m.on).min.format(dateFormatter).toDouble
+  val maxDate = measurements.map(m => m.on).max.format(dateFormatter).toDouble
 
   import MeasurementCharts._
   val tempLineChart = buildTempLineChart(conf, measurements, minDate, maxDate)
