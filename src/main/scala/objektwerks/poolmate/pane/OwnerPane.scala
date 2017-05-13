@@ -18,8 +18,7 @@ class OwnerPane(conf: Config, model: Model) extends VBox {
     columns ++= List(
       new TableColumn[Owner, String] { text = conf.getString("owner-header-since"); cellValueFactory = { _.value.sinceProperty } },
       new TableColumn[Owner, String] { text = conf.getString("owner-header-first"); cellValueFactory = { _.value.firstProperty } },
-      new TableColumn[Owner, String] { text = conf.getString("owner-header-last"); cellValueFactory = { _.value.lastroperty } },
-      new TableColumn[Owner, String] { text = conf.getString("owner-header-email"); cellValueFactory = { _.value.emailProperty } }
+      new TableColumn[Owner, String] { text = conf.getString("owner-header-last"); cellValueFactory = { _.value.lastroperty } }
     )
     items = model.ownerList
   }

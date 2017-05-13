@@ -11,15 +11,6 @@ import scalafx.scene.control.{SplitPane, Tab, TabPane}
 import scalafx.scene.layout.VBox
 
 class View(conf: Config, model: Model) {
-  val repairPane = new RepairPane(conf, model)
-  val repairsTab = new Tab { text = conf.getString("repairs"); closable = false; content = repairPane }
-
-  val supplyPane = new SupplyPane(conf, model)
-  val suppliesTab = new Tab { text = conf.getString("supplies"); closable = false; content = supplyPane }
-
-  val lifecyclePane = new LifecyclePane(conf, model)
-  val lifecyclesTab = new Tab { text = conf.getString("lifecycles"); closable = false; content = lifecyclePane }
-
   val cleaningPane = new CleaningPane(conf, model)
   val cleaningsTab = new Tab { text = conf.getString("cleanings"); closable = false; content = cleaningPane }
 
@@ -29,7 +20,16 @@ class View(conf: Config, model: Model) {
   val additivePane = new AdditivePane(conf, model)
   val additivesTab = new Tab { text = conf.getString("additives"); closable = false; content = additivePane }
 
-  val eastTabPane = new TabPane { tabs = ObservableBuffer(repairsTab, suppliesTab, lifecyclesTab, cleaningsTab, measurementsTab, additivesTab) }
+  val lifecyclePane = new LifecyclePane(conf, model)
+  val lifecyclesTab = new Tab { text = conf.getString("lifecycles"); closable = false; content = lifecyclePane }
+
+  val supplyPane = new SupplyPane(conf, model)
+  val suppliesTab = new Tab { text = conf.getString("supplies"); closable = false; content = supplyPane }
+
+  val repairPane = new RepairPane(conf, model)
+  val repairsTab = new Tab { text = conf.getString("repairs"); closable = false; content = repairPane }
+
+  val eastTabPane = new TabPane { tabs = ObservableBuffer(cleaningsTab, measurementsTab, additivesTab, lifecyclesTab, suppliesTab , repairsTab) }
   val eastPane = new VBox { children = List(eastTabPane) }
 
   val surfacePane = new SurfacePane(conf, model)

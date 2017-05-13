@@ -24,7 +24,6 @@ case class Owner(id: Int = 0, poolId: Int, since: LocalDate = LocalDate.now, fir
   val sinceProperty = new StringProperty(this, "since", since.format(dateFormatter))
   val firstProperty = new StringProperty(this, "first", first)
   val lastroperty = new StringProperty(this, "last", last)
-  val emailProperty = new StringProperty(this, "email", email)
 
   val owner = this
 }
