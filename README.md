@@ -10,8 +10,8 @@ Object Model
 ------------
 * Company(id, name, since, first, last, email)
 * Worker(id, companyId, hired, terminated, first, last, email)
-* Route(id, workerId, dayOfWeek)
-* Stop(id, routeId, poolId, on, done)
+* Route(id, workerId, dayOfWeek, on)
+* Stop(id, routeId, poolId, done)
 * Pool(id, built, gallons, street, city, state, zip)
 * Owner(id, poolId, since, first, last, email)
 * Surface(id, poolId, installed, kind)
