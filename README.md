@@ -10,7 +10,7 @@ Object Model
 ------------
 * Company(id, name, since, website, email)
 * Worker(id, companyId, hired, terminated, first, last, email)
-* Work(id, routeId, workerId, on)
+* Work(id, workerId, routeId, on)
 * Route(id, name)
 * Stop(id, routeId, poolId)
 * Pool(id, built, gallons, street, city, state, zip)
@@ -28,9 +28,10 @@ Object Model
 
 Relational Model
 ----------------
-* Company 1 ---> * Worker 1 ---> * Work
-* Route 1 ---> * Stop 1 ---> 1 Pool
-* Pool 1 ---> * Owner | Surface | Pump | Timer | Heater | Lifecycle | Cleaning | Measurement | Additive | Supply | Repair
+* Company 1 <--- * Worker
+* Work 1 ---> 1 Worker | Route
+* Route 1 <--- * Stop 1 ---> 1 Pool
+* Pool 1 <--- * Owner | Surface | Pump | Timer | Heater | Lifecycle | Cleaning | Measurement | Additive | Supply | Repair
 
 Measurements
 ------------
