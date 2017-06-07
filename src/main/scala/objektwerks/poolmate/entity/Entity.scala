@@ -5,6 +5,16 @@ import java.time.{LocalDate, LocalTime}
 
 import scalafx.beans.property.StringProperty
 
+case class Company(id: Int = 0, name: String, website: String, email: String)
+
+case class Worker(id: Int = 0, companyId: Int, hired: LocalDate, terminated: Option[LocalDate], first: String = "first", last: String = "last", email: String)
+
+case class Work(id: Int = 0, workerId: Int, routedId: Int, on: LocalDate)
+
+case class Route(id: Int = 0, name: String)
+
+case class Stop(id: Int = 0, routeId: Int, poolId: Int, number: Int)
+
 case class Pool(id: Int = 0, built: LocalDate = LocalDate.now, gallons: Int = 10000, street: String = "street", city: String = "city", state: String = "state", zip: Int = 12345) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
@@ -18,7 +28,7 @@ case class Pool(id: Int = 0, built: LocalDate = LocalDate.now, gallons: Int = 10
   val pool = this
 }
 
-case class Owner(id: Int = 0, poolId: Int, since: LocalDate = LocalDate.now, first: String = "first", last: String = "last", email: String = "email@email.org") {
+case class Owner(id: Int = 0, poolId: Int, since: LocalDate = LocalDate.now, first: String = "first", last: String = "last", email: String = "your@email.org") {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
   val sinceProperty = new StringProperty(this, "since", since.format(dateFormatter))
@@ -146,6 +156,16 @@ object Entity {
   implicit def localTimeOrdering: Ordering[LocalTime] = Ordering.by(_.toSecondOfDay)
 
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
+
+  implicit def companyOrdering: Ordering[Company] = Ordering.by(_.name)
+
+  implicit def workerOrdering: Ordering[Worker] = Ordering.by(_.last)
+
+  implicit def workOrdering: Ordering[Work] = Ordering.by(_.on)
+
+  implicit def routeOrdering: Ordering[Route] = Ordering.by(_.name)
+
+  implicit def stopOrdering: Ordering[Stop] = Ordering.by(_.number)
 
   implicit def poolOrdering: Ordering[Pool] = Ordering.by(p => (p.zip, p.city))
 

@@ -59,6 +59,11 @@ Charts
 
 ** a line chart for each measured chemical, to include temp
 
+Todo
+----
+1. Reconsider default values for the UI.
+2. Update repository with new entities.
+
 Test
 ----
 1. sbt clean test
