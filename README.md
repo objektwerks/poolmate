@@ -8,6 +8,9 @@ GPL.V3 ( See ./GPL.V3 )
 
 Object Model
 ------------
+* Worker(id, since, terminated, first, last, email)
+* Route(id, workerId)
+* Stop(id, routeId, poolId)
 * Pool(id, built, gallons, street, city, state, zip)
 * Owner(id, poolId, since, first, last, email)
 * Surface(id, poolId, installed, kind)
@@ -23,6 +26,7 @@ Object Model
 
 Relational Model
 ----------------
+* Route 1 ---> * Stop 1 ---> 1 Pool
 * Pool 1 ---> * Owner | Surface | Pump | Timer | Heater | Lifecycle | Cleaning | Measurement | Additive | Supply | Repair
 
 Measurements
