@@ -8,7 +8,7 @@ GPL.V3 ( See ./GPL.V3 )
 
 Object Model
 ------------
-* Company(id, name, since, email)
+* Company(id, name, since, website, email)
 * Worker(id, companyId, hired, terminated, first, last, email)
 * Work(id, routeId, workerId, on)
 * Route(id, name)
