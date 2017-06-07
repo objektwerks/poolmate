@@ -61,7 +61,7 @@ Charts
 
 Todo
 ----
-1. Reconsider default values for the UI.
+1. Re-evaluate default entity values for UI convenience.
 2. Update repository with new entities.
 
 Test
