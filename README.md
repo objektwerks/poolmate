@@ -10,9 +10,10 @@ Object Model
 ------------
 * Company(id, name, since, website, email)
 * Worker(id, companyId, hired, terminated, first, last, email)
-* Work(id, workerId, routeId, on)
+* Work(id, workerId, poolId, description, assigned, completed)
+* Task(id, workerId, routedId, stopId, assigned, completed)
 * Route(id, name)
-* Stop(id, routeId, poolId)
+* Stop(routeId, poolId, ordinality, name)
 * Pool(id, built, gallons, street, city, state, zip)
 * Owner(id, poolId, since, first, last, email)
 * Surface(id, poolId, installed, kind)
@@ -29,7 +30,8 @@ Object Model
 Relational Model
 ----------------
 * Company 1 <--- * Worker
-* Work 1 ---> 1 Worker | Route
+* Work 1 ---> 1 Worker | Pool
+* Task 1 ---> 1 Worker | Route | Stop
 * Route 1 <--- * Stop 1 ---> 1 Pool
 * Pool 1 <--- * Owner | Surface | Pump | Timer | Heater | Lifecycle | Cleaning | Measurement | Additive | Supply | Repair
 
@@ -61,8 +63,7 @@ Charts
 
 Todo
 ----
-1. Re-evaluate default entity values for UI convenience.
-2. Update repository with new entities.
+1. Update repository with new entities.
 
 Test
 ----

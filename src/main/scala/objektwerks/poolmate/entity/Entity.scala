@@ -1,19 +1,21 @@
 package objektwerks.poolmate.entity
 
 import java.time.format.DateTimeFormatter
-import java.time.{LocalDate, LocalTime}
+import java.time.{LocalDate, LocalDateTime, LocalTime, ZoneOffset}
 
 import scalafx.beans.property.StringProperty
 
-case class Company(id: Int = 0, name: String, website: String, email: String)
+case class Company(id: Int = 0, name: String = "name", website: String = "website", email: String = "email")
 
-case class Worker(id: Int = 0, companyId: Int, hired: LocalDate, terminated: Option[LocalDate], first: String = "first", last: String = "last", email: String)
+case class Worker(id: Int = 0, companyId: Int, hired: LocalDate = LocalDate.now, terminated: Option[LocalDate], first: String = "first", last: String = "last", email: String)
 
-case class Work(id: Int = 0, workerId: Int, routedId: Int, on: LocalDate)
+case class Work(id: Int = 0, workerId: Int, poolId: Int, description: String = "description", assigned: LocalDate = LocalDate.now, completed: Option[LocalDate])
+
+case class Task(id: Int = 0, workerId: Int, routedId: Int, stopId: Int, assigned: LocalDate = LocalDate.now, completed: Option[LocalDateTime])
 
 case class Route(id: Int = 0, name: String)
 
-case class Stop(id: Int = 0, routeId: Int, poolId: Int, number: Int)
+case class Stop(routeId: Int, poolId: Int, ordinality: Int, name: String = "name")
 
 case class Pool(id: Int = 0, built: LocalDate = LocalDate.now, gallons: Int = 10000, street: String = "street", city: String = "city", state: String = "state", zip: Int = 12345) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
@@ -157,15 +159,19 @@ object Entity {
 
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
 
+  implicit def localDateTimeOrdering: Ordering[LocalDateTime] = Ordering.by(_.toEpochSecond(ZoneOffset.UTC))
+
   implicit def companyOrdering: Ordering[Company] = Ordering.by(_.name)
 
   implicit def workerOrdering: Ordering[Worker] = Ordering.by(_.last)
 
-  implicit def workOrdering: Ordering[Work] = Ordering.by(_.on)
+  implicit def workOrdering: Ordering[Work] = Ordering.by(_.assigned)
+
+  implicit def taskOrdering: Ordering[Task] = Ordering.by(_.assigned)
 
   implicit def routeOrdering: Ordering[Route] = Ordering.by(_.name)
 
-  implicit def stopOrdering: Ordering[Stop] = Ordering.by(_.number)
+  implicit def stopOrdering: Ordering[Stop] = Ordering.by(_.ordinality)
 
   implicit def poolOrdering: Ordering[Pool] = Ordering.by(p => (p.zip, p.city))
 
