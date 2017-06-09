@@ -25,9 +25,8 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   implicit val timeMapper = MappedColumnType.base[LocalTime, Time](lt => Time.valueOf(lt), t => t.toLocalTime)
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld), d => d.toLocalDate)
-  val schema = pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++ heaters.schema ++
-               lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ supplies.schema ++
-               repairs.schema
+  val schema = companies.schema ++ pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++ heaters.schema ++
+               lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ supplies.schema ++ repairs.schema
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
@@ -37,6 +36,19 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   def createSchema() = await(DBIO.seq(schema.create))
   def dropSchema() = await(DBIO.seq(schema.drop))
+
+  class Companies(tag: Tag) extends Table[Company](tag, "companies") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def name = column[String]("name")
+    def website = column[String]("website")
+    def email = column[String]("email")
+    def * = (id, name, website, email) <> (Company.tupled, Company.unapply)
+  }
+  object companies extends TableQuery(new Companies(_)) {
+    val compiledList = Compiled { sortBy(c => c.name) }
+    def save(company: Company) = (this returning this.map(_.id)).insertOrUpdate(company)
+    def list() = compiledList.result
+  }
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
