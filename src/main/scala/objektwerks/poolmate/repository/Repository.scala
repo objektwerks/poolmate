@@ -40,9 +40,10 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   class Companies(tag: Tag) extends Table[Company](tag, "companies") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def name = column[String]("name")
+    def since = column[LocalDate]("since")
     def website = column[String]("website")
     def email = column[String]("email")
-    def * = (id, name, website, email) <> (Company.tupled, Company.unapply)
+    def * = (id, name, since, website, email) <> (Company.tupled, Company.unapply)
   }
   object companies extends TableQuery(new Companies(_)) {
     val compiledList = Compiled { sortBy(c => c.name) }

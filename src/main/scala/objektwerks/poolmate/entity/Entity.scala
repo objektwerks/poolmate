@@ -5,7 +5,7 @@ import java.time.{LocalDate, LocalDateTime, LocalTime, ZoneOffset}
 
 import scalafx.beans.property.StringProperty
 
-case class Company(id: Int = 0, name: String = "name", website: String = "website", email: String = "email")
+case class Company(id: Int = 0, name: String = "name", since: LocalDate = LocalDate.now, website: String = "website", email: String = "email")
 
 case class Worker(id: Int = 0, companyId: Int, hired: LocalDate = LocalDate.now, terminated: Option[LocalDate], first: String = "first", last: String = "last", email: String)
 
