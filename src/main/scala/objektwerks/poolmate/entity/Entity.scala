@@ -9,9 +9,9 @@ case class Company(id: Int = 0, name: String = "name", since: LocalDate = LocalD
 
 case class Worker(id: Int = 0, companyId: Int, hired: LocalDate = LocalDate.now, terminated: Option[LocalDate], first: String = "first", last: String = "last", email: String)
 
-case class WorkOrder(id: Int = 0, workerId: Int, poolId: Int, description: String = "description", assigned: LocalDate = LocalDate.now, completed: Option[LocalDate])
+case class WorkOrder(id: Int = 0, workerId: Int, poolId: Int, description: String = "description", created: LocalDate = LocalDate.now, completed: Option[LocalDate])
 
-case class RouteOrder(id: Int = 0, routeId: Int, workerId: Int, assigned: LocalDate = LocalDate.now)
+case class RouteOrder(id: Int = 0, routeId: Int, workerId: Int, created: LocalDate = LocalDate.now, recurring: Boolean = true)
 
 case class Location(routeOrderId: Int, poolId: Int, ordinality: Int, completed: Option[LocalDateTime])
 
@@ -167,9 +167,9 @@ object Entity {
 
   implicit def workerOrdering: Ordering[Worker] = Ordering.by(_.last)
 
-  implicit def workOrderOrdering: Ordering[WorkOrder] = Ordering.by(_.assigned)
+  implicit def workOrderOrdering: Ordering[WorkOrder] = Ordering.by(_.created)
 
-  implicit def routeOrderOrdering: Ordering[RouteOrder] = Ordering.by(_.assigned)
+  implicit def routeOrderOrdering: Ordering[RouteOrder] = Ordering.by(ro => (ro.created, ro.recurring))
 
   implicit def locationOrdering: Ordering[Location] = Ordering.by(_.ordinality)
 
