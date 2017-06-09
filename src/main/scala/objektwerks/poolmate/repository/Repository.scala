@@ -1,7 +1,7 @@
 package objektwerks.poolmate.repository
 
-import java.sql.{Date, Time}
-import java.time.{LocalDate, LocalTime}
+import java.sql.{Date, Time, Timestamp}
+import java.time.{LocalDate, LocalDateTime, LocalTime}
 
 import com.typesafe.config.ConfigFactory
 import objektwerks.poolmate.entity._
@@ -25,6 +25,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   implicit val timeMapper = MappedColumnType.base[LocalTime, Time](lt => Time.valueOf(lt), t => t.toLocalTime)
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld), d => d.toLocalDate)
+  implicit val dateTimeMapper = MappedColumnType.base[LocalDateTime, Timestamp](ldt => Timestamp.valueOf(ldt), ts => ts.toLocalDateTime)
   val schema = companies.schema ++ workers.schema ++ pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++
                heaters.schema ++ lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ supplies.schema ++ repairs.schema
   val db = config.db
