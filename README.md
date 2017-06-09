@@ -11,9 +11,10 @@ Object Model
 * Company(id, name, since, website, email)
 * Worker(id, companyId, hired, terminated, first, last, email)
 * WorkOrder(id, workerId, poolId, description, assigned, completed)
-* Maintenance(id, workerId, routeStopId, assigned, completed)
+* RouteOrder(id, routeId, workerId, assigned)
+* Location(routeOrderId, poolId, completed)
 * Route(id, name)
-* Stop(routeId, poolId, ordinality, name)
+* Stop(routeId, poolId, ordinality)
 * Pool(id, built, gallons, street, city, state, zip)
 * Owner(id, poolId, since, first, last, email)
 * Surface(id, poolId, installed, kind)
@@ -31,7 +32,8 @@ Relational Model
 ----------------
 * Company 1 <--- * Worker
 * WorkOrder 1 ---> 1 Worker | Pool
-* Maintenance 1 ---> 1 Worker | Route | Stop
+* RouteOrder 1 ---> 1 Route | Worker
+* RouteOrder 1 ---> * Location 1 ---> Pool
 * Route 1 <--- * Stop 1 ---> 1 Pool
 * Pool 1 <--- * Owner | Surface | Pump | Timer | Heater | Lifecycle | Cleaning | Measurement | Additive | Supply | Repair
 

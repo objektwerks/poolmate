@@ -11,11 +11,13 @@ case class Worker(id: Int = 0, companyId: Int, hired: LocalDate = LocalDate.now,
 
 case class WorkOrder(id: Int = 0, workerId: Int, poolId: Int, description: String = "description", assigned: LocalDate = LocalDate.now, completed: Option[LocalDate])
 
-case class Maintenance(id: Int = 0, workerId: Int, routeStopId: Int, assigned: LocalDate = LocalDate.now, completed: Option[LocalDateTime])
+case class RouteOrder(id: Int = 0, routeId: Int, workerId: Int, assigned: LocalDate = LocalDate.now)
+
+case class Location(routeOrderId: Int, poolId: Int, ordinality: Int, completed: Option[LocalDateTime])
 
 case class Route(id: Int = 0, name: String)
 
-case class Stop(routeId: Int, poolId: Int, ordinality: Int, name: String = "name")
+case class Stop(routeId: Int, poolId: Int, ordinality: Int)
 
 case class Pool(id: Int = 0, built: LocalDate = LocalDate.now, gallons: Int = 10000, street: String = "street", city: String = "city", state: String = "state", zip: Int = 12345) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
@@ -167,7 +169,9 @@ object Entity {
 
   implicit def workOrderOrdering: Ordering[WorkOrder] = Ordering.by(_.assigned)
 
-  implicit def maintenanceOrdering: Ordering[Maintenance] = Ordering.by(_.assigned)
+  implicit def routeOrderOrdering: Ordering[RouteOrder] = Ordering.by(_.assigned)
+
+  implicit def locationOrdering: Ordering[Location] = Ordering.by(_.ordinality)
 
   implicit def routeOrdering: Ordering[Route] = Ordering.by(_.name)
 
