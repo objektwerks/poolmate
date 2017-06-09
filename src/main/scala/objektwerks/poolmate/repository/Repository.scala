@@ -25,8 +25,8 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   implicit val timeMapper = MappedColumnType.base[LocalTime, Time](lt => Time.valueOf(lt), t => t.toLocalTime)
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld), d => d.toLocalDate)
-  val schema = companies.schema ++ pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++ heaters.schema ++
-               lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ supplies.schema ++ repairs.schema
+  val schema = companies.schema ++ workers.schema ++ pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++
+               heaters.schema ++ lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ supplies.schema ++ repairs.schema
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
@@ -49,6 +49,23 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     val compiledList = Compiled { sortBy(c => c.name) }
     def save(company: Company) = (this returning this.map(_.id)).insertOrUpdate(company)
     def list() = compiledList.result
+  }
+
+  class Workers(tag: Tag) extends Table[Worker](tag, "workers") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def companyId = column[Int]("company_id")
+    def hired = column[LocalDate]("hired")
+    def terminated = column[Option[LocalDate]]("terminated")
+    def first = column[String]("first")
+    def last = column[String]("last")
+    def email = column[String]("email")
+    def * = (id, companyId, hired, terminated, first, last, email) <> (Worker.tupled, Worker.unapply)
+    def companyFk = foreignKey("company_worker_fk", companyId, TableQuery[Pools])(_.id)
+  }
+  object workers extends TableQuery(new Workers(_)) {
+    val compiledList = Compiled { companyId: Rep[Int] => filter(_.companyId === companyId).sortBy(w => (w.last.asc, w.hired.asc)) }
+    def save(worker: Worker) = (this returning this.map(_.id)).insertOrUpdate(worker)
+    def list(companyId: Int) = compiledList(companyId).result
   }
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
