@@ -26,8 +26,10 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   implicit val timeMapper = MappedColumnType.base[LocalTime, Time](lt => Time.valueOf(lt), t => t.toLocalTime)
   implicit val dateMapper = MappedColumnType.base[LocalDate, Date](ld => Date.valueOf(ld), d => d.toLocalDate)
   implicit val dateTimeMapper = MappedColumnType.base[LocalDateTime, Timestamp](ldt => Timestamp.valueOf(ldt), ts => ts.toLocalDateTime)
-  val schema = companies.schema ++ workers.schema ++ pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++
+
+  val schema = companies.schema ++ workers.schema ++ workOrders.schema ++ pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++
                heaters.schema ++ lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ supplies.schema ++ repairs.schema
+
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
@@ -67,6 +69,22 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     val compiledList = Compiled { companyId: Rep[Int] => filter(_.companyId === companyId).sortBy(w => (w.last.asc, w.hired.asc)) }
     def save(worker: Worker) = (this returning this.map(_.id)).insertOrUpdate(worker)
     def list(companyId: Int) = compiledList(companyId).result
+  }
+
+  class WorkOrders(tag: Tag) extends Table[WorkOrder](tag, "workorders") {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def workerId = column[Int]("worker_id")
+    def poolId = column[Int]("pool_id")
+    def description = column[String]("desciption")
+    def created = column[LocalDate]("created")
+    def completed = column[Option[LocalDateTime]]("completed")
+    def * = (id, workerId, poolId, description, created, completed) <> (WorkOrder.tupled, WorkOrder.unapply)
+    def workerFk = foreignKey("worker_work_order_fk", workerId, TableQuery[Pools])(_.id)
+  }
+  object workOrders extends TableQuery(new WorkOrders(_)) {
+    val compiledListByWorker = Compiled { workerId: Rep[Int] => filter(_.workerId === workerId).sortBy(wo => wo.created.desc) }
+    def save(workOrder: WorkOrder) = (this returning this.map(_.id)).insertOrUpdate(workOrder)
+    def list(workerId: Int) = compiledListByWorker(workerId).result
   }
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
