@@ -65,7 +65,7 @@ Charts
 
 Todo
 ----
-1. Update repository with new entities.
+1. Update model.
 
 Test
 ----
