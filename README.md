@@ -10,7 +10,7 @@ Object Model
 ------------
 * Company(id, name, since, website, email)
 * Worker(id, companyId, hired, terminated, first, last, email)
-* WorkOrder(id, workerId, poolId, description, created, completed)
+* WorkOrder(id, poolId, workerId, description, created, completed)
 * RouteOrder(routeId, workerId, created, recurring)
 * Location(routeId, poolId, completed)
 * Route(id, name)

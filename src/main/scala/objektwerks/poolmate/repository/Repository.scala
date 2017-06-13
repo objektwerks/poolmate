@@ -50,9 +50,9 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def * = (id, name, since, website, email) <> (Company.tupled, Company.unapply)
   }
   object companies extends TableQuery(new Companies(_)) {
-    val compiledList = Compiled { sortBy(c => c.name) }
+    val compiledList = Compiled { sortBy(_.name) }
     def save(company: Company) = (this returning this.map(_.id)).insertOrUpdate(company)
-    def list() = compiledList.result
+    def get() = compiledList.result.headOption
   }
 
   class Workers(tag: Tag) extends Table[Worker](tag, "workers") {
@@ -74,19 +74,21 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
 
   class WorkOrders(tag: Tag) extends Table[WorkOrder](tag, "workorders") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def workerId = column[Int]("worker_id")
     def poolId = column[Int]("pool_id")
+    def workerId = column[Int]("worker_id")
     def description = column[String]("desciption")
     def created = column[LocalDate]("created")
     def completed = column[Option[LocalDateTime]]("completed")
-    def * = (id, workerId, poolId, description, created, completed) <> (WorkOrder.tupled, WorkOrder.unapply)
-    def workerFk = foreignKey("worker_work_order_fk", workerId, TableQuery[Workers])(_.id)
+    def * = (id, poolId, workerId, description, created, completed) <> (WorkOrder.tupled, WorkOrder.unapply)
     def poolFk = foreignKey("pool_work_order_fk", poolId, TableQuery[Pools])(_.id)
+    def workerFk = foreignKey("worker_work_order_fk", workerId, TableQuery[Workers])(_.id)
   }
   object workOrders extends TableQuery(new WorkOrders(_)) {
-    val compiledListByWorker = Compiled { workerId: Rep[Int] => filter(_.workerId === workerId).sortBy(wo => wo.created.desc) }
+    val compiledListByPool = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.created.desc) }
+    val compiledListByWorker = Compiled { workerId: Rep[Int] => filter(_.workerId === workerId).sortBy(_.created.desc) }
     def save(workOrder: WorkOrder) = (this returning this.map(_.id)).insertOrUpdate(workOrder)
-    def list(workerId: Int) = compiledListByWorker(workerId).result
+    def listByPool(poolId: Int) = compiledListByPool(poolId).result
+    def listByWorker(workerId: Int) = compiledListByPool(workerId).result
   }
 
   class RouteOrders(tag: Tag) extends Table[RouteOrder](tag, "routeorders") {
@@ -99,9 +101,11 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def workerFk = foreignKey("worker_route_order_fk", workerId, TableQuery[Workers])(_.id)
   }
   object routeOrders extends TableQuery(new RouteOrders(_)) {
-    val compiledListByWorker = Compiled { workerId: Rep[Int] => filter(_.workerId === workerId).sortBy(ro => ro.created.desc) }
+    val compiledListByRoute = Compiled { routeId: Rep[Int] => filter(_.routeId === routeId).sortBy(_.created.desc) }
+    val compiledListByWorker = Compiled { workerId: Rep[Int] => filter(_.workerId === workerId).sortBy(_.created.desc) }
     def save(routeOrder: RouteOrder) = routeOrders += routeOrder
-    def list(workerId: Int) = compiledListByWorker(workerId).result
+    def listByRoute(routeId: Int) = compiledListByRoute(routeId).result
+    def listByWorker(workerId: Int) = compiledListByWorker(workerId).result
   }
 
   class Locations(tag: Tag) extends Table[Location](tag, "locations") {
@@ -114,19 +118,23 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolFk = foreignKey("pool_location_fk", poolId, TableQuery[Pools])(_.id)
   }
   object locations extends TableQuery(new Locations(_)) {
-    val compiledList = Compiled { (routeId: Rep[Int], poolId: Rep[Int]) => filter(_.routeId === routeId).filter(_.poolId === poolId).sortBy(_.ordinality) }
+    val compiledList = Compiled { routeId: Rep[Int] => filter(_.routeId === routeId).sortBy(_.ordinality) }
     def save(location: Location) = locations += location
-    def list(routeId: Int, poolId: Int) = compiledList( (routeId, poolId) ).result
+    def list(routeId: Int) = compiledList(routeId).result
   }
 
   class Routes(tag: Tag) extends Table[Route](tag, "routes") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def name = column[String]("name")
+    def name = column[String]("name", O.Unique)
     def * = (id, name) <> (Route.tupled, Route.unapply)
   }
   object routes extends TableQuery(new Routes(_)) {
     val compiledList = Compiled { sortBy(_.name) }
+    val compiledFindById = Compiled { routeId: Rep[Int] => filter(_.id === routeId) }
+    val compiledFindByName = Compiled { name: Rep[String] => filter(_.name === name) }
     def save(route: Route) = (this returning this.map(_.id)).insertOrUpdate(route)
+    def find(routeId: Int) = compiledFindById(routeId).result.headOption
+    def find(name: String) = compiledFindByName(name).result.headOption
     def list() = compiledList.result
   }
 
@@ -139,9 +147,9 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolFk = foreignKey("pool_stop_fk", poolId, TableQuery[Pools])(_.id)
   }
   object stops extends TableQuery(new Stops(_)) {
-    val compiledList = Compiled { (routeId: Rep[Int], poolId: Rep[Int]) => filter(_.routeId === routeId).filter(_.poolId === poolId).sortBy(_.ordinality) }
+    val compiledList = Compiled { routeId: Rep[Int] => filter(_.routeId === routeId).sortBy(_.ordinality) }
     def save(stop: Stop) = stops += stop
-    def list(routeId: Int, poolId: Int) = compiledList( (routeId, poolId) ).result
+    def list(routeId: Int) = compiledList(routeId).result
   }
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {

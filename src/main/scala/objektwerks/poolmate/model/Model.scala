@@ -10,23 +10,95 @@ import scalafx.collections.ObservableBuffer
 class Model(repository: Repository) {
   import repository._
 
-  val company = new ObjectProperty[Option[Company]]()
+  val optionalCompany = new ObjectProperty[Option[Company]]()
+
+  def setCompany(): Unit = {
+    optionalCompany.value = await(companies.get())
+  }
+
+  def addCompany(company: Company): Unit = {
+    val newId = await(companies.save(company))
+    val newCompany = company.copy(id = newId.get)
+    optionalCompany.value = Some(newCompany)
+  }
+
+  def updateCompany(company: Company): Unit = {
+    await(companies.save(company))
+  }
 
   val workerList = ObservableBuffer[Worker]()
   val selectedWorkerId = IntegerProperty(0)
 
+  def listWorkers(companyId: Int): Unit = {
+    workerList.clear()
+    workerList ++= await(workers.list(companyId))
+  }
+
+  def addWorker(worker: Worker): Worker = {
+    val newId = await(workers.save(worker))
+    val newWorker = worker.copy(id = newId.get)
+    workerList += newWorker
+    selectedWorkerId.value = newWorker.id
+    workerList.sorted.reverse
+    newWorker
+  }
+
+  def updateWorker(selectedIndex: Int, worker: Worker): Unit = {
+    await(workers.save(worker))
+    workerList.update(selectedIndex, worker)
+    workerList.sorted
+  }
+
   val workOrderList = ObservableBuffer[WorkOrder]()
   val selectedWorkOrderId = IntegerProperty(0)
 
+  def listWorkOrders(poolId: Int): Unit = {
+    workOrderList.clear()
+    workOrderList ++= await(workOrders.listByPool(poolId))
+  }
+
+  def addWorkOrder(workOrder: WorkOrder): WorkOrder = {
+    val newId = await(workOrders.save(workOrder))
+    val newWorkOrder = workOrder.copy(id = newId.get)
+    workOrderList += newWorkOrder
+    selectedWorkOrderId.value = newWorkOrder.id
+    workOrderList.sorted.reverse
+    newWorkOrder
+  }
+
+  def updateWorkOrder(selectedIndex: Int, workOrder: WorkOrder): Unit = {
+    await(workOrders.save(workOrder))
+    workOrderList.update(selectedIndex, workOrder)
+    workOrderList.sorted.reverse
+  }
+
   val routeOrderList = ObservableBuffer[RouteOrder]()
-  val selectedRouteOrderId = IntegerProperty(0)
+  val selectedRouteOrder = new ObjectProperty[RouteOrder]()
+
+  def listRouteOrders(routeId: Int): Unit = {
+    routeOrderList.clear()
+    routeOrderList ++= await(routeOrders.listByRoute(routeId))
+  }
+
+  def addRouteOrder(routeOrder: RouteOrder): Unit = {
+    await(routeOrders.save(routeOrder))
+    routeOrderList += routeOrder
+    selectedRouteOrder.value = routeOrder
+    routeOrderList.sorted
+  }
+
+  def updateRouteOrder(selectedIndex: Int, routeOrder: RouteOrder): Unit = {
+    await(routeOrders.save(routeOrder))
+    routeOrderList.update(selectedIndex, routeOrder)
+    routeOrderList.sorted
+  }
 
   val locationList = ObservableBuffer[Location]()
   val selectedLocation = new ObjectProperty[Location]()
 
-  def listLocations(routeId: Int, poolId: Int): Unit = {
+  def listLocations(routeId: Int): Unit = {
     locationList.clear()
-    locationList ++= await(locations.list(routeId, poolId))
+    locationList ++= await(locations.list(routeId))
   }
 
   def addLocation(location: Location): Unit = {
@@ -45,12 +117,32 @@ class Model(repository: Repository) {
   val routeList = ObservableBuffer[Route]()
   val selectedRouteId = IntegerProperty(0)
 
+  def listRoutes(): Unit = {
+    routeList.clear()
+    routeList ++= await(routes.list())
+  }
+
+  def addRoute(route: Route): Route = {
+    val newId = await(routes.save(route))
+    val newRoute = route.copy(id = newId.get)
+    routeList += newRoute
+    selectedRouteId.value = newRoute.id
+    routeList.sorted
+    newRoute
+  }
+
+  def updateRoute(selectedIndex: Int, route: Route): Unit = {
+    await(routes.save(route))
+    routeList.update(selectedIndex, route)
+    routeList.sorted
+  }
+
   val stopList = ObservableBuffer[Stop]()
   val selectedStop = new ObjectProperty[Stop]()
 
-  def listStops(routeId: Int, poolId: Int): Unit = {
+  def listStops(routeId: Int): Unit = {
     stopList.clear()
-    stopList ++= await(stops.list(routeId, poolId))
+    stopList ++= await(stops.list(routeId))
   }
 
   def addStop(stop: Stop): Unit = {
