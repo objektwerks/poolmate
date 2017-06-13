@@ -114,9 +114,9 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolFk = foreignKey("pool_location_fk", poolId, TableQuery[Pools])(_.id)
   }
   object locations extends TableQuery(new Locations(_)) {
-    val compiledList = Compiled { sortBy(_.ordinality) }
+    val compiledList = Compiled { (routeId: Rep[Int], poolId: Rep[Int]) => filter(_.routeId === routeId).filter(_.poolId === poolId).sortBy(_.ordinality) }
     def save(location: Location) = locations += location
-    def list() = compiledList.result
+    def list(routeId: Int, poolId: Int) = compiledList( (routeId, poolId) ).result
   }
 
   class Routes(tag: Tag) extends Table[Route](tag, "routes") {
@@ -139,9 +139,9 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolFk = foreignKey("pool_stop_fk", poolId, TableQuery[Pools])(_.id)
   }
   object stops extends TableQuery(new Stops(_)) {
-    val compiledList = Compiled { sortBy(_.ordinality) }
+    val compiledList = Compiled { (routeId: Rep[Int], poolId: Rep[Int]) => filter(_.routeId === routeId).filter(_.poolId === poolId).sortBy(_.ordinality) }
     def save(stop: Stop) = stops += stop
-    def list() = compiledList.result
+    def list(routeId: Int, poolId: Int) = compiledList( (routeId, poolId) ).result
   }
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {

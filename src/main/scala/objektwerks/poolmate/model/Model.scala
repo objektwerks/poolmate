@@ -4,11 +4,67 @@ import objektwerks.poolmate.entity.Entity._
 import objektwerks.poolmate.entity._
 import objektwerks.poolmate.repository.Repository
 
-import scalafx.beans.property.IntegerProperty
+import scalafx.beans.property.{IntegerProperty, ObjectProperty}
 import scalafx.collections.ObservableBuffer
 
 class Model(repository: Repository) {
   import repository._
+
+  val company = new ObjectProperty[Option[Company]]()
+
+  val workerList = ObservableBuffer[Worker]()
+  val selectedWorkerId = IntegerProperty(0)
+
+  val workOrderList = ObservableBuffer[WorkOrder]()
+  val selectedWorkOrderId = IntegerProperty(0)
+
+  val routeOrderList = ObservableBuffer[RouteOrder]()
+  val selectedRouteOrderId = IntegerProperty(0)
+
+  val locationList = ObservableBuffer[Location]()
+  val selectedLocation = new ObjectProperty[Location]()
+
+  def listLocations(routeId: Int, poolId: Int): Unit = {
+    locationList.clear()
+    locationList ++= await(locations.list(routeId, poolId))
+  }
+
+  def addLocation(location: Location): Unit = {
+    await(locations.save(location))
+    locationList += location
+    selectedLocation.value = location
+    locationList.sorted
+  }
+
+  def updateLocation(selectedIndex: Int, location: Location): Unit = {
+    await(locations.save(location))
+    locationList.update(selectedIndex, location)
+    locationList.sorted
+  }
+
+  val routeList = ObservableBuffer[Route]()
+  val selectedRouteId = IntegerProperty(0)
+
+  val stopList = ObservableBuffer[Stop]()
+  val selectedStop = new ObjectProperty[Stop]()
+
+  def listStops(routeId: Int, poolId: Int): Unit = {
+    stopList.clear()
+    stopList ++= await(stops.list(routeId, poolId))
+  }
+
+  def addStop(stop: Stop): Unit = {
+    await(stops.save(stop))
+    stopList += stop
+    selectedStop.value = stop
+    ownerList.sorted
+  }
+
+  def updateStop(selectedIndex: Int, stop: Stop): Unit = {
+    await(stops.save(stop))
+    stopList.update(selectedIndex, stop)
+    stopList.sorted
+  }
 
   val poolList = ObservableBuffer[Pool]()
   val selectedPoolId = IntegerProperty(0)
