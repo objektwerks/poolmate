@@ -73,7 +73,7 @@ class Model(repository: Repository) {
   }
 
   val routeOrderList = ObservableBuffer[RouteOrder]()
-  val selectedRouteOrder = new ObjectProperty[RouteOrder]()
+  val selectedRouteOrderId = IntegerProperty(0)
 
   def listRouteOrders(routeId: Int): Unit = {
     routeOrderList.clear()
@@ -81,9 +81,10 @@ class Model(repository: Repository) {
   }
 
   def addRouteOrder(routeOrder: RouteOrder): Unit = {
-    await(routeOrders.save(routeOrder))
-    routeOrderList += routeOrder
-    selectedRouteOrder.value = routeOrder
+    val newId = await(routeOrders.save(routeOrder))
+    val newRouteOrder = routeOrder.copy(id = newId.get)
+    routeOrderList += newRouteOrder
+    selectedRouteOrderId.value = newRouteOrder.id
     routeOrderList.sorted
   }
 
@@ -94,17 +95,18 @@ class Model(repository: Repository) {
   }
 
   val locationList = ObservableBuffer[Location]()
-  val selectedLocation = new ObjectProperty[Location]()
+  val selectedLocationId = IntegerProperty(0)
 
-  def listLocations(routeId: Int): Unit = {
+  def listLocations(routeOrderId: Int): Unit = {
     locationList.clear()
-    locationList ++= await(locations.list(routeId))
+    locationList ++= await(locations.list(routeOrderId))
   }
 
   def addLocation(location: Location): Unit = {
-    await(locations.save(location))
-    locationList += location
-    selectedLocation.value = location
+    val newId = await(locations.save(location))
+    val newLocation = location.copy(id = newId.get)
+    locationList += newLocation
+    selectedLocationId.value = newLocation.id
     locationList.sorted
   }
 
