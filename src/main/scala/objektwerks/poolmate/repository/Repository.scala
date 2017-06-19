@@ -146,6 +146,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def poolId = column[Int]("pool_id")
     def ordinality = column[Int]("ordinality")
     def * = (routeId, poolId, ordinality) <> (Stop.tupled, Stop.unapply)
+    def pk = primaryKey("pk", (routeId, poolId))
     def routeFk = foreignKey("route_stop_fk", routeId, TableQuery[Routes])(_.id)
     def poolFk = foreignKey("pool_stop_fk", poolId, TableQuery[Pools])(_.id)
   }

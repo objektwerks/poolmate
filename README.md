@@ -34,7 +34,7 @@ Relational Model
 * WorkOrder 1 ---> 1 Worker | Pool
 * RouteOrder 1 ---> 1 Route | Worker
 * RouteOrder 1 ---> * Location 1 ---> 1 Pool
-* Route 1 ---> * Stop 1 ---> 1 Route | Pool
+* Route 1 ---> * Stop 1 ---> 1 Route | Pool Note: primary key == (routeId, poolId)
 * Pool 1 ---> * Owner | Surface | Pump | Timer | Heater | Lifecycle | Cleaning | Measurement | Additive | Supply | Repair
 
 Measurements
