@@ -9,9 +9,13 @@ case class Company(id: Int = 0, name: String = "name", since: LocalDate = LocalD
 
 case class Worker(id: Int = 0, companyId: Int, hired: LocalDate = LocalDate.now, terminated: Option[LocalDate], first: String = "first", last: String = "last", email: String)
 
-case class WorkOrder(id: Int = 0, poolId: Int, workerId: Int, description: String = "description", created: LocalDate = LocalDate.now, completed: Option[LocalDateTime])
+case class WorkOrder(id: Int = 0, poolId: Int, description: String = "description", created: LocalDate = LocalDate.now, completed: Option[LocalDateTime])
 
-case class RouteOrder(id: Int = 0, routeId: Int, workerId: Int, created: LocalDate = LocalDate.now, completed: LocalDate = LocalDate.now, recurring: Boolean = true)
+case class WorkOrderWorker(id: Int = 0, workOrderId: Int, workerId: Int)
+
+case class RouteOrder(id: Int = 0, routeId: Int, created: LocalDate = LocalDate.now, completed: LocalDate = LocalDate.now, recurring: Boolean = true)
+
+case class RouteOrderWorker(id: Int = 0, routeOrderId: Int, workerId: Int)
 
 case class Location(id: Int = 0, routeOrderId: Int, poolId: Int, ordinality: Int, completed: Option[LocalDateTime])
 
