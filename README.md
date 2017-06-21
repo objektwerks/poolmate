@@ -69,7 +69,7 @@ Charts
 
 Todo
 ----
-1. Update model.
+1. Design and build company, worker and routing panels and dialogs.
 
 Test
 ----
