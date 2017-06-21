@@ -96,8 +96,10 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def workerFk = foreignKey("worker_work_order_worker_fk", workerId, TableQuery[Workers])(_.id)
   }
   object workOrderWorkers extends TableQuery(new WorkOrderWorkers(_)) {
+    val compiledRemove = Compiled { workOrderWorkerId: Rep[Int] => filter(_.id === workOrderWorkerId) }
     val compiledList = Compiled { workOrderId: Rep[Int] => filter(_.workOrderId === workOrderId) }
     def save(workOrderWorker: WorkOrderWorker) = (this returning this.map(_.id)).insertOrUpdate(workOrderWorker)
+    def remove(workOrderWorkerId: Int) = compiledRemove(workOrderWorkerId).delete
     def list(workOrderId: Int) = compiledList(workOrderId).result
   }
 
@@ -125,8 +127,10 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
     def workerFk = foreignKey("worker_route_order_worker_fk", workerId, TableQuery[Workers])(_.id)
   }
   object routeOrderWorkers extends TableQuery(new RouteOrderWorkers(_)) {
+    val compiledRemove = Compiled { routeOrderWorkerId: Rep[Int] => filter(_.id === routeOrderWorkerId) }
     val compiledList = Compiled { routeOrderId: Rep[Int] => filter(_.routeOrderId === routeOrderId) }
     def save(routeOrderWorker: RouteOrderWorker) = (this returning this.map(_.id)).insertOrUpdate(routeOrderWorker)
+    def remove(routeOrderWorkerId: Int) = compiledRemove(routeOrderWorkerId).delete
     def list(routeOrderId: Int) = compiledList(routeOrderId).result
   }
 

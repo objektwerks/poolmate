@@ -72,6 +72,27 @@ class Model(repository: Repository) {
     workOrderList.sorted.reverse
   }
 
+  val workOrderWorkerList = ObservableBuffer[WorkOrderWorker]()
+  val selectedWorkOrderWorkerId = IntegerProperty(0)
+
+  def listWorkOrderWorkers(workOrderId: Int): Unit = {
+    workOrderWorkerList.clear()
+    workOrderWorkerList ++= await(workOrderWorkers.list(workOrderId))
+  }
+
+  def addWorkOrderWorker(workOrderWorker: WorkOrderWorker): WorkOrderWorker = {
+    val newId = await(workOrderWorkers.save(workOrderWorker))
+    val newWorkOrderWorker = workOrderWorker.copy(id = newId.get)
+    workOrderWorkerList += newWorkOrderWorker
+    selectedWorkOrderWorkerId.value = newWorkOrderWorker.id
+    newWorkOrderWorker
+  }
+
+  def removeWorkOrderWorker(selectedIndex: Int, workOrderWorker: WorkOrderWorker): Unit = {
+    await(workOrderWorkers.remove(workOrderWorker.id))
+    workOrderWorkerList.remove(selectedIndex)
+  }
+
   val routeOrderList = ObservableBuffer[RouteOrder]()
   val selectedRouteOrderId = IntegerProperty(0)
 
@@ -92,6 +113,27 @@ class Model(repository: Repository) {
     await(routeOrders.save(routeOrder))
     routeOrderList.update(selectedIndex, routeOrder)
     routeOrderList.sorted
+  }
+
+  val routeOrderWorkerList = ObservableBuffer[RouteOrderWorker]()
+  val selectedRouteOrderWorkerId = IntegerProperty(0)
+
+  def listRouteOrderWorkers(routeOrderId: Int): Unit = {
+    routeOrderWorkerList.clear()
+    routeOrderWorkerList ++= await(routeOrderWorkers.list(routeOrderId))
+  }
+
+  def addRouteOrderWorker(routeOrderWorker: RouteOrderWorker): RouteOrderWorker = {
+    val newId = await(routeOrderWorkers.save(routeOrderWorker))
+    val newRouteOrderWorker = routeOrderWorker.copy(id = newId.get)
+    routeOrderWorkerList += newRouteOrderWorker
+    selectedRouteOrderWorkerId.value = newRouteOrderWorker.id
+    newRouteOrderWorker
+  }
+
+  def removeRouteOrderWorker(selectedIndex: Int, routeOrderWorker: RouteOrderWorker): Unit = {
+    await(routeOrderWorkers.remove(routeOrderWorker.id))
+    routeOrderWorkerList.remove(selectedIndex)
   }
 
   val locationList = ObservableBuffer[Location]()
