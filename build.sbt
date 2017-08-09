@@ -1,8 +1,7 @@
 name := "poolmate"
 organization := "objektwerks"
 version := "0.2-SNAPSHOT"
-scalaVersion := "2.12.2"
-ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
+scalaVersion := "2.12.3"
 libraryDependencies ++= {
   val slickVersion = "3.2.0"
   Seq(
