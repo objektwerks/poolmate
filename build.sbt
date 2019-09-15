@@ -1,12 +1,12 @@
 name := "poolmate"
 organization := "objektwerks"
 version := "0.2-SNAPSHOT"
-scalaVersion := "2.12.9"
+scalaVersion := "2.12.10"
 libraryDependencies ++= {
-  val slickVersion = "3.2.0"
+  val slickVersion = "3.2.3"
   Seq(
-    "org.scalafx" % "scalafx_2.12" % "8.0.144-R12",
-    "org.jfxtras" % "jfxtras-controls" % "8.0-r5",
+    "org.scalafx" %% "scalafx" % "12.0.2-R18",
+    "org.jfxtras" % "jfxtras-controls" % "10.0-r1",
     "com.typesafe.slick" %% "slick" % slickVersion,
     "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
     "com.h2database" % "h2" % "1.4.197",
