@@ -21,7 +21,7 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
       new TableColumn[Supply, String] { text = conf.getString("supply-header-amount"); cellValueFactory = { _.value.amountProperty } },
       new TableColumn[Supply, String] { text = conf.getString("supply-header-cost"); cellValueFactory = { _.value.costProperty } }
     )
-    prefHeight = conf.getInt("height")
+    prefHeight = conf.getInt("height").toDouble
     items = model.supplyList
   }
   supplyTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
@@ -57,7 +57,10 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
 
   supplyEditButton.onAction = { _ => update() }
 
-  supplyChartButton.onAction = { _ => new SupplyChartDialog(conf, model).showAndWait() }
+  supplyChartButton.onAction = { _ => 
+    new SupplyChartDialog(conf, model).showAndWait()
+    ()
+  }
 
   def add(): Unit = {
     new SupplyDialog(conf, Supply(poolId = model.selectedPoolId.toInt)).showAndWait() match {

@@ -24,6 +24,7 @@ class Model(repository: Repository) {
 
   def updateCompany(company: Company): Unit = {
     await(companies.save(company))
+    ()
   }
 
   val workerList = ObservableBuffer[Worker]()
@@ -47,6 +48,7 @@ class Model(repository: Repository) {
     await(workers.save(worker))
     workerList.update(selectedIndex, worker)
     workerList.sorted
+    ()
   }
 
   val workOrderList = ObservableBuffer[WorkOrder]()
@@ -70,6 +72,7 @@ class Model(repository: Repository) {
     await(workOrders.save(workOrder))
     workOrderList.update(selectedIndex, workOrder)
     workOrderList.sorted.reverse
+    ()
   }
 
   val workOrderWorkerList = ObservableBuffer[WorkOrderWorker]()
@@ -91,6 +94,7 @@ class Model(repository: Repository) {
   def removeWorkOrderWorker(selectedIndex: Int, workOrderWorker: WorkOrderWorker): Unit = {
     await(workOrderWorkers.remove(workOrderWorker.id))
     workOrderWorkerList.remove(selectedIndex)
+    ()
   }
 
   val routeOrderList = ObservableBuffer[RouteOrder]()
@@ -107,12 +111,14 @@ class Model(repository: Repository) {
     routeOrderList += newRouteOrder
     selectedRouteOrderId.value = newRouteOrder.id
     routeOrderList.sorted
+    ()
   }
 
   def updateRouteOrder(selectedIndex: Int, routeOrder: RouteOrder): Unit = {
     await(routeOrders.save(routeOrder))
     routeOrderList.update(selectedIndex, routeOrder)
     routeOrderList.sorted
+    ()
   }
 
   val routeOrderWorkerList = ObservableBuffer[RouteOrderWorker]()
@@ -134,6 +140,7 @@ class Model(repository: Repository) {
   def removeRouteOrderWorker(selectedIndex: Int, routeOrderWorker: RouteOrderWorker): Unit = {
     await(routeOrderWorkers.remove(routeOrderWorker.id))
     routeOrderWorkerList.remove(selectedIndex)
+    ()
   }
 
   val locationList = ObservableBuffer[Location]()
@@ -150,12 +157,14 @@ class Model(repository: Repository) {
     locationList += newLocation
     selectedLocationId.value = newLocation.id
     locationList.sorted
+    ()
   }
 
   def updateLocation(selectedIndex: Int, location: Location): Unit = {
     await(locations.save(location))
     locationList.update(selectedIndex, location)
     locationList.sorted
+    ()
   }
 
   val routeList = ObservableBuffer[Route]()
@@ -179,6 +188,7 @@ class Model(repository: Repository) {
     await(routes.save(route))
     routeList.update(selectedIndex, route)
     routeList.sorted
+    ()
   }
 
   val stopList = ObservableBuffer[Stop]()
@@ -194,12 +204,14 @@ class Model(repository: Repository) {
     stopList += stop
     selectedStop.value = stop
     ownerList.sorted
+    ()
   }
 
   def updateStop(selectedIndex: Int, stop: Stop): Unit = {
     await(stops.save(stop))
     stopList.update(selectedIndex, stop)
     stopList.sorted
+    ()
   }
 
   val poolList = ObservableBuffer[Pool]()
@@ -233,6 +245,7 @@ class Model(repository: Repository) {
     await(pools.save(pool))
     poolList.update(selectedIndex, pool)
     poolList.sorted
+    ()
   }
 
   val ownerList = ObservableBuffer[Owner]()
@@ -256,6 +269,7 @@ class Model(repository: Repository) {
     await(owners.save(owner))
     ownerList.update(selectedIndex, owner)
     ownerList.sorted.reverse
+    ()
   }
 
   val surfaceList = ObservableBuffer[Surface]()
@@ -279,6 +293,7 @@ class Model(repository: Repository) {
     await(surfaces.save(surface))
     surfaceList.update(selectedIndex, surface)
     surfaceList.sorted.reverse
+    ()
   }
 
   val pumpList = ObservableBuffer[Pump]()
@@ -302,6 +317,7 @@ class Model(repository: Repository) {
     await(pumps.save(pump))
     pumpList.update(selectedIndex, pump)
     pumpList.sorted.reverse
+    ()
   }
 
   val timerList = ObservableBuffer[Timer]()
@@ -325,6 +341,7 @@ class Model(repository: Repository) {
     await(timers.save(timer))
     timerList.update(selectedIndex, timer)
     timerList.sorted.reverse
+    ()
   }
 
   val heaterList = ObservableBuffer[Heater]()
@@ -348,6 +365,7 @@ class Model(repository: Repository) {
     await(heaters.save(heater))
     heaterList.update(selectedIndex, heater)
     heaterList.sorted.reverse
+    ()
   }
 
   val lifecycleList = ObservableBuffer[Lifecycle]()
@@ -371,6 +389,7 @@ class Model(repository: Repository) {
     await(lifecycles.save(lifecycle))
     lifecycleList.update(selectedIndex, lifecycle)
     lifecycleList.sorted.reverse
+    ()
   }
 
   val cleaningList = ObservableBuffer[Cleaning]()
@@ -394,6 +413,7 @@ class Model(repository: Repository) {
     await(cleanings.save(cleaning))
     cleaningList.update(selectedIndex, cleaning)
     cleaningList.sorted.reverse
+    ()
   }
 
   val measurementList = ObservableBuffer[Measurement]()
@@ -417,6 +437,7 @@ class Model(repository: Repository) {
     await(measurements.save(measurement))
     measurementList.update(selectedIndex, measurement)
     measurementList.sorted.reverse
+    ()
   }
 
   val additiveList = ObservableBuffer[Additive]()
@@ -440,6 +461,7 @@ class Model(repository: Repository) {
     await(additives.save(additive))
     additiveList.update(selectedIndex, additive)
     additiveList.sorted.reverse
+    ()
   }
 
   val supplyList = ObservableBuffer[Supply]()
@@ -463,6 +485,7 @@ class Model(repository: Repository) {
     await(supplies.save(supply))
     supplyList.update(selectedIndex, supply)
     supplyList.sorted.reverse
+    ()
   }
 
   val repairList = ObservableBuffer[Repair]()
@@ -486,5 +509,6 @@ class Model(repository: Repository) {
     await(repairs.save(repair))
     repairList.update(selectedIndex, repair)
     repairList.sorted.reverse
+    ()
   }
 }

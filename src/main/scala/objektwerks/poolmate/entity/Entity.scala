@@ -110,8 +110,8 @@ case class Cleaning(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, dec
   val cleaning = this
 }
 
-case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, temp: Int = 75, hardness: Int = 375, totalChlorine: Int = 3,
-                       bromine: Int = 5, freeChlorine: Int = 3, pH: Double = 7.5, alkalinity: Int = 100, cyanuricAcid: Int = 50) {
+case class Measurement(id: Int = 0, poolId: Int, on: LocalDate = LocalDate.now, temp: Double = 75.0, hardness: Double = 375.0, totalChlorine: Double = 3,
+                       bromine: Double = 5.0, freeChlorine: Double = 3.0, pH: Double = 7.5, alkalinity: Double = 100.0, cyanuricAcid: Double = 50.0) {
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
   val onProperty = new StringProperty(this, "on", on.format(dateFormatter))

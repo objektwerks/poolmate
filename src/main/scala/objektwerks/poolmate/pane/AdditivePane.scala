@@ -20,7 +20,7 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
       new TableColumn[Additive, String] { text = conf.getString("additive-header-unit"); cellValueFactory = { _.value.unitProperty } },
       new TableColumn[Additive, String] { text = conf.getString("additive-header-amount"); cellValueFactory = { _.value.amountProperty } }
     )
-    prefHeight = conf.getInt("height")
+    prefHeight = conf.getInt("height").toDouble
     items = model.additiveList
   }
   additiveTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
@@ -56,7 +56,10 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
 
   additiveEditButton.onAction = { _ => update() }
 
-  additiveChartButton.onAction = { _ => new AdditiveChartDialog(conf, model).showAndWait() }
+  additiveChartButton.onAction = { _ => 
+    new AdditiveChartDialog(conf, model).showAndWait()
+    ()
+   }
 
   def add(): Unit = {
     new AdditiveDialog(conf, Additive(poolId = model.selectedPoolId.toInt)).showAndWait() match {

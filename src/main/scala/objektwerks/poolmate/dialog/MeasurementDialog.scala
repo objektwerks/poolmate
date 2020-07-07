@@ -83,14 +83,14 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
       measurement.copy(on = onDatePicker.value.value,
-                       temp = tempSlider.value.toInt,
-                       hardness = hardnessSlider.value.toInt,
-                       totalChlorine = totalChlorineSlider.value.toInt,
-                       bromine = bromineSlider.value.toInt,
-                       freeChlorine = freeChlorineSlider.value.toInt,
+                       temp = tempSlider.value.get,
+                       hardness = hardnessSlider.value.get,
+                       totalChlorine = totalChlorineSlider.value.get,
+                       bromine = bromineSlider.value.get,
+                       freeChlorine = freeChlorineSlider.value.get,
                        pH = phLabel.text.value.toDouble,
-                       alkalinity = alkalinitySlider.value.toInt,
-                       cyanuricAcid = cyanuricAcidSlider.value.toInt)
+                       alkalinity = alkalinitySlider.value.get,
+                       cyanuricAcid = cyanuricAcidSlider.value.get)
     else null
   }
 }

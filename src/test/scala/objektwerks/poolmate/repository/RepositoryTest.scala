@@ -1,8 +1,8 @@
 package objektwerks.poolmate.repository
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class RepositoryTest extends FunSuite {
+class RepositoryTest extends AnyFunSuite {
   test("repository") {
     val repository = Repository.newInstance("test.conf")
     repository.schema.createStatements foreach println

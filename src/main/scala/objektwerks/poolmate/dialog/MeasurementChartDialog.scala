@@ -46,7 +46,7 @@ class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val cyanuricAcidLineChart = buildCyanuricAcidLineChart(conf, measurements, minDate, maxDate)
   val cyanuricAcidTab = new Tab { text = conf.getString("measurement-chart-cyanuric-acid"); closable = false; content = cyanuricAcidLineChart }
 
-  val chartsTabPane = new TabPane { padding = Insets(6); tabs = ObservableBuffer(tempTab, hardnessTab, totalChlorineTab, bromineTab, freeChlorineTab, phTab, alkalinityTab, cyanuricAcidTab) }
+  val chartsTabPane = new TabPane { padding = Insets(6); tabs = Seq(tempTab, hardnessTab, totalChlorineTab, bromineTab, freeChlorineTab, phTab, alkalinityTab, cyanuricAcidTab) }
 
   val dialog = dialogPane()
   dialog.buttonTypes = List(ButtonType.Close)

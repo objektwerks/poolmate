@@ -25,7 +25,7 @@ class MeasurementPane(conf: Config, model: Model) extends VBox {
       new TableColumn[Measurement, String] { text = conf.getString("measurement-header-alkalinity"); cellValueFactory = { _.value.alkalinityProperty } },
       new TableColumn[Measurement, String] { text = conf.getString("measurement-header-cyanuric-acid"); cellValueFactory = { _.value.cyanuricAcidProperty } }
     )
-    prefHeight = conf.getInt("height")
+    prefHeight = conf.getInt("height").toDouble
     items = model.measurementList
   }
   measurementTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
@@ -61,7 +61,10 @@ class MeasurementPane(conf: Config, model: Model) extends VBox {
 
   measurementEditButton.onAction = { _ => update() }
 
-  measurementChartButton.onAction = { _ => new MeasurementChartDialog(conf, model).showAndWait() }
+  measurementChartButton.onAction = { _ => 
+    new MeasurementChartDialog(conf, model).showAndWait()
+    ()
+   }
 
   def add(): Unit = {
     new MeasurementDialog(conf, Measurement(poolId = model.selectedPoolId.toInt)).showAndWait() match {

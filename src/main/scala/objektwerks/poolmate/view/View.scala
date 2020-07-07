@@ -4,7 +4,6 @@ import com.typesafe.config.Config
 import objektwerks.poolmate.model.Model
 import objektwerks.poolmate.pane._
 
-import scalafx.collections.ObservableBuffer
 import scalafx.geometry.{Insets, Orientation}
 import scalafx.scene.Scene
 import scalafx.scene.control.{SplitPane, Tab, TabPane}
@@ -29,7 +28,7 @@ class View(conf: Config, model: Model) {
   val repairPane = new RepairPane(conf, model)
   val repairsTab = new Tab { text = conf.getString("repairs"); closable = false; content = repairPane }
 
-  val eastTabPane = new TabPane { tabs = ObservableBuffer(cleaningsTab, measurementsTab, additivesTab, lifecyclesTab, suppliesTab , repairsTab) }
+  val eastTabPane = new TabPane { tabs = Seq(cleaningsTab, measurementsTab, additivesTab, lifecyclesTab, suppliesTab , repairsTab) }
   val eastPane = new VBox { children = List(eastTabPane) }
 
   val surfacePane = new SurfacePane(conf, model)
@@ -44,7 +43,7 @@ class View(conf: Config, model: Model) {
   val heaterPane = new HeaterPane(conf, model)
   val heatersTab = new Tab { text = conf.getString("heaters"); closable = false; content = heaterPane }
 
-  val westTabPane = new TabPane { padding = Insets(6); tabs = ObservableBuffer(surfacesTab, timersTab, pumpsTab, heatersTab) }
+  val westTabPane = new TabPane { padding = Insets(6); tabs = Seq(surfacesTab, timersTab, pumpsTab, heatersTab) }
 
   val poolPane = new PoolPane(conf, model)
   val ownerPane = new OwnerPane(conf, model)
@@ -54,7 +53,7 @@ class View(conf: Config, model: Model) {
   val splitPane = new SplitPane { orientation = Orientation.Horizontal; padding = Insets(6); items.addAll(westPane, eastPane) }
   splitPane.setDividerPositions(0.3, 0.7)
 
-  val contentPane = new VBox { prefHeight = conf.getInt("height"); prefWidth = conf.getInt("width"); spacing = 6; padding = Insets(6); children = List(menuPane, splitPane) }
+  val contentPane = new VBox { prefHeight = conf.getInt("height").toDouble; prefWidth = conf.getInt("width").toDouble; spacing = 6; padding = Insets(6); children = List(menuPane, splitPane) }
   val sceneGraph = new Scene { root = contentPane }
 
   model.listPools()

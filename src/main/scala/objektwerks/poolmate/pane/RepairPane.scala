@@ -19,7 +19,7 @@ class RepairPane(conf: Config, model: Model) extends VBox {
       new TableColumn[Repair, String] { text = conf.getString("repair-header-item"); cellValueFactory = { _.value.itemProperty } },
       new TableColumn[Repair, String] { text = conf.getString("repair-header-cost"); cellValueFactory = { _.value.costProperty } }
     )
-    prefHeight = conf.getInt("height")
+    prefHeight = conf.getInt("height").toDouble
     items = model.repairList
   }
   repairTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
@@ -55,7 +55,10 @@ class RepairPane(conf: Config, model: Model) extends VBox {
 
   repairEditButton.onAction = { _ => update() }
 
-  repairChartButton.onAction = { _ => new RepairChartDialog(conf, model).showAndWait() }
+  repairChartButton.onAction = { _ => 
+    new RepairChartDialog(conf, model).showAndWait()
+    ()
+   }
 
   def add(): Unit = {
     new RepairDialog(conf, Repair(poolId = model.selectedPoolId.toInt)).showAndWait() match {
