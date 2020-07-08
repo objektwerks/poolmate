@@ -5,7 +5,6 @@ import jfxtras.scene.control.LocalTimePicker
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Lifecycle
 import objektwerks.poolmate.pane.ControlGridPane
-
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control._

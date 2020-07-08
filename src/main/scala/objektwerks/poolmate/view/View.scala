@@ -3,7 +3,6 @@ package objektwerks.poolmate.view
 import com.typesafe.config.Config
 import objektwerks.poolmate.model.Model
 import objektwerks.poolmate.pane._
-
 import scalafx.geometry.{Insets, Orientation}
 import scalafx.scene.Scene
 import scalafx.scene.control.{SplitPane, Tab, TabPane}

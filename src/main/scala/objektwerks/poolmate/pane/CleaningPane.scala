@@ -5,7 +5,6 @@ import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.dialog.CleaningDialog
 import objektwerks.poolmate.entity.Cleaning
 import objektwerks.poolmate.model.Model
-
 import scalafx.Includes._
 import scalafx.geometry.Insets
 import scalafx.scene.control.TableColumn._

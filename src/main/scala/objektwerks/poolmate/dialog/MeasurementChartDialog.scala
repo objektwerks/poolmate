@@ -7,7 +7,6 @@ import com.typesafe.config.Config
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Measurement
 import objektwerks.poolmate.model.Model
-
 import scalafx.Includes._
 import scalafx.collections.ObservableBuffer
 import scalafx.geometry.Insets

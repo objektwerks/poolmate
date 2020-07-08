@@ -2,7 +2,6 @@ package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
 import objektwerks.poolmate.App
-
 import scalafx.application.Platform
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.control._

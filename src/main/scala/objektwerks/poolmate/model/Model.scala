@@ -3,7 +3,6 @@ package objektwerks.poolmate.model
 import objektwerks.poolmate.entity.Entity._
 import objektwerks.poolmate.entity._
 import objektwerks.poolmate.repository.Repository
-
 import scalafx.beans.property.{IntegerProperty, ObjectProperty}
 import scalafx.collections.ObservableBuffer
 

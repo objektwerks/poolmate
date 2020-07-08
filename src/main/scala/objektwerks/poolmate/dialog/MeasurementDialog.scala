@@ -6,7 +6,6 @@ import com.typesafe.config.Config
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Measurement
 import objektwerks.poolmate.pane.ControlGridPane
-
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control._

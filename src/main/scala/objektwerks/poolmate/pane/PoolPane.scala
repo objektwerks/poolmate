@@ -1,11 +1,10 @@
 package objektwerks.poolmate.pane
 
 import com.typesafe.config.Config
+import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.dialog.PoolDialog
 import objektwerks.poolmate.entity.Pool
 import objektwerks.poolmate.model.Model
-import objektwerks.poolmate.Resources._
-
 import scalafx.Includes._
 import scalafx.geometry.Insets
 import scalafx.scene.control.TableColumn._

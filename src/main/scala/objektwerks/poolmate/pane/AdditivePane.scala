@@ -5,7 +5,6 @@ import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.dialog.{AdditiveChartDialog, AdditiveDialog}
 import objektwerks.poolmate.entity.Additive
 import objektwerks.poolmate.model.Model
-
 import scalafx.Includes._
 import scalafx.geometry.Insets
 import scalafx.scene.control.TableColumn._

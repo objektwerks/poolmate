@@ -1,7 +1,6 @@
 package objektwerks.poolmate
 
 import com.typesafe.config.ConfigFactory
-
 import scalafx.collections.ObservableBuffer
 import scalafx.scene.image.{Image, ImageView}
 
