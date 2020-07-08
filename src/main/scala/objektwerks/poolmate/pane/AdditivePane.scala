@@ -14,19 +14,43 @@ import scalafx.scene.layout.{HBox, VBox}
 class AdditivePane(conf: Config, model: Model) extends VBox {
   val additiveTableView = new TableView[Additive]() {
     columns ++= List(
-      new TableColumn[Additive, String] { text = conf.getString("additive-header-on"); cellValueFactory = { _.value.onProperty } },
-      new TableColumn[Additive, String] { text = conf.getString("additive-header-chemical"); cellValueFactory = { _.value.chemicalProperty } },
-      new TableColumn[Additive, String] { text = conf.getString("additive-header-unit"); cellValueFactory = { _.value.unitProperty } },
-      new TableColumn[Additive, String] { text = conf.getString("additive-header-amount"); cellValueFactory = { _.value.amountProperty } }
+      new TableColumn[Additive, String] {
+        text = conf.getString("additive-header-on"); cellValueFactory = {
+          _.value.onProperty
+        }
+      },
+      new TableColumn[Additive, String] {
+        text = conf.getString("additive-header-chemical"); cellValueFactory = {
+          _.value.chemicalProperty
+        }
+      },
+      new TableColumn[Additive, String] {
+        text = conf.getString("additive-header-unit"); cellValueFactory = {
+          _.value.unitProperty
+        }
+      },
+      new TableColumn[Additive, String] {
+        text = conf.getString("additive-header-amount"); cellValueFactory = {
+          _.value.amountProperty
+        }
+      }
     )
     prefHeight = conf.getInt("height").toDouble
     items = model.additiveList
   }
   additiveTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val additiveAddButton = new Button { graphic = addImageView(); disable = true }
-  val additiveEditButton = new Button { graphic = editImageView(); disable = true }
-  val additiveChartButton = new Button { graphic = barChartImageView(); disable = true }
-  val additiveToolBar = new HBox { spacing = 6; children = List(additiveAddButton, additiveEditButton, additiveChartButton) }
+  val additiveAddButton = new Button {
+    graphic = addImageView(); disable = true
+  }
+  val additiveEditButton = new Button {
+    graphic = editImageView(); disable = true
+  }
+  val additiveChartButton = new Button {
+    graphic = barChartImageView(); disable = true
+  }
+  val additiveToolBar = new HBox {
+    spacing = 6; children = List(additiveAddButton, additiveEditButton, additiveChartButton)
+  }
 
   spacing = 6
   padding = Insets(6)
@@ -48,17 +72,17 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
   }
 
   additiveTableView.onMouseClicked = { event =>
-    if(event.getClickCount == 2 && additiveTableView.selectionModel().getSelectedItem != null ) update()
+    if (event.getClickCount == 2 && additiveTableView.selectionModel().getSelectedItem != null) update()
   }
 
   additiveAddButton.onAction = { _ => add() }
 
   additiveEditButton.onAction = { _ => update() }
 
-  additiveChartButton.onAction = { _ => 
+  additiveChartButton.onAction = { _ =>
     new AdditiveChartDialog(conf, model).showAndWait()
     ()
-   }
+  }
 
   def add(): Unit = {
     new AdditiveDialog(conf, Additive(poolId = model.selectedPoolId.toInt)).showAndWait() match {

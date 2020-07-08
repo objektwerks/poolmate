@@ -9,14 +9,26 @@ import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]()  {
+class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val builtDatePicker = new DatePicker { value = pool.built }
-  val gallonsTextField = new TextField { text = pool.gallons.toString }
-  val streetTextField = new TextField { text = pool.street }
-  val cityTextField = new TextField { text = pool.city }
-  val stateTextField = new TextField { text = pool.state }
-  val zipTextField = new TextField { text = pool.zip.toString }
+  val builtDatePicker = new DatePicker {
+    value = pool.built
+  }
+  val gallonsTextField = new TextField {
+    text = pool.gallons.toString
+  }
+  val streetTextField = new TextField {
+    text = pool.street
+  }
+  val cityTextField = new TextField {
+    text = pool.city
+  }
+  val stateTextField = new TextField {
+    text = pool.state
+  }
+  val zipTextField = new TextField {
+    text = pool.zip.toString
+  }
   val controls = List[(String, Region)](
     conf.getString("pool-built") -> builtDatePicker,
     conf.getString("pool-gallons") -> gallonsTextField,
@@ -44,11 +56,11 @@ class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]()  {
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
       pool.copy(built = builtDatePicker.value.value,
-                gallons = Integer.parseInt(gallonsTextField.text.value),
-                street = streetTextField.text.value,
-                city = cityTextField.text.value,
-                state = stateTextField.text.value,
-                zip = Integer.parseInt(zipTextField.text.value))
+        gallons = Integer.parseInt(gallonsTextField.text.value),
+        street = streetTextField.text.value,
+        city = cityTextField.text.value,
+        state = stateTextField.text.value,
+        zip = Integer.parseInt(zipTextField.text.value))
     else null
   }
 }

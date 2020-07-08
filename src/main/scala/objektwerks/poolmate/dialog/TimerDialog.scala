@@ -11,8 +11,12 @@ import scalafx.scene.layout.Region
 
 class TimerDialog(conf: Config, timer: Timer) extends Dialog[Timer]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val installedDatePicker = new DatePicker { value = timer.installed }
-  val modelTextField = new TextField { text = timer.model }
+  val installedDatePicker = new DatePicker {
+    value = timer.installed
+  }
+  val modelTextField = new TextField {
+    text = timer.model
+  }
   val controls = List[(String, Region)](
     conf.getString("timer-installed") -> installedDatePicker,
     conf.getString("timer-model") -> modelTextField

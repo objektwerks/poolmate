@@ -14,15 +14,29 @@ import scalafx.scene.layout.{HBox, VBox}
 class HeaterPane(conf: Config, model: Model) extends VBox {
   val heaterTableView = new TableView[Heater]() {
     columns ++= List(
-      new TableColumn[Heater, String] { text = conf.getString("heater-header-installed"); cellValueFactory = { _.value.installedProperty } },
-      new TableColumn[Heater, String] { text = conf.getString("heater-header-model"); cellValueFactory = { _.value.modelProperty } }
+      new TableColumn[Heater, String] {
+        text = conf.getString("heater-header-installed"); cellValueFactory = {
+          _.value.installedProperty
+        }
+      },
+      new TableColumn[Heater, String] {
+        text = conf.getString("heater-header-model"); cellValueFactory = {
+          _.value.modelProperty
+        }
+      }
     )
     items = model.heaterList
   }
   heaterTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val heaterAddButton = new Button { graphic = addImageView(); disable = true }
-  val heaterEditButton = new Button { graphic = editImageView(); disable = true }
-  val heaterToolBar = new HBox { spacing = 6; children = List(heaterAddButton, heaterEditButton) }
+  val heaterAddButton = new Button {
+    graphic = addImageView(); disable = true
+  }
+  val heaterEditButton = new Button {
+    graphic = editImageView(); disable = true
+  }
+  val heaterToolBar = new HBox {
+    spacing = 6; children = List(heaterAddButton, heaterEditButton)
+  }
 
   spacing = 6
   padding = Insets(6)
@@ -42,7 +56,7 @@ class HeaterPane(conf: Config, model: Model) extends VBox {
   }
 
   heaterTableView.onMouseClicked = { event =>
-    if(event.getClickCount == 2 && heaterTableView.selectionModel().getSelectedItem != null ) update()
+    if (event.getClickCount == 2 && heaterTableView.selectionModel().getSelectedItem != null) update()
   }
 
   heaterAddButton.onAction = { _ => add() }

@@ -14,15 +14,29 @@ import scalafx.scene.layout.{HBox, VBox}
 class TimerPane(conf: Config, model: Model) extends VBox {
   val timerTableView = new TableView[Timer]() {
     columns ++= List(
-      new TableColumn[Timer, String] { text = conf.getString("timer-header-installed"); cellValueFactory = { _.value.installedProperty } },
-      new TableColumn[Timer, String] { text = conf.getString("timer-header-model"); cellValueFactory = { _.value.modelProperty } }
+      new TableColumn[Timer, String] {
+        text = conf.getString("timer-header-installed"); cellValueFactory = {
+          _.value.installedProperty
+        }
+      },
+      new TableColumn[Timer, String] {
+        text = conf.getString("timer-header-model"); cellValueFactory = {
+          _.value.modelProperty
+        }
+      }
     )
     items = model.timerList
   }
   timerTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val timerAddButton = new Button { graphic = addImageView(); disable = true }
-  val timerEditButton = new Button { graphic = editImageView(); disable = true }
-  val timerToolBar = new HBox { spacing = 6; children = List(timerAddButton, timerEditButton) }
+  val timerAddButton = new Button {
+    graphic = addImageView(); disable = true
+  }
+  val timerEditButton = new Button {
+    graphic = editImageView(); disable = true
+  }
+  val timerToolBar = new HBox {
+    spacing = 6; children = List(timerAddButton, timerEditButton)
+  }
 
   spacing = 6
   padding = Insets(6)
@@ -42,7 +56,7 @@ class TimerPane(conf: Config, model: Model) extends VBox {
   }
 
   timerTableView.onMouseClicked = { event =>
-    if(event.getClickCount == 2 && timerTableView.selectionModel().getSelectedItem != null ) update()
+    if (event.getClickCount == 2 && timerTableView.selectionModel().getSelectedItem != null) update()
   }
 
   timerAddButton.onAction = { _ => add() }

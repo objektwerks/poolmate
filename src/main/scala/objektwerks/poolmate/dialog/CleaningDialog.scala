@@ -11,14 +11,30 @@ import scalafx.scene.layout.Region
 
 class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val onDatePicker = new DatePicker { value = cleaning.on }
-  val deckCheckBox = new CheckBox { selected = cleaning.deck }
-  val brushCheckBox = new CheckBox { selected = cleaning.brush }
-  val netCheckBox = new CheckBox { selected = cleaning.net }
-  val vacuumCheckBox = new CheckBox { selected = cleaning.vacuum }
-  val skimmerBasketCheckBox = new CheckBox { selected = cleaning.skimmerBasket }
-  val pumpBasketCheckBox = new CheckBox { selected = cleaning.pumpBasket }
-  val pumpFilterCheckBox = new CheckBox { selected = cleaning.pumpFilter }
+  val onDatePicker = new DatePicker {
+    value = cleaning.on
+  }
+  val deckCheckBox = new CheckBox {
+    selected = cleaning.deck
+  }
+  val brushCheckBox = new CheckBox {
+    selected = cleaning.brush
+  }
+  val netCheckBox = new CheckBox {
+    selected = cleaning.net
+  }
+  val vacuumCheckBox = new CheckBox {
+    selected = cleaning.vacuum
+  }
+  val skimmerBasketCheckBox = new CheckBox {
+    selected = cleaning.skimmerBasket
+  }
+  val pumpBasketCheckBox = new CheckBox {
+    selected = cleaning.pumpBasket
+  }
+  val pumpFilterCheckBox = new CheckBox {
+    selected = cleaning.pumpFilter
+  }
 
   val controls = List[(String, Region)](
     conf.getString("cleaning-on") -> onDatePicker,
@@ -44,13 +60,13 @@ class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning](
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
       cleaning.copy(on = onDatePicker.value.value,
-                    deck = deckCheckBox.selected.value,
-                    brush = deckCheckBox.selected.value,
-                    net = netCheckBox.selected.value,
-                    vacuum = vacuumCheckBox.selected.value,
-                    skimmerBasket = skimmerBasketCheckBox.selected.value,
-                    pumpBasket = pumpBasketCheckBox.selected.value,
-                    pumpFilter = pumpFilterCheckBox.selected.value)
+        deck = deckCheckBox.selected.value,
+        brush = deckCheckBox.selected.value,
+        net = netCheckBox.selected.value,
+        vacuum = vacuumCheckBox.selected.value,
+        skimmerBasket = skimmerBasketCheckBox.selected.value,
+        pumpBasket = pumpBasketCheckBox.selected.value,
+        pumpFilter = pumpFilterCheckBox.selected.value)
     else null
   }
 }

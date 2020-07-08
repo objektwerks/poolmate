@@ -26,13 +26,17 @@ class RepairChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val maxCost = repairs.map(r => r.cost).max.toInt
   val avgCost = (repairs.map(r => r.cost).sum / repairs.length).toInt
 
-  val series = new XYChart.Series[Number, Number] { name = s"${conf.getString("min")} $minCost  ${conf.getString("max")} $maxCost  ${conf.getString("avg")} $avgCost" }
-  repairs foreach { repair => series.data() += XYChart.Data[Number, Number]( repair.on.format(dateFormatter).toDouble, repair.cost ) }
+  val series = new XYChart.Series[Number, Number] {
+    name = s"${conf.getString("min")} $minCost  ${conf.getString("max")} $maxCost  ${conf.getString("avg")} $avgCost"
+  }
+  repairs foreach { repair => series.data() += XYChart.Data[Number, Number](repair.on.format(dateFormatter).toDouble, repair.cost) }
   chart.data = series
 
   val dialog = dialogPane()
   dialog.buttonTypes = List(ButtonType.Close)
-  dialog.content = new VBox { spacing = 6; children = List(chart) }
+  dialog.content = new VBox {
+    spacing = 6; children = List(chart)
+  }
 
   initOwner(App.stage)
   title = conf.getString("repair-chart")

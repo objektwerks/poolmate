@@ -11,10 +11,18 @@ import scalafx.scene.layout.Region
 
 class OwnerDialog(conf: Config, owner: Owner) extends Dialog[Owner]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val sinceDatePicker = new DatePicker { value = owner.since }
-  val firstTextField = new TextField { text = owner.first }
-  val lastTextField = new TextField { text = owner.last }
-  val emailTextField = new TextField { text = owner.email }
+  val sinceDatePicker = new DatePicker {
+    value = owner.since
+  }
+  val firstTextField = new TextField {
+    text = owner.first
+  }
+  val lastTextField = new TextField {
+    text = owner.last
+  }
+  val emailTextField = new TextField {
+    text = owner.email
+  }
   val controls = List[(String, Region)](
     conf.getString("owner-since") -> sinceDatePicker,
     conf.getString("owner-first") -> firstTextField,
@@ -38,9 +46,9 @@ class OwnerDialog(conf: Config, owner: Owner) extends Dialog[Owner]() {
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
       owner.copy(since = sinceDatePicker.value.value,
-                 first = firstTextField.text.value,
-                 last = lastTextField.text.value,
-                 email = emailTextField.text.value)
+        first = firstTextField.text.value,
+        last = lastTextField.text.value,
+        email = emailTextField.text.value)
     else null
   }
 }

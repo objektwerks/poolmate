@@ -14,18 +14,40 @@ import scalafx.scene.layout.{HBox, VBox}
 class LifecyclePane(conf: Config, model: Model) extends VBox {
   val lifecycleTableView = new TableView[Lifecycle]() {
     columns ++= List(
-      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-header-created"); cellValueFactory = { _.value.createdProperty } },
-      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-header-active"); cellValueFactory = { _.value.activeProperty } },
-      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-header-pump-on"); cellValueFactory = { _.value.pumpOnProperty } },
-      new TableColumn[Lifecycle, String] { text = conf.getString("lifecycle-header-pump-off"); cellValueFactory = { _.value.pumpOffProperty } }
+      new TableColumn[Lifecycle, String] {
+        text = conf.getString("lifecycle-header-created"); cellValueFactory = {
+          _.value.createdProperty
+        }
+      },
+      new TableColumn[Lifecycle, String] {
+        text = conf.getString("lifecycle-header-active"); cellValueFactory = {
+          _.value.activeProperty
+        }
+      },
+      new TableColumn[Lifecycle, String] {
+        text = conf.getString("lifecycle-header-pump-on"); cellValueFactory = {
+          _.value.pumpOnProperty
+        }
+      },
+      new TableColumn[Lifecycle, String] {
+        text = conf.getString("lifecycle-header-pump-off"); cellValueFactory = {
+          _.value.pumpOffProperty
+        }
+      }
     )
     prefHeight = conf.getInt("height").toDouble
     items = model.lifecycleList
   }
   lifecycleTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val lifecycleAddButton = new Button { graphic = addImageView(); disable = true }
-  val lifecycleEditButton = new Button { graphic = editImageView(); disable = true }
-  val lifecycleToolBar = new HBox { spacing = 6; children = List(lifecycleAddButton, lifecycleEditButton) }
+  val lifecycleAddButton = new Button {
+    graphic = addImageView(); disable = true
+  }
+  val lifecycleEditButton = new Button {
+    graphic = editImageView(); disable = true
+  }
+  val lifecycleToolBar = new HBox {
+    spacing = 6; children = List(lifecycleAddButton, lifecycleEditButton)
+  }
 
   spacing = 6
   padding = Insets(6)
@@ -45,7 +67,7 @@ class LifecyclePane(conf: Config, model: Model) extends VBox {
   }
 
   lifecycleTableView.onMouseClicked = { event =>
-    if(event.getClickCount == 2 && lifecycleTableView.selectionModel().getSelectedItem != null ) update()
+    if (event.getClickCount == 2 && lifecycleTableView.selectionModel().getSelectedItem != null) update()
   }
 
   lifecycleAddButton.onAction = { _ => add() }

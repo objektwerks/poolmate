@@ -12,19 +12,39 @@ import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
 class OwnerPane(conf: Config, model: Model) extends VBox {
-  val ownerLabel = new Label { text = conf.getString("owners") }
+  val ownerLabel = new Label {
+    text = conf.getString("owners")
+  }
   val ownerTableView = new TableView[Owner]() {
     columns ++= List(
-      new TableColumn[Owner, String] { text = conf.getString("owner-header-since"); cellValueFactory = { _.value.sinceProperty } },
-      new TableColumn[Owner, String] { text = conf.getString("owner-header-first"); cellValueFactory = { _.value.firstProperty } },
-      new TableColumn[Owner, String] { text = conf.getString("owner-header-last"); cellValueFactory = { _.value.lastroperty } }
+      new TableColumn[Owner, String] {
+        text = conf.getString("owner-header-since"); cellValueFactory = {
+          _.value.sinceProperty
+        }
+      },
+      new TableColumn[Owner, String] {
+        text = conf.getString("owner-header-first"); cellValueFactory = {
+          _.value.firstProperty
+        }
+      },
+      new TableColumn[Owner, String] {
+        text = conf.getString("owner-header-last"); cellValueFactory = {
+          _.value.lastroperty
+        }
+      }
     )
     items = model.ownerList
   }
   ownerTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val ownerAddButton = new Button { graphic = addImageView(); disable = true }
-  val ownerEditButton = new Button { graphic = editImageView(); disable = true }
-  val ownerToolBar = new HBox { spacing = 6; children = List(ownerAddButton, ownerEditButton) }
+  val ownerAddButton = new Button {
+    graphic = addImageView(); disable = true
+  }
+  val ownerEditButton = new Button {
+    graphic = editImageView(); disable = true
+  }
+  val ownerToolBar = new HBox {
+    spacing = 6; children = List(ownerAddButton, ownerEditButton)
+  }
 
   spacing = 6
   padding = Insets(6)
@@ -44,7 +64,7 @@ class OwnerPane(conf: Config, model: Model) extends VBox {
   }
 
   ownerTableView.onMouseClicked = { event =>
-    if(event.getClickCount == 2 && ownerTableView.selectionModel().getSelectedItem != null ) update()
+    if (event.getClickCount == 2 && ownerTableView.selectionModel().getSelectedItem != null) update()
   }
 
   ownerAddButton.onAction = { _ => add() }

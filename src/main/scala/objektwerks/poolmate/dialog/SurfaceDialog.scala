@@ -11,8 +11,12 @@ import scalafx.scene.layout.Region
 
 class SurfaceDialog(conf: Config, surface: Surface) extends Dialog[Surface]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val installedDatePicker = new DatePicker { value = surface.installed }
-  val kindTextField = new TextField { text = surface.kind }
+  val installedDatePicker = new DatePicker {
+    value = surface.installed
+  }
+  val kindTextField = new TextField {
+    text = surface.kind
+  }
   val controls = List[(String, Region)](
     conf.getString("surface-installed") -> installedDatePicker,
     conf.getString("surface-kind") -> kindTextField

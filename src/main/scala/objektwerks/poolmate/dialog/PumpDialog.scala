@@ -11,8 +11,12 @@ import scalafx.scene.layout.Region
 
 class PumpDialog(conf: Config, pump: Pump) extends Dialog[Pump]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val installedDatePicker = new DatePicker { value = pump.installed }
-  val modelTextField = new TextField { text = pump.model }
+  val installedDatePicker = new DatePicker {
+    value = pump.installed
+  }
+  val modelTextField = new TextField {
+    text = pump.model
+  }
   val controls = List[(String, Region)](
     conf.getString("pump-installed") -> installedDatePicker,
     conf.getString("pump-model") -> modelTextField

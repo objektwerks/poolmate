@@ -11,8 +11,12 @@ import scalafx.scene.layout.Region
 
 class HeaterDialog(conf: Config, heater: Heater) extends Dialog[Heater]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val installedDatePicker = new DatePicker { value = heater.installed }
-  val modelTextField = new TextField { text = heater.model }
+  val installedDatePicker = new DatePicker {
+    value = heater.installed
+  }
+  val modelTextField = new TextField {
+    text = heater.model
+  }
   val controls = List[(String, Region)](
     conf.getString("heater-installed") -> installedDatePicker,
     conf.getString("heater-model") -> modelTextField

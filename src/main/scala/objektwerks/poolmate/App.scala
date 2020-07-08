@@ -16,5 +16,7 @@ object App extends JFXApp {
     icons.add(appImage())
   }
 
-  sys.addShutdownHook { repository.close() }
+  sys.addShutdownHook {
+    repository.close()
+  }
 }

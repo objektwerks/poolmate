@@ -11,21 +11,45 @@ import scalafx.scene.control.TableColumn._
 import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, VBox}
 
-class PoolPane(conf: Config, model: Model) extends VBox  {
-  val poolLabel = new Label { text = conf.getString("pools") }
+class PoolPane(conf: Config, model: Model) extends VBox {
+  val poolLabel = new Label {
+    text = conf.getString("pools")
+  }
   val poolTableView = new TableView[Pool]() {
     columns ++= List(
-      new TableColumn[Pool, String] { text = conf.getString("pool-header-built"); cellValueFactory = { _.value.builtProperty } },
-      new TableColumn[Pool, String] { text = conf.getString("pool-header-gallons"); cellValueFactory = { _.value.gallonsProperty } },
-      new TableColumn[Pool, String] { text = conf.getString("pool-header-street"); cellValueFactory = { _.value.streetProperty } },
-      new TableColumn[Pool, String] { text = conf.getString("pool-header-city"); cellValueFactory = { _.value.cityProperty } }
+      new TableColumn[Pool, String] {
+        text = conf.getString("pool-header-built"); cellValueFactory = {
+          _.value.builtProperty
+        }
+      },
+      new TableColumn[Pool, String] {
+        text = conf.getString("pool-header-gallons"); cellValueFactory = {
+          _.value.gallonsProperty
+        }
+      },
+      new TableColumn[Pool, String] {
+        text = conf.getString("pool-header-street"); cellValueFactory = {
+          _.value.streetProperty
+        }
+      },
+      new TableColumn[Pool, String] {
+        text = conf.getString("pool-header-city"); cellValueFactory = {
+          _.value.cityProperty
+        }
+      }
     )
     items = model.poolList
   }
   poolTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val poolAddButton = new Button { graphic = addImageView() }
-  val poolEditButton = new Button { graphic = editImageView(); disable = true }
-  val poolToolBar = new HBox { spacing = 6; children = List(poolAddButton, poolEditButton) }
+  val poolAddButton = new Button {
+    graphic = addImageView()
+  }
+  val poolEditButton = new Button {
+    graphic = editImageView(); disable = true
+  }
+  val poolToolBar = new HBox {
+    spacing = 6; children = List(poolAddButton, poolEditButton)
+  }
 
   spacing = 6
   padding = Insets(6)
@@ -40,7 +64,7 @@ class PoolPane(conf: Config, model: Model) extends VBox  {
   }
 
   poolTableView.onMouseClicked = { event =>
-    if(event.getClickCount == 2 && poolTableView.selectionModel().getSelectedItem != null ) update()
+    if (event.getClickCount == 2 && poolTableView.selectionModel().getSelectedItem != null) update()
   }
 
   poolAddButton.onAction = { _ => add() }

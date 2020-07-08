@@ -11,11 +11,21 @@ import scalafx.scene.layout.Region
 
 class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val purchasedDatePicker = new DatePicker { value = supply.purchased }
-  val itemTextField = new TextField { text = supply.item }
-  val unitComboBox = new ComboBox[String] { items = Resources.units(); selectionModel().select(supply.unit) }
-  val amountTextField = new TextField { text = supply.amount.toString }
-  val costTextField = new TextField { text = supply.cost.toString }
+  val purchasedDatePicker = new DatePicker {
+    value = supply.purchased
+  }
+  val itemTextField = new TextField {
+    text = supply.item
+  }
+  val unitComboBox = new ComboBox[String] {
+    items = Resources.units(); selectionModel().select(supply.unit)
+  }
+  val amountTextField = new TextField {
+    text = supply.amount.toString
+  }
+  val costTextField = new TextField {
+    text = supply.cost.toString
+  }
   val controls = List[(String, Region)](
     conf.getString("supply-purchased") -> purchasedDatePicker,
     conf.getString("supply-item") -> itemTextField,
@@ -40,10 +50,10 @@ class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply]() {
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
       supply.copy(purchased = purchasedDatePicker.value.value,
-                  item = itemTextField.text.value,
-                  unit = unitComboBox.selectionModel().getSelectedItem,
-                  amount = amountTextField.text.value.toDouble,
-                  cost = costTextField.text.value.toDouble)
+        item = itemTextField.text.value,
+        unit = unitComboBox.selectionModel().getSelectedItem,
+        amount = amountTextField.text.value.toDouble,
+        cost = costTextField.text.value.toDouble)
     else null
   }
 }

@@ -14,15 +14,29 @@ import scalafx.scene.layout.{HBox, VBox}
 class PumpPane(conf: Config, model: Model) extends VBox {
   val pumpTableView = new TableView[Pump]() {
     columns ++= List(
-      new TableColumn[Pump, String] { text = conf.getString("pump-header-installed"); cellValueFactory = { _.value.installedProperty } },
-      new TableColumn[Pump, String] { text = conf.getString("pump-header-model"); cellValueFactory = { _.value.modelProperty } }
+      new TableColumn[Pump, String] {
+        text = conf.getString("pump-header-installed"); cellValueFactory = {
+          _.value.installedProperty
+        }
+      },
+      new TableColumn[Pump, String] {
+        text = conf.getString("pump-header-model"); cellValueFactory = {
+          _.value.modelProperty
+        }
+      }
     )
     items = model.pumpList
   }
   pumpTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val pumpAddButton = new Button { graphic = addImageView(); disable = true }
-  val pumpEditButton = new Button { graphic = editImageView(); disable = true }
-  val pumpToolBar = new HBox { spacing = 6; children = List(pumpAddButton, pumpEditButton) }
+  val pumpAddButton = new Button {
+    graphic = addImageView(); disable = true
+  }
+  val pumpEditButton = new Button {
+    graphic = editImageView(); disable = true
+  }
+  val pumpToolBar = new HBox {
+    spacing = 6; children = List(pumpAddButton, pumpEditButton)
+  }
 
   spacing = 6
   padding = Insets(6)
@@ -42,7 +56,7 @@ class PumpPane(conf: Config, model: Model) extends VBox {
   }
 
   pumpTableView.onMouseClicked = { event =>
-    if(event.getClickCount == 2 && pumpTableView.selectionModel().getSelectedItem != null ) update()
+    if (event.getClickCount == 2 && pumpTableView.selectionModel().getSelectedItem != null) update()
   }
 
   pumpAddButton.onAction = { _ => add() }

@@ -12,10 +12,18 @@ import scalafx.scene.layout.Region
 
 class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecycle]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val createdDatePicker = new DatePicker { value = lifecycle.created }
-  val activeCheckBox = new CheckBox { selected = lifecycle.active }
-  val pumpOnTimePicker = new LocalTimePicker { localTimeProperty.value = lifecycle.pumpOn }
-  val pumpOffTimePicker = new LocalTimePicker { localTimeProperty.value = lifecycle.pumpOff }
+  val createdDatePicker = new DatePicker {
+    value = lifecycle.created
+  }
+  val activeCheckBox = new CheckBox {
+    selected = lifecycle.active
+  }
+  val pumpOnTimePicker = new LocalTimePicker {
+    localTimeProperty.value = lifecycle.pumpOn
+  }
+  val pumpOffTimePicker = new LocalTimePicker {
+    localTimeProperty.value = lifecycle.pumpOff
+  }
   val controls = List[(String, Region)](
     conf.getString("lifecycle-created") -> createdDatePicker,
     conf.getString("lifecycle-active") -> activeCheckBox,
@@ -39,9 +47,9 @@ class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecyc
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
       lifecycle.copy(created = createdDatePicker.value.value,
-                     active = activeCheckBox.selected.value,
-                     pumpOn = pumpOnTimePicker.localTimeProperty.value,
-                     pumpOff = pumpOffTimePicker.localTimeProperty.value)
+        active = activeCheckBox.selected.value,
+        pumpOn = pumpOnTimePicker.localTimeProperty.value,
+        pumpOff = pumpOffTimePicker.localTimeProperty.value)
     else null
   }
 }

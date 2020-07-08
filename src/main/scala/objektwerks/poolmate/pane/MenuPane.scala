@@ -13,14 +13,19 @@ class MenuPane(conf: Config) extends MenuBar {
     headerText = conf.getString("developer")
     contentText = s"${conf.getString("app")} ${conf.getString("license")}"
   }
-  val aboutMenuItem = new MenuItem(conf.getString("about")) { onAction = { _ => 
-    aboutDialog.showAndWait()
-    ()
-   } 
+  val aboutMenuItem = new MenuItem(conf.getString("about")) {
+    onAction = { _ =>
+      aboutDialog.showAndWait()
+      ()
+    }
   }
   val separator = new SeparatorMenuItem()
-  val exitMenuItem = new MenuItem(conf.getString("exit")) { onAction = { _ => Platform.exit() } }
-  val menu = new Menu(conf.getString("menu")) { items = List(aboutMenuItem, separator, exitMenuItem) }
+  val exitMenuItem = new MenuItem(conf.getString("exit")) {
+    onAction = { _ => Platform.exit() }
+  }
+  val menu = new Menu(conf.getString("menu")) {
+    items = List(aboutMenuItem, separator, exitMenuItem)
+  }
 
   menus = List(menu)
   useSystemMenuBar = false

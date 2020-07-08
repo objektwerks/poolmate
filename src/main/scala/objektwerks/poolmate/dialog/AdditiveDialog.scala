@@ -11,10 +11,18 @@ import scalafx.scene.layout.Region
 
 class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val onDatePicker = new DatePicker { value = additive.on }
-  val chemicalTextField = new TextField { text = additive.chemical }
-  val unitComboBox = new ComboBox[String] { items = Resources.units(); selectionModel().select(additive.unit) }
-  val amountTextField = new TextField { text = additive.amount.toString }
+  val onDatePicker = new DatePicker {
+    value = additive.on
+  }
+  val chemicalTextField = new TextField {
+    text = additive.chemical
+  }
+  val unitComboBox = new ComboBox[String] {
+    items = Resources.units(); selectionModel().select(additive.unit)
+  }
+  val amountTextField = new TextField {
+    text = additive.amount.toString
+  }
   val controls = List[(String, Region)](
     conf.getString("additive-on") -> onDatePicker,
     conf.getString("additive-chemical") -> chemicalTextField,
@@ -37,9 +45,9 @@ class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive](
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
       additive.copy(on = onDatePicker.value.value,
-                    chemical = chemicalTextField.text.value,
-                    unit = unitComboBox.selectionModel().getSelectedItem,
-                    amount = amountTextField.text.value.toDouble)
+        chemical = chemicalTextField.text.value,
+        unit = unitComboBox.selectionModel().getSelectedItem,
+        amount = amountTextField.text.value.toDouble)
     else null
   }
 }

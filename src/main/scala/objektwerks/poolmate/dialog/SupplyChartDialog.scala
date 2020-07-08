@@ -38,7 +38,9 @@ class SupplyChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
 
   val dialog = dialogPane()
   dialog.buttonTypes = List(ButtonType.Close)
-  dialog.content = new VBox { spacing = 6; children = List(chart) }
+  dialog.content = new VBox {
+    spacing = 6; children = List(chart)
+  }
 
   initOwner(App.stage)
   title = conf.getString("supply-chart")

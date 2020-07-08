@@ -14,20 +14,48 @@ import scalafx.scene.layout.{HBox, VBox}
 class SupplyPane(conf: Config, model: Model) extends VBox {
   val supplyTableView = new TableView[Supply]() {
     columns ++= List(
-      new TableColumn[Supply, String] { text = conf.getString("supply-header-purchased"); cellValueFactory = { _.value.purchasedProperty } },
-      new TableColumn[Supply, String] { text = conf.getString("supply-header-item"); cellValueFactory = { _.value.itemProperty } },
-      new TableColumn[Supply, String] { text = conf.getString("supply-header-unit"); cellValueFactory = { _.value.unitProperty } },
-      new TableColumn[Supply, String] { text = conf.getString("supply-header-amount"); cellValueFactory = { _.value.amountProperty } },
-      new TableColumn[Supply, String] { text = conf.getString("supply-header-cost"); cellValueFactory = { _.value.costProperty } }
+      new TableColumn[Supply, String] {
+        text = conf.getString("supply-header-purchased"); cellValueFactory = {
+          _.value.purchasedProperty
+        }
+      },
+      new TableColumn[Supply, String] {
+        text = conf.getString("supply-header-item"); cellValueFactory = {
+          _.value.itemProperty
+        }
+      },
+      new TableColumn[Supply, String] {
+        text = conf.getString("supply-header-unit"); cellValueFactory = {
+          _.value.unitProperty
+        }
+      },
+      new TableColumn[Supply, String] {
+        text = conf.getString("supply-header-amount"); cellValueFactory = {
+          _.value.amountProperty
+        }
+      },
+      new TableColumn[Supply, String] {
+        text = conf.getString("supply-header-cost"); cellValueFactory = {
+          _.value.costProperty
+        }
+      }
     )
     prefHeight = conf.getInt("height").toDouble
     items = model.supplyList
   }
   supplyTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val supplyAddButton = new Button { graphic = addImageView(); disable = true }
-  val supplyEditButton = new Button { graphic = editImageView(); disable = true }
-  val supplyChartButton = new Button { graphic = barChartImageView(); disable = true }
-  val supplyToolBar = new HBox { spacing = 6; children = List(supplyAddButton, supplyEditButton, supplyChartButton) }
+  val supplyAddButton = new Button {
+    graphic = addImageView(); disable = true
+  }
+  val supplyEditButton = new Button {
+    graphic = editImageView(); disable = true
+  }
+  val supplyChartButton = new Button {
+    graphic = barChartImageView(); disable = true
+  }
+  val supplyToolBar = new HBox {
+    spacing = 6; children = List(supplyAddButton, supplyEditButton, supplyChartButton)
+  }
 
   spacing = 6
   padding = Insets(6)
@@ -49,14 +77,14 @@ class SupplyPane(conf: Config, model: Model) extends VBox {
   }
 
   supplyTableView.onMouseClicked = { event =>
-    if(event.getClickCount == 2 && supplyTableView.selectionModel().getSelectedItem != null ) update()
+    if (event.getClickCount == 2 && supplyTableView.selectionModel().getSelectedItem != null) update()
   }
 
   supplyAddButton.onAction = { _ => add() }
 
   supplyEditButton.onAction = { _ => update() }
 
-  supplyChartButton.onAction = { _ => 
+  supplyChartButton.onAction = { _ =>
     new SupplyChartDialog(conf, model).showAndWait()
     ()
   }

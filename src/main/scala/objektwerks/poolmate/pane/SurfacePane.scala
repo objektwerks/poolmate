@@ -14,15 +14,29 @@ import scalafx.scene.layout.{HBox, VBox}
 class SurfacePane(conf: Config, model: Model) extends VBox {
   val surfaceTableView = new TableView[Surface]() {
     columns ++= List(
-      new TableColumn[Surface, String] { text = conf.getString("surface-header-installed"); cellValueFactory = { _.value.installedProperty } },
-      new TableColumn[Surface, String] { text = conf.getString("surface-header-kind"); cellValueFactory = { _.value.kindProperty } }
+      new TableColumn[Surface, String] {
+        text = conf.getString("surface-header-installed"); cellValueFactory = {
+          _.value.installedProperty
+        }
+      },
+      new TableColumn[Surface, String] {
+        text = conf.getString("surface-header-kind"); cellValueFactory = {
+          _.value.kindProperty
+        }
+      }
     )
     items = model.surfaceList
   }
   surfaceTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val surfaceAddButton = new Button { graphic = addImageView(); disable = true }
-  val surfaceEditButton = new Button { graphic = editImageView(); disable = true }
-  val surfaceToolBar = new HBox { spacing = 6; children = List(surfaceAddButton, surfaceEditButton) }
+  val surfaceAddButton = new Button {
+    graphic = addImageView(); disable = true
+  }
+  val surfaceEditButton = new Button {
+    graphic = editImageView(); disable = true
+  }
+  val surfaceToolBar = new HBox {
+    spacing = 6; children = List(surfaceAddButton, surfaceEditButton)
+  }
 
   spacing = 6
   padding = Insets(6)
@@ -42,7 +56,7 @@ class SurfacePane(conf: Config, model: Model) extends VBox {
   }
 
   surfaceTableView.onMouseClicked = { event =>
-    if(event.getClickCount == 2 && surfaceTableView.selectionModel().getSelectedItem != null ) update()
+    if (event.getClickCount == 2 && surfaceTableView.selectionModel().getSelectedItem != null) update()
   }
 
   surfaceAddButton.onAction = { _ => add() }

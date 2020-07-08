@@ -7,9 +7,50 @@ import scalafx.beans.property.{IntegerProperty, ObjectProperty}
 import scalafx.collections.ObservableBuffer
 
 class Model(repository: Repository) {
+
   import repository._
 
   val optionalCompany = new ObjectProperty[Option[Company]]()
+  val workerList = ObservableBuffer[Worker]()
+  val selectedWorkerId = IntegerProperty(0)
+  val workOrderList = ObservableBuffer[WorkOrder]()
+  val selectedWorkOrderId = IntegerProperty(0)
+  val workOrderWorkerList = ObservableBuffer[WorkOrderWorker]()
+  val selectedWorkOrderWorkerId = IntegerProperty(0)
+  val routeOrderList = ObservableBuffer[RouteOrder]()
+  val selectedRouteOrderId = IntegerProperty(0)
+  val routeOrderWorkerList = ObservableBuffer[RouteOrderWorker]()
+  val selectedRouteOrderWorkerId = IntegerProperty(0)
+  val locationList = ObservableBuffer[Location]()
+  val selectedLocationId = IntegerProperty(0)
+  val routeList = ObservableBuffer[Route]()
+  val selectedRouteId = IntegerProperty(0)
+  val stopList = ObservableBuffer[Stop]()
+  val selectedStop = new ObjectProperty[Stop]()
+  val poolList = ObservableBuffer[Pool]()
+  val selectedPoolId = IntegerProperty(0)
+  val ownerList = ObservableBuffer[Owner]()
+  val selectedOwnerId = IntegerProperty(0)
+  val surfaceList = ObservableBuffer[Surface]()
+  val selectedSurfaceId = IntegerProperty(0)
+  val pumpList = ObservableBuffer[Pump]()
+  val selectedPumpId = IntegerProperty(0)
+  val timerList = ObservableBuffer[Timer]()
+  val selectedTimerId = IntegerProperty(0)
+  val heaterList = ObservableBuffer[Heater]()
+  val selectedHeaterId = IntegerProperty(0)
+  val lifecycleList = ObservableBuffer[Lifecycle]()
+  val selectedLifecycleId = IntegerProperty(0)
+  val cleaningList = ObservableBuffer[Cleaning]()
+  val selectedCleaningId = IntegerProperty(0)
+  val measurementList = ObservableBuffer[Measurement]()
+  val selectedMeasurementId = IntegerProperty(0)
+  val additiveList = ObservableBuffer[Additive]()
+  val selectedAdditiveId = IntegerProperty(0)
+  val supplyList = ObservableBuffer[Supply]()
+  val selectedSupplyId = IntegerProperty(0)
+  val repairList = ObservableBuffer[Repair]()
+  val selectedRepairId = IntegerProperty(0)
 
   def setCompany(): Unit = {
     optionalCompany.value = await(companies.get())
@@ -25,9 +66,6 @@ class Model(repository: Repository) {
     await(companies.save(company))
     ()
   }
-
-  val workerList = ObservableBuffer[Worker]()
-  val selectedWorkerId = IntegerProperty(0)
 
   def listWorkers(companyId: Int): Unit = {
     workerList.clear()
@@ -50,9 +88,6 @@ class Model(repository: Repository) {
     ()
   }
 
-  val workOrderList = ObservableBuffer[WorkOrder]()
-  val selectedWorkOrderId = IntegerProperty(0)
-
   def listWorkOrders(poolId: Int): Unit = {
     workOrderList.clear()
     workOrderList ++= await(workOrders.listByPool(poolId))
@@ -74,9 +109,6 @@ class Model(repository: Repository) {
     ()
   }
 
-  val workOrderWorkerList = ObservableBuffer[WorkOrderWorker]()
-  val selectedWorkOrderWorkerId = IntegerProperty(0)
-
   def listWorkOrderWorkers(workOrderId: Int): Unit = {
     workOrderWorkerList.clear()
     workOrderWorkerList ++= await(workOrderWorkers.list(workOrderId))
@@ -95,9 +127,6 @@ class Model(repository: Repository) {
     workOrderWorkerList.remove(selectedIndex)
     ()
   }
-
-  val routeOrderList = ObservableBuffer[RouteOrder]()
-  val selectedRouteOrderId = IntegerProperty(0)
 
   def listRouteOrders(routeId: Int): Unit = {
     routeOrderList.clear()
@@ -120,9 +149,6 @@ class Model(repository: Repository) {
     ()
   }
 
-  val routeOrderWorkerList = ObservableBuffer[RouteOrderWorker]()
-  val selectedRouteOrderWorkerId = IntegerProperty(0)
-
   def listRouteOrderWorkers(routeOrderId: Int): Unit = {
     routeOrderWorkerList.clear()
     routeOrderWorkerList ++= await(routeOrderWorkers.list(routeOrderId))
@@ -141,9 +167,6 @@ class Model(repository: Repository) {
     routeOrderWorkerList.remove(selectedIndex)
     ()
   }
-
-  val locationList = ObservableBuffer[Location]()
-  val selectedLocationId = IntegerProperty(0)
 
   def listLocations(routeOrderId: Int): Unit = {
     locationList.clear()
@@ -166,9 +189,6 @@ class Model(repository: Repository) {
     ()
   }
 
-  val routeList = ObservableBuffer[Route]()
-  val selectedRouteId = IntegerProperty(0)
-
   def listRoutes(): Unit = {
     routeList.clear()
     routeList ++= await(routes.list())
@@ -190,9 +210,6 @@ class Model(repository: Repository) {
     ()
   }
 
-  val stopList = ObservableBuffer[Stop]()
-  val selectedStop = new ObjectProperty[Stop]()
-
   def listStops(routeId: Int): Unit = {
     stopList.clear()
     stopList ++= await(stops.list(routeId))
@@ -212,9 +229,6 @@ class Model(repository: Repository) {
     stopList.sorted
     ()
   }
-
-  val poolList = ObservableBuffer[Pool]()
-  val selectedPoolId = IntegerProperty(0)
 
   def listPools(): Unit = {
     poolList.clear()
@@ -247,9 +261,6 @@ class Model(repository: Repository) {
     ()
   }
 
-  val ownerList = ObservableBuffer[Owner]()
-  val selectedOwnerId = IntegerProperty(0)
-
   def listOwners(poolId: Int): Unit = {
     ownerList.clear()
     ownerList ++= await(owners.list(poolId))
@@ -270,9 +281,6 @@ class Model(repository: Repository) {
     ownerList.sorted.reverse
     ()
   }
-
-  val surfaceList = ObservableBuffer[Surface]()
-  val selectedSurfaceId = IntegerProperty(0)
 
   def listSurfaces(poolId: Int): Unit = {
     surfaceList.clear()
@@ -295,9 +303,6 @@ class Model(repository: Repository) {
     ()
   }
 
-  val pumpList = ObservableBuffer[Pump]()
-  val selectedPumpId = IntegerProperty(0)
-
   def listPumps(poolId: Int): Unit = {
     pumpList.clear()
     pumpList ++= await(pumps.list(poolId))
@@ -318,9 +323,6 @@ class Model(repository: Repository) {
     pumpList.sorted.reverse
     ()
   }
-
-  val timerList = ObservableBuffer[Timer]()
-  val selectedTimerId = IntegerProperty(0)
 
   def listTimers(poolId: Int): Unit = {
     timerList.clear()
@@ -343,9 +345,6 @@ class Model(repository: Repository) {
     ()
   }
 
-  val heaterList = ObservableBuffer[Heater]()
-  val selectedHeaterId = IntegerProperty(0)
-
   def listHeaters(poolId: Int): Unit = {
     heaterList.clear()
     heaterList ++= await(heaters.list(poolId))
@@ -366,9 +365,6 @@ class Model(repository: Repository) {
     heaterList.sorted.reverse
     ()
   }
-
-  val lifecycleList = ObservableBuffer[Lifecycle]()
-  val selectedLifecycleId = IntegerProperty(0)
 
   def listLifecycles(poolId: Int): Unit = {
     lifecycleList.clear()
@@ -391,9 +387,6 @@ class Model(repository: Repository) {
     ()
   }
 
-  val cleaningList = ObservableBuffer[Cleaning]()
-  val selectedCleaningId = IntegerProperty(0)
-
   def listCleanings(poolId: Int): Unit = {
     cleaningList.clear()
     cleaningList ++= await(cleanings.list(poolId))
@@ -414,9 +407,6 @@ class Model(repository: Repository) {
     cleaningList.sorted.reverse
     ()
   }
-
-  val measurementList = ObservableBuffer[Measurement]()
-  val selectedMeasurementId = IntegerProperty(0)
 
   def listMeasurements(poolId: Int): Unit = {
     measurementList.clear()
@@ -439,9 +429,6 @@ class Model(repository: Repository) {
     ()
   }
 
-  val additiveList = ObservableBuffer[Additive]()
-  val selectedAdditiveId = IntegerProperty(0)
-
   def listAdditives(poolId: Int): Unit = {
     additiveList.clear()
     additiveList ++= await(additives.list(poolId))
@@ -463,9 +450,6 @@ class Model(repository: Repository) {
     ()
   }
 
-  val supplyList = ObservableBuffer[Supply]()
-  val selectedSupplyId = IntegerProperty(0)
-
   def listSupplies(poolId: Int): Unit = {
     supplyList.clear()
     supplyList ++= await(supplies.list(poolId))
@@ -486,9 +470,6 @@ class Model(repository: Repository) {
     supplyList.sorted.reverse
     ()
   }
-
-  val repairList = ObservableBuffer[Repair]()
-  val selectedRepairId = IntegerProperty(0)
 
   def listRepairs(poolId: Int): Unit = {
     repairList.clear()

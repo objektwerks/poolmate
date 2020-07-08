@@ -14,18 +14,38 @@ import scalafx.scene.layout.{HBox, VBox}
 class RepairPane(conf: Config, model: Model) extends VBox {
   val repairTableView = new TableView[Repair]() {
     columns ++= List(
-      new TableColumn[Repair, String] { text = conf.getString("repair-header-on"); cellValueFactory = { _.value.onProperty } },
-      new TableColumn[Repair, String] { text = conf.getString("repair-header-item"); cellValueFactory = { _.value.itemProperty } },
-      new TableColumn[Repair, String] { text = conf.getString("repair-header-cost"); cellValueFactory = { _.value.costProperty } }
+      new TableColumn[Repair, String] {
+        text = conf.getString("repair-header-on"); cellValueFactory = {
+          _.value.onProperty
+        }
+      },
+      new TableColumn[Repair, String] {
+        text = conf.getString("repair-header-item"); cellValueFactory = {
+          _.value.itemProperty
+        }
+      },
+      new TableColumn[Repair, String] {
+        text = conf.getString("repair-header-cost"); cellValueFactory = {
+          _.value.costProperty
+        }
+      }
     )
     prefHeight = conf.getInt("height").toDouble
     items = model.repairList
   }
   repairTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val repairAddButton = new Button { graphic = addImageView(); disable = true }
-  val repairEditButton = new Button { graphic = editImageView(); disable = true }
-  val repairChartButton = new Button { graphic = lineChartImageView(); disable = true }
-  val repairToolBar = new HBox { spacing = 6; children = List(repairAddButton, repairEditButton, repairChartButton) }
+  val repairAddButton = new Button {
+    graphic = addImageView(); disable = true
+  }
+  val repairEditButton = new Button {
+    graphic = editImageView(); disable = true
+  }
+  val repairChartButton = new Button {
+    graphic = lineChartImageView(); disable = true
+  }
+  val repairToolBar = new HBox {
+    spacing = 6; children = List(repairAddButton, repairEditButton, repairChartButton)
+  }
 
   spacing = 6
   padding = Insets(6)
@@ -47,17 +67,17 @@ class RepairPane(conf: Config, model: Model) extends VBox {
   }
 
   repairTableView.onMouseClicked = { event =>
-    if(event.getClickCount == 2 && repairTableView.selectionModel().getSelectedItem != null ) update()
+    if (event.getClickCount == 2 && repairTableView.selectionModel().getSelectedItem != null) update()
   }
 
   repairAddButton.onAction = { _ => add() }
 
   repairEditButton.onAction = { _ => update() }
 
-  repairChartButton.onAction = { _ => 
+  repairChartButton.onAction = { _ =>
     new RepairChartDialog(conf, model).showAndWait()
     ()
-   }
+  }
 
   def add(): Unit = {
     new RepairDialog(conf, Repair(poolId = model.selectedPoolId.toInt)).showAndWait() match {

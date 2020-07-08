@@ -11,9 +11,15 @@ import scalafx.scene.layout.Region
 
 class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair]() {
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
-  val onDatePicker = new DatePicker { value = repair.on }
-  val itemTextField = new TextField { text = repair.item }
-  val costTextField = new TextField { text = repair.cost.toString }
+  val onDatePicker = new DatePicker {
+    value = repair.on
+  }
+  val itemTextField = new TextField {
+    text = repair.item
+  }
+  val costTextField = new TextField {
+    text = repair.cost.toString
+  }
   val controls = List[(String, Region)](
     conf.getString("repair-on") -> onDatePicker,
     conf.getString("repair-item") -> itemTextField,
@@ -35,8 +41,8 @@ class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair]() {
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
       repair.copy(on = onDatePicker.value.value,
-                  item = itemTextField.text.value,
-                  cost = costTextField.text.value.toDouble)
+        item = itemTextField.text.value,
+        cost = costTextField.text.value.toDouble)
     else null
   }
 }
