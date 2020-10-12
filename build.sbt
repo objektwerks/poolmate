@@ -6,7 +6,7 @@ version := "0.3-SNAPSHOT"
 scalaVersion := "2.13.2"
 maintainer := "objektwerks@runbox.com"
 libraryDependencies ++= {
-  val slickVersion = "3.3.2"
+  val slickVersion = "3.3.3"
   Seq(
     "org.scalafx" %% "scalafx" % "14-R19",
     "org.jfxtras" % "jfxtras-controls" % "10.0-r1",
@@ -14,7 +14,7 @@ libraryDependencies ++= {
     "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
     "com.h2database" % "h2" % "1.4.200",
     "ch.qos.logback" % "logback-classic" % "1.2.3",
-    "org.scalatest" %% "scalatest" % "3.2.0" % Test
+    "org.scalatest" %% "scalatest" % "3.2.2" % Test
   )
 }
 lazy val osName = System.getProperty("os.name") match {
