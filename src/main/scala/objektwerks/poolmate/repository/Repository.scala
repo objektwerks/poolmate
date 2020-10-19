@@ -49,7 +49,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
 
   class Companies(tag: Tag) extends Table[Company](tag, "companies") {
-    def * = (id, name, since, website, email) <> (Company.tupled, Company.unapply)
+    def * = (id, name, since, website, email).<>(Company.tupled, Company.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -63,7 +63,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Workers(tag: Tag) extends Table[Worker](tag, "workers") {
-    def * = (id, companyId, hired, terminated, first, last, email) <> (Worker.tupled, Worker.unapply)
+    def * = (id, companyId, hired, terminated, first, last, email).<>(Worker.tupled, Worker.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -83,7 +83,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class WorkOrders(tag: Tag) extends Table[WorkOrder](tag, "workorders") {
-    def * = (id, poolId, description, created, completed) <> (WorkOrder.tupled, WorkOrder.unapply)
+    def * = (id, poolId, description, created, completed).<>(WorkOrder.tupled, WorkOrder.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -99,7 +99,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class WorkOrderWorkers(tag: Tag) extends Table[WorkOrderWorker](tag, "workorderworkers") {
-    def * = (id, workOrderId, workerId) <> (WorkOrderWorker.tupled, WorkOrderWorker.unapply)
+    def * = (id, workOrderId, workerId).<>(WorkOrderWorker.tupled, WorkOrderWorker.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -113,7 +113,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class RouteOrders(tag: Tag) extends Table[RouteOrder](tag, "routeorders") {
-    def * = (id, routeId, created, completed, recurring) <> (RouteOrder.tupled, RouteOrder.unapply)
+    def * = (id, routeId, created, completed, recurring).<>(RouteOrder.tupled, RouteOrder.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -129,7 +129,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class RouteOrderWorkers(tag: Tag) extends Table[RouteOrderWorker](tag, "routeorderworkers") {
-    def * = (id, routeOrderId, workerId) <> (RouteOrderWorker.tupled, RouteOrderWorker.unapply)
+    def * = (id, routeOrderId, workerId).<>(RouteOrderWorker.tupled, RouteOrderWorker.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -143,7 +143,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Locations(tag: Tag) extends Table[Location](tag, "locations") {
-    def * = (id, routeOrderId, poolId, ordinality, completed) <> (Location.tupled, Location.unapply)
+    def * = (id, routeOrderId, poolId, ordinality, completed).<>(Location.tupled, Location.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -161,7 +161,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Routes(tag: Tag) extends Table[Route](tag, "routes") {
-    def * = (id, name) <> (Route.tupled, Route.unapply)
+    def * = (id, name).<>(Route.tupled, Route.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -169,7 +169,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Stops(tag: Tag) extends Table[Stop](tag, "stops") {
-    def * = (routeId, poolId, ordinality) <> (Stop.tupled, Stop.unapply)
+    def * = (routeId, poolId, ordinality).<>(Stop.tupled, Stop.unapply)
 
     def poolId = column[Int]("pool_id")
 
@@ -185,7 +185,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
-    def * = (id, built, gallons, street, city, state, zip) <> (Pool.tupled, Pool.unapply)
+    def * = (id, built, gallons, street, city, state, zip).<>(Pool.tupled, Pool.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -203,7 +203,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Owners(tag: Tag) extends Table[Owner](tag, "owners") {
-    def * = (id, poolId, since, first, last, email) <> (Owner.tupled, Owner.unapply)
+    def * = (id, poolId, since, first, last, email).<>(Owner.tupled, Owner.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -221,7 +221,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Surfaces(tag: Tag) extends Table[Surface](tag, "surfaces") {
-    def * = (id, poolId, installed, kind) <> (Surface.tupled, Surface.unapply)
+    def * = (id, poolId, installed, kind).<>(Surface.tupled, Surface.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -235,7 +235,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Pumps(tag: Tag) extends Table[Pump](tag, "pumps") {
-    def * = (id, poolId, installed, model) <> (Pump.tupled, Pump.unapply)
+    def * = (id, poolId, installed, model).<>(Pump.tupled, Pump.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -249,7 +249,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Timers(tag: Tag) extends Table[Timer](tag, "timers") {
-    def * = (id, poolId, installed, model) <> (Timer.tupled, Timer.unapply)
+    def * = (id, poolId, installed, model).<>(Timer.tupled, Timer.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -263,7 +263,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Heaters(tag: Tag) extends Table[Heater](tag, "heaters") {
-    def * = (id, poolId, installed, model) <> (Heater.tupled, Heater.unapply)
+    def * = (id, poolId, installed, model).<>(Heater.tupled, Heater.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -277,7 +277,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Lifecycles(tag: Tag) extends Table[Lifecycle](tag, "lifecycles") {
-    def * = (id, poolId, created, active, pumpOn, pumpOff) <> (Lifecycle.tupled, Lifecycle.unapply)
+    def * = (id, poolId, created, active, pumpOn, pumpOff).<>(Lifecycle.tupled, Lifecycle.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -295,7 +295,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Cleanings(tag: Tag) extends Table[Cleaning](tag, "cleanings") {
-    def * = (id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter) <> (Cleaning.tupled, Cleaning.unapply)
+    def * = (id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter).<>(Cleaning.tupled, Cleaning.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -321,7 +321,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Measurements(tag: Tag) extends Table[Measurement](tag, "measurements") {
-    def * = (id, poolId, on, temp, hardness, totalChlorine, bromine, freeChlorine, pH, alkalinity, cyanuricAcid) <> (Measurement.tupled, Measurement.unapply)
+    def * = (id, poolId, on, temp, hardness, totalChlorine, bromine, freeChlorine, pH, alkalinity, cyanuricAcid).<>(Measurement.tupled, Measurement.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -349,7 +349,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Additives(tag: Tag) extends Table[Additive](tag, "additives") {
-    def * = (id, poolId, on, chemical, unit, amount) <> (Additive.tupled, Additive.unapply)
+    def * = (id, poolId, on, chemical, unit, amount).<>(Additive.tupled, Additive.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -367,7 +367,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Supplies(tag: Tag) extends Table[Supply](tag, "supplies") {
-    def * = (id, poolId, purchased, item, unit, amount, cost) <> (Supply.tupled, Supply.unapply)
+    def * = (id, poolId, purchased, item, unit, amount, cost).<>(Supply.tupled, Supply.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -387,7 +387,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile], val profile: JdbcProfi
   }
 
   class Repairs(tag: Tag) extends Table[Repair](tag, "repairs") {
-    def * = (id, poolId, on, item, cost) <> (Repair.tupled, Repair.unapply)
+    def * = (id, poolId, on, item, cost).<>(Repair.tupled, Repair.unapply)
 
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
