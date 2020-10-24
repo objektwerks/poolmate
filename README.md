@@ -78,16 +78,17 @@ Run
 Package
 -------
 1. sbt clean test universal:packageBin
+2. verify ./target/universal/poolmate-${version}.zip
 
 Install
 -------
-1. copy universal directory to target directory (i.e., home directory ~ )
-2. unzip ~/universal/poolmate-${version}.zip
-3. set executable permissions for ~/universal/poolmate-${version}/bin/poolmate
+1. unzip ./target/universal/poolmate-${version}.zip
+2. copy unzipped poolmate-${version} directory to ${poolmate.directory}
+3. set executable permissions for ${poolmate.directory}/poolmate-${version}/bin/poolmate
 
 Execute
 -------
-1. execute ~/universal/poolmate-${version}/bin/poolmate
+1. execute ${poolmate-directory}/poolmate-${version}/bin/poolmate
 
 License
 -------
