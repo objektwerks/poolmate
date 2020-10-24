@@ -1,4 +1,5 @@
 .*
+!.sbtopts
 !.gitignore
 project/metals.sbt
 project/project/
