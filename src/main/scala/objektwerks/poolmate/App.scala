@@ -4,12 +4,13 @@ import objektwerks.poolmate.Resources._
 import objektwerks.poolmate.model.Model
 import objektwerks.poolmate.repository.Repository
 import objektwerks.poolmate.view.View
+
 import scalafx.application.JFXApp
 
 object App extends JFXApp {
   val repository = Repository("repository.conf")
   val model = Model(repository)
-  val view = new View(conf, model)
+  val view = View(conf, model)
 
   stage = new JFXApp.PrimaryStage {
     scene = view.sceneGraph
