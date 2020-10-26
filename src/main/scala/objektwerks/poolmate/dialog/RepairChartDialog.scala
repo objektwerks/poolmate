@@ -31,7 +31,9 @@ class RepairChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val series = new XYChart.Series[Number, Number] {
     name = s"${conf.getString("min")} $minCost  ${conf.getString("max")} $maxCost  ${conf.getString("avg")} $avgCost"
   }
-  repairs foreach { repair => series.data() += XYChart.Data[Number, Number](repair.on.format(dateFormatter).toDouble, repair.cost) }
+  repairs foreach { repair => 
+    series.data() += XYChart.Data[Number, Number](repair.on.format(dateFormatter).toDouble, repair.cost) 
+  }
   chart.data = series
 
   val dialog = dialogPane()
