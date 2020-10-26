@@ -15,7 +15,6 @@ import scalafx.scene.layout.VBox
 
 class AdditiveChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   val additives = model.additiveList
-  val dateFormatter = DateTimeFormatter.ofPattern("yyyy")
   val years = additives.map(a => a.on.format(dateFormatter)).distinct
   val xAxis = CategoryAxis(years)
   xAxis.label = conf.getString("additive-chart-additives")
@@ -24,6 +23,7 @@ class AdditiveChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
   chart.categoryGap = 25.0
   chart.padding = Insets(6)
 
+  val dateFormatter = DateTimeFormatter.ofPattern("yyyy")
   years foreach { year =>
     val filteredYear = additives.filter(s => year == s.on.format(dateFormatter))
     val groupedChemicals = filteredYear.groupBy(_.chemical)
