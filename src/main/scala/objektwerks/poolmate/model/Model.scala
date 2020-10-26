@@ -3,52 +3,72 @@ package objektwerks.poolmate.model
 import objektwerks.poolmate.entity.Entity._
 import objektwerks.poolmate.entity._
 import objektwerks.poolmate.repository.Repository
+
 import scalafx.beans.property.{IntegerProperty, ObjectProperty}
 import scalafx.collections.ObservableBuffer
 
 class Model(repository: Repository) {
-
   import repository._
 
   val optionalCompany = new ObjectProperty[Option[Company]]()
+
   val workerList = ObservableBuffer[Worker]()
   val selectedWorkerId = IntegerProperty(0)
+
   val workOrderList = ObservableBuffer[WorkOrder]()
   val selectedWorkOrderId = IntegerProperty(0)
+
   val workOrderWorkerList = ObservableBuffer[WorkOrderWorker]()
   val selectedWorkOrderWorkerId = IntegerProperty(0)
+
   val routeOrderList = ObservableBuffer[RouteOrder]()
   val selectedRouteOrderId = IntegerProperty(0)
+
   val routeOrderWorkerList = ObservableBuffer[RouteOrderWorker]()
   val selectedRouteOrderWorkerId = IntegerProperty(0)
+
   val locationList = ObservableBuffer[Location]()
   val selectedLocationId = IntegerProperty(0)
+
   val routeList = ObservableBuffer[Route]()
   val selectedRouteId = IntegerProperty(0)
+
   val stopList = ObservableBuffer[Stop]()
   val selectedStop = new ObjectProperty[Stop]()
+
   val poolList = ObservableBuffer[Pool]()
   val selectedPoolId = IntegerProperty(0)
+
   val ownerList = ObservableBuffer[Owner]()
   val selectedOwnerId = IntegerProperty(0)
+
   val surfaceList = ObservableBuffer[Surface]()
   val selectedSurfaceId = IntegerProperty(0)
+
   val pumpList = ObservableBuffer[Pump]()
   val selectedPumpId = IntegerProperty(0)
+
   val timerList = ObservableBuffer[Timer]()
   val selectedTimerId = IntegerProperty(0)
+
   val heaterList = ObservableBuffer[Heater]()
   val selectedHeaterId = IntegerProperty(0)
+
   val lifecycleList = ObservableBuffer[Lifecycle]()
   val selectedLifecycleId = IntegerProperty(0)
+
   val cleaningList = ObservableBuffer[Cleaning]()
   val selectedCleaningId = IntegerProperty(0)
+
   val measurementList = ObservableBuffer[Measurement]()
   val selectedMeasurementId = IntegerProperty(0)
+
   val additiveList = ObservableBuffer[Additive]()
   val selectedAdditiveId = IntegerProperty(0)
+
   val supplyList = ObservableBuffer[Supply]()
   val selectedSupplyId = IntegerProperty(0)
+  
   val repairList = ObservableBuffer[Repair]()
   val selectedRepairId = IntegerProperty(0)
 
