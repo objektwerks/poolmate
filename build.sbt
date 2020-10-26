@@ -9,7 +9,7 @@ libraryDependencies ++= {
   val slickVersion = "3.3.3"
   Seq(
     "org.scalafx" %% "scalafx" % "14-R19",
-    "org.jfxtras" % "jfxtras-controls" % "10.0-r1",
+    "org.jfxtras" % "jfxtras-controls" % "15-r1",
     "com.typesafe.slick" %% "slick" % slickVersion,
     "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
     "com.h2database" % "h2" % "1.4.200",
