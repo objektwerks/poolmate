@@ -3,18 +3,19 @@ package objektwerks.poolmate.dialog
 import java.text.DecimalFormat
 
 import com.typesafe.config.Config
+
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Measurement
 import objektwerks.poolmate.pane.ControlGridPane
+
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control._
 import scalafx.scene.layout.{HBox, Region}
 
-class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[Measurement]() {
+class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[Measurement] {
   val doubleFormatter = new DecimalFormat("#.00")
 
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   val onDatePicker = new DatePicker {
     value = measurement.on
   }
@@ -111,13 +112,11 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
     conf.getString("measurement-cyanuric-acid") -> cyanuricAcidControl
   )
   val controlGridPane = new ControlGridPane(controls)
+
   val dialog = dialogPane()
+  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
-
-  initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-measurement")
 
   tempSlider.value.onChange { (_, _, newValue) => tempLabel.text = newValue.intValue.toString }
   hardnessSlider.value.onChange { (_, _, newValue) => hardnessLabel.text = newValue.intValue.toString }
@@ -128,7 +127,7 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
   alkalinitySlider.value.onChange { (_, _, newValue) => alkalinityLabel.text = newValue.intValue.toString }
   cyanuricAcidSlider.value.onChange { (_, _, newValue) => cyanuricAcidLabel.text = newValue.intValue.toString }
 
-  val saveButton = dialog.lookupButton(saveButtonType)
+  // Not usded! Why? val saveButton = dialog.lookupButton(saveButtonType)
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
       measurement.copy(on = onDatePicker.value.value,
@@ -142,4 +141,8 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
         cyanuricAcid = cyanuricAcidSlider.value.get)
     else null
   }
+
+  initOwner(App.stage)
+  title = conf.getString("title")
+  headerText = conf.getString("save-measurement")
 }

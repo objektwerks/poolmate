@@ -1,16 +1,17 @@
 package objektwerks.poolmate.dialog
 
 import com.typesafe.config.Config
+
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Surface
 import objektwerks.poolmate.pane.ControlGridPane
+
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-class SurfaceDialog(conf: Config, surface: Surface) extends Dialog[Surface]() {
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
+class SurfaceDialog(conf: Config, surface: Surface) extends Dialog[Surface] {
   val installedDatePicker = new DatePicker {
     value = surface.installed
   }
@@ -22,13 +23,11 @@ class SurfaceDialog(conf: Config, surface: Surface) extends Dialog[Surface]() {
     conf.getString("surface-kind") -> kindTextField
   )
   val controlGridPane = new ControlGridPane(controls)
+
   val dialog = dialogPane()
+  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
-
-  initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-surface")
 
   val saveButton = dialog.lookupButton(saveButtonType)
   kindTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
@@ -38,4 +37,8 @@ class SurfaceDialog(conf: Config, surface: Surface) extends Dialog[Surface]() {
       surface.copy(installed = installedDatePicker.value.value, kind = kindTextField.text.value)
     else null
   }
+
+  initOwner(App.stage)
+  title = conf.getString("title")
+  headerText = conf.getString("save-surface")
 }

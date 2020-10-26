@@ -1,16 +1,17 @@
 package objektwerks.poolmate.dialog
 
 import com.typesafe.config.Config
+
 import objektwerks.poolmate.entity.Supply
 import objektwerks.poolmate.pane.ControlGridPane
 import objektwerks.poolmate.{App, Resources}
+
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control._
 import scalafx.scene.layout.Region
 
-class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply]() {
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
+class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply] {
   val purchasedDatePicker = new DatePicker {
     value = supply.purchased
   }
@@ -35,13 +36,11 @@ class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply]() {
     conf.getString("supply-cost") -> costTextField
   )
   val controlGridPane = new ControlGridPane(controls)
+
   val dialog = dialogPane()
+  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
-
-  initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-supply")
 
   val saveButton = dialog.lookupButton(saveButtonType)
   amountTextField.text.onChange { (_, oldValue, newValue) => if (isNotNumeric(newValue)) amountTextField.text.value = oldValue }
@@ -57,4 +56,8 @@ class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply]() {
         cost = costTextField.text.value.toDouble)
     else null
   }
+
+  initOwner(App.stage)
+  title = conf.getString("title")
+  headerText = conf.getString("save-supply") 
 }

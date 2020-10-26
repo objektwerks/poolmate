@@ -3,9 +3,11 @@ package objektwerks.poolmate.dialog
 import java.time.format.DateTimeFormatter
 
 import com.typesafe.config.Config
+
 import objektwerks.poolmate.App
 import objektwerks.poolmate.model.Model
 import scalafx.Includes._
+
 import scalafx.geometry.Insets
 import scalafx.scene.chart.{BarChart, CategoryAxis, NumberAxis, XYChart}
 import scalafx.scene.control.{ButtonType, Dialog}

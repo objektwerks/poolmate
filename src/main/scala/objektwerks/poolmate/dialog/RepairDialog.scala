@@ -1,16 +1,17 @@
 package objektwerks.poolmate.dialog
 
 import com.typesafe.config.Config
+
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Repair
 import objektwerks.poolmate.pane.ControlGridPane
+
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair]() {
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
+class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair] {
   val onDatePicker = new DatePicker {
     value = repair.on
   }
@@ -26,13 +27,11 @@ class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair]() {
     conf.getString("repair-cost") -> costTextField
   )
   val controlGridPane = new ControlGridPane(controls)
+
   val dialog = dialogPane()
+  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
-
-  initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-repair")
 
   val saveButton = dialog.lookupButton(saveButtonType)
   costTextField.text.onChange { (_, oldValue, newValue) => if (isNotNumeric(newValue)) costTextField.text.value = oldValue }
@@ -45,4 +44,8 @@ class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair]() {
         cost = costTextField.text.value.toDouble)
     else null
   }
+
+  initOwner(App.stage)
+  title = conf.getString("title")
+  headerText = conf.getString("save-repair") 
 }

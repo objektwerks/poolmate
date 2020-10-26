@@ -1,16 +1,17 @@
 package objektwerks.poolmate.dialog
 
 import com.typesafe.config.Config
+
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Cleaning
 import objektwerks.poolmate.pane.ControlGridPane
+
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control._
 import scalafx.scene.layout.Region
 
-class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning]() {
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
+class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning] {
   val onDatePicker = new DatePicker {
     value = cleaning.on
   }
@@ -35,7 +36,6 @@ class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning](
   val pumpFilterCheckBox = new CheckBox {
     selected = cleaning.pumpFilter
   }
-
   val controls = List[(String, Region)](
     conf.getString("cleaning-on") -> onDatePicker,
     conf.getString("cleaning-deck") -> deckCheckBox,
@@ -47,15 +47,13 @@ class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning](
     conf.getString("cleaning-pump-filter") -> pumpFilterCheckBox
   )
   val controlGridPane = new ControlGridPane(controls)
+
   val dialog = dialogPane()
+  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
-  initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-cleaning")
-
-  val saveButton = dialog.lookupButton(saveButtonType)
+  // Not used! Why? val saveButton = dialog.lookupButton(saveButtonType)
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
@@ -69,4 +67,8 @@ class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning](
         pumpFilter = pumpFilterCheckBox.selected.value)
     else null
   }
+
+  initOwner(App.stage)
+  title = conf.getString("title")
+  headerText = conf.getString("save-cleaning") 
 }

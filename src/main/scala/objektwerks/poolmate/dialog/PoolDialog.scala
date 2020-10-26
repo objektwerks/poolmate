@@ -1,16 +1,17 @@
 package objektwerks.poolmate.dialog
 
 import com.typesafe.config.Config
+
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Pool
 import objektwerks.poolmate.pane.ControlGridPane
+
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]() {
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
+class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool] {
   val builtDatePicker = new DatePicker {
     value = pool.built
   }
@@ -38,13 +39,11 @@ class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]() {
     conf.getString("pool-zip") -> zipTextField
   )
   val controlGridPane = new ControlGridPane(controls)
+
   val dialog = dialogPane()
+  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
-
-  initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-pool")
 
   val saveButton = dialog.lookupButton(saveButtonType)
   gallonsTextField.text.onChange { (_, oldValue, newValue) => if (isNotNumeric(newValue)) gallonsTextField.text.value = oldValue }
@@ -63,4 +62,8 @@ class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]() {
         zip = Integer.parseInt(zipTextField.text.value))
     else null
   }
+
+  initOwner(App.stage)
+  title = conf.getString("title")
+  headerText = conf.getString("save-pool")
 }

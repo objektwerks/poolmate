@@ -1,17 +1,19 @@
 package objektwerks.poolmate.dialog
 
 import com.typesafe.config.Config
+
 import jfxtras.scene.control.LocalTimePicker
+
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Lifecycle
 import objektwerks.poolmate.pane.ControlGridPane
+
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control._
 import scalafx.scene.layout.Region
 
-class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecycle]() {
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
+class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecycle] {
   val createdDatePicker = new DatePicker {
     value = lifecycle.created
   }
@@ -31,13 +33,11 @@ class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecyc
     conf.getString("lifecycle-pump-off") -> pumpOffTimePicker
   )
   val controlGridPane = new ControlGridPane(controls)
+
   val dialog = dialogPane()
+  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
-
-  initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-lifecycle")
 
   val saveButton = dialog.lookupButton(saveButtonType)
   pumpOffTimePicker.localTimeProperty.onChange { (_, oldLocalTime, newLocalTime) =>
@@ -52,4 +52,8 @@ class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecyc
         pumpOff = pumpOffTimePicker.localTimeProperty.value)
     else null
   }
+
+  initOwner(App.stage)
+  title = conf.getString("title")
+  headerText = conf.getString("save-lifecycle") 
 }

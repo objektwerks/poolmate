@@ -1,16 +1,17 @@
 package objektwerks.poolmate.dialog
 
 import com.typesafe.config.Config
+
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Heater
 import objektwerks.poolmate.pane.ControlGridPane
+
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-class HeaterDialog(conf: Config, heater: Heater) extends Dialog[Heater]() {
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
+class HeaterDialog(conf: Config, heater: Heater) extends Dialog[Heater] {
   val installedDatePicker = new DatePicker {
     value = heater.installed
   }
@@ -22,13 +23,11 @@ class HeaterDialog(conf: Config, heater: Heater) extends Dialog[Heater]() {
     conf.getString("heater-model") -> modelTextField
   )
   val controlGridPane = new ControlGridPane(controls)
+
   val dialog = dialogPane()
+  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
-
-  initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-heater")
 
   val saveButton = dialog.lookupButton(saveButtonType)
   modelTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
@@ -38,4 +37,8 @@ class HeaterDialog(conf: Config, heater: Heater) extends Dialog[Heater]() {
       heater.copy(installed = installedDatePicker.value.value, model = modelTextField.text.value)
     else null
   }
+
+  initOwner(App.stage)
+  title = conf.getString("title")
+  headerText = conf.getString("save-heater")
 }

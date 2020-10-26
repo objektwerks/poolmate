@@ -1,16 +1,17 @@
 package objektwerks.poolmate.dialog
 
 import com.typesafe.config.Config
+
 import objektwerks.poolmate.App
 import objektwerks.poolmate.entity.Owner
 import objektwerks.poolmate.pane.ControlGridPane
+
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-class OwnerDialog(conf: Config, owner: Owner) extends Dialog[Owner]() {
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
+class OwnerDialog(conf: Config, owner: Owner) extends Dialog[Owner] {
   val sinceDatePicker = new DatePicker {
     value = owner.since
   }
@@ -30,13 +31,11 @@ class OwnerDialog(conf: Config, owner: Owner) extends Dialog[Owner]() {
     conf.getString("owner-email") -> emailTextField
   )
   val controlGridPane = new ControlGridPane(controls)
+
   val dialog = dialogPane()
+  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
-
-  initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-owner")
 
   val saveButton = dialog.lookupButton(saveButtonType)
   firstTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
@@ -51,4 +50,8 @@ class OwnerDialog(conf: Config, owner: Owner) extends Dialog[Owner]() {
         email = emailTextField.text.value)
     else null
   }
+
+  initOwner(App.stage)
+  title = conf.getString("title")
+  headerText = conf.getString("save-owner") 
 }
