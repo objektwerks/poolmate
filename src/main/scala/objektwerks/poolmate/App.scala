@@ -7,9 +7,10 @@ import objektwerks.poolmate.view.View
 import scalafx.application.JFXApp
 
 object App extends JFXApp {
-  val repository = Repository.newInstance("repository.conf")
+  val repository = Repository("repository.conf")
   val model = new Model(repository)
   val view = new View(conf, model)
+
   stage = new JFXApp.PrimaryStage {
     scene = view.sceneGraph
     title = conf.getString("title")
@@ -18,5 +19,6 @@ object App extends JFXApp {
 
   sys.addShutdownHook {
     repository.close()
+    stage.close()
   }
 }
