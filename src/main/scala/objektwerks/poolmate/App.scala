@@ -14,7 +14,7 @@ object App extends JFXApp {
   stage = new JFXApp.PrimaryStage {
     scene = view.sceneGraph
     title = conf.getString("title")
-    icons.add(appImage())
+    icons.add(appImage)
   }
 
   sys.addShutdownHook {

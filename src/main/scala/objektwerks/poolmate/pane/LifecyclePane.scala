@@ -40,10 +40,12 @@ class LifecyclePane(conf: Config, model: Model) extends VBox {
   }
   lifecycleTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val lifecycleAddButton = new Button {
-    graphic = addImageView(); disable = true
+    graphic = addImageView
+    disable = true
   }
   val lifecycleEditButton = new Button {
-    graphic = editImageView(); disable = true
+    graphic = editImageView
+    disable = true
   }
   val lifecycleToolBar = new HBox {
     spacing = 6; children = List(lifecycleAddButton, lifecycleEditButton)

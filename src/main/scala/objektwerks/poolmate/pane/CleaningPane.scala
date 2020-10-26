@@ -60,10 +60,12 @@ class CleaningPane(conf: Config, model: Model) extends VBox {
   }
   cleaningTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val cleaningAddButton = new Button {
-    graphic = addImageView(); disable = true
+    graphic = addImageView
+    disable = true
   }
   val cleaningEditButton = new Button {
-    graphic = editImageView(); disable = true
+    graphic = editImageView
+    disable = true
   }
   val cleaningToolBar = new HBox {
     spacing = 6; children = List(cleaningAddButton, cleaningEditButton)

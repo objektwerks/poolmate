@@ -18,7 +18,8 @@ class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply]() {
     text = supply.item
   }
   val unitComboBox = new ComboBox[String] {
-    items = Resources.units(); selectionModel().select(supply.unit)
+    items = Resources.units
+    selectionModel().select(supply.unit)
   }
   val amountTextField = new TextField {
     text = supply.amount.toString

@@ -29,10 +29,12 @@ class SurfacePane(conf: Config, model: Model) extends VBox {
   }
   surfaceTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val surfaceAddButton = new Button {
-    graphic = addImageView(); disable = true
+    graphic = addImageView
+    disable = true
   }
   val surfaceEditButton = new Button {
-    graphic = editImageView(); disable = true
+    graphic = editImageView
+    disable = true
   }
   val surfaceToolBar = new HBox {
     spacing = 6; children = List(surfaceAddButton, surfaceEditButton)

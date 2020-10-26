@@ -42,10 +42,11 @@ class PoolPane(conf: Config, model: Model) extends VBox {
   }
   poolTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val poolAddButton = new Button {
-    graphic = addImageView()
+    graphic = addImageView
   }
   val poolEditButton = new Button {
-    graphic = editImageView(); disable = true
+    graphic = editImageView
+    disable = true
   }
   val poolToolBar = new HBox {
     spacing = 6; children = List(poolAddButton, poolEditButton)

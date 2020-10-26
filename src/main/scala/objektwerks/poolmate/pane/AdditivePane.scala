@@ -40,13 +40,16 @@ class AdditivePane(conf: Config, model: Model) extends VBox {
   }
   additiveTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val additiveAddButton = new Button {
-    graphic = addImageView(); disable = true
+    graphic = addImageView
+    disable = true
   }
   val additiveEditButton = new Button {
-    graphic = editImageView(); disable = true
+    graphic = editImageView
+    disable = true
   }
   val additiveChartButton = new Button {
-    graphic = barChartImageView(); disable = true
+    graphic = barChartImageView
+    disable = true
   }
   val additiveToolBar = new HBox {
     spacing = 6; children = List(additiveAddButton, additiveEditButton, additiveChartButton)

@@ -29,10 +29,12 @@ class TimerPane(conf: Config, model: Model) extends VBox {
   }
   timerTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val timerAddButton = new Button {
-    graphic = addImageView(); disable = true
+    graphic = addImageView
+    disable = true
   }
   val timerEditButton = new Button {
-    graphic = editImageView(); disable = true
+    graphic = editImageView
+    disable = true
   }
   val timerToolBar = new HBox {
     spacing = 6; children = List(timerAddButton, timerEditButton)

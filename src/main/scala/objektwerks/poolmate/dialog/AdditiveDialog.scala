@@ -18,7 +18,8 @@ class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive](
     text = additive.chemical
   }
   val unitComboBox = new ComboBox[String] {
-    items = Resources.units(); selectionModel().select(additive.unit)
+    items = Resources.units
+    selectionModel().select(additive.unit)
   }
   val amountTextField = new TextField {
     text = additive.amount.toString

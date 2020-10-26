@@ -29,10 +29,12 @@ class HeaterPane(conf: Config, model: Model) extends VBox {
   }
   heaterTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
   val heaterAddButton = new Button {
-    graphic = addImageView(); disable = true
+    graphic = addImageView
+    disable = true
   }
   val heaterEditButton = new Button {
-    graphic = editImageView(); disable = true
+    graphic = editImageView
+    disable = true
   }
   val heaterToolBar = new HBox {
     spacing = 6; children = List(heaterAddButton, heaterEditButton)
