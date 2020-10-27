@@ -2,10 +2,6 @@ PoolMate
 --------
 >Open source pool management app.
 
-Todo
-----
-1. Build worker, work order, route order and route UIs
-
 Object Model
 ------------
 * Pool(id, built, gallons, street, city, state, zip)
