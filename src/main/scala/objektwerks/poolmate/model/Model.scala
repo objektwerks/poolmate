@@ -4,8 +4,8 @@ import objektwerks.poolmate.entity.Entity._
 import objektwerks.poolmate.entity._
 import objektwerks.poolmate.repository.Repository
 
-import scalafx.beans.property.{IntegerProperty, ObjectProperty}
 import scalafx.collections.ObservableBuffer
+import scalafx.beans.property.IntegerProperty
 
 object Model {
   def apply(repository: Repository): Model = new Model(repository)
@@ -13,32 +13,6 @@ object Model {
 
 class Model(repository: Repository) {
   import repository._
-
-  val optionalCompany = new ObjectProperty[Option[Company]]()
-
-  val workerList = ObservableBuffer[Worker]()
-  val selectedWorkerId = IntegerProperty(0)
-
-  val workOrderList = ObservableBuffer[WorkOrder]()
-  val selectedWorkOrderId = IntegerProperty(0)
-
-  val workOrderWorkerList = ObservableBuffer[WorkOrderWorker]()
-  val selectedWorkOrderWorkerId = IntegerProperty(0)
-
-  val routeOrderList = ObservableBuffer[RouteOrder]()
-  val selectedRouteOrderId = IntegerProperty(0)
-
-  val routeOrderWorkerList = ObservableBuffer[RouteOrderWorker]()
-  val selectedRouteOrderWorkerId = IntegerProperty(0)
-
-  val locationList = ObservableBuffer[Location]()
-  val selectedLocationId = IntegerProperty(0)
-
-  val routeList = ObservableBuffer[Route]()
-  val selectedRouteId = IntegerProperty(0)
-
-  val stopList = ObservableBuffer[Stop]()
-  val selectedStop = new ObjectProperty[Stop]()
 
   val poolList = ObservableBuffer[Pool]()
   val selectedPoolId = IntegerProperty(0)
@@ -75,184 +49,6 @@ class Model(repository: Repository) {
   
   val repairList = ObservableBuffer[Repair]()
   val selectedRepairId = IntegerProperty(0)
-
-  def setCompany(): Unit = {
-    optionalCompany.value = await(companies.get())
-  }
-
-  def addCompany(company: Company): Unit = {
-    val newId = await(companies.save(company))
-    val newCompany = company.copy(id = newId.get)
-    optionalCompany.value = Some(newCompany)
-  }
-
-  def updateCompany(company: Company): Unit = {
-    await(companies.save(company))
-    ()
-  }
-
-  def listWorkers(companyId: Int): Unit = {
-    workerList.clear()
-    workerList ++= await(workers.list(companyId))
-  }
-
-  def addWorker(worker: Worker): Worker = {
-    val newId = await(workers.save(worker))
-    val newWorker = worker.copy(id = newId.get)
-    workerList += newWorker
-    selectedWorkerId.value = newWorker.id
-    workerList.sorted.reverse
-    newWorker
-  }
-
-  def updateWorker(selectedIndex: Int, worker: Worker): Unit = {
-    await(workers.save(worker))
-    workerList.update(selectedIndex, worker)
-    workerList.sorted
-    ()
-  }
-
-  def listWorkOrders(poolId: Int): Unit = {
-    workOrderList.clear()
-    workOrderList ++= await(workOrders.listByPool(poolId))
-  }
-
-  def addWorkOrder(workOrder: WorkOrder): WorkOrder = {
-    val newId = await(workOrders.save(workOrder))
-    val newWorkOrder = workOrder.copy(id = newId.get)
-    workOrderList += newWorkOrder
-    selectedWorkOrderId.value = newWorkOrder.id
-    workOrderList.sorted.reverse
-    newWorkOrder
-  }
-
-  def updateWorkOrder(selectedIndex: Int, workOrder: WorkOrder): Unit = {
-    await(workOrders.save(workOrder))
-    workOrderList.update(selectedIndex, workOrder)
-    workOrderList.sorted.reverse
-    ()
-  }
-
-  def listWorkOrderWorkers(workOrderId: Int): Unit = {
-    workOrderWorkerList.clear()
-    workOrderWorkerList ++= await(workOrderWorkers.list(workOrderId))
-  }
-
-  def addWorkOrderWorker(workOrderWorker: WorkOrderWorker): WorkOrderWorker = {
-    val newId = await(workOrderWorkers.save(workOrderWorker))
-    val newWorkOrderWorker = workOrderWorker.copy(id = newId.get)
-    workOrderWorkerList += newWorkOrderWorker
-    selectedWorkOrderWorkerId.value = newWorkOrderWorker.id
-    newWorkOrderWorker
-  }
-
-  def removeWorkOrderWorker(selectedIndex: Int, workOrderWorker: WorkOrderWorker): Unit = {
-    await(workOrderWorkers.remove(workOrderWorker.id))
-    workOrderWorkerList.remove(selectedIndex)
-    ()
-  }
-
-  def listRouteOrders(routeId: Int): Unit = {
-    routeOrderList.clear()
-    routeOrderList ++= await(routeOrders.listByRoute(routeId))
-  }
-
-  def addRouteOrder(routeOrder: RouteOrder): Unit = {
-    val newId = await(routeOrders.save(routeOrder))
-    val newRouteOrder = routeOrder.copy(id = newId.get)
-    routeOrderList += newRouteOrder
-    selectedRouteOrderId.value = newRouteOrder.id
-    routeOrderList.sorted
-    ()
-  }
-
-  def updateRouteOrder(selectedIndex: Int, routeOrder: RouteOrder): Unit = {
-    await(routeOrders.save(routeOrder))
-    routeOrderList.update(selectedIndex, routeOrder)
-    routeOrderList.sorted
-    ()
-  }
-
-  def listRouteOrderWorkers(routeOrderId: Int): Unit = {
-    routeOrderWorkerList.clear()
-    routeOrderWorkerList ++= await(routeOrderWorkers.list(routeOrderId))
-  }
-
-  def addRouteOrderWorker(routeOrderWorker: RouteOrderWorker): RouteOrderWorker = {
-    val newId = await(routeOrderWorkers.save(routeOrderWorker))
-    val newRouteOrderWorker = routeOrderWorker.copy(id = newId.get)
-    routeOrderWorkerList += newRouteOrderWorker
-    selectedRouteOrderWorkerId.value = newRouteOrderWorker.id
-    newRouteOrderWorker
-  }
-
-  def removeRouteOrderWorker(selectedIndex: Int, routeOrderWorker: RouteOrderWorker): Unit = {
-    await(routeOrderWorkers.remove(routeOrderWorker.id))
-    routeOrderWorkerList.remove(selectedIndex)
-    ()
-  }
-
-  def listLocations(routeOrderId: Int): Unit = {
-    locationList.clear()
-    locationList ++= await(locations.list(routeOrderId))
-  }
-
-  def addLocation(location: Location): Unit = {
-    val newId = await(locations.save(location))
-    val newLocation = location.copy(id = newId.get)
-    locationList += newLocation
-    selectedLocationId.value = newLocation.id
-    locationList.sorted
-    ()
-  }
-
-  def updateLocation(selectedIndex: Int, location: Location): Unit = {
-    await(locations.save(location))
-    locationList.update(selectedIndex, location)
-    locationList.sorted
-    ()
-  }
-
-  def listRoutes(): Unit = {
-    routeList.clear()
-    routeList ++= await(routes.list())
-  }
-
-  def addRoute(route: Route): Route = {
-    val newId = await(routes.save(route))
-    val newRoute = route.copy(id = newId.get)
-    routeList += newRoute
-    selectedRouteId.value = newRoute.id
-    routeList.sorted
-    newRoute
-  }
-
-  def updateRoute(selectedIndex: Int, route: Route): Unit = {
-    await(routes.save(route))
-    routeList.update(selectedIndex, route)
-    routeList.sorted
-    ()
-  }
-
-  def listStops(routeId: Int): Unit = {
-    stopList.clear()
-    stopList ++= await(stops.list(routeId))
-  }
-
-  def addStop(stop: Stop): Unit = {
-    await(stops.save(stop))
-    stopList += stop
-    selectedStop.value = stop
-    ownerList.sorted
-    ()
-  }
-
-  def updateStop(selectedIndex: Int, stop: Stop): Unit = {
-    await(stops.save(stop))
-    stopList.update(selectedIndex, stop)
-    stopList.sorted
-    ()
-  }
 
   def listPools(): Unit = {
     poolList.clear()

@@ -7,53 +7,6 @@ import scalafx.beans.property.StringProperty
 
 sealed trait Entity extends Product with Serializable
 
-final case class Company(id: Int = 0,
-                         name: String = "name", 
-                         since: LocalDate = LocalDate.now, 
-                         website: String = "website", 
-                         email: String = "email") extends Entity
-
-final case class Worker(id: Int = 0,
-                        companyId: Int, 
-                        hired: LocalDate = LocalDate.now, 
-                        terminated: Option[LocalDate], 
-                        first: String = "first", 
-                        last: String = "last", 
-                        email: String) extends Entity
-
-final case class WorkOrder(id: Int = 0, 
-                           poolId: Int, 
-                           description: String = "description", 
-                           created: LocalDate = LocalDate.now, 
-                           completed: Option[LocalDateTime]) extends Entity
-
-final case class WorkOrderWorker(id: Int = 0, 
-                                 workOrderId: Int, 
-                                 workerId: Int) extends Entity
-
-final case class RouteOrder(id: Int = 0, 
-                            routeId: Int, 
-                            created: LocalDate = LocalDate.now, 
-                            completed: LocalDate = LocalDate.now, 
-                            recurring: Boolean = true) extends Entity
-
-final case class RouteOrderWorker(id: Int = 0, 
-                                  routeOrderId: Int, 
-                                  workerId: Int) extends Entity
-
-final case class Location(id: Int = 0, 
-                          routeOrderId: Int, 
-                          poolId: Int, 
-                          ordinality: Int, 
-                          completed: Option[LocalDateTime]) extends Entity
-
-final case class Route(id: Int = 0, 
-                       name: String) extends Entity
-
-final case class Stop(routeId: Int, 
-                      poolId: Int, 
-                      ordinality: Int) extends Entity
-
 final case class Pool(id: Int = 0, 
                       built: LocalDate = LocalDate.now, 
                       gallons: Int = 10000, 
@@ -231,13 +184,6 @@ object Entity {
   implicit def localTimeOrdering: Ordering[LocalTime] = Ordering.by(_.toSecondOfDay)
   implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
   implicit def localDateTimeOrdering: Ordering[LocalDateTime] = Ordering.by(_.toEpochSecond(ZoneOffset.UTC))
-  implicit def companyOrdering: Ordering[Company] = Ordering.by(_.name)
-  implicit def workerOrdering: Ordering[Worker] = Ordering.by(_.last)
-  implicit def workOrderOrdering: Ordering[WorkOrder] = Ordering.by(_.created)
-  implicit def routeOrderOrdering: Ordering[RouteOrder] = Ordering.by(ro => (ro.created, ro.completed, ro.recurring))
-  implicit def locationOrdering: Ordering[Location] = Ordering.by(_.ordinality)
-  implicit def routeOrdering: Ordering[Route] = Ordering.by(_.name)
-  implicit def stopOrdering: Ordering[Stop] = Ordering.by(_.ordinality)
   implicit def poolOrdering: Ordering[Pool] = Ordering.by(p => (p.zip, p.city))
   implicit def ownerOrdering: Ordering[Owner] = Ordering.by(o => (o.since, o.last))
   implicit def surfaceOrdering: Ordering[Surface] = Ordering.by(_.installed)
