@@ -2,7 +2,7 @@ enablePlugins(JlinkPlugin)
 
 name := "poolmate"
 organization := "objektwerks"
-version := "1.0-SNAPSHOT"
+version := "1.1"
 scalaVersion := "2.13.4"
 maintainer := "objektwerks@runbox.com"
 libraryDependencies ++= {
