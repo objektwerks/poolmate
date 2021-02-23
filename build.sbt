@@ -3,7 +3,7 @@ enablePlugins(JlinkPlugin)
 name := "poolmate"
 organization := "objektwerks"
 version := "1.2-SNAPSHOT"
-scalaVersion := "2.13.4"
+scalaVersion := "2.13.5"
 maintainer := "objektwerks@runbox.com"
 libraryDependencies ++= {
   val slickVersion = "3.3.3"
