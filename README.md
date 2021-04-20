@@ -1,6 +1,6 @@
 PoolMate
 --------
->Open source pool management app.
+>Open source pool management app using ScalaFX.
 
 Object Model
 ------------
@@ -57,7 +57,7 @@ Test
 
 Run
 ---
-1. sbt clean test run
+1. sbt run
 
 Package
 -------
