@@ -1,7 +1,7 @@
 name := "poolmate"
 organization := "objektwerks"
 version := "1.3-SNAPSHOT"
-scalaVersion := "2.13.7"
+scalaVersion := "2.13.8"
 libraryDependencies ++= {
   val slickVersion = "3.3.3"
   Seq(
