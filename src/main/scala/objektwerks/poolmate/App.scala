@@ -12,13 +12,13 @@ object App extends JFXApp3 {
   val model = Model(repository)
   val view = View(conf, model)
 
-  stage = new JFXApp3.PrimaryStage {
-    scene = view.sceneGraph
-    title = conf.getString("title")
-    icons.add(appImage)
+  override def start(): Unit = {
+    stage = new JFXApp3.PrimaryStage {
+      scene = view.sceneGraph
+      title = conf.getString("title")
+      icons.add(appImage)
+    }
   }
-
-  override def start(): Unit = ()
 
   sys.addShutdownHook {
     repository.close()
