@@ -9,7 +9,8 @@ import scala.jdk.CollectionConverters._
 
 object Resources {
   val conf = ConfigFactory.load("app.conf")
-  def units = ObservableBuffer[String](conf.getStringList("units").asScala.toSeq)
+  def units = ObservableBuffer[String]()
+  units.addAll(conf.getStringList("units").asScala)
   def appImage = new Image(Resources.getClass.getResourceAsStream("/images/pool.png"))
   def addImageView = loadImageView("/images/add.png")
   def editImageView = loadImageView("/images/edit.png")
