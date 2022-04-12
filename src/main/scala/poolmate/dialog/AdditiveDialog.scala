@@ -1,10 +1,10 @@
-package objektwerks.poolmate.dialog
+package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import objektwerks.poolmate.entity.Additive
-import objektwerks.poolmate.pane.ControlGridPane
-import objektwerks.poolmate.{App, Resources}
+import poolmate.Additive
+import poolmate.pane.ControlGridPane
+import poolmate.{App, Resources}
 
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
