@@ -4,8 +4,7 @@ import com.typesafe.config.Config
 
 import java.time.format.DateTimeFormatter
 
-import poolmate.App
-import poolmate.Model
+import poolmate.{App, Model}
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
