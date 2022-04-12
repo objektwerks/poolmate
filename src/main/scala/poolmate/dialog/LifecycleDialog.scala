@@ -1,12 +1,12 @@
-package objektwerks.poolmate.dialog
+package poolmate.dialog
 
 import com.typesafe.config.Config
 
 import jfxtras.scene.control.LocalTimePicker
 
-import objektwerks.poolmate.App
-import objektwerks.poolmate.entity.Lifecycle
-import objektwerks.poolmate.pane.ControlGridPane
+import poolmate.App
+import poolmate.Lifecycle
+import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
