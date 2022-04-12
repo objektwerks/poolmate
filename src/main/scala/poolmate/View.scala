@@ -2,7 +2,7 @@ package poolmate
 
 import com.typesafe.config.Config
 
-import objektwerks.poolmate.pane._
+import poolmate.pane._
 
 import scalafx.geometry.{Insets, Orientation}
 import scalafx.scene.Scene
