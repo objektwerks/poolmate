@@ -2,10 +2,9 @@ package poolmate.pane
 
 import com.typesafe.config.Config
 
+import poolmate.{Model, Repair}
 import poolmate.Resources._
 import poolmate.dialog.{RepairChartDialog, RepairDialog}
-import poolmate.Repair
-import poolmate.Model
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
