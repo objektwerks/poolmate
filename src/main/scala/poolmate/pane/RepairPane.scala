@@ -1,11 +1,11 @@
-package objektwerks.poolmate.pane
+package poolmate.pane
 
 import com.typesafe.config.Config
 
-import objektwerks.poolmate.Resources._
-import objektwerks.poolmate.dialog.{RepairChartDialog, RepairDialog}
-import objektwerks.poolmate.entity.Repair
-import objektwerks.poolmate.model.Model
+import poolmate.Resources._
+import poolmate.dialog.{RepairChartDialog, RepairDialog}
+import poolmate.Repair
+import poolmate.Model
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
