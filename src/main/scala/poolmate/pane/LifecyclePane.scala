@@ -2,10 +2,9 @@ package poolmate.pane
 
 import com.typesafe.config.Config
 
+import poolmate.{Lifecycle, Model}
 import poolmate.Resources._
 import poolmate.dialog.LifecycleDialog
-import poolmate.Lifecycle
-import poolmate.Model
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
