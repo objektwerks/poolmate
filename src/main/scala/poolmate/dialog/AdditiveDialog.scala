@@ -2,9 +2,8 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.Additive
 import poolmate.pane.ControlGridPane
-import poolmate.{App, Resources}
+import poolmate.{Additive, App, Resources}
 
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
