@@ -1,9 +1,6 @@
-package objektwerks.poolmate
+package poolmate
 
 import objektwerks.poolmate.Resources._
-import objektwerks.poolmate.model.Model
-import objektwerks.poolmate.repository.Repository
-import objektwerks.poolmate.view.View
 
 import scalafx.application.JFXApp3
 
