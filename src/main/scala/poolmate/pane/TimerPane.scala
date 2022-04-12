@@ -1,11 +1,11 @@
-package objektwerks.poolmate.pane
+package poolmate.pane
 
 import com.typesafe.config.Config
 
-import objektwerks.poolmate.Resources._
-import objektwerks.poolmate.dialog.TimerDialog
-import objektwerks.poolmate.entity.Timer
-import objektwerks.poolmate.model.Model
+import poolmate.Resources._
+import poolmate.dialog.TimerDialog
+import poolmate.Timer
+import poolmate.Model
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
