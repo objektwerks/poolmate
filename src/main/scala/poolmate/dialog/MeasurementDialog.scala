@@ -1,11 +1,10 @@
 package poolmate.dialog
 
-import java.text.DecimalFormat
-
 import com.typesafe.config.Config
 
-import poolmate.App
-import poolmate.Measurement
+import java.text.DecimalFormat
+
+import poolmate.{App, Measurement}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
