@@ -1,4 +1,4 @@
-package objektwerks.poolmate.entity
+package poolmate
 
 import java.time.format.DateTimeFormatter
 import java.time.{LocalDate, LocalDateTime, LocalTime, ZoneOffset}

@@ -1,8 +1,4 @@
-package objektwerks.poolmate.model
-
-import objektwerks.poolmate.entity.Entity._
-import objektwerks.poolmate.entity._
-import objektwerks.poolmate.repository.Repository
+package poolmate
 
 import scalafx.collections.ObservableBuffer
 import scalafx.beans.property.IntegerProperty

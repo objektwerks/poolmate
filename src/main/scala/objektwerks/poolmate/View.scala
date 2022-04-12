@@ -1,8 +1,7 @@
-package objektwerks.poolmate.view
+package poolmate
 
 import com.typesafe.config.Config
 
-import objektwerks.poolmate.model.Model
 import objektwerks.poolmate.pane._
 
 import scalafx.geometry.{Insets, Orientation}
