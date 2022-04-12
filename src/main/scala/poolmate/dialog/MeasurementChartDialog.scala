@@ -1,13 +1,11 @@
 package poolmate.dialog
 
+import com.typesafe.config.Config
+
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
-import com.typesafe.config.Config
-
-import poolmate.App
-import poolmate.Measurement
-import poolmate.Model
+import poolmate.{App, Measurement, Model}
 
 import scalafx.Includes._
 import scalafx.collections.ObservableBuffer
