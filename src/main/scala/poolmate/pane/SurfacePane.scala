@@ -1,11 +1,11 @@
-package objektwerks.poolmate.pane
+package poolmate.pane
 
 import com.typesafe.config.Config
 
-import objektwerks.poolmate.Resources._
-import objektwerks.poolmate.dialog.SurfaceDialog
-import objektwerks.poolmate.entity.Surface
-import objektwerks.poolmate.model.Model
+import poolmate.Resources._
+import poolmate.dialog.SurfaceDialog
+import poolmate.Surface
+import poolmate.Model
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
