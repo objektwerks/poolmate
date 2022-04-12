@@ -2,10 +2,9 @@ package poolmate.pane
 
 import com.typesafe.config.Config
 
+import poolmate.{Model, Timer}
 import poolmate.Resources._
 import poolmate.dialog.TimerDialog
-import poolmate.Timer
-import poolmate.Model
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
