@@ -2,10 +2,9 @@ package poolmate.pane
 
 import com.typesafe.config.Config
 
+import poolmate.{Measurement, Model}
 import poolmate.Resources._
 import poolmate.dialog.{MeasurementChartDialog, MeasurementDialog}
-import poolmate.Measurement
-import poolmate.Model
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
