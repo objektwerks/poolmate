@@ -4,8 +4,7 @@ import com.typesafe.config.Config
 
 import jfxtras.scene.control.LocalTimePicker
 
-import poolmate.App
-import poolmate.Lifecycle
+import poolmate.{App, Lifecycle}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
