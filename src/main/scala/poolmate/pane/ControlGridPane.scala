@@ -1,4 +1,4 @@
-package objektwerks.poolmate.pane
+package poolmate.pane
 
 import scalafx.geometry.Insets
 import scalafx.scene.control.Label
