@@ -2,10 +2,9 @@ package poolmate.pane
 
 import com.typesafe.config.Config
 
+import poolmate.{Additive, Model}
 import poolmate.Resources._
 import poolmate.dialog.{AdditiveChartDialog, AdditiveDialog}
-import poolmate.Additive
-import poolmate.Model
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
