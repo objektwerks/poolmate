@@ -1,4 +1,4 @@
-package objektwerks.poolmate.repository
+package poolmate
 
 import org.scalatest.funsuite.AnyFunSuite
 
