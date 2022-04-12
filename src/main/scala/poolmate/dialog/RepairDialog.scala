@@ -2,8 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.App
-import poolmate.Repair
+import poolmate.{App, Repair}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
