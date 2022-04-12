@@ -2,8 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.App
-import poolmate.Timer
+import poolmate.{App, Timer}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
