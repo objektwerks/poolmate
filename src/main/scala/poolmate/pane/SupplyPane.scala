@@ -2,10 +2,9 @@ package poolmate.pane
 
 import com.typesafe.config.Config
 
+import poolmate.{Model, Supply}
 import poolmate.Resources._
 import poolmate.dialog.{SupplyChartDialog, SupplyDialog}
-import poolmate.Supply
-import poolmate.Model
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
