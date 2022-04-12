@@ -1,6 +1,6 @@
 package poolmate
 
-import objektwerks.poolmate.Resources._
+import poolmate.Resources._
 
 import scalafx.application.JFXApp3
 
