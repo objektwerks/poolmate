@@ -1,11 +1,10 @@
 package poolmate.dialog
 
-import java.time.format.DateTimeFormatter
-
 import com.typesafe.config.Config
 
-import poolmate.App
-import poolmate.Model
+import java.time.format.DateTimeFormatter
+
+import poolmate.{App, Model}
 
 import scalafx.Includes._
 import scalafx.geometry.Insets
