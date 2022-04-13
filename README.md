@@ -1,6 +1,6 @@
 PoolMate
 --------
->Open source pool management app using ScalaFX.
+>Open source pool management app using ScalaFX and H2.
 
 Object Model
 ------------
