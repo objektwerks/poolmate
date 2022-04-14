@@ -11,6 +11,8 @@ import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
 class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool] {
+  import Dialogs._
+
   val builtDatePicker = new DatePicker {
     value = pool.built
   }

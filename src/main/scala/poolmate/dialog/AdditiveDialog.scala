@@ -11,6 +11,8 @@ import scalafx.scene.control._
 import scalafx.scene.layout.Region
 
 class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive] {
+  import Dialogs._
+  
   val onDatePicker = new DatePicker {
     value = additive.on
   }

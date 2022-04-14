@@ -11,6 +11,8 @@ import scalafx.scene.control._
 import scalafx.scene.layout.Region
 
 class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply] {
+  import Dialogs._
+
   val purchasedDatePicker = new DatePicker {
     value = supply.purchased
   }

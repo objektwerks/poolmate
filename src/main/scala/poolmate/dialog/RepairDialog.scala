@@ -11,6 +11,8 @@ import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
 class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair] {
+  import Dialogs._
+
   val onDatePicker = new DatePicker {
     value = repair.on
   }
