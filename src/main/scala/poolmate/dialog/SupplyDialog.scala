@@ -3,6 +3,7 @@ package poolmate.dialog
 import com.typesafe.config.Config
 
 import poolmate.{App, Resources, Supply}
+import Dialogs._
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -11,8 +12,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.Region
 
 class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply] {
-  import Dialogs._
-
   val purchasedDatePicker = new DatePicker {
     value = supply.purchased
   }

@@ -2,8 +2,9 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.pane.ControlGridPane
 import poolmate.{Additive, App, Resources}
+import Dialogs._
+import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
 import scalafx.scene.control.ButtonBar.ButtonData
@@ -11,8 +12,6 @@ import scalafx.scene.control._
 import scalafx.scene.layout.Region
 
 class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive] {
-  import Dialogs._
-  
   val onDatePicker = new DatePicker {
     value = additive.on
   }

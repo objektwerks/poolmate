@@ -3,6 +3,7 @@ package poolmate.dialog
 import com.typesafe.config.Config
 
 import poolmate.{App, Repair}
+import Dialogs._
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -11,8 +12,6 @@ import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
 class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair] {
-  import Dialogs._
-
   val onDatePicker = new DatePicker {
     value = repair.on
   }

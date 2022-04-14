@@ -3,6 +3,7 @@ package poolmate.dialog
 import com.typesafe.config.Config
 
 import poolmate.{App, Pool}
+import Dialogs._
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -11,8 +12,6 @@ import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
 class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool] {
-  import Dialogs._
-
   val builtDatePicker = new DatePicker {
     value = pool.built
   }
