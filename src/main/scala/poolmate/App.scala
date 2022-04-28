@@ -1,11 +1,14 @@
 package poolmate
 
+import com.typesafe.config.ConfigFactory
+
 import poolmate.Resources._
 
 import scalafx.application.JFXApp3
 
 object App extends JFXApp3 {
-  val repository = Repository("repository.conf")
+  val config = ConfigFactory.load("repository.conf")
+  val repository = Repository(config)
   val model = Model(repository)
   val view = View(conf, model)
 

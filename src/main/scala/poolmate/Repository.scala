@@ -3,7 +3,7 @@ package poolmate
 import java.sql.{Date, Time, Timestamp}
 import java.time.{LocalDate, LocalDateTime, LocalTime}
 
-import com.typesafe.config.ConfigFactory
+import com.typesafe.config.Config
 
 import slick.basic.DatabaseConfig
 import slick.jdbc.{H2Profile, JdbcProfile}
@@ -12,9 +12,9 @@ import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 
 object Repository {
-  def apply(configFile: String): Repository = {
-    val config = DatabaseConfig.forConfig[JdbcProfile]("repository", ConfigFactory.load(configFile))
-    val repository = new Repository(config, H2Profile)
+  def apply(config: Config): Repository = {
+    val conf = DatabaseConfig.forConfig[JdbcProfile]("repository", config)
+    val repository = new Repository(conf, H2Profile)
     import repository._
     try {
       await(pools.list()).length
