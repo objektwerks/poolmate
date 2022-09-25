@@ -1,7 +1,7 @@
 name := "poolmate"
 organization := "objektwerks"
 version := "1.7-SNAPSHOT"
-scalaVersion := "2.13.8"
+scalaVersion := "2.13.9"
 libraryDependencies ++= {
   val slickVersion = "3.3.3" // Can't yet upgrade to Scala 3!
   Seq(
