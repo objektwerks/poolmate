@@ -10,7 +10,7 @@ libraryDependencies ++= {
     "com.typesafe.slick" %% "slick" % slickVersion,
     "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
     "com.h2database" % "h2" % "2.1.214",
-    "ch.qos.logback" % "logback-classic" % "1.4.1",
+    "ch.qos.logback" % "logback-classic" % "1.4.3",
     "org.scalatest" %% "scalatest" % "3.2.13" % Test
   )
 }
