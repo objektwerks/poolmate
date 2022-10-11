@@ -3,7 +3,7 @@ organization := "objektwerks"
 version := "1.7-SNAPSHOT"
 scalaVersion := "2.13.10"
 libraryDependencies ++= {
-  val slickVersion = "3.3.3" // Can't yet upgrade to Scala 3!
+  val slickVersion = "3.4.1" // Can't yet upgrade to Scala 3!
   Seq(
     "org.scalafx" %% "scalafx" % "19.0.0-R30",
     "org.jfxtras" % "jfxtras-controls" % "17-r1",
