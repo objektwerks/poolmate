@@ -4,10 +4,9 @@ PoolMate
 
 Scala 3 Bug
 -----------
->Made a PR on slick to document this https://github.com/slick/slick/pull/2760
->(workaround is quite easy, you can just define def tupled = (apply _).tupled
->in the companion object of the case class and it will also compile for all
->Scala versions).
+>See this PR ( https://github.com/slick/slick/pull/2760 ). The workaround is
+>quite easy, just define ```def tupled = (apply _).tupled``` in the companion
+>object of each case class and it will compile for all Scala versions.
 
 Object Model
 ------------
