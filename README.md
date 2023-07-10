@@ -2,6 +2,13 @@ PoolMate
 --------
 >Open source pool management app using ScalaFX and H2.
 
+Scala 3 Bug
+-----------
+>Made a PR on slick to document this https://github.com/slick/slick/pull/2760
+>(workaround is quite easy, you can just define def tupled = (apply _).tupled
+>in the companion object of the case class and it will also compile for all
+>Scala versions).
+
 Object Model
 ------------
 * Pool(id, built, gallons, street, city, state, zip)
