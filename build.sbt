@@ -1,9 +1,9 @@
 name := "poolmate"
 organization := "objektwerks"
 version := "1.7-SNAPSHOT"
-scalaVersion := "2.13.11"
+scalaVersion := "3.3.1-RC3"
 libraryDependencies ++= {
-  val slickVersion = "3.5.0-M4" // Still waiting to upgrade to Scala 3!
+  val slickVersion = "3.5.0-M4"
   Seq(
     "org.scalafx" %% "scalafx" % "20.0.0-R31",
     "org.jfxtras" % "jfxtras-controls" % "17-r1",
