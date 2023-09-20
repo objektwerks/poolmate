@@ -2,9 +2,36 @@ PoolMate
 --------
 >Open source pool management app using ScalaFX, H2 and Scala 3.
 
+Todo
+----
+1. Design and build company, worker and routing panels and dialogs.
+
 Warning
 -------
 >Slick support for Scala 3 is still a **WIP**. Switch back to Scala 2.13.12 and Slick 3.4.1 if you require working Slick code. :)
+
+Test
+----
+1. sbt clean test
+
+Run
+---
+1. sbt run
+
+Package
+-------
+1. sbt clean test universal:packageBin
+2. verify ./target/universal/poolmate-${version}.zip
+
+Install
+-------
+1. unzip ./target/universal/poolmate-${version}.zip
+2. copy unzipped poolmate-${version} directory to ${poolmate.directory}
+3. set executable permissions for ${poolmate.directory}/poolmate-${version}/bin/poolmate
+
+Execute
+-------
+1. execute ${poolmate-directory}/poolmate-${version}/bin/poolmate
 
 Object Model
 ------------
@@ -88,33 +115,6 @@ Solutions
 6. low chlorine - Chlorine Tablets, Granules, Liquid
 7. algae - Algaecide, Shock
 8. stains - Stain Identification Kit, Stain Remover
-
-Todo
-----
-1. Design and build company, worker and routing panels and dialogs.
-
-Test
-----
-1. sbt clean test
-
-Run
----
-1. sbt run
-
-Package
--------
-1. sbt clean test universal:packageBin
-2. verify ./target/universal/poolmate-${version}.zip
-
-Install
--------
-1. unzip ./target/universal/poolmate-${version}.zip
-2. copy unzipped poolmate-${version} directory to ${poolmate.directory}
-3. set executable permissions for ${poolmate.directory}/poolmate-${version}/bin/poolmate
-
-Execute
--------
-1. execute ${poolmate-directory}/poolmate-${version}/bin/poolmate
 
 License
 -------
