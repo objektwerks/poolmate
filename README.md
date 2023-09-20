@@ -25,6 +25,20 @@ Relational Model
 ----------------
 * Pool 1 ---> * Owner | Surface | Pump | Timer | Heater | Lifecycle | Cleaning | Measurement | Additive | Supply | Repair
 
+Panes
+-----
+* east pane - supplies, lifecycles, cleanings, measurements, additives
+* west pane - pools, owners, surfaces, pumps, timers, heaters, repairs
+
+Charts
+------
+1. supplies - bar chart ( x = purchased, y = cost, c = item )
+2. measurements - line chart ( x = on, y = chemical ** )
+3. additives - bar chart ( x = on, y = amount, c = chemical )
+4. repairs - line chart ( x = on, y = cost )
+
+** a line chart for each measured chemical, to include temp
+
 Measurements
 ------------
 >Measured in ppm ( parts per million ).
@@ -44,19 +58,18 @@ Measurements
  
 ** Units of Measure - oz, gl, lb
 
-Panes
------
-* east pane - supplies, lifecycles, cleanings, measurements, additives
-* west pane - pools, owners, surfaces, pumps, timers, heaters, repairs
-
-Charts
-------
-1. supplies - bar chart ( x = purchased, y = cost, c = item )
-2. measurements - line chart ( x = on, y = chemical ** )
-3. additives - bar chart ( x = on, y = amount, c = chemical )
-4. repairs - line chart ( x = on, y = cost )
-
-** a line chart for each measured chemical, to include temp
+Chemicals
+---------
+* Liquids measured in: gallons ( gl ) and liters ( l ).
+* Granules measured in: pounds ( lbs ) and kilograms ( kg ).
+1. LiquidChlorine ( gl/l )
+2. Trichlor ( tablet )
+3. Dichlor ( lbs/kg )
+4. CalciumHypochlorite ( lbs/kg )
+5. Stabilizer ( lbs/kg )
+6. Algaecide ( gl/l )
+7. MuriaticAcid ( gl/l )
+8. Salt ( lbs/kg )
 
 Solutions
 ---------
