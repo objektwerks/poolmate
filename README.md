@@ -1,6 +1,6 @@
 PoolMate
 --------
->Open source pool management app using ScalaFX, H2 and Scala 3.
+>Open source pool management app using ScalaFx, H2 and Scala 3.
 
 Todo
 ----
