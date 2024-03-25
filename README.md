@@ -2,9 +2,10 @@ PoolMate
 --------
 >Open source pool management app using ScalaFx, H2 and Scala 3.
 
-Todo
+TODO
 ----
-1. Design and build company, worker and routing panels and dialogs.
+* Upgrade to Slick 3.5. Requires significant work!
+* Design and build company, worker and routing panels and dialogs.
 
 Warning
 -------
