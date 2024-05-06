@@ -32,15 +32,16 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
   def dropSchema() = await(DBIO.seq(schema.drop))
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
-    def * = (id, built, gallons, street, city, state, zip).<>(Pool.tupled, Pool.unapply)
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def built = column[LocalDate]("built")
+    def built = column[String]("built")
     def gallons = column[Int]("gallons")
     def street = column[String]("street")
     def city = column[String]("city")
     def state = column[String]("state")
     def zip = column[Int]("zip")
+    def * = (id, built, gallons, street, city, state, zip).mapTo[Pool]
   }
+
   object pools extends TableQuery(new Pools(_)) {
     val compiledList = Compiled {
       sortBy(p => (p.zip.asc, p.city.asc))
