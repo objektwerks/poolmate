@@ -89,16 +89,14 @@ final case class Heater(id: Int = 0,
 
 final case class Lifecycle(id: Int = 0, 
                            poolId: Int, 
-                           created: LocalDate = LocalDate.now, 
+                           created: String = LocalDate.now.toString, 
                            active: Boolean = true, 
-                           pumpOn: LocalTime = LocalTime.of(9, 0), 
-                           pumpOff: LocalTime = LocalTime.of(17, 0)) extends Entity {
-  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-  val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
-  val createdProperty = new StringProperty(this, "created", created.format(dateFormatter))
+                           pumpOn: String = LocalTime.of(9, 0).toString, 
+                           pumpOff: String = LocalTime.of(17, 0).toString) extends Entity {
+  val createdProperty = new StringProperty(this, "created", created)
   val activeProperty = new StringProperty(this, "active", active.toString)
-  val pumpOnProperty = new StringProperty(this, "pumpOn", pumpOn.format(timeFormatter))
-  val pumpOffProperty = new StringProperty(this, "pumpOff", pumpOff.format(timeFormatter))
+  val pumpOnProperty = new StringProperty(this, "pumpOn", pumpOn)
+  val pumpOffProperty = new StringProperty(this, "pumpOff", pumpOff)
   val lifecycle = this
 }
 
