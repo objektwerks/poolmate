@@ -4,7 +4,7 @@ import com.typesafe.config.Config
 
 import jfxtras.scene.control.LocalTimePicker
 
-import poolmate.{App, Lifecycle}
+import poolmate.{App, Entity, Lifecycle}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -14,16 +14,16 @@ import scalafx.scene.layout.Region
 
 class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecycle] {
   val createdDatePicker = new DatePicker {
-    value = lifecycle.created
+    value = Entity.toLocalDate(lifecycle.created)
   }
   val activeCheckBox = new CheckBox {
     selected = lifecycle.active
   }
   val pumpOnTimePicker = new LocalTimePicker {
-    localTimeProperty.value = lifecycle.pumpOn
+    localTimeProperty.value = Entity.toLocalTime(lifecycle.pumpOn)
   }
   val pumpOffTimePicker = new LocalTimePicker {
-    localTimeProperty.value = lifecycle.pumpOff
+    localTimeProperty.value = Entity.toLocalTime(lifecycle.pumpOff)
   }
   val controls = List[(String, Region)](
     conf.getString("lifecycle-created") -> createdDatePicker,
@@ -45,10 +45,10 @@ class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecyc
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      lifecycle.copy(created = createdDatePicker.value.value,
+      lifecycle.copy(created = createdDatePicker.value.value.toString,
         active = activeCheckBox.selected.value,
-        pumpOn = pumpOnTimePicker.localTimeProperty.value,
-        pumpOff = pumpOffTimePicker.localTimeProperty.value)
+        pumpOn = pumpOnTimePicker.localTimeProperty.value.toString,
+        pumpOff = pumpOffTimePicker.localTimeProperty.value.toString)
     else null
   }
 
