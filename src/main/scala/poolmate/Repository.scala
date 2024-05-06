@@ -14,7 +14,7 @@ import slick.jdbc.{H2Profile, JdbcProfile}
 
 class Repository(val config: DatabaseConfig[JdbcProfile],
                  val profile: JdbcProfile, 
-                 val awaitDuration: Duration = 1 second) {
+                 val awaitDuration: Duration = 1 second):
   import profile.api._
 
   val schema = pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++ heaters.schema ++
@@ -237,4 +237,3 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
     def save(repair: Repair) = (this returning this.map(_.id)).insertOrUpdate(repair)
     def list(poolId: Int) = compiledList(poolId).result
   }
-}
