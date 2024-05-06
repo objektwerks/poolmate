@@ -90,16 +90,15 @@ final case class Heater(id: Int = 0,
 
 final case class Lifecycle(id: Int = 0, 
                            poolId: Int, 
-                           created: String = LocalDate.now.toString, 
+                           created: String = LocalDate.now.toString,
                            active: Boolean = true, 
                            pumpOn: String = LocalTime.of(9, 0).toString, 
-                           pumpOff: String = LocalTime.of(17, 0).toString) extends Entity {
+                           pumpOff: String = LocalTime.of(17, 0).toString) extends Entity:
   val createdProperty = new StringProperty(this, "created", created)
   val activeProperty = new StringProperty(this, "active", active.toString)
   val pumpOnProperty = new StringProperty(this, "pumpOn", pumpOn)
   val pumpOffProperty = new StringProperty(this, "pumpOff", pumpOff)
   val lifecycle = this
-}
 
 final case class Cleaning(id: Int = 0, 
                           poolId: Int, 
