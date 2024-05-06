@@ -160,13 +160,12 @@ final case class Additive(id: Int = 0,
 
 final case class Supply(id: Int = 0, 
                         poolId: Int, 
-                        purchased: LocalDate = LocalDate.now, 
+                        purchased: String = LocalDate.now.toString, 
                         item: String = "cl", 
                         unit: String = "gl", 
                         amount: Double = 1.0, 
                         cost: Double = 0.0) extends Entity {
-  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-  val purchasedProperty = new StringProperty(this, "purchased", purchased.format(dateFormatter))
+  val purchasedProperty = new StringProperty(this, "purchased", purchased)
   val itemProperty = new StringProperty(this, "item", item)
   val unitProperty = new StringProperty(this, "unit", unit)
   val amountProperty = new StringProperty(this, "amount", amount.toString)
