@@ -7,8 +7,8 @@ import scalafx.beans.property.StringProperty
 
 sealed trait Entity
 
-object Entity {
-  implicit def poolOrdering: Ordering[Pool] = Ordering.by(p => (p.zip, p.city))
+object Entity:
+  given Ordering[Pool] = Ordering.by(p => (p.zip, p.city))
   implicit def ownerOrdering: Ordering[Owner] = Ordering.by(o => (o.since, o.last))
   implicit def surfaceOrdering: Ordering[Surface] = Ordering.by(_.installed)
   implicit def pumpOrdering: Ordering[Pump] = Ordering.by(_.installed)
@@ -20,7 +20,6 @@ object Entity {
   implicit def additiveOrdering: Ordering[Additive] = Ordering.by(_.on)
   implicit def supplyOrdering: Ordering[Supply] = Ordering.by(_.purchased)
   implicit def repairOrdering: Ordering[Repair] = Ordering.by(_.on)
-}
 
 final case class Pool(id: Int = 0, 
                       built: LocalDate = LocalDate.now, 
