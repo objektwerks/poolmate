@@ -67,15 +67,15 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
   }
 
   class Surfaces(tag: Tag) extends Table[Surface](tag, "surfaces") {
-    def * = (id, poolId, installed, kind).<>(Surface.tupled, Surface.unapply)
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolId = column[Int]("pool_id")
     def installed = column[LocalDate]("installed")
     def kind = column[String]("kind")
     def poolFk = foreignKey("pool_surface_fk", poolId, TableQuery[Pools])(_.id)
+    def * = (id.?, poolId, installed, kind).mapTo[Surface]
   }
   object surfaces extends TableQuery(new Surfaces(_)) {
-    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.installed.desc) }
+    val compiledList = Compiled { ( poolId: Rep[Int] ) => filter(_.poolId === poolId).sortBy(_.installed.desc) }
     def save(surface: Surface) = (this returning this.map(_.id)).insertOrUpdate(surface)
     def list(poolId: Int) = compiledList(poolId).result
   }
