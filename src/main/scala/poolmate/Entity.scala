@@ -10,7 +10,7 @@ sealed trait Entity
 object Entity:
   given Ordering[Pool] = Ordering.by(p => (p.zip, p.city))
   given Ordering[Owner] = Ordering.by(o => (o.since, o.last))
-  implicit def surfaceOrdering: Ordering[Surface] = Ordering.by(_.installed)
+  given Ordering[Surface] = Ordering.by(_.installed)
   implicit def pumpOrdering: Ordering[Pump] = Ordering.by(_.installed)
   implicit def timerOrdering: Ordering[Timer] = Ordering.by(_.installed)
   implicit def heaterOrdering: Ordering[Heater] = Ordering.by(_.installed)
