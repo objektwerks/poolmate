@@ -10,7 +10,7 @@ import slick.jdbc.{H2Profile, JdbcProfile}
 final class RepositoryTest extends AnyFunSuite:
   test("repository"):
     val config = DatabaseConfig.forConfig[JdbcProfile]("test", ConfigFactory.load("test.conf"))
-    val repository = new Repository(config, H2Profile)
+    val repository = Repository(config, H2Profile)
     repository.createSchema()
     repository.dropSchema()
     repository.close()
