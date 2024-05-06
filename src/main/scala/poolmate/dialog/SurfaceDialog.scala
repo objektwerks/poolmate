@@ -2,7 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.{App, Surface}
+import poolmate.{App, Entity, Surface}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -12,7 +12,7 @@ import scalafx.scene.layout.Region
 
 class SurfaceDialog(conf: Config, surface: Surface) extends Dialog[Surface] {
   val installedDatePicker = new DatePicker {
-    value = surface.installed
+    value = Entity.toLocalDate(surface.installed)
   }
   val kindTextField = new TextField {
     text = surface.kind
@@ -33,7 +33,10 @@ class SurfaceDialog(conf: Config, surface: Surface) extends Dialog[Surface] {
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      surface.copy(installed = installedDatePicker.value.value, kind = kindTextField.text.value)
+      surface.copy(
+        installed = installedDatePicker.value.value.toString,
+        kind = kindTextField.text.value
+      )
     else null
   }
 
