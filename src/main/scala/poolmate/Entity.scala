@@ -64,11 +64,10 @@ final case class Surface(id: Int = 0,
 final case class Pump(id: Int = 0, 
                       poolId: Int, 
                       installed: String = LocalDate.now.toString, 
-                      model: String = "model") extends Entity {
+                      model: String = "model") extends Entity:
   val installedProperty = new StringProperty(this, "installed", installed)
   val modelProperty = new StringProperty(this, "model", model)
   val pump = this
-}
 
 final case class Timer(id: Int = 0, 
                        poolId: Int, 
