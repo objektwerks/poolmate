@@ -16,14 +16,18 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
                  val awaitDuration: Duration = 1 second) {
   import profile.api._
 
-  val db = config.db
   val schema = pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++ heaters.schema ++
     lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ supplies.schema ++ repairs.schema
+  val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
+
   def exec[T](action: DBIO[T]): Future[T] = db.run(action)
+
   def close() = db.close()
+
   def createSchema() = await(DBIO.seq(schema.create))
+  
   def dropSchema() = await(DBIO.seq(schema.drop))
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
