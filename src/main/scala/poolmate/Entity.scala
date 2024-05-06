@@ -5,7 +5,7 @@ import java.time.{LocalDate, LocalDateTime, LocalTime, ZoneOffset}
 
 import scalafx.beans.property.StringProperty
 
-sealed trait Entity extends Product with Serializable
+sealed trait Entity
 
 object Entity {
   implicit def localTimeOrdering: Ordering[LocalTime] = Ordering.by(_.toSecondOfDay)
