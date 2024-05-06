@@ -17,7 +17,7 @@ object Entity:
   given Ordering[Lifecycle] = Ordering.by(l => (l.active, l.created))
   given Ordering[Cleaning] = Ordering.by(_.on)
   given Ordering[Measurement] = Ordering.by(_.on)
-  implicit def additiveOrdering: Ordering[Additive] = Ordering.by(_.on)
+  given Ordering[Additive] = Ordering.by(_.on)
   implicit def supplyOrdering: Ordering[Supply] = Ordering.by(_.purchased)
   implicit def repairOrdering: Ordering[Repair] = Ordering.by(_.on)
 
