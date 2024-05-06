@@ -5,11 +5,11 @@ import com.typesafe.config.ConfigFactory
 import scalafx.collections.ObservableBuffer
 import scalafx.scene.image.{Image, ImageView}
 
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 object Resources {
   val conf = ConfigFactory.load("resources.conf")
-  def units = ObservableBuffer[String]( conf.getStringList("units").asScala.toSeq:_*)
+  def units = ObservableBuffer[String]( conf.getStringList("units").asScala.toList.mkString )
   def appImage = new Image(Resources.getClass.getResourceAsStream("/images/pool.png"))
   def addImageView = loadImageView("/images/add.png")
   def editImageView = loadImageView("/images/edit.png")
