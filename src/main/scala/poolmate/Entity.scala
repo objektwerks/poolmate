@@ -82,11 +82,10 @@ final case class Timer(id: Int = 0,
 final case class Heater(id: Int = 0, 
                         poolId: Int, 
                         installed: String = LocalDate.now.toString, 
-                        model: String = "model") extends Entity {
+                        model: String = "model") extends Entity:
   val installedProperty = new StringProperty(this, "installed", installed)
   val modelProperty = new StringProperty(this, "model", model)
   val heater = this
-}
 
 final case class Lifecycle(id: Int = 0, 
                            poolId: Int, 
