@@ -188,17 +188,18 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
   }
 
   class Additives(tag: Tag) extends Table[Additive](tag, "additives") {
-    def * = (id, poolId, on, chemical, unit, amount).<>(Additive.tupled, Additive.unapply)
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def on = column[LocalDate]("on")
+    def poolId = column[Int]("pool_id")
+    def on = column[String]("on")
     def chemical = column[String]("chemical")
     def unit = column[String]("unit")
     def amount = column[Double]("amount")
     def poolFk = foreignKey("pool_additive_fk", poolId, TableQuery[Pools])(_.id)
-    def poolId = column[Int]("pool_id")
+    def * = (id.?, poolId, on, chemical, unit, amount).mapTo[Additive]
   }
+
   object additives extends TableQuery(new Additives(_)) {
-    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.on.desc) }
+    val compiledList = Compiled { ( poolId: Rep[Int] ) => filter(_.poolId === poolId).sortBy(_.on.desc) }
     def save(additive: Additive) = (this returning this.map(_.id)).insertOrUpdate(additive)
     def list(poolId: Int) = compiledList(poolId).result
   }
