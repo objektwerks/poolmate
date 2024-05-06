@@ -2,7 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.{App, Pool}
+import poolmate.{App, Entity, Pool}
 import Dialogs._
 import poolmate.pane.ControlGridPane
 
@@ -13,7 +13,7 @@ import scalafx.scene.layout.Region
 
 class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool] {
   val builtDatePicker = new DatePicker {
-    value = pool.built
+    value = Entity.toLocalDate(pool.built)
   }
   val gallonsTextField = new TextField {
     text = pool.gallons.toString
@@ -54,7 +54,7 @@ class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool] {
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      pool.copy(built = builtDatePicker.value.value,
+      pool.copy(built = builtDatePicker.value.value.toString,
         gallons = Integer.parseInt(gallonsTextField.text.value),
         street = streetTextField.text.value,
         city = cityTextField.text.value,
