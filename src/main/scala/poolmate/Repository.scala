@@ -166,10 +166,9 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
   }
 
   class Measurements(tag: Tag) extends Table[Measurement](tag, "measurements") {
-    def * = (id, poolId, on, temp, hardness, totalChlorine, bromine, freeChlorine, pH, alkalinity, cyanuricAcid).<>(Measurement.tupled, Measurement.unapply)
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolId = column[Int]("pool_id")
-    def on = column[LocalDate]("on")
+    def on = column[String]("on")
     def temp = column[Double]("temp")
     def hardness = column[Double]("hardness")
     def totalChlorine = column[Double]("total_chlorine")
@@ -179,9 +178,11 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
     def alkalinity = column[Double]("alkalinity")
     def cyanuricAcid = column[Double]("cyanuric_acid")
     def poolFk = foreignKey("pool_measurement_fk", poolId, TableQuery[Pools])(_.id)
+    def * = (id.?, poolId, on, temp, hardness, totalChlorine, bromine, freeChlorine, pH, alkalinity, cyanuricAcid).mapTo[Measurement]
   }
+
   object measurements extends TableQuery(new Measurements(_)) {
-    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.on.desc) }
+    val compiledList = Compiled { ( poolId: Rep[Int] ) => filter(_.poolId === poolId).sortBy(_.on.desc) }
     def save(measurement: Measurement) = (this returning this.map(_.id)).insertOrUpdate(measurement)
     def list(poolId: Int) = compiledList(poolId).result
   }
