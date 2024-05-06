@@ -22,7 +22,7 @@ object Entity:
   given Ordering[Repair] = Ordering.by(_.on)
 
 final case class Pool(id: Int = 0, 
-                      built: LocalDate = LocalDate.now, 
+                      built: String = LocalDate.now.toString, 
                       gallons: Int = 10000, 
                       street: String = "street", 
                       city: String = "city", 
