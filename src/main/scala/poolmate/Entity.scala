@@ -124,7 +124,7 @@ final case class Cleaning(id: Int = 0,
 
 final case class Measurement(id: Int = 0, 
                              poolId: Int, 
-                             on: LocalDate = LocalDate.now, 
+                             on: String = LocalDate.now.toString, 
                              temp: Double = 75.0, 
                              hardness: Double = 375.0, 
                              totalChlorine: Double = 3,
@@ -133,8 +133,7 @@ final case class Measurement(id: Int = 0,
                              pH: Double = 7.5, 
                              alkalinity: Double = 100.0, 
                              cyanuricAcid: Double = 50.0) extends Entity {
-  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-  val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
+  val onProperty = new StringProperty(this, "on", on)
   val tempProperty = new StringProperty(this, "temp", temp.toString)
   val hardnessProperty = new StringProperty(this, "hardness", hardness.toString)
   val totalChlorineProperty = new StringProperty(this, "totalChlorine", totalChlorine.toString)
