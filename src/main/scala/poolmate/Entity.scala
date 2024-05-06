@@ -11,7 +11,7 @@ object Entity:
   given Ordering[Pool] = Ordering.by(p => (p.zip, p.city))
   given Ordering[Owner] = Ordering.by(o => (o.since, o.last))
   given Ordering[Surface] = Ordering.by(_.installed)
-  implicit def pumpOrdering: Ordering[Pump] = Ordering.by(_.installed)
+  given Ordering[Pump] = Ordering.by(_.installed)
   implicit def timerOrdering: Ordering[Timer] = Ordering.by(_.installed)
   implicit def heaterOrdering: Ordering[Heater] = Ordering.by(_.installed)
   implicit def lifecycleOrdering: Ordering[Lifecycle] = Ordering.by(l => (l.active, l.created))
