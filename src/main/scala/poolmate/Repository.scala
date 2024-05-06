@@ -113,15 +113,16 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
   }
 
   class Heaters(tag: Tag) extends Table[Heater](tag, "heaters") {
-    def * = (id, poolId, installed, model).<>(Heater.tupled, Heater.unapply)
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def installed = column[LocalDate]("installed")
+    def installed = column[String]("installed")
     def model = column[String]("model")
     def poolFk = foreignKey("pool_heater_fk", poolId, TableQuery[Pools])(_.id)
     def poolId = column[Int]("pool_id")
+    def * = (id.?, poolId, installed, model).mapTo[Heater]
   }
+
   object heaters extends TableQuery(new Heaters(_)) {
-    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.installed.desc) }
+    val compiledList = Compiled { ( poolId: Rep[Int] ) => filter(_.poolId === poolId).sortBy(_.installed.desc) }
     def save(heater: Heater) = (this returning this.map(_.id)).insertOrUpdate(heater)
     def list(poolId: Int) = compiledList(poolId).result
   }
