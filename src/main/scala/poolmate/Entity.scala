@@ -110,7 +110,7 @@ final case class Cleaning(id: Int = 0,
                           vacuum: Boolean = false, 
                           skimmerBasket: Boolean = true, 
                           pumpBasket: Boolean = false, 
-                          pumpFilter: Boolean = false) extends Entity {
+                          pumpFilter: Boolean = false) extends Entity:
   val onProperty = new StringProperty(this, "on", on)
   val deckProperty = new StringProperty(this, "deck", deck.toString)
   val brushProperty = new StringProperty(this, "brush", brush.toString)
@@ -120,7 +120,6 @@ final case class Cleaning(id: Int = 0,
   val pumpBasketProperty = new StringProperty(this, "pumpBasket", pumpBasket.toString)
   val pumpFilterProperty = new StringProperty(this, "pumpFilter", pumpFilter.toString)
   val cleaning = this
-}
 
 final case class Measurement(id: Int = 0, 
                              poolId: Int, 
