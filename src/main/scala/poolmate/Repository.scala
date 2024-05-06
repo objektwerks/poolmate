@@ -39,7 +39,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
     def city = column[String]("city")
     def state = column[String]("state")
     def zip = column[Int]("zip")
-    def * = (id, built, gallons, street, city, state, zip).mapTo[Pool]
+    def * = (id.?, built, gallons, street, city, state, zip).mapTo[Pool]
   }
 
   object pools extends TableQuery(new Pools(_)) {
@@ -51,17 +51,17 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
   }
 
   class Owners(tag: Tag) extends Table[Owner](tag, "owners") {
-    def * = (id, poolId, since, first, last, email).<>(Owner.tupled, Owner.unapply)
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolId = column[Int]("pool_id")
-    def since = column[LocalDate]("since")
+    def since = column[String]("since")
     def first = column[String]("first")
     def last = column[String]("last")
     def email = column[String]("email")
     def poolFk = foreignKey("pool_owner_fk", poolId, TableQuery[Pools])(_.id)
+    def * = (id.?, poolId, since, first, last, email).mapTo[Owner]
   }
   object owners extends TableQuery(new Owners(_)) {
-    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(o => (o.since.desc, o.last.asc)) }
+    val compiledList = Compiled { ( poolId: Rep[Int] ) => filter(_.poolId === poolId).sortBy(o => (o.since.desc, o.last.asc)) }
     def save(owner: Owner) = (this returning this.map(_.id)).insertOrUpdate(owner)
     def list(poolId: Int) = compiledList(poolId).result
   }
