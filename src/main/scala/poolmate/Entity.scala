@@ -22,6 +22,7 @@ object Entity:
   given Ordering[Repair] = Ordering.by(_.on)
 
   def toLocalDate(date: String): LocalDate = LocalDate.parse(date)
+  def toLocalTime(time: String): LocalTime = LocalTime.parse(time)
 
 final case class Pool(id: Int = 0, 
                       built: String = LocalDate.now.toString, 
