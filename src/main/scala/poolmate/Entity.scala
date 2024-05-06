@@ -14,7 +14,7 @@ object Entity:
   given Ordering[Pump] = Ordering.by(_.installed)
   given Ordering[Timer] = Ordering.by(_.installed)
   given Ordering[Heater] = Ordering.by(_.installed)
-  implicit def lifecycleOrdering: Ordering[Lifecycle] = Ordering.by(l => (l.active, l.created))
+  given Ordering[Lifecycle] = Ordering.by(l => (l.active, l.created))
   implicit def cleaningOrdering: Ordering[Cleaning] = Ordering.by(_.on)
   implicit def measurementOrdering: Ordering[Measurement] = Ordering.by(_.on)
   implicit def additiveOrdering: Ordering[Additive] = Ordering.by(_.on)
