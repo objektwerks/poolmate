@@ -2,21 +2,24 @@ package poolmate
 
 import com.typesafe.config.ConfigFactory
 
-import poolmate.Resources._
-
 import scalafx.application.JFXApp3
 
+import slick.basic.DatabaseConfig
+import slick.jdbc.{H2Profile, JdbcProfile}
+
 object App extends JFXApp3 {
-  val config = ConfigFactory.load("repository.conf")
-  val repository = Repository(config)
+  val config = DatabaseConfig.forConfig[JdbcProfile]("test", ConfigFactory.load("repository.conf"))
+  val repository = new Repository(config, H2Profile)
   val model = Model(repository)
-  val view = View(conf, model)
+
+  val resources = ConfigFactory.load("resources.conf")
+  val view = View(resources, model)
 
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
       scene = view.sceneGraph
-      title = conf.getString("title")
-      icons.add(appImage)
+      title = resources.getString("title")
+      icons.add(Resources.appImage)
     }
   }
 
