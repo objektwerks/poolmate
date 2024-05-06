@@ -8,9 +8,6 @@ import scalafx.beans.property.StringProperty
 sealed trait Entity
 
 object Entity {
-  implicit def localTimeOrdering: Ordering[LocalTime] = Ordering.by(_.toSecondOfDay)
-  implicit def localDateOrdering: Ordering[LocalDate] = Ordering.by(_.toEpochDay)
-  implicit def localDateTimeOrdering: Ordering[LocalDateTime] = Ordering.by(_.toEpochSecond(ZoneOffset.UTC))
   implicit def poolOrdering: Ordering[Pool] = Ordering.by(p => (p.zip, p.city))
   implicit def ownerOrdering: Ordering[Owner] = Ordering.by(o => (o.since, o.last))
   implicit def surfaceOrdering: Ordering[Surface] = Ordering.by(_.installed)
