@@ -84,10 +84,10 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
 
   class Pumps(tag: Tag) extends Table[Pump](tag, "pumps") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def poolId = column[Int]("pool_id")
     def installed = column[String]("installed")
     def model = column[String]("model")
     def poolFk = foreignKey("pool_pump_fk", poolId, TableQuery[Pools])(_.id)
-    def poolId = column[Int]("pool_id")
     def * = (id.?, poolId, installed, model).mapTo[Pump]
   }
 
@@ -99,10 +99,10 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
 
   class Timers(tag: Tag) extends Table[Timer](tag, "timers") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def poolId = column[Int]("pool_id")
     def installed = column[String]("installed")
     def model = column[String]("model")
     def poolFk = foreignKey("pool_timer_fk", poolId, TableQuery[Pools])(_.id)
-    def poolId = column[Int]("pool_id")
     def * = (id.?, poolId, installed, model).mapTo[Timer]
   }
 
@@ -114,10 +114,10 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
 
   class Heaters(tag: Tag) extends Table[Heater](tag, "heaters") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def poolId = column[Int]("pool_id")
     def installed = column[String]("installed")
     def model = column[String]("model")
     def poolFk = foreignKey("pool_heater_fk", poolId, TableQuery[Pools])(_.id)
-    def poolId = column[Int]("pool_id")
     def * = (id.?, poolId, installed, model).mapTo[Heater]
   }
 
