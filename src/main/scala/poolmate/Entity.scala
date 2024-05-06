@@ -21,6 +21,8 @@ object Entity:
   given Ordering[Supply] = Ordering.by(_.purchased)
   given Ordering[Repair] = Ordering.by(_.on)
 
+  def toLocalDate(date: String): LocalDate = LocalDate.parse(date)
+
 final case class Pool(id: Int = 0, 
                       built: String = LocalDate.now.toString, 
                       gallons: Int = 10000, 
