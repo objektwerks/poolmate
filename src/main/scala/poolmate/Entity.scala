@@ -164,14 +164,13 @@ final case class Supply(id: Int = 0,
                         item: String = "cl", 
                         unit: String = "gl", 
                         amount: Double = 1.0, 
-                        cost: Double = 0.0) extends Entity {
+                        cost: Double = 0.0) extends Entity:
   val purchasedProperty = new StringProperty(this, "purchased", purchased)
   val itemProperty = new StringProperty(this, "item", item)
   val unitProperty = new StringProperty(this, "unit", unit)
   val amountProperty = new StringProperty(this, "amount", amount.toString)
   val costProperty = new StringProperty(this, "cost", cost.toString)
   val supply = this
-}
 
 final case class Repair(id: Int = 0, 
                         poolId: Int, 
