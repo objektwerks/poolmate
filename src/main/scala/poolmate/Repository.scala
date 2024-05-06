@@ -31,7 +31,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
 
   def dropSchema() = await(DBIO.seq(schema.drop))
 
-  class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
+  class Pools(tag: Tag) extends Table[Pool](tag, "pools"):
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def built = column[String]("built")
     def gallons = column[Int]("gallons")
@@ -40,15 +40,13 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
     def state = column[String]("state")
     def zip = column[Int]("zip")
     def * = (id.?, built, gallons, street, city, state, zip).mapTo[Pool]
-  }
 
-  object pools extends TableQuery(new Pools(_)) {
+  object pools extends TableQuery(new Pools(_)):
     val compiledList = Compiled {
       sortBy(p => (p.zip.asc, p.city.asc))
     }
     def save(pool: Pool) = (this returning this.map(_.id)).insertOrUpdate(pool)
     def list() = compiledList.result
-  }
 
   class Owners(tag: Tag) extends Table[Owner](tag, "owners") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
