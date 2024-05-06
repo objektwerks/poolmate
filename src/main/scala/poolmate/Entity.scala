@@ -28,8 +28,7 @@ final case class Pool(id: Int = 0,
                       city: String = "city", 
                       state: String = "state", 
                       zip: Int = 12345) extends Entity {
-  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-  val builtProperty = new StringProperty(this, "built", built.format(dateFormatter))
+  val builtProperty = new StringProperty(this, "built", built)
   val gallonsProperty = new StringProperty(this, "gallons", gallons.toString)
   val streetProperty = new StringProperty(this, "street", street)
   val cityProperty = new StringProperty(this, "city", city)
@@ -40,12 +39,11 @@ final case class Pool(id: Int = 0,
 
 final case class Owner(id: Int = 0, 
                        poolId: Int, 
-                       since: LocalDate = LocalDate.now, 
+                       since: String = LocalDate.now.toString, 
                        first: String = "first", 
                        last: String = "last", 
                        email: String = "your@email.org") extends Entity {
-  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-  val sinceProperty = new StringProperty(this, "since", since.format(dateFormatter))
+  val sinceProperty = new StringProperty(this, "since", since)
   val firstProperty = new StringProperty(this, "first", first)
   val lastroperty = new StringProperty(this, "last", last)
   val owner = this
