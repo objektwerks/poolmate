@@ -2,7 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.{Additive, App, Resources}
+import poolmate.{Additive, App, Entity, Resources}
 import Dialogs._
 import poolmate.pane.ControlGridPane
 
@@ -13,7 +13,7 @@ import scalafx.scene.layout.Region
 
 class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive] {
   val onDatePicker = new DatePicker {
-    value = additive.on
+    value = Entity.toLocalDate(additive.on)
   }
   val chemicalTextField = new TextField {
     text = additive.chemical
@@ -45,7 +45,7 @@ class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive] 
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      additive.copy(on = onDatePicker.value.value,
+      additive.copy(on = onDatePicker.value.value.toString,
         chemical = chemicalTextField.text.value,
         unit = unitComboBox.selectionModel().getSelectedItem,
         amount = amountTextField.text.value.toDouble)
