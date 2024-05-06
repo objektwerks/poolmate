@@ -177,9 +177,8 @@ final case class Repair(id: Int = 0,
                         poolId: Int, 
                         on: String = LocalDate.now.toString, 
                         item: String = "repair", 
-                        cost: Double = 0.0) extends Entity {
+                        cost: Double = 0.0) extends Entity:
   val onProperty = new StringProperty(this, "on", on)
   val itemProperty = new StringProperty(this, "item", item)
   val costProperty = new StringProperty(this, "cost", cost.toString)
   val repair = this
-}
