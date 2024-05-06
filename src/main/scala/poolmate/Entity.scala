@@ -19,7 +19,7 @@ object Entity:
   given Ordering[Measurement] = Ordering.by(_.on)
   given Ordering[Additive] = Ordering.by(_.on)
   given Ordering[Supply] = Ordering.by(_.purchased)
-  implicit def repairOrdering: Ordering[Repair] = Ordering.by(_.on)
+  given Ordering[Repair] = Ordering.by(_.on)
 
 final case class Pool(id: Int = 0, 
                       built: LocalDate = LocalDate.now, 
