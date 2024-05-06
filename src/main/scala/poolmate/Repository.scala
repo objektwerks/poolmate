@@ -169,7 +169,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
     def save(measurement: Measurement) = (this returning this.map(_.id)).insertOrUpdate(measurement)
     def list(poolId: Int) = compiledList(poolId).result
 
-  class Additives(tag: Tag) extends Table[Additive](tag, "additives") {
+  class Additives(tag: Tag) extends Table[Additive](tag, "additives"):
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolId = column[Int]("pool_id")
     def on = column[String]("on")
@@ -178,13 +178,11 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
     def amount = column[Double]("amount")
     def poolFk = foreignKey("pool_additive_fk", poolId, TableQuery[Pools])(_.id)
     def * = (id.?, poolId, on, chemical, unit, amount).mapTo[Additive]
-  }
 
-  object additives extends TableQuery(new Additives(_)) {
+  object additives extends TableQuery(new Additives(_)):
     val compiledList = Compiled { ( poolId: Rep[Int] ) => filter(_.poolId === poolId).sortBy(_.on.desc) }
     def save(additive: Additive) = (this returning this.map(_.id)).insertOrUpdate(additive)
     def list(poolId: Int) = compiledList(poolId).result
-  }
 
   class Supplies(tag: Tag) extends Table[Supply](tag, "supplies") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
