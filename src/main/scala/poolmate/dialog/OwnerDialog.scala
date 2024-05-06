@@ -2,7 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.{App, Owner}
+import poolmate.{App, Entity, Owner}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -12,7 +12,7 @@ import scalafx.scene.layout.Region
 
 class OwnerDialog(conf: Config, owner: Owner) extends Dialog[Owner] {
   val sinceDatePicker = new DatePicker {
-    value = owner.since
+    value = Entity.toLocalDate(owner.since)
   }
   val firstTextField = new TextField {
     text = owner.first
@@ -43,7 +43,7 @@ class OwnerDialog(conf: Config, owner: Owner) extends Dialog[Owner] {
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      owner.copy(since = sinceDatePicker.value.value,
+      owner.copy(since = sinceDatePicker.value.value.toString,
         first = firstTextField.text.value,
         last = lastTextField.text.value,
         email = emailTextField.text.value)
