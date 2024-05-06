@@ -48,7 +48,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
     def save(pool: Pool) = (this returning this.map(_.id)).insertOrUpdate(pool)
     def list() = compiledList.result
 
-  class Owners(tag: Tag) extends Table[Owner](tag, "owners") {
+  class Owners(tag: Tag) extends Table[Owner](tag, "owners"):
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolId = column[Int]("pool_id")
     def since = column[String]("since")
@@ -57,13 +57,11 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
     def email = column[String]("email")
     def poolFk = foreignKey("pool_owner_fk", poolId, TableQuery[Pools])(_.id)
     def * = (id.?, poolId, since, first, last, email).mapTo[Owner]
-  }
 
-  object owners extends TableQuery(new Owners(_)) {
+  object owners extends TableQuery(new Owners(_)):
     val compiledList = Compiled { ( poolId: Rep[Int] ) => filter(_.poolId === poolId).sortBy(o => (o.since.desc, o.last.asc)) }
     def save(owner: Owner) = (this returning this.map(_.id)).insertOrUpdate(owner)
     def list(poolId: Int) = compiledList(poolId).result
-  }
 
   class Surfaces(tag: Tag) extends Table[Surface](tag, "surfaces") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
