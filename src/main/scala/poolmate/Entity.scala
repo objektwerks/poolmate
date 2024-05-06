@@ -132,7 +132,7 @@ final case class Measurement(id: Int = 0,
                              freeChlorine: Double = 3.0, 
                              pH: Double = 7.5, 
                              alkalinity: Double = 100.0, 
-                             cyanuricAcid: Double = 50.0) extends Entity {
+                             cyanuricAcid: Double = 50.0) extends Entity:
   val onProperty = new StringProperty(this, "on", on)
   val tempProperty = new StringProperty(this, "temp", temp.toString)
   val hardnessProperty = new StringProperty(this, "hardness", hardness.toString)
@@ -143,7 +143,6 @@ final case class Measurement(id: Int = 0,
   val alkalinityProperty = new StringProperty(this, "alkalinity", alkalinity.toString)
   val cyanuricAcidProperty = new StringProperty(this, "cyanuricAcid", cyanuricAcid.toString)
   val measurement = this
-}
 
 final case class Additive(id: Int = 0, 
                           poolId: Int, 
