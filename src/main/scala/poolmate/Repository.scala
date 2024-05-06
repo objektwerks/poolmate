@@ -11,20 +11,6 @@ import slick.jdbc.{H2Profile, JdbcProfile}
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 
-object Repository {
-  def apply(config: Config): Repository = {
-    val conf = DatabaseConfig.forConfig[JdbcProfile]("repository", config)
-    val repository = new Repository(conf, H2Profile)
-    import repository._
-    try {
-      await(pools.list()).length
-    } catch {
-      case _: Throwable => repository.createSchema()
-    }
-    repository
-  }
-}
-
 class Repository(val config: DatabaseConfig[JdbcProfile],
                  val profile: JdbcProfile, 
                  val awaitDuration: Duration = 1 second) {
