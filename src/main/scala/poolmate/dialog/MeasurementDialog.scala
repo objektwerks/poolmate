@@ -4,7 +4,7 @@ import com.typesafe.config.Config
 
 import java.text.DecimalFormat
 
-import poolmate.{App, Measurement}
+import poolmate.{App, Entity, Measurement}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -16,7 +16,7 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
   val doubleFormatter = new DecimalFormat("#.00")
 
   val onDatePicker = new DatePicker {
-    value = measurement.on
+    value = Entity.toLocalDate(measurement.on)
   }
 
   val tempSlider = new Slider {
@@ -129,7 +129,7 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
   // Not usded! Why? val saveButton = dialog.lookupButton(saveButtonType)
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      measurement.copy(on = onDatePicker.value.value,
+      measurement.copy(on = onDatePicker.value.value.toString,
         temp = tempSlider.value.get,
         hardness = hardnessSlider.value.get,
         totalChlorine = totalChlorineSlider.value.get,
