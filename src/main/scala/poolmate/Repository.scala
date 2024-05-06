@@ -200,7 +200,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
     def save(supply: Supply) = (this returning this.map(_.id)).insertOrUpdate(supply)
     def list(poolId: Int) = compiledList(poolId).result
 
-  class Repairs(tag: Tag) extends Table[Repair](tag, "repairs") {
+  class Repairs(tag: Tag) extends Table[Repair](tag, "repairs"):
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolId = column[Int]("pool_id")
     def on = column[String]("on")
@@ -208,10 +208,8 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
     def cost = column[Double]("cost")
     def poolFk = foreignKey("pool_repair_fk", poolId, TableQuery[Pools])(_.id)
     def * = (id.?, poolId, on, item, cost).mapTo[Repair]
-  }
 
-  object repairs extends TableQuery(new Repairs(_)) {
+  object repairs extends TableQuery(new Repairs(_)):
     val compiledList = Compiled { ( poolId: Rep[Int] ) => filter(_.poolId === poolId).sortBy(_.on.desc) }
     def save(repair: Repair) = (this returning this.map(_.id)).insertOrUpdate(repair)
     def list(poolId: Int) = compiledList(poolId).result
-  }
