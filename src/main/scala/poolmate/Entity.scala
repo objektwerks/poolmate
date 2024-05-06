@@ -147,12 +147,11 @@ final case class Measurement(id: Int = 0,
 
 final case class Additive(id: Int = 0, 
                           poolId: Int, 
-                          on: LocalDate = LocalDate.now, 
+                          on: String = LocalDate.now.toString, 
                           chemical: String = "cl", 
                           unit: String = "gl", 
                           amount: Double = 1.0) extends Entity {
-  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-  val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
+  val onProperty = new StringProperty(this, "on", on)
   val chemicalProperty = new StringProperty(this, "chemical", chemical)
   val unitProperty = new StringProperty(this, "unit", unit)
   val amountProperty = new StringProperty(this, "amount", amount.toString)
