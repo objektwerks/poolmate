@@ -2,7 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.{App, Cleaning}
+import poolmate.{App, Cleaning, Entity}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -12,7 +12,7 @@ import scalafx.scene.layout.Region
 
 class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning] {
   val onDatePicker = new DatePicker {
-    value = cleaning.on
+    value = Entity.toLocalDate(cleaning.on)
   }
   val deckCheckBox = new CheckBox {
     selected = cleaning.deck
@@ -56,7 +56,7 @@ class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning] 
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      cleaning.copy(on = onDatePicker.value.value,
+      cleaning.copy(on = onDatePicker.value.value.toString,
         deck = deckCheckBox.selected.value,
         brush = deckCheckBox.selected.value,
         net = netCheckBox.selected.value,
