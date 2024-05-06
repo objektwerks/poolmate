@@ -30,7 +30,7 @@ final case class Pool(id: Int = 0,
                       street: String = "street", 
                       city: String = "city", 
                       state: String = "state", 
-                      zip: Int = 12345) extends Entity {
+                      zip: Int = 12345) extends Entity:
   val builtProperty = new StringProperty(this, "built", built)
   val gallonsProperty = new StringProperty(this, "gallons", gallons.toString)
   val streetProperty = new StringProperty(this, "street", street)
@@ -38,7 +38,6 @@ final case class Pool(id: Int = 0,
   val stateProperty = new StringProperty(this, "state", state)
   val zipProperty = new StringProperty(this, "zip", zip.toString)
   val pool = this
-}
 
 final case class Owner(id: Int = 0, 
                        poolId: Int, 
