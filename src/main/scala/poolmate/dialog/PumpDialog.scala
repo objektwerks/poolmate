@@ -2,7 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.{App, Pump}
+import poolmate.{App, Entity, Pump}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -12,7 +12,7 @@ import scalafx.scene.layout.Region
 
 class PumpDialog(conf: Config, pump: Pump) extends Dialog[Pump] {
   val installedDatePicker = new DatePicker {
-    value = pump.installed
+    value = Entity.toLocalDate(pump.installed)
   }
   val modelTextField = new TextField {
     text = pump.model
@@ -33,7 +33,10 @@ class PumpDialog(conf: Config, pump: Pump) extends Dialog[Pump] {
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      pump.copy(installed = installedDatePicker.value.value, model = modelTextField.text.value)
+      pump.copy(
+        installed = installedDatePicker.value.value.toString,
+        model = modelTextField.text.value
+      )
     else null
   }
 
