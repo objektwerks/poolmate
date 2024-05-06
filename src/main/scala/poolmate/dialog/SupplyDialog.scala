@@ -2,7 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.{App, Resources, Supply}
+import poolmate.{App, Entity, Resources, Supply}
 import Dialogs._
 import poolmate.pane.ControlGridPane
 
@@ -13,7 +13,7 @@ import scalafx.scene.layout.Region
 
 class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply] {
   val purchasedDatePicker = new DatePicker {
-    value = supply.purchased
+    value = Entity.toLocalDate(supply.purchased)
   }
   val itemTextField = new TextField {
     text = supply.item
@@ -49,11 +49,13 @@ class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply] {
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      supply.copy(purchased = purchasedDatePicker.value.value,
+      supply.copy(
+        purchased = purchasedDatePicker.value.value.toString,
         item = itemTextField.text.value,
         unit = unitComboBox.selectionModel().getSelectedItem,
         amount = amountTextField.text.value.toDouble,
-        cost = costTextField.text.value.toDouble)
+        cost = costTextField.text.value.toDouble
+      )
     else null
   }
 
