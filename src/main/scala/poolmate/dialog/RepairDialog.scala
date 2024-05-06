@@ -2,7 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.{App, Repair}
+import poolmate.{App, Entity, Repair}
 import Dialogs._
 import poolmate.pane.ControlGridPane
 
@@ -13,7 +13,7 @@ import scalafx.scene.layout.Region
 
 class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair] {
   val onDatePicker = new DatePicker {
-    value = repair.on
+    value = Entity.toLocalDate(repair.on)
   }
   val itemTextField = new TextField {
     text = repair.item
@@ -39,7 +39,7 @@ class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair] {
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      repair.copy(on = onDatePicker.value.value,
+      repair.copy(on = onDatePicker.value.value.toString,
         item = itemTextField.text.value,
         cost = costTextField.text.value.toDouble)
     else null
