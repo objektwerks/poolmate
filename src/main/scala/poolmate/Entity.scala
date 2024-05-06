@@ -60,10 +60,9 @@ final case class Surface(id: Int = 0,
 
 final case class Pump(id: Int = 0, 
                       poolId: Int, 
-                      installed: LocalDate = LocalDate.now, 
+                      installed: String = LocalDate.now.toString, 
                       model: String = "model") extends Entity {
-  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-  val installedProperty = new StringProperty(this, "installed", installed.format(dateFormatter))
+  val installedProperty = new StringProperty(this, "installed", installed)
   val modelProperty = new StringProperty(this, "model", model)
   val pump = this
 }
