@@ -150,13 +150,12 @@ final case class Additive(id: Int = 0,
                           on: String = LocalDate.now.toString, 
                           chemical: String = "cl", 
                           unit: String = "gl", 
-                          amount: Double = 1.0) extends Entity {
+                          amount: Double = 1.0) extends Entity:
   val onProperty = new StringProperty(this, "on", on)
   val chemicalProperty = new StringProperty(this, "chemical", chemical)
   val unitProperty = new StringProperty(this, "unit", unit)
   val amountProperty = new StringProperty(this, "amount", amount.toString)
   val additive = this
-}
 
 final case class Supply(id: Int = 0, 
                         poolId: Int, 
