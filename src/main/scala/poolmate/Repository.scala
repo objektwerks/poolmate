@@ -205,18 +205,19 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
   }
 
   class Supplies(tag: Tag) extends Table[Supply](tag, "supplies") {
-    def * = (id, poolId, purchased, item, unit, amount, cost).<>(Supply.tupled, Supply.unapply)
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def poolId = column[Int]("pool_id")
-    def purchased = column[LocalDate]("purchased")
+    def purchased = column[String]("purchased")
     def item = column[String]("item")
     def unit = column[String]("unit")
     def amount = column[Double]("amount")
     def cost = column[Double]("cost")
     def poolFk = foreignKey("pool_supply_fk", poolId, TableQuery[Pools])(_.id)
+    def * = (id.?, poolId, purchased, item, unit, amount, cost).mapTo[Supply]
   }
+
   object supplies extends TableQuery(new Supplies(_)) {
-    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(_.purchased.desc) }
+    val compiledList = Compiled { ( poolId: Rep[Int] ) => filter(_.poolId === poolId).sortBy(_.purchased.desc) }
     def save(supply: Supply) = (this returning this.map(_.id)).insertOrUpdate(supply)
     def list(poolId: Int) = compiledList(poolId).result
   }
