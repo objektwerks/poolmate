@@ -128,17 +128,18 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
   }
 
   class Lifecycles(tag: Tag) extends Table[Lifecycle](tag, "lifecycles") {
-    def * = (id, poolId, created, active, pumpOn, pumpOff).<>(Lifecycle.tupled, Lifecycle.unapply)
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-    def created = column[LocalDate]("created")
-    def active = column[Boolean]("active")
-    def pumpOn = column[LocalTime]("pump_on")
-    def pumpOff = column[LocalTime]("pump_off")
-    def poolFk = foreignKey("pool_lifecycle_fk", poolId, TableQuery[Pools])(_.id)
     def poolId = column[Int]("pool_id")
+    def created = column[String]("created")
+    def active = column[Boolean]("active")
+    def pumpOn = column[String]("pump_on")
+    def pumpOff = column[String]("pump_off")
+    def poolFk = foreignKey("pool_lifecycle_fk", poolId, TableQuery[Pools])(_.id)
+    def * = (id.?, poolId, created, active, pumpOn, pumpOff).mapTo[Lifecycle]
   }
+
   object lifecycles extends TableQuery(new Lifecycles(_)) {
-    val compiledList = Compiled { poolId: Rep[Int] => filter(_.poolId === poolId).sortBy(l => (l.active.asc, l.created.desc)) }
+    val compiledList = Compiled { ( poolId: Rep[Int] ) => filter(_.poolId === poolId).sortBy(l => (l.active.asc, l.created.desc)) }
     def save(lifecycle: Lifecycle) = (this returning this.map(_.id)).insertOrUpdate(lifecycle)
     def list(poolId: Int) = compiledList(poolId).result
   }
