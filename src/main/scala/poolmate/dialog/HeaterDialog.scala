@@ -2,7 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.{App, Heater}
+import poolmate.{App, Entity, Heater}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -12,7 +12,7 @@ import scalafx.scene.layout.Region
 
 class HeaterDialog(conf: Config, heater: Heater) extends Dialog[Heater] {
   val installedDatePicker = new DatePicker {
-    value = heater.installed
+    value = Entity.toLocalDate(heater.installed)
   }
   val modelTextField = new TextField {
     text = heater.model
@@ -33,7 +33,10 @@ class HeaterDialog(conf: Config, heater: Heater) extends Dialog[Heater] {
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      heater.copy(installed = installedDatePicker.value.value, model = modelTextField.text.value)
+      heater.copy(
+        installed = installedDatePicker.value.value.toString,
+        model = modelTextField.text.value
+      )
     else null
   }
 
