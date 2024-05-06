@@ -4,9 +4,13 @@ import com.typesafe.config.ConfigFactory
 
 import org.scalatest.funsuite.AnyFunSuite
 
+import slick.basic.DatabaseConfig
+import slick.jdbc.{H2Profile, JdbcProfile}
+
 final class RepositoryTest extends AnyFunSuite:
   test("repository"):
-    val config = ConfigFactory.load("test.conf")
-    val repository = Repository(config)
-    repository.schema.createStatements foreach println
+    val config = DatabaseConfig.forConfig[JdbcProfile]("test", ConfigFactory.load("test.conf"))
+    val repository = new Repository(config, H2Profile)
+    repository.createSchema()
+    repository.dropSchema()
     repository.close()
