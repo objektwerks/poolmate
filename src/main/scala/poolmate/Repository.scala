@@ -7,6 +7,7 @@ import com.typesafe.config.Config
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
+import scala.language.postfixOps
 
 import slick.basic.DatabaseConfig
 import slick.jdbc.{H2Profile, JdbcProfile}
@@ -27,7 +28,7 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
   def close() = db.close()
 
   def createSchema() = await(DBIO.seq(schema.create))
-  
+
   def dropSchema() = await(DBIO.seq(schema.drop))
 
   class Pools(tag: Tag) extends Table[Pool](tag, "pools") {
