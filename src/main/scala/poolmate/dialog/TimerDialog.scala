@@ -2,7 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.{App, Timer}
+import poolmate.{App, Entity, Timer}
 import poolmate.pane.ControlGridPane
 
 import scalafx.Includes._
@@ -12,7 +12,7 @@ import scalafx.scene.layout.Region
 
 class TimerDialog(conf: Config, timer: Timer) extends Dialog[Timer] {
   val installedDatePicker = new DatePicker {
-    value = timer.installed
+    value = Entity.toLocalDate(timer.installed)
   }
   val modelTextField = new TextField {
     text = timer.model
@@ -33,7 +33,10 @@ class TimerDialog(conf: Config, timer: Timer) extends Dialog[Timer] {
 
   resultConverter = dialogButton => {
     if (dialogButton == saveButtonType)
-      timer.copy(installed = installedDatePicker.value.value, model = modelTextField.text.value)
+      timer.copy(
+        installed = installedDatePicker.value.value.toString,
+        model = modelTextField.text.value
+      )
     else null
   }
 
