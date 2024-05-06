@@ -103,7 +103,7 @@ final case class Lifecycle(id: Int = 0,
 
 final case class Cleaning(id: Int = 0, 
                           poolId: Int, 
-                          on: LocalDate = LocalDate.now, 
+                          on: String = LocalDate.now.toString, 
                           deck: Boolean = true, 
                           brush: Boolean = true, 
                           net: Boolean = true,
@@ -111,8 +111,7 @@ final case class Cleaning(id: Int = 0,
                           skimmerBasket: Boolean = true, 
                           pumpBasket: Boolean = false, 
                           pumpFilter: Boolean = false) extends Entity {
-  val dateFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-  val onProperty = new StringProperty(this, "on", on.format(dateFormatter))
+  val onProperty = new StringProperty(this, "on", on)
   val deckProperty = new StringProperty(this, "deck", deck.toString)
   val brushProperty = new StringProperty(this, "brush", brush.toString)
   val netProperty = new StringProperty(this, "net", net.toString)
