@@ -7,7 +7,7 @@ import scalafx.scene.image.{Image, ImageView}
 
 import scala.jdk.CollectionConverters.*
 
-object Resources {
+object Resources:
   val conf = ConfigFactory.load("resources.conf")
   def units = ObservableBuffer[String]( conf.getStringList("units").asScala.toSeq * )
   def appImage = new Image(Resources.getClass.getResourceAsStream("/images/pool.png"))
@@ -16,11 +16,9 @@ object Resources {
   def barChartImageView = loadImageView("/images/bar.chart.png")
   def lineChartImageView = loadImageView("/images/line.chart.png")
 
-  def loadImageView(path: String): ImageView = new ImageView {
+  def loadImageView(path: String): ImageView = new ImageView:
     image = new Image(Resources.getClass.getResourceAsStream(path))
     fitHeight = 25
     fitWidth = 25
     preserveRatio = true
     smooth = true
-  }
-}
