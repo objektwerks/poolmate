@@ -1,7 +1,6 @@
 package poolmate
 
-import java.time.format.DateTimeFormatter
-import java.time.{LocalDate, LocalDateTime, LocalTime, ZoneOffset}
+import java.time.{LocalDate, LocalTime}
 
 import scalafx.beans.property.StringProperty
 
