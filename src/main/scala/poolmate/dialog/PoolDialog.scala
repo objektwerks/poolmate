@@ -7,7 +7,7 @@ import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-import Dialogs._
+import Dialogs.*
 import poolmate.{App, Entity, Pool}
 import poolmate.pane.ControlGridPane
 
