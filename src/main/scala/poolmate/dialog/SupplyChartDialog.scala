@@ -4,13 +4,13 @@ import com.typesafe.config.Config
 
 import java.time.format.DateTimeFormatter
 
-import poolmate.{App, Model}
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.chart.{BarChart, CategoryAxis, NumberAxis, XYChart}
 import scalafx.scene.control.{ButtonType, Dialog}
 import scalafx.scene.layout.VBox
+
+import poolmate.{App, Model}
 
 class SupplyChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
   val supplies = model.supplyList
@@ -22,7 +22,7 @@ class SupplyChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
   xAxis.label = conf.getString("supply-chart-supplies")
 
   val yAxis = NumberAxis(axisLabel = conf.getString("supply-chart-costs"), lowerBound = 0.0, upperBound = 1000.00, tickUnit = 100.00)
-  
+
   val chart = BarChart[String, Number](xAxis, yAxis)
   chart.categoryGap = 25.0
   chart.padding = Insets(6)
