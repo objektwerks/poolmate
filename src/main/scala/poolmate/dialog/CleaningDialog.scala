@@ -2,39 +2,39 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
+import scalafx.Includes.*
+import scalafx.scene.control.ButtonBar.ButtonData
+import scalafx.scene.control.{ButtonType, CheckBox, Dialog, DatePicker}
+import scalafx.scene.layout.Region
+
 import poolmate.{App, Cleaning, Entity}
 import poolmate.pane.ControlGridPane
 
-import scalafx.Includes._
-import scalafx.scene.control.ButtonBar.ButtonData
-import scalafx.scene.control._
-import scalafx.scene.layout.Region
-
-class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning] {
-  val onDatePicker = new DatePicker {
+class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning]:
+  val onDatePicker = new DatePicker:
     value = Entity.toLocalDate(cleaning.on)
-  }
-  val deckCheckBox = new CheckBox {
+
+  val deckCheckBox = new CheckBox:
     selected = cleaning.deck
-  }
-  val brushCheckBox = new CheckBox {
+
+  val brushCheckBox = new CheckBox:
     selected = cleaning.brush
-  }
-  val netCheckBox = new CheckBox {
+
+  val netCheckBox = new CheckBox:
     selected = cleaning.net
-  }
-  val vacuumCheckBox = new CheckBox {
+
+  val vacuumCheckBox = new CheckBox:
     selected = cleaning.vacuum
-  }
-  val skimmerBasketCheckBox = new CheckBox {
+
+  val skimmerBasketCheckBox = new CheckBox:
     selected = cleaning.skimmerBasket
-  }
-  val pumpBasketCheckBox = new CheckBox {
+
+  val pumpBasketCheckBox = new CheckBox:
     selected = cleaning.pumpBasket
-  }
-  val pumpFilterCheckBox = new CheckBox {
+
+  val pumpFilterCheckBox = new CheckBox:
     selected = cleaning.pumpFilter
-  }
+
   val controls = List[(String, Region)](
     conf.getString("cleaning-on") -> onDatePicker,
     conf.getString("cleaning-deck") -> deckCheckBox,
@@ -45,7 +45,7 @@ class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning] 
     conf.getString("cleaning-pump-basket") -> pumpBasketCheckBox,
     conf.getString("cleaning-pump-filter") -> pumpFilterCheckBox
   )
-  val controlGridPane = new ControlGridPane(controls)
+  val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
@@ -54,8 +54,8 @@ class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning] 
 
   // Not used! Why? val saveButton = dialog.lookupButton(saveButtonType)
 
-  resultConverter = dialogButton => {
-    if (dialogButton == saveButtonType)
+  resultConverter = dialogButton =>
+    if (dialogButton == saveButtonType) then
       cleaning.copy(on = onDatePicker.value.value.toString,
         deck = deckCheckBox.selected.value,
         brush = deckCheckBox.selected.value,
@@ -65,9 +65,7 @@ class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning] 
         pumpBasket = pumpBasketCheckBox.selected.value,
         pumpFilter = pumpFilterCheckBox.selected.value)
     else null
-  }
 
   initOwner(App.stage)
   title = conf.getString("title")
   headerText = conf.getString("save-cleaning") 
-}
