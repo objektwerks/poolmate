@@ -85,7 +85,7 @@ class AdditivePane(conf: Config, model: Model) extends VBox:
   additiveChartButton.onAction = { _ => AdditiveChartDialog(conf, model).showAndWait() }
 
   def add(): Unit =
-    new AdditiveDialog(conf, Additive(poolId = model.selectedPoolId.toInt)).showAndWait() match
+    AdditiveDialog(conf, Additive(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Additive(id, poolId, on, chemical, unit, amount)) =>
         val newAdditive = model.addAdditive(Additive(id, poolId, on, chemical, unit, amount))
         additiveTableView.selectionModel().select(newAdditive)
