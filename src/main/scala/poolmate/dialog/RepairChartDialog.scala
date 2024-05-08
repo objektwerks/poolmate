@@ -4,17 +4,17 @@ import com.typesafe.config.Config
 
 import java.time.format.DateTimeFormatter
 
-import poolmate.{App, Model}
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.chart.{LineChart, NumberAxis, XYChart}
 import scalafx.scene.control.{ButtonType, Dialog}
 import scalafx.scene.layout.VBox
 
+import poolmate.{App, Model}
+
 class RepairChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
   val repairs = model.repairList
-  
+
   val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
   val minDate = repairs.map(a => a.on).min.format(dateFormatter).toDouble
   val maxDate = repairs.map(a => a.on).max.format(dateFormatter).toDouble
