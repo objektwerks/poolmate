@@ -2,26 +2,26 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import poolmate.{App, Entity, Timer}
-import poolmate.pane.ControlGridPane
-
-import scalafx.Includes._
+import scalafx.Includes.*
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-class TimerDialog(conf: Config, timer: Timer) extends Dialog[Timer] {
-  val installedDatePicker = new DatePicker {
+import poolmate.{App, Entity, Timer}
+import poolmate.pane.ControlGridPane
+
+class TimerDialog(conf: Config, timer: Timer) extends Dialog[Timer]:
+  val installedDatePicker = new DatePicker:
     value = Entity.toLocalDate(timer.installed)
-  }
-  val modelTextField = new TextField {
+
+  val modelTextField = new TextField:
     text = timer.model
-  }
+
   val controls = List[(String, Region)](
     conf.getString("timer-installed") -> installedDatePicker,
     conf.getString("timer-model") -> modelTextField
   )
-  val controlGridPane = new ControlGridPane(controls)
+  val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
   val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
@@ -31,16 +31,14 @@ class TimerDialog(conf: Config, timer: Timer) extends Dialog[Timer] {
   val saveButton = dialog.lookupButton(saveButtonType)
   modelTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
 
-  resultConverter = dialogButton => {
-    if (dialogButton == saveButtonType)
+  resultConverter = dialogButton =>
+    if (dialogButton == saveButtonType) then
       timer.copy(
         installed = installedDatePicker.value.value.toString,
         model = modelTextField.text.value
       )
     else null
-  }
 
   initOwner(App.stage)
   title = conf.getString("title")
   headerText = conf.getString("save-timer")
-}
