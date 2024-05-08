@@ -38,7 +38,7 @@ class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive]:
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
-  amountTextField.text.onChange { (_, oldValue, newValue) => if (isNotNumeric(newValue)) amountTextField.text.value = oldValue }
+  amountTextField.text.onChange { (_, oldValue, newValue) => if (isNotNumeric(newValue)) then amountTextField.text.value = oldValue }
 
   val saveButton = dialog.lookupButton(saveButtonType)
   chemicalTextField.text.onChange { (_, _, newValue) => saveButton.disable = newValue.trim.isEmpty }
