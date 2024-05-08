@@ -16,7 +16,7 @@ import poolmate.{App, Measurement, Model}
 
 class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
   val measurements = model.measurementList
-  
+
   val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
   val minDate = measurements.map(m => m.on).min.format(dateFormatter).toDouble
   val maxDate = measurements.map(m => m.on).max.format(dateFormatter).toDouble
@@ -86,7 +86,7 @@ class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
   title = conf.getString("measurement-chart")
   headerText = conf.getString("measurement-charts")
 
-object MeasurementCharts {
+object MeasurementCharts:
   val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
   val doubleFormatter = new DecimalFormat("#.00")
 
@@ -96,19 +96,18 @@ object MeasurementCharts {
                      yLabel: String, 
                      yLowerBound: Double = 0, 
                      yUpperBound: Double, 
-                     yTickUnit: Double): (LineChart[Number, Number], XYChart.Series[Number, Number]) = {
+                     yTickUnit: Double): (LineChart[Number, Number], XYChart.Series[Number, Number]) =
     val xAxis = NumberAxis(axisLabel = s"${conf.getString("measurement-chart-year-day")} [$minDate - $maxDate]", lowerBound = minDate, upperBound = maxDate, tickUnit = 1)
     val yAxis = NumberAxis(axisLabel = yLabel, lowerBound = yLowerBound, upperBound = yUpperBound, tickUnit = yTickUnit)
     val chart = LineChart[Number, Number](xAxis, yAxis)
     val series = new XYChart.Series[Number, Number]()
     chart.padding = Insets(6)
     (chart, series)
-  }
 
   def buildTempLineChart(conf: Config,
                          measurements: ObservableBuffer[Measurement], 
                          minDate: Double, 
-                         maxDate: Double): LineChart[Number, Number] = {
+                         maxDate: Double): LineChart[Number, Number] =
     val (chart, series) = buildLineChart(conf,
                                          minDate, 
                                          maxDate, 
@@ -124,12 +123,11 @@ object MeasurementCharts {
     val avg = measurements.map(m => m.temp).sum / measurements.length
     series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
-  }
 
   def buildHardnessLineChart(conf: Config, 
                              measurements: ObservableBuffer[Measurement], 
                              minDate: Double, 
-                             maxDate: Double): LineChart[Number, Number] = {
+                             maxDate: Double): LineChart[Number, Number] =
     val (chart, series) = buildLineChart(conf, 
                                          minDate, 
                                          maxDate, 
@@ -145,12 +143,11 @@ object MeasurementCharts {
     val avg = measurements.map(m => m.hardness).sum / measurements.length
     series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
-  }
 
   def buildTotalChlorineLineChart(conf: Config, 
                                   measurements: ObservableBuffer[Measurement], 
                                   minDate: Double, 
-                                  maxDate: Double): LineChart[Number, Number] = {
+                                  maxDate: Double): LineChart[Number, Number] =
     val (chart, series) = buildLineChart(conf, 
                                          minDate, 
                                          maxDate, 
@@ -166,12 +163,11 @@ object MeasurementCharts {
     val avg = measurements.map(m => m.totalChlorine).sum / measurements.length
     series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
-  }
 
   def buildBromineLineChart(conf: Config, 
                             measurements: ObservableBuffer[Measurement], 
                             minDate: Double, 
-                            maxDate: Double): LineChart[Number, Number] = {
+                            maxDate: Double): LineChart[Number, Number] =
     val (chart, series) = buildLineChart(conf, 
                                          minDate, 
                                          maxDate, 
@@ -187,12 +183,11 @@ object MeasurementCharts {
     val avg = measurements.map(m => m.bromine).sum / measurements.length
     series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
-  }
 
   def buildFreeChlorineLineChart(conf: Config, 
                                  measurements: ObservableBuffer[Measurement], 
                                  minDate: Double, 
-                                 maxDate: Double): LineChart[Number, Number] = {
+                                 maxDate: Double): LineChart[Number, Number] =
     val (chart, series) = buildLineChart(conf, 
                                          minDate, 
                                          maxDate, 
@@ -208,12 +203,11 @@ object MeasurementCharts {
     val avg = measurements.map(m => m.freeChlorine).sum / measurements.length
     series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
-  }
 
   def buildPhLineChart(conf: Config, 
                        measurements: ObservableBuffer[Measurement], 
                        minDate: Double, 
-                       maxDate: Double): LineChart[Number, Number] = {
+                       maxDate: Double): LineChart[Number, Number] =
     val (chart, series) = buildLineChart(conf, 
                                          minDate, 
                                          maxDate, 
@@ -230,12 +224,11 @@ object MeasurementCharts {
     val avg = doubleFormatter.format(measurements.map(m => m.pH).sum / measurements.length)
     series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
-  }
 
   def buildAlkalinityLineChart(conf: Config, 
                                measurements: ObservableBuffer[Measurement], 
                                minDate: Double, 
-                               maxDate: Double): LineChart[Number, Number] = {
+                               maxDate: Double): LineChart[Number, Number] =
     val (chart, series) = buildLineChart(conf, 
                                          minDate, 
                                          maxDate, 
@@ -251,12 +244,11 @@ object MeasurementCharts {
     val avg = measurements.map(m => m.alkalinity).sum / measurements.length
     series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
-  }
 
   def buildCyanuricAcidLineChart(conf: Config, 
                                  measurements: ObservableBuffer[Measurement], 
                                  minDate: Double, 
-                                 maxDate: Double): LineChart[Number, Number] = {
+                                 maxDate: Double): LineChart[Number, Number] =
     val (chart, series) = buildLineChart(conf, 
                                          minDate, 
                                          maxDate, 
@@ -272,5 +264,3 @@ object MeasurementCharts {
     val avg = measurements.map(m => m.cyanuricAcid).sum / measurements.length
     series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
     chart
-  }
-}
