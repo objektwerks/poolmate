@@ -2,7 +2,7 @@ package poolmate.dialog
 
 import com.typesafe.config.Config
 
-import scalafx.Includes._
+import scalafx.Includes.*
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
