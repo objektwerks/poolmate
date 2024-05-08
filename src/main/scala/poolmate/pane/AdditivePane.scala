@@ -4,8 +4,7 @@ import com.typesafe.config.Config
 
 import scalafx.Includes.*
 import scalafx.geometry.Insets
-import scalafx.scene.control.TableColumn._
-import scalafx.scene.control._
+import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
 import poolmate.{Additive, Model}
