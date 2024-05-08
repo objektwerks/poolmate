@@ -5,77 +5,86 @@ import com.typesafe.config.Config
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
-import poolmate.{App, Measurement, Model}
-
-import scalafx.Includes._
+import scalafx.Includes.*
 import scalafx.collections.ObservableBuffer
 import scalafx.geometry.Insets
 import scalafx.scene.chart.{LineChart, NumberAxis, XYChart}
 import scalafx.scene.control.{ButtonType, Dialog, Tab, TabPane}
 import scalafx.scene.layout.VBox
 
-class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit] {
+import poolmate.{App, Measurement, Model}
+
+class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
   val measurements = model.measurementList
+  
   val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
   val minDate = measurements.map(m => m.on).min.format(dateFormatter).toDouble
   val maxDate = measurements.map(m => m.on).max.format(dateFormatter).toDouble
 
-  import MeasurementCharts._
+  import MeasurementCharts.*
 
   val tempLineChart = buildTempLineChart(conf, measurements, minDate, maxDate)
-  val tempTab = new Tab {
-    text = conf.getString("measurement-chart-temp"); closable = false; content = tempLineChart
-  }
+  val tempTab = new Tab:
+    text = conf.getString("measurement-chart-temp")
+    closable = false
+    content = tempLineChart
 
   val hardnessLineChart = buildHardnessLineChart(conf, measurements, minDate, maxDate)
-  val hardnessTab = new Tab {
-    text = conf.getString("measurement-chart-hardness"); closable = false; content = hardnessLineChart
-  }
+  val hardnessTab = new Tab:
+    text = conf.getString("measurement-chart-hardness")
+    closable = false
+    content = hardnessLineChart
 
   val totalChlorineLineChart = buildTotalChlorineLineChart(conf, measurements, minDate, maxDate)
-  val totalChlorineTab = new Tab {
-    text = conf.getString("measurement-chart-total-chlorine"); closable = false; content = totalChlorineLineChart
-  }
+  val totalChlorineTab = new Tab:
+    text = conf.getString("measurement-chart-total-chlorine")
+    closable = false
+    content = totalChlorineLineChart
 
   val bromineLineChart = buildBromineLineChart(conf, measurements, minDate, maxDate)
-  val bromineTab = new Tab {
-    text = conf.getString("measurement-chart-bromine"); closable = false; content = bromineLineChart
-  }
+  val bromineTab = new Tab:
+    text = conf.getString("measurement-chart-bromine")
+    closable = false
+    content = bromineLineChart
 
   val freeChlorineLineChart = buildFreeChlorineLineChart(conf, measurements, minDate, maxDate)
-  val freeChlorineTab = new Tab {
-    text = conf.getString("measurement-chart-free-chlorine"); closable = false; content = freeChlorineLineChart
-  }
+  val freeChlorineTab = new Tab:
+    text = conf.getString("measurement-chart-free-chlorine")
+    closable = false
+    content = freeChlorineLineChart
 
   val phLineChart = buildPhLineChart(conf, measurements, minDate, maxDate)
-  val phTab = new Tab {
-    text = conf.getString("measurement-chart-ph"); closable = false; content = phLineChart
-  }
+  val phTab = new Tab:
+    text = conf.getString("measurement-chart-ph")
+    closable = false
+    content = phLineChart
 
   val alkalinityLineChart = buildAlkalinityLineChart(conf, measurements, minDate, maxDate)
-  val alkalinityTab = new Tab {
-    text = conf.getString("measurement-chart-alkalinity"); closable = false; content = alkalinityLineChart
-  }
+  val alkalinityTab = new Tab:
+    text = conf.getString("measurement-chart-alkalinity")
+    closable = false
+    content = alkalinityLineChart
 
   val cyanuricAcidLineChart = buildCyanuricAcidLineChart(conf, measurements, minDate, maxDate)
-  val cyanuricAcidTab = new Tab {
-    text = conf.getString("measurement-chart-cyanuric-acid"); closable = false; content = cyanuricAcidLineChart
-  }
+  val cyanuricAcidTab = new Tab:
+    text = conf.getString("measurement-chart-cyanuric-acid")
+    closable = false
+    content = cyanuricAcidLineChart
 
-  val chartsTabPane = new TabPane {
-    padding = Insets(6); tabs = Seq(tempTab, hardnessTab, totalChlorineTab, bromineTab, freeChlorineTab, phTab, alkalinityTab, cyanuricAcidTab)
-  }
+  val chartsTabPane = new TabPane:
+    padding = Insets(6)
+    tabs = Seq(tempTab, hardnessTab, totalChlorineTab, bromineTab, freeChlorineTab, phTab, alkalinityTab, cyanuricAcidTab)
 
   val dialog = dialogPane()
   dialog.buttonTypes = List(ButtonType.Close)
-  dialog.content = new VBox {
-    spacing = 6; padding = Insets(6); children = List(chartsTabPane)
-  }
+  dialog.content = new VBox:
+    spacing = 6
+    padding = Insets(6)
+    children = List(chartsTabPane)
 
   initOwner(App.stage)
   title = conf.getString("measurement-chart")
   headerText = conf.getString("measurement-charts")
-}
 
 object MeasurementCharts {
   val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
