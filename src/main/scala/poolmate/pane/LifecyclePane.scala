@@ -81,7 +81,9 @@ class LifecyclePane(conf: Config, model: Model) extends VBox:
   def add(): Unit =
     LifecycleDialog(conf, Lifecycle(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Lifecycle(id, poolId, created, active, pumpOn, pumpOff)) =>
-        val newLifecycle = model.addLifecycle(Lifecycle(id, poolId, created, active, pumpOn, pumpOff))
+        val newLifecycle = model.addLifecycle(
+          Lifecycle(id, poolId, created, active, pumpOn, pumpOff)
+        )
         lifecycleTableView.selectionModel().select(newLifecycle)
       case _ =>
 
@@ -90,6 +92,9 @@ class LifecyclePane(conf: Config, model: Model) extends VBox:
     val lifecycle = lifecycleTableView.selectionModel().getSelectedItem.lifecycle
     LifecycleDialog(conf, lifecycle).showAndWait() match
       case Some(Lifecycle(id, poolId, created, active, pumpOn, pumpOff)) =>
-        model.updateLifecycle(selectedIndex, Lifecycle(id, poolId, created, active, pumpOn, pumpOff))
+        model.updateLifecycle(
+          selectedIndex,
+          Lifecycle(id, poolId, created, active, pumpOn, pumpOff)
+        )
         lifecycleTableView.selectionModel().select(selectedIndex)
       case _ =>
