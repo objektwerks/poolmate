@@ -70,7 +70,9 @@ class SurfacePane(conf: Config, model: Model) extends VBox:
   def add(): Unit =
     SurfaceDialog(conf, Surface(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Surface(id, poolId, installed, kind)) =>
-        val newSurface = model.addSurface(Surface(id, poolId, installed, kind))
+        val newSurface = model.addSurface(
+          Surface(id, poolId, installed, kind)
+        )
         surfaceTableView.selectionModel().select(newSurface)
       case _ =>
 
@@ -79,6 +81,9 @@ class SurfacePane(conf: Config, model: Model) extends VBox:
     val surface = surfaceTableView.selectionModel().getSelectedItem.surface
     SurfaceDialog(conf, surface).showAndWait() match
       case Some(Surface(id, poolId, installed, kind)) =>
-        model.updateSurface(selectedIndex, Surface(id, poolId, installed, kind))
+        model.updateSurface(
+          selectedIndex,
+          Surface(id, poolId, installed, kind)
+        )
         surfaceTableView.selectionModel().select(selectedIndex)
       case _ =>
