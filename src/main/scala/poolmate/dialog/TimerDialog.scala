@@ -24,7 +24,7 @@ class TimerDialog(conf: Config, timer: Timer) extends Dialog[Timer]:
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
