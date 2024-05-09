@@ -2,54 +2,54 @@ package poolmate.pane
 
 import com.typesafe.config.Config
 
-import poolmate.{Model, Repair}
-import poolmate.Resources._
-import poolmate.dialog.{RepairChartDialog, RepairDialog}
-
-import scalafx.Includes._
+import scalafx.Includes.*
 import scalafx.geometry.Insets
-import scalafx.scene.control.TableColumn._
-import scalafx.scene.control._
+import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-class RepairPane(conf: Config, model: Model) extends VBox {
-  val repairTableView = new TableView[Repair]() {
+import poolmate.{Model, Repair}
+import poolmate.Resources.*
+import poolmate.dialog.{RepairChartDialog, RepairDialog}
+
+class RepairPane(conf: Config, model: Model) extends VBox:
+  val repairTableView = new TableView[Repair]:
     columns ++= List(
-      new TableColumn[Repair, String] {
-        text = conf.getString("repair-header-on"); cellValueFactory = {
+      new TableColumn[Repair, String]:
+        text = conf.getString("repair-header-on")
+        cellValueFactory = {
           _.value.onProperty
         }
-      },
-      new TableColumn[Repair, String] {
-        text = conf.getString("repair-header-item"); cellValueFactory = {
+      ,
+      new TableColumn[Repair, String]:
+        text = conf.getString("repair-header-item")
+        cellValueFactory = {
           _.value.itemProperty
         }
-      },
-      new TableColumn[Repair, String] {
+      ,
+      new TableColumn[Repair, String]:
         text = conf.getString("repair-header-cost"); cellValueFactory = {
           _.value.costProperty
         }
-      }
     )
     prefHeight = conf.getInt("height").toDouble
     items = model.repairList
-  }
   repairTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val repairAddButton = new Button {
+
+  val repairAddButton = new Button:
     graphic = addImageView
     disable = true
-  }
-  val repairEditButton = new Button {
+
+  val repairEditButton = new Button:
     graphic = editImageView
     disable = true
-  }
-  val repairChartButton = new Button {
+
+  val repairChartButton = new Button:
     graphic = lineChartImageView
     disable = true
-  }
-  val repairToolBar = new HBox {
-    spacing = 6; children = List(repairAddButton, repairEditButton, repairChartButton)
-  }
+
+  val repairToolBar = new HBox:
+    spacing = 6
+    children = List(repairAddButton, repairEditButton, repairChartButton)
 
   spacing = 6
   padding = Insets(6)
@@ -58,48 +58,43 @@ class RepairPane(conf: Config, model: Model) extends VBox {
   model.selectedPoolId.onChange { (_, _, selectedPoolId) =>
     model.listRepairs(selectedPoolId.intValue)
     repairAddButton.disable = false
-    repairChartButton.disable = if (model.repairList.nonEmpty) false else true
+    repairChartButton.disable = if (model.repairList.nonEmpty) then false else true
   }
 
   repairTableView.selectionModel().selectedItemProperty().addListener { (_, _, selectedRepair) =>
     // model.update executes a remove and add on items. the remove passes a null selectedRepair!
-    if (selectedRepair != null) {
+    if (selectedRepair != null) then
       model.selectedRepairId.value = selectedRepair.id
       repairEditButton.disable = false
       repairChartButton.disable = false
-    }
   }
 
   repairTableView.onMouseClicked = { event =>
-    if (event.getClickCount == 2 && repairTableView.selectionModel().getSelectedItem != null) update()
+    if (event.getClickCount == 2 &&
+        repairTableView.selectionModel().getSelectedItem != null) then update()
   }
 
   repairAddButton.onAction = { _ => add() }
 
   repairEditButton.onAction = { _ => update() }
 
-  repairChartButton.onAction = { _ =>
-    new RepairChartDialog(conf, model).showAndWait()
-    ()
-  }
+  repairChartButton.onAction = { _ => RepairChartDialog(conf, model).showAndWait() }
 
-  def add(): Unit = {
-    new RepairDialog(conf, Repair(poolId = model.selectedPoolId.toInt)).showAndWait() match {
+  def add(): Unit =
+    RepairDialog(conf, Repair(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Repair(id, poolId, on, item, cost)) =>
         val newRepair = model.addRepair(Repair(id, poolId, on, item, cost))
         repairTableView.selectionModel().select(newRepair)
       case _ =>
-    }
-  }
 
-  def update(): Unit = {
+  def update(): Unit =
     val selectedIndex = repairTableView.selectionModel().getSelectedIndex
     val repair = repairTableView.selectionModel().getSelectedItem.repair
-    new RepairDialog(conf, repair).showAndWait() match {
+    RepairDialog(conf, repair).showAndWait() match
       case Some(Repair(id, poolId, on, item, cost)) =>
-        model.updateRepair(selectedIndex, Repair(id, poolId, on, item, cost))
+        model.updateRepair(
+          selectedIndex,
+          Repair(id, poolId, on, item, cost)
+        )
         repairTableView.selectionModel().select(selectedIndex)
       case _ =>
-    }
-  }
-}
