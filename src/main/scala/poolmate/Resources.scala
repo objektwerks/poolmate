@@ -9,15 +9,21 @@ import scala.jdk.CollectionConverters.*
 
 object Resources:
   val conf = ConfigFactory.load("resources.conf")
+
   def units = ObservableBuffer[String]( conf.getStringList("units").asScala.toSeq * )
-  def appImage = new Image(Resources.getClass.getResourceAsStream("/images/pool.png"))
+
+  def appImage = new Image( Resources.getClass.getResourceAsStream("/images/pool.png") )
+
   def addImageView = loadImageView("/images/add.png")
+
   def editImageView = loadImageView("/images/edit.png")
+
   def barChartImageView = loadImageView("/images/bar.chart.png")
+
   def lineChartImageView = loadImageView("/images/line.chart.png")
 
   def loadImageView(path: String): ImageView = new ImageView:
-    image = new Image(Resources.getClass.getResourceAsStream(path))
+    image = new Image( Resources.getClass.getResourceAsStream(path) )
     fitHeight = 25
     fitWidth = 25
     preserveRatio = true
