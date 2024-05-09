@@ -68,7 +68,9 @@ class HeaterPane(conf: Config, model: Model) extends VBox:
   def add(): Unit =
     HeaterDialog(conf, Heater(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Heater(id, poolId, installed, _model)) =>
-        val newHeater = model.addHeater(Heater(id, poolId, installed, _model))
+        val newHeater = model.addHeater(
+          Heater(id, poolId, installed, _model)
+        )
         heaterTableView.selectionModel().select(newHeater)
       case _ =>
 
@@ -77,6 +79,9 @@ class HeaterPane(conf: Config, model: Model) extends VBox:
     val heater = heaterTableView.selectionModel().getSelectedItem.heater
     HeaterDialog(conf, heater).showAndWait() match
       case Some(Heater(id, poolId, installed, _model)) =>
-        model.updateHeater(selectedIndex, Heater(id, poolId, installed, _model))
+        model.updateHeater(
+          selectedIndex,
+          Heater(id, poolId, installed, _model)
+        )
         heaterTableView.selectionModel().select(selectedIndex)
       case _ =>
