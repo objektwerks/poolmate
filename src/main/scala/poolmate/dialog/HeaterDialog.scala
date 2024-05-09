@@ -24,7 +24,7 @@ class HeaterDialog(conf: Config, heater: Heater) extends Dialog[Heater]:
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
