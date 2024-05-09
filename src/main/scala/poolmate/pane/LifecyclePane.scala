@@ -2,55 +2,56 @@ package poolmate.pane
 
 import com.typesafe.config.Config
 
-import poolmate.{Lifecycle, Model}
-import poolmate.Resources._
-import poolmate.dialog.LifecycleDialog
-
-import scalafx.Includes._
+import scalafx.Includes.*
 import scalafx.geometry.Insets
-import scalafx.scene.control.TableColumn._
-import scalafx.scene.control._
+import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-class LifecyclePane(conf: Config, model: Model) extends VBox {
-  val lifecycleTableView = new TableView[Lifecycle]() {
+import poolmate.{Lifecycle, Model}
+import poolmate.Resources.*
+import poolmate.dialog.LifecycleDialog
+
+class LifecyclePane(conf: Config, model: Model) extends VBox:
+  val lifecycleTableView = new TableView[Lifecycle]:
     columns ++= List(
-      new TableColumn[Lifecycle, String] {
-        text = conf.getString("lifecycle-header-created"); cellValueFactory = {
+      new TableColumn[Lifecycle, String]:
+        text = conf.getString("lifecycle-header-created")
+        cellValueFactory = {
           _.value.createdProperty
         }
-      },
-      new TableColumn[Lifecycle, String] {
-        text = conf.getString("lifecycle-header-active"); cellValueFactory = {
+      ,
+      new TableColumn[Lifecycle, String]:
+        text = conf.getString("lifecycle-header-active")
+        cellValueFactory = {
           _.value.activeProperty
         }
-      },
-      new TableColumn[Lifecycle, String] {
-        text = conf.getString("lifecycle-header-pump-on"); cellValueFactory = {
+      ,
+      new TableColumn[Lifecycle, String]:
+        text = conf.getString("lifecycle-header-pump-on")
+        cellValueFactory = {
           _.value.pumpOnProperty
         }
-      },
-      new TableColumn[Lifecycle, String] {
-        text = conf.getString("lifecycle-header-pump-off"); cellValueFactory = {
+      ,
+      new TableColumn[Lifecycle, String]:
+        text = conf.getString("lifecycle-header-pump-off")
+        cellValueFactory = {
           _.value.pumpOffProperty
         }
-      }
     )
     prefHeight = conf.getInt("height").toDouble
     items = model.lifecycleList
-  }
   lifecycleTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val lifecycleAddButton = new Button {
+
+  val lifecycleAddButton = new Button:
     graphic = addImageView
     disable = true
-  }
-  val lifecycleEditButton = new Button {
+
+  val lifecycleEditButton = new Button:
     graphic = editImageView
     disable = true
-  }
-  val lifecycleToolBar = new HBox {
+
+  val lifecycleToolBar = new HBox:
     spacing = 6; children = List(lifecycleAddButton, lifecycleEditButton)
-  }
 
   spacing = 6
   padding = Insets(6)
@@ -63,37 +64,32 @@ class LifecyclePane(conf: Config, model: Model) extends VBox {
 
   lifecycleTableView.selectionModel().selectedItemProperty().addListener { (_, _, selectedLifecycle) =>
     // model.update executes a remove and add on items. the remove passes a null selectedLifecycle!
-    if (selectedLifecycle != null) {
+    if (selectedLifecycle != null) then
       model.selectedLifecycleId.value = selectedLifecycle.id
       lifecycleEditButton.disable = false
-    }
   }
 
   lifecycleTableView.onMouseClicked = { event =>
-    if (event.getClickCount == 2 && lifecycleTableView.selectionModel().getSelectedItem != null) update()
+    if (event.getClickCount == 2 &&
+        lifecycleTableView.selectionModel().getSelectedItem != null) then update()
   }
 
   lifecycleAddButton.onAction = { _ => add() }
 
   lifecycleEditButton.onAction = { _ => update() }
 
-  def add(): Unit = {
-    new LifecycleDialog(conf, Lifecycle(poolId = model.selectedPoolId.toInt)).showAndWait() match {
+  def add(): Unit =
+    LifecycleDialog(conf, Lifecycle(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Lifecycle(id, poolId, created, active, pumpOn, pumpOff)) =>
         val newLifecycle = model.addLifecycle(Lifecycle(id, poolId, created, active, pumpOn, pumpOff))
         lifecycleTableView.selectionModel().select(newLifecycle)
       case _ =>
-    }
-  }
 
-  def update(): Unit = {
+  def update(): Unit =
     val selectedIndex = lifecycleTableView.selectionModel().getSelectedIndex
     val lifecycle = lifecycleTableView.selectionModel().getSelectedItem.lifecycle
-    new LifecycleDialog(conf, lifecycle).showAndWait() match {
+    LifecycleDialog(conf, lifecycle).showAndWait() match
       case Some(Lifecycle(id, poolId, created, active, pumpOn, pumpOff)) =>
         model.updateLifecycle(selectedIndex, Lifecycle(id, poolId, created, active, pumpOn, pumpOff))
         lifecycleTableView.selectionModel().select(selectedIndex)
       case _ =>
-    }
-  }
-}
