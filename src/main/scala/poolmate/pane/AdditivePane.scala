@@ -90,7 +90,9 @@ class AdditivePane(conf: Config, model: Model) extends VBox:
   def add(): Unit =
     AdditiveDialog(conf, Additive(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Additive(id, poolId, on, chemical, unit, amount)) =>
-        val newAdditive = model.addAdditive(Additive(id, poolId, on, chemical, unit, amount))
+        val newAdditive = model.addAdditive(
+          Additive(id, poolId, on, chemical, unit, amount)
+        )
         additiveTableView.selectionModel().select(newAdditive)
       case _ =>
 
@@ -99,6 +101,9 @@ class AdditivePane(conf: Config, model: Model) extends VBox:
     val additive = additiveTableView.selectionModel().getSelectedItem.additive
     AdditiveDialog(conf, additive).showAndWait() match
       case Some(Additive(id, poolId, on, chemical, unit, amount)) =>
-        model.updateAdditive(selectedIndex, Additive(id, poolId, on, chemical, unit, amount))
+        model.updateAdditive(
+          selectedIndex,
+          Additive(id, poolId, on, chemical, unit, amount)
+        )
         additiveTableView.selectionModel().select(selectedIndex)
       case _ =>
