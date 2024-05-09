@@ -14,6 +14,7 @@ import poolmate.{App, Model}
 
 class AdditiveChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
   val additives = model.additiveList
+  
   val years = additives.map(a => a.on.format(dateFormatter)).distinct
 
   val xAxis = CategoryAxis(years)
