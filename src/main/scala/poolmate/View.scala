@@ -12,27 +12,39 @@ import poolmate.pane.*
 class View(conf: Config, model: Model):
   val cleaningPane = CleaningPane(conf, model)
   val cleaningsTab = new Tab:
-    text = conf.getString("cleanings"); closable = false; content = cleaningPane
+    text = conf.getString("cleanings")
+    closable = false
+    content = cleaningPane
 
   val measurementPane = MeasurementPane(conf, model)
   val measurementsTab = new Tab:
-    text = conf.getString("measurements"); closable = false; content = measurementPane
+    text = conf.getString("measurements")
+    closable = false
+    content = measurementPane
 
   val additivePane = AdditivePane(conf, model)
   val additivesTab = new Tab:
-    text = conf.getString("additives"); closable = false; content = additivePane
+    text = conf.getString("additives")
+    closable = false
+    content = additivePane
 
   val lifecyclePane = LifecyclePane(conf, model)
   val lifecyclesTab = new Tab:
-    text = conf.getString("lifecycles"); closable = false; content = lifecyclePane
+    text = conf.getString("lifecycles")
+    closable = false
+    content = lifecyclePane
 
   val supplyPane = SupplyPane(conf, model)
   val suppliesTab = new Tab:
-    text = conf.getString("supplies"); closable = false; content = supplyPane
+    text = conf.getString("supplies")
+    closable = false
+    content = supplyPane
 
   val repairPane = RepairPane(conf, model)
   val repairsTab = new Tab:
-    text = conf.getString("repairs"); closable = false; content = repairPane
+    text = conf.getString("repairs")
+    closable = false
+    content = repairPane
 
   val eastTabPane = new TabPane:
     tabs = Seq(cleaningsTab, measurementsTab, additivesTab, lifecyclesTab, suppliesTab, repairsTab)
@@ -41,22 +53,31 @@ class View(conf: Config, model: Model):
 
   val surfacePane = SurfacePane(conf, model)
   val surfacesTab = new Tab:
-    text = conf.getString("surfaces"); closable = false; content = surfacePane
+    text = conf.getString("surfaces")
+    closable = false
+    content = surfacePane
 
   val timerPane = TimerPane(conf, model)
   val timersTab = new Tab:
-    text = conf.getString("timers"); closable = false; content = timerPane
+    text = conf.getString("timers")
+    closable = false
+    content = timerPane
 
   val pumpPane = PumpPane(conf, model)
   val pumpsTab = new Tab:
-    text = conf.getString("pumps"); closable = false; content = pumpPane
+    text = conf.getString("pumps")
+    closable = false
+    content = pumpPane
 
   val heaterPane = HeaterPane(conf, model)
   val heatersTab = new Tab:
-    text = conf.getString("heaters"); closable = false; content = heaterPane
+    text = conf.getString("heaters")
+    closable = false
+    content = heaterPane
 
   val westTabPane = new TabPane:
-    padding = Insets(6); tabs = Seq(surfacesTab, timersTab, pumpsTab, heatersTab)
+    padding = Insets(6)
+    tabs = Seq(surfacesTab, timersTab, pumpsTab, heatersTab)
 
   val poolPane = PoolPane(conf, model)
 
@@ -74,7 +95,8 @@ class View(conf: Config, model: Model):
   val contentPane = new VBox:
     prefHeight = conf.getInt("height").toDouble
     prefWidth = conf.getInt("width").toDouble
-    spacing = 6; padding = Insets(6)
+    spacing = 6
+    padding = Insets(6)
     children = List(menuPane, splitPane)
 
   val sceneGraph = new Scene:
