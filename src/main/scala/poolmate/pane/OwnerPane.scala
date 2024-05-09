@@ -47,7 +47,8 @@ class OwnerPane(conf: Config, model: Model) extends VBox:
     disable = true
 
   val ownerToolBar = new HBox:
-    spacing = 6; children = List(ownerAddButton, ownerEditButton)
+    spacing = 6
+    children = List(ownerAddButton, ownerEditButton)
 
   spacing = 6
   padding = Insets(6)
@@ -77,7 +78,9 @@ class OwnerPane(conf: Config, model: Model) extends VBox:
   def add(): Unit =
     OwnerDialog(conf, Owner(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Owner(id, poolId, since, first, last, email)) =>
-        val newOwner = model.addOwner(Owner(id, poolId, since, first, last, email))
+        val newOwner = model.addOwner(
+          Owner(id, poolId, since, first, last, email)
+        )
         ownerTableView.selectionModel().select(newOwner)
       case _ =>
 
@@ -86,6 +89,9 @@ class OwnerPane(conf: Config, model: Model) extends VBox:
     val owner = ownerTableView.selectionModel().getSelectedItem.owner
     OwnerDialog(conf, owner).showAndWait() match
       case Some(Owner(id, poolId, since, first, last, email)) =>
-        model.updateOwner(selectedIndex, Owner(id, poolId, since, first, last, email))
+        model.updateOwner(
+          selectedIndex,
+          Owner(id, poolId, since, first, last, email)
+        )
         ownerTableView.selectionModel().select(selectedIndex)
       case _ =>
