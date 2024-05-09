@@ -69,7 +69,9 @@ class TimerPane(conf: Config, model: Model) extends VBox:
   def add(): Unit =
     TimerDialog(conf, Timer(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Timer(id, poolId, installed, _model)) =>
-        val newTimer = model.addTimer(Timer(id, poolId, installed, _model))
+        val newTimer = model.addTimer(
+          Timer(id, poolId, installed, _model)
+        )
         timerTableView.selectionModel().select(newTimer)
       case _ =>
 
@@ -78,6 +80,9 @@ class TimerPane(conf: Config, model: Model) extends VBox:
     val timer = timerTableView.selectionModel().getSelectedItem.timer
     TimerDialog(conf, timer).showAndWait() match
       case Some(Timer(id, poolId, installed, _model)) =>
-        model.updateTimer(selectedIndex, Timer(id, poolId, installed, _model))
+        model.updateTimer(
+          selectedIndex,
+          Timer(id, poolId, installed, _model)
+        )
         timerTableView.selectionModel().select(selectedIndex)
       case _ =>
