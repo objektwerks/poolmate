@@ -34,7 +34,7 @@ class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecyc
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = new ButtonType(conf.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(conf.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -44,7 +44,7 @@ class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecyc
       pumpOffTimePicker.localTimeProperty.value = oldLocalTime
   }
 
-  resultConverter = dialogButton => 
+  resultConverter = dialogButton =>
     if (dialogButton == saveButtonType) then
       lifecycle.copy(created = createdDatePicker.value.value.toString,
         active = activeCheckBox.selected.value,
