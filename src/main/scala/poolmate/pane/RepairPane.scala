@@ -83,7 +83,9 @@ class RepairPane(conf: Config, model: Model) extends VBox:
   def add(): Unit =
     RepairDialog(conf, Repair(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Repair(id, poolId, on, item, cost)) =>
-        val newRepair = model.addRepair(Repair(id, poolId, on, item, cost))
+        val newRepair = model.addRepair(
+          Repair(id, poolId, on, item, cost)
+        )
         repairTableView.selectionModel().select(newRepair)
       case _ =>
 
