@@ -12,30 +12,32 @@ import poolmate.Resources.*
 import poolmate.dialog.SurfaceDialog
 
 class SurfacePane(conf: Config, model: Model) extends VBox:
-  val surfaceTableView = new TableView[Surface]() {
+  val surfaceTableView = new TableView[Surface]:
     columns ++= List(
-      new TableColumn[Surface, String] {
-        text = conf.getString("surface-header-installed"); cellValueFactory = {
+      new TableColumn[Surface, String]:
+        text = conf.getString("surface-header-installed")
+        cellValueFactory = {
           _.value.installedProperty
         }
-      },
-      new TableColumn[Surface, String] {
-        text = conf.getString("surface-header-kind"); cellValueFactory = {
+      ,
+      new TableColumn[Surface, String]:
+        text = conf.getString("surface-header-kind")
+        cellValueFactory = {
           _.value.kindProperty
         }
-      }
     )
     items = model.surfaceList
-  }
+
   surfaceTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
-  val surfaceAddButton = new Button {
+
+  val surfaceAddButton = new Button:
     graphic = addImageView
     disable = true
-  }
-  val surfaceEditButton = new Button {
+
+  val surfaceEditButton = new Button:
     graphic = editImageView
     disable = true
-  }
+
   val surfaceToolBar = new HBox:
     spacing = 6
     children = List(surfaceAddButton, surfaceEditButton)
