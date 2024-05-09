@@ -2,14 +2,14 @@ package poolmate.pane
 
 import com.typesafe.config.Config
 
-import poolmate.{Heater, Model}
-import poolmate.Resources.*
-import poolmate.dialog.HeaterDialog
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
+
+import poolmate.{Heater, Model}
+import poolmate.Resources.*
+import poolmate.dialog.HeaterDialog
 
 class HeaterPane(conf: Config, model: Model) extends VBox:
   val heaterTableView = new TableView[Heater]:
