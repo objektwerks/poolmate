@@ -15,22 +15,26 @@ class AdditivePane(conf: Config, model: Model) extends VBox:
   val additiveTableView = new TableView[Additive]:
     columns ++= List(
       new TableColumn[Additive, String]:
-        text = conf.getString("additive-header-on"); cellValueFactory = {
+        text = conf.getString("additive-header-on")
+        cellValueFactory = {
           _.value.onProperty
         }
       ,
       new TableColumn[Additive, String]:
-        text = conf.getString("additive-header-chemical"); cellValueFactory = {
+        text = conf.getString("additive-header-chemical")
+        cellValueFactory = {
           _.value.chemicalProperty
         }
       ,
       new TableColumn[Additive, String]:
-        text = conf.getString("additive-header-unit"); cellValueFactory = {
+        text = conf.getString("additive-header-unit")
+        cellValueFactory = {
           _.value.unitProperty
         }
       ,
       new TableColumn[Additive, String]:
-        text = conf.getString("additive-header-amount"); cellValueFactory = {
+        text = conf.getString("additive-header-amount")
+        cellValueFactory = {
           _.value.amountProperty
         }
     )
