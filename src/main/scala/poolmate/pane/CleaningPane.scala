@@ -104,7 +104,9 @@ class CleaningPane(conf: Config, model: Model) extends VBox:
   def add(): Unit =
     CleaningDialog(conf, Cleaning(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Cleaning(id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter)) =>
-        val newCleaning = model.addCleaning(Cleaning(id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter))
+        val newCleaning = model.addCleaning(
+          Cleaning(id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter)
+        )
         cleaningTableView.selectionModel().select(newCleaning)
       case _ =>
 
@@ -113,6 +115,9 @@ class CleaningPane(conf: Config, model: Model) extends VBox:
     val cleaning = cleaningTableView.selectionModel().getSelectedItem.cleaning
     CleaningDialog(conf, cleaning).showAndWait() match
       case Some(Cleaning(id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter)) =>
-        model.updateCleaning(selectedIndex, Cleaning(id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter))
+        model.updateCleaning(
+          selectedIndex,
+          Cleaning(id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter)
+        )
         cleaningTableView.selectionModel().select(selectedIndex)
       case _ =>
