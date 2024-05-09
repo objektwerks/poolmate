@@ -10,10 +10,11 @@ import slick.jdbc.JdbcProfile
 class Repository(val config: DatabaseConfig[JdbcProfile],
                  val profile: JdbcProfile, 
                  val awaitDuration: Duration = 1 second):
-  import profile.api._
+  import profile.api.*
 
   val schema = pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++ heaters.schema ++
     lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ supplies.schema ++ repairs.schema
+
   val db = config.db
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
