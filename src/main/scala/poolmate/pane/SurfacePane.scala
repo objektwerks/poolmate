@@ -2,17 +2,16 @@ package poolmate.pane
 
 import com.typesafe.config.Config
 
-import poolmate.{Model, Surface}
-import poolmate.Resources._
-import poolmate.dialog.SurfaceDialog
-
-import scalafx.Includes._
+import scalafx.Includes.*
 import scalafx.geometry.Insets
-import scalafx.scene.control.TableColumn._
-import scalafx.scene.control._
+import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-class SurfacePane(conf: Config, model: Model) extends VBox {
+import poolmate.{Model, Surface}
+import poolmate.Resources.*
+import poolmate.dialog.SurfaceDialog
+
+class SurfacePane(conf: Config, model: Model) extends VBox:
   val surfaceTableView = new TableView[Surface]() {
     columns ++= List(
       new TableColumn[Surface, String] {
@@ -37,9 +36,9 @@ class SurfacePane(conf: Config, model: Model) extends VBox {
     graphic = editImageView
     disable = true
   }
-  val surfaceToolBar = new HBox {
-    spacing = 6; children = List(surfaceAddButton, surfaceEditButton)
-  }
+  val surfaceToolBar = new HBox:
+    spacing = 6
+    children = List(surfaceAddButton, surfaceEditButton)
 
   spacing = 6
   padding = Insets(6)
@@ -52,37 +51,32 @@ class SurfacePane(conf: Config, model: Model) extends VBox {
 
   surfaceTableView.selectionModel().selectedItemProperty().addListener { (_, _, selectedSurface) =>
     // model.update executes a remove and add on items. the remove passes a null selectedSurface!
-    if (selectedSurface != null) {
+    if (selectedSurface != null) then
       model.selectedSurfaceId.value = selectedSurface.id
       surfaceEditButton.disable = false
-    }
   }
 
   surfaceTableView.onMouseClicked = { event =>
-    if (event.getClickCount == 2 && surfaceTableView.selectionModel().getSelectedItem != null) update()
+    if (event.getClickCount == 2 &&
+        surfaceTableView.selectionModel().getSelectedItem != null) then update()
   }
 
   surfaceAddButton.onAction = { _ => add() }
 
   surfaceEditButton.onAction = { _ => update() }
 
-  def add(): Unit = {
-    new SurfaceDialog(conf, Surface(poolId = model.selectedPoolId.toInt)).showAndWait() match {
+  def add(): Unit =
+    SurfaceDialog(conf, Surface(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Surface(id, poolId, installed, kind)) =>
         val newSurface = model.addSurface(Surface(id, poolId, installed, kind))
         surfaceTableView.selectionModel().select(newSurface)
       case _ =>
-    }
-  }
 
-  def update(): Unit = {
+  def update(): Unit =
     val selectedIndex = surfaceTableView.selectionModel().getSelectedIndex
     val surface = surfaceTableView.selectionModel().getSelectedItem.surface
-    new SurfaceDialog(conf, surface).showAndWait() match {
+    SurfaceDialog(conf, surface).showAndWait() match
       case Some(Surface(id, poolId, installed, kind)) =>
         model.updateSurface(selectedIndex, Surface(id, poolId, installed, kind))
         surfaceTableView.selectionModel().select(selectedIndex)
       case _ =>
-    }
-  }
-}

@@ -62,7 +62,8 @@ class SupplyPane(conf: Config, model: Model) extends VBox:
     disable = true
 
   val supplyToolBar = new HBox:
-    spacing = 6; children = List(supplyAddButton, supplyEditButton, supplyChartButton)
+    spacing = 6
+    children = List(supplyAddButton, supplyEditButton, supplyChartButton)
 
   spacing = 6
   padding = Insets(6)
