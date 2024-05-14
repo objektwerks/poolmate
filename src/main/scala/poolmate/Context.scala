@@ -13,6 +13,10 @@ class Context(config: Config):
   val license = config.getString("license")
   val app = config.getString("app")
 
+  val height = config.getInt("height")
+  val width = config.getInt("width")
+
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
