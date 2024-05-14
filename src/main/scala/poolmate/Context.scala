@@ -48,6 +48,7 @@ class Context(config: Config):
   val saveCleaning = config.getString("save-cleaning")
   val saveMeasurement = config.getString("save-measurement")
   val saveAdditive = config.getString("save-additive")
+  val saveSupply = config.getString("save-supply")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
