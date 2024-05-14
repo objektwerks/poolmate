@@ -3,6 +3,7 @@ package poolmate
 import scala.concurrent.duration.*
 import scala.concurrent.{Await, Future}
 import scala.language.postfixOps
+import scala.util.control.NonFatal
 
 import slick.basic.DatabaseConfig
 import slick.jdbc.JdbcProfile
@@ -16,6 +17,11 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
     lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ supplies.schema ++ repairs.schema
 
   val db = config.db
+
+  try
+    await( pools.list() ).length
+  catch
+    case NonFatal(_) => createSchema()
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
 
