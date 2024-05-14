@@ -4,7 +4,7 @@ PoolMate
 
 TODO
 ----
-* Upgrade to Slick 3.5. Requires significant work!
+* Added Context, replacing Resources, refactoring now! **WIP!**
 * Design and build company, worker and routing panels and dialogs.
 
 Warning
