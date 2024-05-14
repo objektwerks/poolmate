@@ -12,7 +12,7 @@ object App extends JFXApp3:
   val repository = Repository(config, H2Profile)
   val model = Model(repository)
 
-  val resources = ConfigFactory.load("resources.conf")
+  val resources = ConfigFactory.load("app.conf")
 
   override def start(): Unit =
     stage = new JFXApp3.PrimaryStage:
