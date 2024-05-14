@@ -16,6 +16,9 @@ class Context(config: Config):
   val height = config.getInt("height")
   val width = config.getInt("width")
 
+  val menu = config.getString("app")
+  val about = config.getString("about")
+  val exit = config.getString("exit")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
