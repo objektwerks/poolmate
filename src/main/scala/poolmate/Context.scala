@@ -21,22 +21,6 @@ class Context(config: Config):
   val max = config.getString("max")
   val avg = config.getString("avg")
 
-  /* 
-  save = "Save"
-  save-pool = "Save Pool"
-  save-owner = "Save Owner"
-  save-surface = "Save Surface"
-  save-pump = "Save Pump"
-  save-timer = "Save Timer"
-  save-heater = "Save Heater"
-  save-lifecycle = "Save Lifecycle"
-  save-cleaning = "Save Cleaning"
-  save-measurement = "Save Measurement"
-  save-additive = "Save Additive"
-  save-supply = "Save Supply"
-  save-repair = "Save Repair"
-   */
-
   val save = config.getString("save")
   val savePool = config.getString("save-pool")
   val saveOwner = config.getString("save-owner")
