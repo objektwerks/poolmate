@@ -20,6 +20,10 @@ class Context(config: Config):
   val about = config.getString("about")
   val exit = config.getString("exit")
 
+  val min = config.getString("min")
+  val max = config.getString("max")
+  val avg = config.getString("avg")
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
