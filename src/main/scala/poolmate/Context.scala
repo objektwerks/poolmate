@@ -44,6 +44,7 @@ class Context(config: Config):
   val savePump = config.getString("save-pump")
   val saveTimer = config.getString("save-timer")
   val saveHeater = config.getString("save-heater")
+  val saveLifecycle = config.getString("save-lifecycle")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
