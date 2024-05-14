@@ -8,6 +8,8 @@ import scalafx.scene.image.{Image, ImageView}
 import scala.jdk.CollectionConverters.*
 
 class Context(config: Config):
+  val title = config.getString("title")
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
