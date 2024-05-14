@@ -42,6 +42,7 @@ class Context(config: Config):
   val saveOwner = config.getString("save-owner")
   val saveSurface = config.getString("save-surface")
   val savePump = config.getString("save-pump")
+  val saveTimer = config.getString("save-timer")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
