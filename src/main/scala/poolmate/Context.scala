@@ -39,6 +39,7 @@ class Context(config: Config):
 
   val save = config.getString("save")
   val savePool = config.getString("save-pool")
+  val saveOwner = config.getString("save-owner")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
