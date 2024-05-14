@@ -11,6 +11,7 @@ class Context(config: Config):
   val title = config.getString("title")
   val developer = config.getString("developer")
   val license = config.getString("license")
+  val app = config.getString("app")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
