@@ -12,14 +12,11 @@ class Context(config: Config):
   val developer = config.getString("developer")
   val license = config.getString("license")
   val app = config.getString("app")
-
   val height = config.getInt("height")
   val width = config.getInt("width")
-
   val menu = config.getString("app")
   val about = config.getString("about")
   val exit = config.getString("exit")
-
   val min = config.getString("min")
   val max = config.getString("max")
   val avg = config.getString("avg")
