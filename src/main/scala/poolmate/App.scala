@@ -21,5 +21,9 @@ object App extends JFXApp3:
       title = resources.getString("title")
       icons.add(Resources.appImage)
 
-  sys.addShutdownHook:
+    stage.show()
+    println("*** Poolmate app started.")
+
+  override def stopApp(): Unit =
     repository.close()
+    println("*** Poolmate stopped.")
