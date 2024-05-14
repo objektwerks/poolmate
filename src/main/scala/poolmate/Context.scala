@@ -35,6 +35,22 @@ class Context(config: Config):
   val saveSupply = config.getString("save-supply")
   val saveRepair = config.getString("save-repair")
 
+  /*
+    pools = "Pools:"
+    pool-built = "Built:"
+    pool-gallons = "Gallons:"
+    pool-street = "Street:"
+    pool-city = "City:"
+    pool-state = "State:"
+    pool-zip = "Zip:"
+    pool-header-built = "Built"
+    pool-header-gallons = "Gallons"
+    pool-header-street = "Street"
+    pool-header-city = "City"
+    pool-header-state = "State"
+    pool-header-zip = "Zip"
+  */
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
