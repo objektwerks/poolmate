@@ -8,7 +8,7 @@ import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
 import poolmate.{Model, Supply}
-import poolmate.Resources.*
+import poolmate.Context.*
 import poolmate.dialog.{SupplyChartDialog, SupplyDialog}
 
 class SupplyPane(conf: Config, model: Model) extends VBox:

@@ -8,7 +8,7 @@ import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
 import poolmate.{Lifecycle, Model}
-import poolmate.Resources.*
+import poolmate.Context.*
 import poolmate.dialog.LifecycleDialog
 
 class LifecyclePane(conf: Config, model: Model) extends VBox:

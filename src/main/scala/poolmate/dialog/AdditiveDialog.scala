@@ -8,7 +8,7 @@ import scalafx.scene.control.{ButtonType, ComboBox, Dialog, DatePicker, TextFiel
 import scalafx.scene.layout.Region
 
 import Dialogs.*
-import poolmate.{Additive, App, Entity, Resources}
+import poolmate.{Additive, App, Entity, Context}
 import poolmate.pane.ControlGridPane
 
 class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive]:
@@ -19,7 +19,7 @@ class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive]:
     text = additive.chemical
 
   val unitComboBox = new ComboBox[String]:
-    items = Resources.units
+    items = Context.units
     selectionModel().select(additive.unit)
 
   val amountTextField = new TextField:

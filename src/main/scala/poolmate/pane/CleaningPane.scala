@@ -8,7 +8,7 @@ import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
 import poolmate.{Cleaning, Model}
-import poolmate.Resources.*
+import poolmate.Context.*
 import poolmate.dialog.CleaningDialog
 
 class CleaningPane(conf: Config, model: Model) extends VBox:

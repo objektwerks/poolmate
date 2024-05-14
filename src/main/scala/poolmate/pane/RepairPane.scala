@@ -8,7 +8,7 @@ import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
 import poolmate.{Model, Repair}
-import poolmate.Resources.*
+import poolmate.Context.*
 import poolmate.dialog.{RepairChartDialog, RepairDialog}
 
 class RepairPane(conf: Config, model: Model) extends VBox:

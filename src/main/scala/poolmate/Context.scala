@@ -1,18 +1,16 @@
 package poolmate
 
-import com.typesafe.config.ConfigFactory
+import com.typesafe.config.Config
 
 import scalafx.collections.ObservableBuffer
 import scalafx.scene.image.{Image, ImageView}
 
 import scala.jdk.CollectionConverters.*
 
-object Resources:
-  val conf = ConfigFactory.load("resources.conf")
+class Context(config: Config):
+  def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
-  def units = ObservableBuffer[String]( conf.getStringList("units").asScala.toSeq * )
-
-  def appImage = new Image( Resources.getClass.getResourceAsStream("/images/pool.png") )
+  def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
 
   def addImageView = loadImageView("/images/add.png")
 
@@ -23,7 +21,7 @@ object Resources:
   def lineChartImageView = loadImageView("/images/line.chart.png")
 
   def loadImageView(path: String): ImageView = new ImageView:
-    image = new Image( Resources.getClass.getResourceAsStream(path) )
+    image = new Image( Image.getClass.getResourceAsStream(path) )
     fitHeight = 25
     fitWidth = 25
     preserveRatio = true

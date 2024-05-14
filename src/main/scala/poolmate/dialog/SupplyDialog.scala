@@ -8,7 +8,7 @@ import scalafx.scene.control.{ButtonType, ComboBox, Dialog, DatePicker, TextFiel
 import scalafx.scene.layout.Region
 
 import Dialogs.*
-import poolmate.{App, Entity, Resources, Supply}
+import poolmate.{App, Entity, Context, Supply}
 import poolmate.pane.ControlGridPane
 
 class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply]:
@@ -19,7 +19,7 @@ class SupplyDialog(conf: Config, supply: Supply) extends Dialog[Supply]:
     text = supply.item
 
   val unitComboBox = new ComboBox[String]:
-    items = Resources.units
+    items = Context.units
     selectionModel().select(supply.unit)
 
   val amountTextField = new TextField:

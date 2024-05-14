@@ -8,7 +8,7 @@ import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
 import poolmate.{Additive, Model}
-import poolmate.Resources.*
+import poolmate.Context.*
 import poolmate.dialog.{AdditiveChartDialog, AdditiveDialog}
 
 class AdditivePane(conf: Config, model: Model) extends VBox:

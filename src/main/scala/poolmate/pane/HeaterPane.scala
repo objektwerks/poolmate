@@ -8,7 +8,7 @@ import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
 import poolmate.{Heater, Model}
-import poolmate.Resources.*
+import poolmate.Context.*
 import poolmate.dialog.HeaterDialog
 
 class HeaterPane(conf: Config, model: Model) extends VBox:

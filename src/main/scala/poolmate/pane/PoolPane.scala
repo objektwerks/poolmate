@@ -8,7 +8,7 @@ import scalafx.scene.control.{Button, Label, SelectionMode, TableColumn, TableVi
 import scalafx.scene.layout.{HBox, VBox}
 
 import poolmate.{Model, Pool}
-import poolmate.Resources.*
+import poolmate.Context.*
 import poolmate.dialog.PoolDialog
 
 class PoolPane(conf: Config, model: Model) extends VBox:

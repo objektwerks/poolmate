@@ -8,17 +8,18 @@ import slick.basic.DatabaseConfig
 import slick.jdbc.{H2Profile, JdbcProfile}
 
 object App extends JFXApp3:
+  val config = ConfigFactory.load("app.conf")
+  val context = Context(config)
+
   val dbConfig = DatabaseConfig.forConfig[JdbcProfile]("repository", ConfigFactory.load("repository.conf"))
   val repository = Repository(dbConfig, H2Profile)
   val model = Model(repository)
-
-  val config = ConfigFactory.load("app.conf")
 
   override def start(): Unit =
     stage = new JFXApp3.PrimaryStage:
       scene = View(config, model).scene
       title = config.getString("title")
-      icons.add(Resources.appImage)
+      icons.add(context.appImage)
 
     model.listPools()
     stage.show()
