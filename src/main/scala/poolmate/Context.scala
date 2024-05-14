@@ -9,6 +9,7 @@ import scala.jdk.CollectionConverters.*
 
 class Context(config: Config):
   val title = config.getString("title")
+  val developer = config.getString("developer")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
