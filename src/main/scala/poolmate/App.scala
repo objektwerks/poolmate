@@ -27,4 +27,4 @@ object App extends JFXApp3:
 
   override def stopApp(): Unit =
     repository.close()
-    println("*** Poolmate stopped.")
+    println("*** Poolmate app stopped.")
