@@ -13,14 +13,14 @@ object App extends JFXApp3:
   val model = Model(repository)
 
   val resources = ConfigFactory.load("resources.conf")
-  val view = View(resources, model)
 
   override def start(): Unit =
     stage = new JFXApp3.PrimaryStage:
-      scene = view.sceneGraph
+      scene = View(resources, model).scene
       title = resources.getString("title")
       icons.add(Resources.appImage)
 
+    model.listPools()
     stage.show()
     println("*** Poolmate app started.")
 
