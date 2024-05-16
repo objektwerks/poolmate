@@ -112,34 +112,6 @@ class Context(config: Config):
   val cleaningHeaderPumpFilter = config.getString("cleaning-header-pump-filter")
 
 /* 
-measurements = "Measurements"
-measurement-on = "On:"
-measurement-temp = "Temp:"
-measurement-hardness = "Hardness:"
-measurement-total-chlorine = "Total Chlorine:"
-measurement-bromine = "Bromine:"
-measurement-free-chlorine = "Free Chlorine:"
-measurement-ph = "pH:"
-measurement-alkalinity = "Alkalinity:"
-measurement-cyanuric-acid = "Cyanuric Acid:"
-measurement-header-on = "On"
-measurement-header-temp = "Temp"
-measurement-header-hardness = "Hardness"
-measurement-header-total-chlorine = "Total\nChlorine"
-measurement-header-bromine = "Bromine"
-measurement-header-free-chlorine = "Free\nChlorine"
-measurement-header-ph = "pH"
-measurement-header-alkalinity = "Alkalinity"
-measurement-header-cyanuric-acid = "Cyanuric\nAcid"
-measurement-chart-on = "On"
-measurement-chart-temp = "Temp"
-measurement-chart-hardness = "Hardness"
-measurement-chart-total-chlorine = "Total Chlorine"
-measurement-chart-bromine = "Bromine"
-measurement-chart-free-chlorine = "Free Chlorine"
-measurement-chart-ph = "pH"
-measurement-chart-alkalinity = "Alkalinity"
-measurement-chart-cyanuric-acid = "Cyanuric Acid"
 measurement-chart-measurements = "Measurements"
 measurement-chart-year-day = "Year-Day"
 measurement-chart = "Measurement"
@@ -164,8 +136,16 @@ measurement-charts = "Measurement Charts"
   val measurementHeaderPh = config.getString("measurement-header-ph")
   val measurementHeaderAlkalinity = config.getString("measurement-header-alkalinity")
   val measurementHeaderCyanuricAcid = config.getString("measurement-header-cyanuric-acid")
+  val measurementChartOn = config.getString("measurement-chart-on")
+  val measurementChartTemp = config.getString("measurement-chart-temp")
+  val measurementChartHardness = config.getString("measurement-chart-hardness")
+  val measurementChartTotalChlorine = config.getString("measurement-chart-total-chlorine")
+  val measurementChartBromine = config.getString("measurement-chart-bromine")
+  val measurementChartFreeChlorine = config.getString("measurement-chart-free-chlorine")
+  val measurementChartPh = config.getString("measurement-chart-ph")
+  val measurementChartAlkalinity = config.getString("measurement-chart-alkalinity")
+  val measurementChartCyanuricAcid = config.getString("measurement-header-cyanuric-acid")
 
-  
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
