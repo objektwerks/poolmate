@@ -51,6 +51,7 @@ class Context(config: Config):
     pool-header-zip = "Zip"
   */
   val pools = config.getString("pools")
+  val poolBuilt = config.getString("pool-built")
 
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
