@@ -64,6 +64,7 @@ class Context(config: Config):
   val ownerSince = config.getString("owner-since")
   val ownerFirst = config.getString("owner-first")
   val ownerLast = config.getString("owner-last")
+  val ownerEmail = config.getString("owner-email")
 
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
