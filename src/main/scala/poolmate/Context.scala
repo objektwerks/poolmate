@@ -177,6 +177,7 @@ supply-costs = "Supply Costs"
  */
   val supplies = config.getString("supplies")
   val supplyPurchased = config.getString("supply-purchased")
+  val supplyItem = config.getString("supply-item")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
