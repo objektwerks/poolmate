@@ -189,6 +189,9 @@ repair-costs = "Repair Costs"
   val repairHeaderItem = config.getString("repair-header-item")
   val repairHeaderCost = config.getString("repair-header-cost")
 
+  val repairChartCost = config.getString("repair-chart-cost")
+
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
