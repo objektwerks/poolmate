@@ -159,17 +159,6 @@ class Context(config: Config):
   val additiveAmounts = config.getString("additive-amounts")
 
 /* 
-supplies = "Supplies"
-supply-purchased = "Purchased:"
-supply-item = "Item:"
-supply-unit = "Unit:"
-supply-amount = "Amount:"
-supply-cost = "Cost:"
-supply-header-purchased = "Purchased"
-supply-header-item = "Item"
-supply-header-unit = "Unit"
-supply-header-amount = "Amount"
-supply-header-cost = "Cost"
 supply-chart-supplies = "Supplies"
 supply-chart-costs = "Costs"
 supply-chart = "Supply Costs Chart"
@@ -181,6 +170,11 @@ supply-costs = "Supply Costs"
   val supplyUnit = config.getString("supply-unit")
   val supplyAmount = config.getString("supply-amount")
   val supplyCost = config.getString("supply-cost")
+  val supplyHeaderPurchased = config.getString("supply-header-purchased")
+  val supplyHeaderItem = config.getString("supply-header-item")
+  val supplyHeaderUnit = config.getString("supply-header-unit")
+  val supplyHeaderAmount = config.getString("supply-header-amount")
+  val supplyHeaderCost = config.getString("supply-header-cost")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
