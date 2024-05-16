@@ -148,6 +148,7 @@ measurement-charts = "Measurement Charts"
   val measurements = config.getString("measurements")
   val measurementOn = config.getString("measurement-on")
   val measurementTemp = config.getString("measurement-temp")
+  val measurementHardness = config.getString("measurement-hardness")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
