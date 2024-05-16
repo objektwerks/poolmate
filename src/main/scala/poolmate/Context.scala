@@ -65,16 +65,20 @@ class Context(config: Config):
   val surfaceHeadedInstalled = config.getString("surface-header-installed")
   val surfaceHeaderKind = config.getString("surface-header-kind")
 
-  /* 
-  pumps = "Pumps"
-  pump-installed = "Installed:"
-  pump-model = "Model:"
-  pump-header-installed = "Installed"
-  pump-header-model = "Model"
-   */
   val pumps = config.getString("pumps")
   val pumpInstalled = config.getString("pump-installed")
   val pumpModel = config.getString("pump-model")
+  val pumpHeaderInstalled = config.getString("pump-header-installed")
+  val pumpHeaderModel = config.getString("pump-header-model")
+
+/* 
+timers = "Timers"
+timer-installed = "Installed:"
+timer-model = "Model:"
+timer-header-installed = "Installed"
+timer-header-model = "Model"
+ */
+  val timers = config.getString("timers")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
