@@ -144,12 +144,6 @@ class Context(config: Config):
   val measurementChart = config.getString("measurement-chart")
   val measurementCharts = config.getString("measurement-charts")
 
-/*
-additive-chart-additives = "Additives"
-additive-chart-amounts = "Amounts"
-additive-chart = "Additive Amounts Chart"
-additive-amounts = "Additive Amounts"
- */
   val additives = config.getString("additives")
   val additiveOn = config.getString("additive-on")
   val additiveChemical = config.getString("additive-chemical")
