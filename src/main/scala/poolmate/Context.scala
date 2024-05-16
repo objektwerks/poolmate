@@ -83,6 +83,19 @@ class Context(config: Config):
   val heaterHeaderInstalled = config.getString("heater-header-installed")
   val heaterHeaderModel = config.getString("heater-header-model")
 
+/* 
+lifecycles = "Lifecycles"
+lifecycle-created = "Created:"
+lifecycle-active = "Active:"
+lifecycle-pump-on = "Pump On:"
+lifecycle-pump-off = "Pump Off:"
+lifecycle-header-created = "Created"
+lifecycle-header-active = "Active"
+lifecycle-header-pump-on = "Pump On"
+lifecycle-header-pump-off = "Pump Off"
+ */
+  val lifecycles = config.getString("lifecycles")
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
