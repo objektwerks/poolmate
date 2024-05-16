@@ -35,21 +35,6 @@ class Context(config: Config):
   val saveSupply = config.getString("save-supply")
   val saveRepair = config.getString("save-repair")
 
-  /*
-    pools = "Pools:"
-    pool-built = "Built:"
-    pool-gallons = "Gallons:"
-    pool-street = "Street:"
-    pool-city = "City:"
-    pool-state = "State:"
-    pool-zip = "Zip:"
-    pool-header-built = "Built"
-    pool-header-gallons = "Gallons"
-    pool-header-street = "Street"
-    pool-header-city = "City"
-    pool-header-state = "State"
-    pool-header-zip = "Zip"
-  */
   val pools = config.getString("pools")
   val poolBuilt = config.getString("pool-built")
   val poolGallons = config.getString("pool-gallons")
@@ -57,7 +42,12 @@ class Context(config: Config):
   val poolCity = config.getString("pool-city")
   val poolState = config.getString("pool-state")
   val poolZip = config.getString("pool-zip")
-
+  val poolHeaderBuilt = config.getString("pool-header-built")
+  val poolHeaderGallons = config.getString("pool-header-gallons")
+  val poolHeaderStreet = config.getString("pool-header-street")
+  val poolHeaderCity = config.getString("pool-header-city")
+  val poolHeaderState = config.getString("pool-header-state")
+  val poolHeaderZip = config.getString("pool-header-zip")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
