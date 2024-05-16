@@ -93,25 +93,6 @@ class Context(config: Config):
   val lifecycleHeaderPumpOn = config.getString("lifecycle-header-pump-on")
   val lifecycleHeaderPumpOff = config.getString("lifecycle-header-pump-off")
 
-/* 
-cleanings = "Cleanings"
-cleaning-on = "On:"
-cleaning-deck = "Deck:"
-cleaning-brush = "Brush:"
-cleaning-net = "Net:"
-cleaning-vacuum = "Vacuum:"
-cleaning-skimmer-basket = "Skimmer Basket:"
-cleaning-pump-basket = "Pump Basket:"
-cleaning-pump-filter = "Pump Filter:"
-cleaning-header-on = "On"
-cleaning-header-deck = "Deck"
-cleaning-header-brush = "Brush"
-cleaning-header-net = "Net"
-cleaning-header-vacuum = "Vacuum"
-cleaning-header-skimmer-basket = "Skimmer\nBasket"
-cleaning-header-pump-basket = "Pump\nBasket"
-cleaning-header-pump-filter = "Pump\nFilter"
- */
   val cleanings = config.getString("cleanings")
   val cleaningOn = config.getString("cleaning-on")
   val cleaningDeck = config.getString("cleaning-deck")
@@ -121,6 +102,14 @@ cleaning-header-pump-filter = "Pump\nFilter"
   val cleaningSkimmerBasket = config.getString("cleaning-skimmer-basket")
   val cleaningPumpBasket = config.getString("cleaning-pump-basket")
   val cleaningPumpFilter = config.getString("cleaning-pump-filter")
+  val cleaningHeaderOn = config.getString("cleaning-header-on")
+  val cleaningHeaderDeck = config.getString("cleaning-header-deck")
+  val cleaningHeaderBrush = config.getString("cleaning-header-brush")
+  val cleaningHeaderNet = config.getString("cleaning-header-net")
+  val cleaningHeaderVacuum = config.getString("cleaning-header-vacuum")
+  val cleaningHeaderSkimmerBasket = config.getString("cleaning-header-skimmer-basket")
+  val cleaningHeaderPumpBasket = config.getString("cleaning-header-pump-basket")
+  val cleaningHeaderPumpFilter = config.getString("cleaning-header-pump-filter")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
