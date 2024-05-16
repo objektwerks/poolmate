@@ -175,8 +175,6 @@ class Context(config: Config):
   val supplyCosts = config.getString("supply-costs")
 
 /*
-repair-chart-cost = "Cost"
-repair-chart-costs = "Costs"
 repair-chart-year-day = "Year-Day"
 repair-chart = "Repair Costs Chart"
 repair-costs = "Repair Costs"
@@ -191,6 +189,7 @@ repair-costs = "Repair Costs"
 
   val repairChartCost = config.getString("repair-chart-cost")
   val repairChartCosts = config.getString("repair-chart-costs")
+  val repairChartYearDay = config.getString("repair-chart-year-day")
 
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
