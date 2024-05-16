@@ -176,6 +176,7 @@ supply-costs = "Supply Costs"
   val supplyHeaderAmount = config.getString("supply-header-amount")
   val supplyHeaderCost = config.getString("supply-header-cost")
   val supplyChartSupplies = config.getString("supply-chart-supplies")
+  val supplyChartCosts = config.getString("supply-chart-costs")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
