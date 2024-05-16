@@ -53,6 +53,7 @@ class Context(config: Config):
   val pools = config.getString("pools")
   val poolBuilt = config.getString("pool-built")
   val poolGallons = config.getString("pool-gallons")
+  val poolStreet = config.getString("pool-street")
 
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
