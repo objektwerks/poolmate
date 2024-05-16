@@ -146,6 +146,7 @@ measurement-chart = "Measurement"
 measurement-charts = "Measurement Charts"
  */
   val measurements = config.getString("measurements")
+  val measurementOn = config.getString("measurement-on")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
