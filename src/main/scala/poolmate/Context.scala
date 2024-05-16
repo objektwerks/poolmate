@@ -150,6 +150,7 @@ measurement-charts = "Measurement Charts"
   val measurementTemp = config.getString("measurement-temp")
   val measurementHardness = config.getString("measurement-hardness")
   val measurementTotalChlorine = config.getString("measurement-total-chlorine")
+  val measurementBromine = config.getString("measurement-bromine")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
