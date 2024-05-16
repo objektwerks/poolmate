@@ -111,12 +111,6 @@ class Context(config: Config):
   val cleaningHeaderPumpBasket = config.getString("cleaning-header-pump-basket")
   val cleaningHeaderPumpFilter = config.getString("cleaning-header-pump-filter")
 
-/* 
-measurement-chart-measurements = "Measurements"
-measurement-chart-year-day = "Year-Day"
-measurement-chart = "Measurement"
-measurement-charts = "Measurement Charts"
- */
   val measurements = config.getString("measurements")
   val measurementOn = config.getString("measurement-on")
   val measurementTemp = config.getString("measurement-temp")
@@ -145,9 +139,10 @@ measurement-charts = "Measurement Charts"
   val measurementChartPh = config.getString("measurement-chart-ph")
   val measurementChartAlkalinity = config.getString("measurement-chart-alkalinity")
   val measurementChartCyanuricAcid = config.getString("measurement-chart-cyanuric-acid")
-
   val measurementChartMeasurements = config.getString("measurement-chart-measurements")
   val measurementChartYearDay = config.getString("measurement-chart-year-day")
+  val measurementChart = config.getString("measurement-chart")
+  val measurementCharts = config.getString("measurement-charts")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
