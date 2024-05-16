@@ -191,6 +191,7 @@ repair-costs = "Repair Costs"
   val repairChartCosts = config.getString("repair-chart-costs")
   val repairChartYearDay = config.getString("repair-chart-year-day")
   val repairChart = config.getString("repair-chart")
+  val repairCosts = config.getString("repair-costs")
 
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
