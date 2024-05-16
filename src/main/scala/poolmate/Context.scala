@@ -50,6 +50,8 @@ class Context(config: Config):
     pool-header-state = "State"
     pool-header-zip = "Zip"
   */
+  val pools = config.getString("pools")
+
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
