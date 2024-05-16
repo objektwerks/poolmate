@@ -144,16 +144,7 @@ class Context(config: Config):
   val measurementChart = config.getString("measurement-chart")
   val measurementCharts = config.getString("measurement-charts")
 
-/* 
-additives = "Additives"
-additive-on = "On:"
-additive-chemical = "Chemical:"
-additive-unit = "Unit:"
-additive-amount = "Amount:"
-additive-header-on = "On"
-additive-header-chemical = "Chemical"
-additive-header-unit = "Unit"
-additive-header-amount = "Amount"
+/*
 additive-chart-additives = "Additives"
 additive-chart-amounts = "Amounts"
 additive-chart = "Additive Amounts Chart"
@@ -168,6 +159,7 @@ additive-amounts = "Additive Amounts"
   val additiveHeaderChemical = config.getString("additive-header-chemical")
   val additiveHeaderUnit = config.getString("additive-header-unit")
   val additiveHeaderAmount = config.getString("additive-header-amount")
+  val additiveChartAdditives = config.getString("additive-chart-additives")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
