@@ -147,6 +147,7 @@ measurement-charts = "Measurement Charts"
   val measurementChartCyanuricAcid = config.getString("measurement-chart-cyanuric-acid")
 
   val measurementChartMeasurements = config.getString("measurement-chart-measurements")
+  val measurementChartYearDay = config.getString("measurement-chart-year-day")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
