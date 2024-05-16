@@ -144,6 +144,24 @@ class Context(config: Config):
   val measurementChart = config.getString("measurement-chart")
   val measurementCharts = config.getString("measurement-charts")
 
+/* 
+additives = "Additives"
+additive-on = "On:"
+additive-chemical = "Chemical:"
+additive-unit = "Unit:"
+additive-amount = "Amount:"
+additive-header-on = "On"
+additive-header-chemical = "Chemical"
+additive-header-unit = "Unit"
+additive-header-amount = "Amount"
+additive-chart-additives = "Additives"
+additive-chart-amounts = "Amounts"
+additive-chart = "Additive Amounts Chart"
+additive-amounts = "Additive Amounts"
+ */
+  val additives = config.getString("additives")
+
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
