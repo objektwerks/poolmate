@@ -73,6 +73,7 @@ class Context(config: Config):
   pump-header-model = "Model"
    */
   val pumps = config.getString("pumps")
+  val pumpInstalled = config.getString("pump-installed")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
