@@ -164,7 +164,10 @@ additive-amounts = "Additive Amounts"
   val additiveChemical = config.getString("additive-chemical")
   val additiveUnit = config.getString("additive-unit")
   val additiveAmount = config.getString("additive-amount")
-
+  val additiveHeaderOn = config.getString("additive-header-on")
+  val additiveHeaderChemical = config.getString("additive-header-chemical")
+  val additiveHeaderUnit = config.getString("additive-header-unit")
+  val additiveHeaderAmount = config.getString("additive-header-amount")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
