@@ -155,7 +155,17 @@ measurement-charts = "Measurement Charts"
   val measurementPh = config.getString("measurement-ph")
   val measurementAlkalinity = config.getString("measurement-alkalinity")
   val measurementCyanuricAcid = config.getString("measurement-cyanuric-acid")
+  val measurementHeaderOn = config.getString("measurement-header-on")
+  val measurementHeaderTemp = config.getString("measurement-header-temp")
+  val measurementHeaderHardness = config.getString("measurement-header-hardness")
+  val measurementHeaderTotalChlorine = config.getString("measurement-header-total-chlorine")
+  val measurementHeaderBromine = config.getString("measurement-header-bromine")
+  val measurementHeaderFreeChlorine = config.getString("measurement-header-free-chlorine")
+  val measurementHeaderPh = config.getString("measurement-header-ph")
+  val measurementHeaderAlkalinity = config.getString("measurement-header-alkalinity")
+  val measurementHeaderCyanuricAcid = config.getString("measurement-header-cyanuric-acid")
 
+  
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
