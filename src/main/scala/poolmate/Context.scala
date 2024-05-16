@@ -144,7 +144,9 @@ measurement-charts = "Measurement Charts"
   val measurementChartFreeChlorine = config.getString("measurement-chart-free-chlorine")
   val measurementChartPh = config.getString("measurement-chart-ph")
   val measurementChartAlkalinity = config.getString("measurement-chart-alkalinity")
-  val measurementChartCyanuricAcid = config.getString("measurement-header-cyanuric-acid")
+  val measurementChartCyanuricAcid = config.getString("measurement-chart-cyanuric-acid")
+
+  val measurementChartMeasurements = config.getString("measurement-chart-measurements")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
