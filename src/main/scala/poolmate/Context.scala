@@ -2,6 +2,8 @@ package poolmate
 
 import com.typesafe.config.Config
 
+import scala.jdk.CollectionConverters.*
+
 import scalafx.collections.ObservableBuffer
 import scalafx.scene.image.{Image, ImageView}
 
