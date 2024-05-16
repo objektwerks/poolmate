@@ -174,6 +174,22 @@ class Context(config: Config):
   val supplyChart = config.getString("supply-chart")
   val supplyCosts = config.getString("supply-costs")
 
+/* 
+repairs = "Repairs"
+repair-on = "On:"
+repair-item = "Item:"
+repair-cost = "Cost:"
+repair-header-on = "On"
+repair-header-item = "Item"
+repair-header-cost = "Cost"
+repair-chart-cost = "Cost"
+repair-chart-costs = "Costs"
+repair-chart-year-day = "Year-Day"
+repair-chart = "Repair Costs Chart"
+repair-costs = "Repair Costs"
+ */
+  val repairs = config.getString("repairs")
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
