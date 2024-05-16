@@ -93,6 +93,27 @@ class Context(config: Config):
   val lifecycleHeaderPumpOn = config.getString("lifecycle-header-pump-on")
   val lifecycleHeaderPumpOff = config.getString("lifecycle-header-pump-off")
 
+/* 
+cleanings = "Cleanings"
+cleaning-on = "On:"
+cleaning-deck = "Deck:"
+cleaning-brush = "Brush:"
+cleaning-net = "Net:"
+cleaning-vacuum = "Vacuum:"
+cleaning-skimmer-basket = "Skimmer Basket:"
+cleaning-pump-basket = "Pump Basket:"
+cleaning-pump-filter = "Pump Filter:"
+cleaning-header-on = "On"
+cleaning-header-deck = "Deck"
+cleaning-header-brush = "Brush"
+cleaning-header-net = "Net"
+cleaning-header-vacuum = "Vacuum"
+cleaning-header-skimmer-basket = "Skimmer\nBasket"
+cleaning-header-pump-basket = "Pump\nBasket"
+cleaning-header-pump-filter = "Pump\nFilter"
+ */
+  val cleanings = config.getString("cleanings")
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
