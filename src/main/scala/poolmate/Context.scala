@@ -160,6 +160,7 @@ additive-chart = "Additive Amounts Chart"
 additive-amounts = "Additive Amounts"
  */
   val additives = config.getString("additives")
+  val additiveOn = config.getString("additive-on")
 
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
