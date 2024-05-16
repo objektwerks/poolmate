@@ -96,6 +96,7 @@ lifecycle-header-pump-off = "Pump Off"
  */
   val lifecycles = config.getString("lifecycles")
   val lifecycleCreated = config.getString("lifecycle-created")
+  val lifecycleActive = config.getString("lifecycle-active")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
