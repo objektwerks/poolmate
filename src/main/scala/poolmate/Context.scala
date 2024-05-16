@@ -68,6 +68,7 @@ class Context(config: Config):
    */
   val surfaces = config.getString("surfaces")
   val surfaceInstalled = config.getString("surface-installed")
+  val surfaceKind = config.getString("surface-kind")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
