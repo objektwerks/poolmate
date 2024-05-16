@@ -158,6 +158,25 @@ class Context(config: Config):
   val additiveChart = config.getString("additive-chart")
   val additiveAmounts = config.getString("additive-amounts")
 
+/* 
+supplies = "Supplies"
+supply-purchased = "Purchased:"
+supply-item = "Item:"
+supply-unit = "Unit:"
+supply-amount = "Amount:"
+supply-cost = "Cost:"
+supply-header-purchased = "Purchased"
+supply-header-item = "Item"
+supply-header-unit = "Unit"
+supply-header-amount = "Amount"
+supply-header-cost = "Cost"
+supply-chart-supplies = "Supplies"
+supply-chart-costs = "Costs"
+supply-chart = "Supply Costs Chart"
+supply-costs = "Supply Costs"
+ */
+  val supplies = config.getString("supplies")
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
