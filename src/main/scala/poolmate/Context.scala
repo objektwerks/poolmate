@@ -83,22 +83,15 @@ class Context(config: Config):
   val heaterHeaderInstalled = config.getString("heater-header-installed")
   val heaterHeaderModel = config.getString("heater-header-model")
 
-/* 
-lifecycles = "Lifecycles"
-lifecycle-created = "Created:"
-lifecycle-active = "Active:"
-lifecycle-pump-on = "Pump On:"
-lifecycle-pump-off = "Pump Off:"
-lifecycle-header-created = "Created"
-lifecycle-header-active = "Active"
-lifecycle-header-pump-on = "Pump On"
-lifecycle-header-pump-off = "Pump Off"
- */
   val lifecycles = config.getString("lifecycles")
   val lifecycleCreated = config.getString("lifecycle-created")
   val lifecycleActive = config.getString("lifecycle-active")
   val lifecyclePumpOn = config.getString("lifecycle-pump-on")
   val lifecyclePumpOff = config.getString("lifecycle-pump-off")
+  val lifecycleHeaderCreated = config.getString("lifecycle-header-created")
+  val lifecycleHeaderActive = config.getString("lifecycle-header-active")
+  val lifecycleHeaderPumpOn = config.getString("lifecycle-header-pump-on")
+  val lifecycleHeaderPumpOff = config.getString("lifecycle-header-pump-off")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
