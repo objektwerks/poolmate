@@ -119,6 +119,8 @@ cleaning-header-pump-filter = "Pump\nFilter"
   val cleaningNet = config.getString("cleaning-net")
   val cleaningVacuum = config.getString("cleaning-vacuum")
   val cleaningSkimmerBasket = config.getString("cleaning-skimmer-basket")
+  val cleaningPumpBasket = config.getString("cleaning-pump-basket")
+  val cleaningPumpFilter = config.getString("cleaning-pump-filter")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
