@@ -49,23 +49,15 @@ class Context(config: Config):
   val poolHeaderState = config.getString("pool-header-state")
   val poolHeaderZip = config.getString("pool-header-zip")
 
-  /* 
-  owners = "Owners:"
-  owner-since = "Since:"
-  owner-first = "First:"
-  owner-last = "Last:"
-  owner-email = "Email:"
-  owner-header-since = "Since"
-  owner-header-first = "First"
-  owner-header-last = "Last"
-  owner-header-email = "Email"
-   */
   val owners = config.getString("owners")
   val ownerSince = config.getString("owner-since")
   val ownerFirst = config.getString("owner-first")
   val ownerLast = config.getString("owner-last")
   val ownerEmail = config.getString("owner-email")
-
+  val ownerHeaderSince = config.getString("owner-header-since")
+  val ownerHeaderFirst = config.getString("owner-header-first")
+  val ownerHeaderLast = config.getString("owner-header-last")
+  val ownerHeaderEmail = config.getString("owner-header-email")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
