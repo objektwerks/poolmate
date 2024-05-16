@@ -5,8 +5,6 @@ import com.typesafe.config.Config
 import scalafx.collections.ObservableBuffer
 import scalafx.scene.image.{Image, ImageView}
 
-import scala.jdk.CollectionConverters.*
-
 class Context(config: Config):
   val title = config.getString("title")
   val developer = config.getString("developer")
