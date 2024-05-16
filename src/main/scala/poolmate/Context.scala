@@ -114,6 +114,7 @@ cleaning-header-pump-filter = "Pump\nFilter"
  */
   val cleanings = config.getString("cleanings")
   val cleaningOn = config.getString("cleaning-on")
+  val cleaningDeck = config.getString("cleaning-deck")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
