@@ -71,14 +71,11 @@ class Context(config: Config):
   val pumpHeaderInstalled = config.getString("pump-header-installed")
   val pumpHeaderModel = config.getString("pump-header-model")
 
-/* 
-timers = "Timers"
-timer-installed = "Installed:"
-timer-model = "Model:"
-timer-header-installed = "Installed"
-timer-header-model = "Model"
- */
   val timers = config.getString("timers")
+  val timerInstalled = config.getString("timer-installed")
+  val timerModel = config.getString("timer-model")
+  val timerHeaderInstalled = config.getString("timer-header-installed")
+  val timerHeaderModel = config.getString("timer-header-model")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
