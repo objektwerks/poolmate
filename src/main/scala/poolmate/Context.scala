@@ -49,6 +49,20 @@ class Context(config: Config):
   val poolHeaderState = config.getString("pool-header-state")
   val poolHeaderZip = config.getString("pool-header-zip")
 
+  /* 
+  owners = "Owners:"
+  owner-since = "Since:"
+  owner-first = "First:"
+  owner-last = "Last:"
+  owner-email = "Email:"
+  owner-header-since = "Since"
+  owner-header-first = "First"
+  owner-header-last = "Last"
+  owner-header-email = "Email"
+   */
+  val owners = config.getString("owners")
+
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
