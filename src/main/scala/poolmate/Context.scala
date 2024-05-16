@@ -59,6 +59,16 @@ class Context(config: Config):
   val ownerHeaderLast = config.getString("owner-header-last")
   val ownerHeaderEmail = config.getString("owner-header-email")
 
+  /* 
+  surfaces = "Surfaces"
+  surface-installed = "Installed:"
+  surface-kind = "Kind:"
+  surface-header-installed = "Installed"
+  surface-header-kind = "Kind"
+   */
+  val surfaces = config.getString("surfaces")
+  val surfaceInstalled = config.getString("surface-installed")
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
