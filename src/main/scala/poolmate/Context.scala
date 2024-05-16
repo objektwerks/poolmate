@@ -74,6 +74,7 @@ class Context(config: Config):
    */
   val pumps = config.getString("pumps")
   val pumpInstalled = config.getString("pump-installed")
+  val pumpModel = config.getString("pump-model")
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
