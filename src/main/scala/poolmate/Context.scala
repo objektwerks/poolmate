@@ -77,6 +77,12 @@ class Context(config: Config):
   val timerHeaderInstalled = config.getString("timer-header-installed")
   val timerHeaderModel = config.getString("timer-header-model")
 
+  val heaters = config.getString("heaters")
+  val heaterInstalled = config.getString("heater-installed")
+  val heaterModel = config.getString("heater-model")
+  val heaterHeaderInstalled = config.getString("heater-header-installed")
+  val heaterHeaderModel = config.getString("heater-header-model")
+
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
   def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
