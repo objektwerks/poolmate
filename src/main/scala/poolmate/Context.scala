@@ -163,6 +163,7 @@ additive-amounts = "Additive Amounts"
   val additiveOn = config.getString("additive-on")
   val additiveChemical = config.getString("additive-chemical")
   val additiveUnit = config.getString("additive-unit")
+  val additiveAmount = config.getString("additive-amount")
 
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
