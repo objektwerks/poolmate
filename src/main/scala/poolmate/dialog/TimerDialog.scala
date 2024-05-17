@@ -1,16 +1,14 @@
 package poolmate.dialog
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-import poolmate.{App, Entity, Timer}
+import poolmate.{App, Context, Entity, Timer}
 import poolmate.pane.ControlGridPane
 
-class TimerDialog(conf: Config, timer: Timer) extends Dialog[Timer]:
+class TimerDialog(context: Context, timer: Timer) extends Dialog[Timer]:
   val installedDatePicker = new DatePicker:
     value = Entity.toLocalDate(timer.installed)
 
@@ -18,13 +16,13 @@ class TimerDialog(conf: Config, timer: Timer) extends Dialog[Timer]:
     text = timer.model
 
   val controls = List[(String, Region)](
-    conf.getString("timer-installed") -> installedDatePicker,
-    conf.getString("timer-model") -> modelTextField
+    context.timerInstalled -> installedDatePicker,
+    context.timerModel -> modelTextField
   )
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(conf.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.save, ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -40,5 +38,5 @@ class TimerDialog(conf: Config, timer: Timer) extends Dialog[Timer]:
     else null
 
   initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-timer")
+  title = context.title
+  headerText = context.saveTimer
