@@ -18,11 +18,14 @@ class Repository(val config: DatabaseConfig[JdbcProfile],
 
   val db = config.db
 
-  def verify: Unit =
+  def verify(): Repository =
     try
       await( pools.list() ).length
+      this
     catch
-      case NonFatal(_) => createSchema()
+      case NonFatal(_) =>
+        createSchema()
+        this
 
   def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
 
