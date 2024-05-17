@@ -59,7 +59,7 @@ class CleaningPane(context: Context, model: Model) extends VBox:
           _.value.pumpFilterProperty
         }
     )
-    prefHeight = context.height.toDouble
+    prefHeight = context.height
     items = model.cleaningList
   cleaningTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
