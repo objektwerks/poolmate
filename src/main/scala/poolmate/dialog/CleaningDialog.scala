@@ -1,16 +1,14 @@
 package poolmate.dialog
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, CheckBox, Dialog, DatePicker}
 import scalafx.scene.layout.Region
 
-import poolmate.{App, Cleaning, Entity}
+import poolmate.{App, Cleaning, Context, Entity}
 import poolmate.pane.ControlGridPane
 
-class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning]:
+class CleaningDialog(context: Context, cleaning: Cleaning) extends Dialog[Cleaning]:
   val onDatePicker = new DatePicker:
     value = Entity.toLocalDate(cleaning.on)
 
@@ -36,19 +34,19 @@ class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning]:
     selected = cleaning.pumpFilter
 
   val controls = List[(String, Region)](
-    conf.getString("cleaning-on") -> onDatePicker,
-    conf.getString("cleaning-deck") -> deckCheckBox,
-    conf.getString("cleaning-brush") -> brushCheckBox,
-    conf.getString("cleaning-net") -> netCheckBox,
-    conf.getString("cleaning-vacuum") -> vacuumCheckBox,
-    conf.getString("cleaning-skimmer-basket") -> skimmerBasketCheckBox,
-    conf.getString("cleaning-pump-basket") -> pumpBasketCheckBox,
-    conf.getString("cleaning-pump-filter") -> pumpFilterCheckBox
+    context.cleaningOn -> onDatePicker,
+    context.cleaningDeck -> deckCheckBox,
+    context.cleaningBrush -> brushCheckBox,
+    context.cleaningNet -> netCheckBox,
+    context.cleaningVacuum -> vacuumCheckBox,
+    context.cleaningSkimmerBasket -> skimmerBasketCheckBox,
+    context.cleaningPumpBasket -> pumpBasketCheckBox,
+    context.cleaningPumpFilter -> pumpFilterCheckBox
   )
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(conf.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -67,5 +65,5 @@ class CleaningDialog(conf: Config, cleaning: Cleaning) extends Dialog[Cleaning]:
     else null
 
   initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-cleaning") 
+  title = context.getString("title")
+  headerText = context.getString("save-cleaning") 
