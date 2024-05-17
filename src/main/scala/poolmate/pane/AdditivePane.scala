@@ -35,7 +35,7 @@ class AdditivePane(context: Context, model: Model) extends VBox:
           _.value.amountProperty
         }
     )
-    prefHeight = context.height.toDouble
+    prefHeight = context.height
     items = model.additiveList
   additiveTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
