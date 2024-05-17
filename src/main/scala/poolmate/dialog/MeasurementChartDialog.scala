@@ -81,21 +81,21 @@ class MeasurementChartDialog(context: Context, model: Model) extends Dialog[Unit
     children = List(chartsTabPane)
 
   initOwner(App.stage)
-  title = context.getString("measurement-chart")
-  headerText = context.getString("measurement-charts")
+  title = context.measurementChart
+  headerText = context.measurementCharts
 
 object MeasurementCharts:
   val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
   val doubleFormatter = new DecimalFormat("#.00")
 
-  def buildLineChart(conf: Config, 
+  def buildLineChart(context: Context, 
                      minDate: Double, 
                      maxDate: Double, 
                      yLabel: String, 
                      yLowerBound: Double = 0, 
                      yUpperBound: Double, 
                      yTickUnit: Double): (LineChart[Number, Number], XYChart.Series[Number, Number]) =
-    val xAxis = NumberAxis(axisLabel = s"${conf.getString("measurement-chart-year-day")} [$minDate - $maxDate]", lowerBound = minDate, upperBound = maxDate, tickUnit = 1)
+    val xAxis = NumberAxis(axisLabel = s"${context.measurementChartYearDay} [$minDate - $maxDate]", lowerBound = minDate, upperBound = maxDate, tickUnit = 1)
     val yAxis = NumberAxis(axisLabel = yLabel, lowerBound = yLowerBound, upperBound = yUpperBound, tickUnit = yTickUnit)
     val chart = LineChart[Number, Number](xAxis, yAxis)
     val series = new XYChart.Series[Number, Number]()
