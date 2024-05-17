@@ -182,14 +182,14 @@ object MeasurementCharts:
     series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
-  def buildFreeChlorineLineChart(conf: Config, 
+  def buildFreeChlorineLineChart(context: Context, 
                                  measurements: ObservableBuffer[Measurement], 
                                  minDate: Double, 
                                  maxDate: Double): LineChart[Number, Number] =
-    val (chart, series) = buildLineChart(conf, 
+    val (chart, series) = buildLineChart(context, 
                                          minDate, 
                                          maxDate, 
-                                         yLabel = conf.getString("measurement-chart-free-chlorine"), 
+                                         yLabel = context.measurementChartFreeChlorine, 
                                          yUpperBound = 10, 
                                          yTickUnit = 1)
     measurements foreach { measurement => 
