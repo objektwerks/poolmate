@@ -142,14 +142,14 @@ object MeasurementCharts:
     series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
-  def buildTotalChlorineLineChart(conf: Config, 
+  def buildTotalChlorineLineChart(context: Context, 
                                   measurements: ObservableBuffer[Measurement], 
                                   minDate: Double, 
                                   maxDate: Double): LineChart[Number, Number] =
-    val (chart, series) = buildLineChart(conf, 
+    val (chart, series) = buildLineChart(context, 
                                          minDate, 
                                          maxDate, 
-                                         yLabel = conf.getString("measurement-chart-total-chlorine"), 
+                                         yLabel = context.measurementChartTotalChlorine, 
                                          yUpperBound = 10, 
                                          yTickUnit = 1)
     measurements foreach { measurement => 
@@ -162,14 +162,14 @@ object MeasurementCharts:
     series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
-  def buildBromineLineChart(conf: Config, 
+  def buildBromineLineChart(context: Context, 
                             measurements: ObservableBuffer[Measurement], 
                             minDate: Double, 
                             maxDate: Double): LineChart[Number, Number] =
-    val (chart, series) = buildLineChart(conf, 
+    val (chart, series) = buildLineChart(context, 
                                          minDate, 
                                          maxDate, 
-                                         yLabel = conf.getString("measurement-chart-bromine"), 
+                                         yLabel = context.measurementChartBromine, 
                                          yUpperBound = 20, 
                                          yTickUnit = 1)
     measurements foreach { measurement => 
