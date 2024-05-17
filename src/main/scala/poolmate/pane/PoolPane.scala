@@ -1,54 +1,63 @@
 package poolmate.pane
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, Label, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-import poolmate.{Model, Pool}
-import poolmate.Context.*
+import poolmate.{Context, Model, Pool}
 import poolmate.dialog.PoolDialog
 
-class PoolPane(conf: Config, model: Model) extends VBox:
+class PoolPane(context: Context, model: Model) extends VBox:
   val poolLabel = new Label:
-    text = conf.getString("pools")
+    text = context.pools
 
   val poolTableView = new TableView[Pool]:
     columns ++= List(
       new TableColumn[Pool, String]:
-        text = conf.getString("pool-header-built")
+        text = context.poolHeaderBuilt
         cellValueFactory = {
           _.value.builtProperty
         }
       ,
       new TableColumn[Pool, String]:
-        text = conf.getString("pool-header-gallons")
+        text = context.poolHeaderGallons
         cellValueFactory = {
           _.value.gallonsProperty
         }
       ,
       new TableColumn[Pool, String]:
-        text = conf.getString("pool-header-street")
+        text = context.poolHeaderStreet
         cellValueFactory = {
           _.value.streetProperty
         }
       ,
       new TableColumn[Pool, String]:
-        text = conf.getString("pool-header-city")
+        text = context.poolHeaderCity
         cellValueFactory = {
           _.value.cityProperty
+        }
+      ,
+      new TableColumn[Pool, String]:
+        text = context.poolHeaderState
+        cellValueFactory = {
+          _.value.stateProperty
+        }
+      ,
+      new TableColumn[Pool, String]:
+        text = context.poolHeaderZip
+        cellValueFactory = {
+          _.value.zipProperty
         }
     )
     items = model.poolList
   poolTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
   val poolAddButton = new Button:
-    graphic = addImageView
+    graphic = context.addImageView
 
   val poolEditButton = new Button:
-    graphic = editImageView
+    graphic = context.editImageView
     disable = true
 
   val poolToolBar = new HBox:
@@ -76,7 +85,7 @@ class PoolPane(conf: Config, model: Model) extends VBox:
   poolEditButton.onAction = { _ => update() }
 
   def add(): Unit =
-    new PoolDialog(conf, Pool()).showAndWait() match 
+    new PoolDialog(context, Pool()).showAndWait() match 
       case Some(Pool(id, built, gallons, street, city, state, zip)) =>
         val newPool = model.addPool(
           Pool(id, built, gallons, street, city, state, zip)
@@ -87,7 +96,7 @@ class PoolPane(conf: Config, model: Model) extends VBox:
   def update(): Unit = 
     val selectedIndex = poolTableView.selectionModel().getSelectedIndex
     val pool = poolTableView.selectionModel().getSelectedItem.pool
-    PoolDialog(conf, pool).showAndWait() match
+    PoolDialog(context, pool).showAndWait() match
       case Some(Pool(id, built, gallons, street, city, state, zip)) =>
         model.updatePool(
           selectedIndex,
