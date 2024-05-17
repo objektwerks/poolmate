@@ -1,80 +1,80 @@
 package poolmate.pane
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-import poolmate.{Cleaning, Model}
+import poolmate.{Cleaning, Context, Model}
 import poolmate.Context.*
 import poolmate.dialog.CleaningDialog
 
-class CleaningPane(conf: Config, model: Model) extends VBox:
+class CleaningPane(context: Context, model: Model) extends VBox:
   val cleaningTableView = new TableView[Cleaning]:
     columns ++= List(
       new TableColumn[Cleaning, String]:
-        text = conf.getString("cleaning-header-on")
+        text = context.cleaningHeaderOn
         cellValueFactory = {
           _.value.onProperty
         }
       ,
       new TableColumn[Cleaning, String]:
-        text = conf.getString("cleaning-header-deck")
+        text = context.cleaningHeaderDeck
         cellValueFactory = {
           _.value.deckProperty
         }
       ,
       new TableColumn[Cleaning, String]:
-        text = conf.getString("cleaning-header-brush")
+        text = context.cleaningHeaderBrush
         cellValueFactory = {
           _.value.brushProperty
         }
       ,
       new TableColumn[Cleaning, String]:
-        text = conf.getString("cleaning-header-net")
+        text = context.cleaningHeaderNet
         cellValueFactory = {
           _.value.netProperty
         }
       ,
       new TableColumn[Cleaning, String]:
-        text = conf.getString("cleaning-header-vacuum")
+        text = context.cleaningHeaderVacuum
         cellValueFactory = {
           _.value.vacuumProperty
         }
       ,
       new TableColumn[Cleaning, String]:
-        text = conf.getString("cleaning-header-skimmer-basket")
+        text = context.cleaningHeaderSkimmerBasket
         cellValueFactory = {
           _.value.skimmerBasketProperty
         }
       ,
       new TableColumn[Cleaning, String]:
-        text = conf.getString("cleaning-header-pump-basket"); cellValueFactory = {
+        text = context.cleaningHeaderPumpBasket
+        cellValueFactory = {
           _.value.pumpBasketProperty
         }
       ,
       new TableColumn[Cleaning, String]:
-        text = conf.getString("cleaning-header-pump-filter")
+        text = context.cleaningHeaderPumpFilter
         cellValueFactory = {
           _.value.pumpFilterProperty
         }
     )
-    prefHeight = conf.getInt("height").toDouble
+    prefHeight = context.height.toDouble
     items = model.cleaningList
   cleaningTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
   val cleaningAddButton = new Button:
-    graphic = addImageView
+    graphic = context.addImageView
     disable = true
 
   val cleaningEditButton = new Button:
-    graphic = editImageView
+    graphic = context.editImageView
     disable = true
 
   val cleaningToolBar = new HBox:
-    spacing = 6; children = List(cleaningAddButton, cleaningEditButton)
+    spacing = 6
+    children = List(cleaningAddButton, cleaningEditButton)
 
   spacing = 6
   padding = Insets(6)
@@ -102,7 +102,7 @@ class CleaningPane(conf: Config, model: Model) extends VBox:
   cleaningEditButton.onAction = { _ => update() }
 
   def add(): Unit =
-    CleaningDialog(conf, Cleaning(poolId = model.selectedPoolId.toInt)).showAndWait() match
+    CleaningDialog(context, Cleaning(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Cleaning(id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter)) =>
         val newCleaning = model.addCleaning(
           Cleaning(id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter)
@@ -113,7 +113,7 @@ class CleaningPane(conf: Config, model: Model) extends VBox:
   def update(): Unit =
     val selectedIndex = cleaningTableView.selectionModel().getSelectedIndex
     val cleaning = cleaningTableView.selectionModel().getSelectedItem.cleaning
-    CleaningDialog(conf, cleaning).showAndWait() match
+    CleaningDialog(context, cleaning).showAndWait() match
       case Some(Cleaning(id, poolId, on, deck, brush, net, vacuum, skimmerBasket, pumpBasket, pumpFilter)) =>
         model.updateCleaning(
           selectedIndex,
