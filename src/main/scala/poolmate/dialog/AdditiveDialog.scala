@@ -6,7 +6,7 @@ import scalafx.scene.control.{ButtonType, ComboBox, Dialog, DatePicker, TextFiel
 import scalafx.scene.layout.Region
 
 import Dialogs.*
-import poolmate.{Additive, App, Context, Entity, Context}
+import poolmate.{Additive, App, Context, Entity}
 import poolmate.pane.ControlGridPane
 
 class AdditiveDialog(context: Context, additive: Additive) extends Dialog[Additive]:
@@ -32,7 +32,7 @@ class AdditiveDialog(context: Context, additive: Additive) extends Dialog[Additi
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(context.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.save, ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -43,12 +43,14 @@ class AdditiveDialog(context: Context, additive: Additive) extends Dialog[Additi
 
   resultConverter = dialogButton =>
     if (dialogButton == saveButtonType) then
-      additive.copy(on = onDatePicker.value.value.toString,
+      additive.copy(
+        on = onDatePicker.value.value.toString,
         chemical = chemicalTextField.text.value,
         unit = unitComboBox.selectionModel().getSelectedItem,
-        amount = amountTextField.text.value.toDouble)
+        amount = amountTextField.text.value.toDouble
+      )
     else null
 
   initOwner(App.stage)
-  title = context.getString("title")
-  headerText = context.getString("save-additive")
+  title = context.title
+  headerText = context.saveAdditive
