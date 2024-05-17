@@ -122,14 +122,14 @@ object MeasurementCharts:
     series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
-  def buildHardnessLineChart(conf: Config, 
+  def buildHardnessLineChart(context: Context, 
                              measurements: ObservableBuffer[Measurement], 
                              minDate: Double, 
                              maxDate: Double): LineChart[Number, Number] =
-    val (chart, series) = buildLineChart(conf, 
+    val (chart, series) = buildLineChart(context, 
                                          minDate, 
                                          maxDate, 
-                                         yLabel = conf.getString("measurement-chart-hardness"), 
+                                         yLabel = context.measurementChartHardness, 
                                          yUpperBound = 1000, 
                                          yTickUnit = 100)
     measurements foreach { measurement => 
@@ -139,7 +139,7 @@ object MeasurementCharts:
     val min = measurements.map(m => m.hardness).min
     val max = measurements.map(m => m.hardness).max
     val avg = measurements.map(m => m.hardness).sum / measurements.length
-    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
+    series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
   def buildTotalChlorineLineChart(conf: Config, 
@@ -159,7 +159,7 @@ object MeasurementCharts:
     val min = measurements.map(m => m.totalChlorine).min
     val max = measurements.map(m => m.totalChlorine).max
     val avg = measurements.map(m => m.totalChlorine).sum / measurements.length
-    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
+    series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
   def buildBromineLineChart(conf: Config, 
@@ -179,7 +179,7 @@ object MeasurementCharts:
     val min = measurements.map(m => m.bromine).min
     val max = measurements.map(m => m.bromine).max
     val avg = measurements.map(m => m.bromine).sum / measurements.length
-    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
+    series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
   def buildFreeChlorineLineChart(conf: Config, 
@@ -199,7 +199,7 @@ object MeasurementCharts:
     val min = measurements.map(m => m.freeChlorine).min
     val max = measurements.map(m => m.freeChlorine).max
     val avg = measurements.map(m => m.freeChlorine).sum / measurements.length
-    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
+    series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
   def buildPhLineChart(conf: Config, 
@@ -220,7 +220,7 @@ object MeasurementCharts:
     val min = doubleFormatter.format(measurements.map(m => m.pH).min)
     val max = doubleFormatter.format(measurements.map(m => m.pH).max)
     val avg = doubleFormatter.format(measurements.map(m => m.pH).sum / measurements.length)
-    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
+    series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
   def buildAlkalinityLineChart(conf: Config, 
@@ -240,7 +240,7 @@ object MeasurementCharts:
     val min = measurements.map(m => m.alkalinity).min
     val max = measurements.map(m => m.alkalinity).max
     val avg = measurements.map(m => m.alkalinity).sum / measurements.length
-    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
+    series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
   def buildCyanuricAcidLineChart(conf: Config, 
@@ -260,5 +260,5 @@ object MeasurementCharts:
     val min = measurements.map(m => m.cyanuricAcid).min
     val max = measurements.map(m => m.cyanuricAcid).max
     val avg = measurements.map(m => m.cyanuricAcid).sum / measurements.length
-    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
+    series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
