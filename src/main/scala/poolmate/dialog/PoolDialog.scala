@@ -1,17 +1,15 @@
 package poolmate.dialog
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
 import Dialogs.*
-import poolmate.{App, Entity, Pool}
+import poolmate.{App, Context, Entity, Pool}
 import poolmate.pane.ControlGridPane
 
-class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]:
+class PoolDialog(context: Context, pool: Pool) extends Dialog[Pool]:
   val builtDatePicker = new DatePicker:
     value = Entity.toLocalDate(pool.built)
 
@@ -31,17 +29,17 @@ class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]:
     text = pool.zip.toString
 
   val controls = List[(String, Region)](
-    conf.getString("pool-built") -> builtDatePicker,
-    conf.getString("pool-gallons") -> gallonsTextField,
-    conf.getString("pool-street") -> streetTextField,
-    conf.getString("pool-city") -> cityTextField,
-    conf.getString("pool-state") -> stateTextField,
-    conf.getString("pool-zip") -> zipTextField
+    context.poolBuilt -> builtDatePicker,
+    context.poolGallons -> gallonsTextField,
+    context.poolStreet -> streetTextField,
+    context.poolCity -> cityTextField,
+    context.poolState -> stateTextField,
+    context.poolZip -> zipTextField
   )
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(conf.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -63,5 +61,5 @@ class PoolDialog(conf: Config, pool: Pool) extends Dialog[Pool]:
     else null
 
   initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-pool")
+  title = context.getString("title")
+  headerText = context.getString("save-pool")
