@@ -6,10 +6,6 @@ TODO
 ----
 * Design and build company, worker and routing panels and dialogs.
 
-Warning
--------
->Slick support for Scala 3 is still a **WIP**. Switch back to Scala 2.13.12 and Slick 3.4.1 if you require working Slick code. :)
-
 Test
 ----
 1. sbt clean test
