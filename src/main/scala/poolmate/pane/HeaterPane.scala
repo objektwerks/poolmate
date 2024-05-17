@@ -1,27 +1,24 @@
 package poolmate.pane
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-import poolmate.{Heater, Model}
-import poolmate.Context.*
+import poolmate.{Context, Heater, Model}
 import poolmate.dialog.HeaterDialog
 
-class HeaterPane(conf: Config, model: Model) extends VBox:
+class HeaterPane(context: Context, model: Model) extends VBox:
   val heaterTableView = new TableView[Heater]:
     columns ++= List(
       new TableColumn[Heater, String]:
-        text = conf.getString("heater-header-installed")
+        text = context.getString("heater-header-installed")
         cellValueFactory = {
           _.value.installedProperty
         }
       ,
       new TableColumn[Heater, String]:
-        text = conf.getString("heater-header-model")
+        text = context.getString("heater-header-model")
         cellValueFactory = {
           _.value.modelProperty
         }
@@ -66,7 +63,7 @@ class HeaterPane(conf: Config, model: Model) extends VBox:
   heaterEditButton.onAction = { _ => update() }
 
   def add(): Unit =
-    HeaterDialog(conf, Heater(poolId = model.selectedPoolId.toInt)).showAndWait() match
+    HeaterDialog(context, Heater(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Heater(id, poolId, installed, _model)) =>
         val newHeater = model.addHeater(
           Heater(id, poolId, installed, _model)
@@ -77,7 +74,7 @@ class HeaterPane(conf: Config, model: Model) extends VBox:
   def update(): Unit =
     val selectedIndex = heaterTableView.selectionModel().getSelectedIndex
     val heater = heaterTableView.selectionModel().getSelectedItem.heater
-    HeaterDialog(conf, heater).showAndWait() match
+    HeaterDialog(context, heater).showAndWait() match
       case Some(Heater(id, poolId, installed, _model)) =>
         model.updateHeater(
           selectedIndex,
