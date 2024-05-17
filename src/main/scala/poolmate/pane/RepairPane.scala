@@ -1,50 +1,48 @@
 package poolmate.pane
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-import poolmate.{Model, Repair}
-import poolmate.Context.*
+import poolmate.{Context, Model, Repair}
 import poolmate.dialog.{RepairChartDialog, RepairDialog}
 
-class RepairPane(conf: Config, model: Model) extends VBox:
+class RepairPane(context: Context, model: Model) extends VBox:
   val repairTableView = new TableView[Repair]:
     columns ++= List(
       new TableColumn[Repair, String]:
-        text = conf.getString("repair-header-on")
+        text = context.repairHeaderOn
         cellValueFactory = {
           _.value.onProperty
         }
       ,
       new TableColumn[Repair, String]:
-        text = conf.getString("repair-header-item")
+        text = context.repairHeaderItem
         cellValueFactory = {
           _.value.itemProperty
         }
       ,
       new TableColumn[Repair, String]:
-        text = conf.getString("repair-header-cost"); cellValueFactory = {
+        text = context.repairHeaderCost
+        cellValueFactory = {
           _.value.costProperty
         }
     )
-    prefHeight = conf.getInt("height").toDouble
+    prefHeight = context.height.toDouble
     items = model.repairList
   repairTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
   val repairAddButton = new Button:
-    graphic = addImageView
+    graphic = context.addImageView
     disable = true
 
   val repairEditButton = new Button:
-    graphic = editImageView
+    graphic = context.editImageView
     disable = true
 
   val repairChartButton = new Button:
-    graphic = lineChartImageView
+    graphic = context.lineChartImageView
     disable = true
 
   val repairToolBar = new HBox:
@@ -78,10 +76,10 @@ class RepairPane(conf: Config, model: Model) extends VBox:
 
   repairEditButton.onAction = { _ => update() }
 
-  repairChartButton.onAction = { _ => RepairChartDialog(conf, model).showAndWait() }
+  repairChartButton.onAction = { _ => RepairChartDialog(context, model).showAndWait() }
 
   def add(): Unit =
-    RepairDialog(conf, Repair(poolId = model.selectedPoolId.toInt)).showAndWait() match
+    RepairDialog(context, Repair(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Repair(id, poolId, on, item, cost)) =>
         val newRepair = model.addRepair(
           Repair(id, poolId, on, item, cost)
@@ -92,7 +90,7 @@ class RepairPane(conf: Config, model: Model) extends VBox:
   def update(): Unit =
     val selectedIndex = repairTableView.selectionModel().getSelectedIndex
     val repair = repairTableView.selectionModel().getSelectedItem.repair
-    RepairDialog(conf, repair).showAndWait() match
+    RepairDialog(context, repair).showAndWait() match
       case Some(Repair(id, poolId, on, item, cost)) =>
         model.updateRepair(
           selectedIndex,
