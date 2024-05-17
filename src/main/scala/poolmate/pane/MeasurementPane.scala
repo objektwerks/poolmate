@@ -65,7 +65,7 @@ class MeasurementPane(context: Context, model: Model) extends VBox:
           _.value.cyanuricAcidProperty
         }
     )
-    prefHeight = context.height.toDouble
+    prefHeight = context.height
     items = model.measurementList
   measurementTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
