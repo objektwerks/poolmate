@@ -39,7 +39,7 @@ class PoolDialog(context: Context, pool: Pool) extends Dialog[Pool]:
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(context.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.save, ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -52,14 +52,16 @@ class PoolDialog(context: Context, pool: Pool) extends Dialog[Pool]:
 
   resultConverter = dialogButton =>
     if (dialogButton == saveButtonType) then
-      pool.copy(built = builtDatePicker.value.value.toString,
+      pool.copy(
+        built = builtDatePicker.value.value.toString,
         gallons = Integer.parseInt(gallonsTextField.text.value),
         street = streetTextField.text.value,
         city = cityTextField.text.value,
         state = stateTextField.text.value,
-        zip = Integer.parseInt(zipTextField.text.value))
+        zip = Integer.parseInt(zipTextField.text.value)
+      )
     else null
 
   initOwner(App.stage)
-  title = context.getString("title")
-  headerText = context.getString("save-pool")
+  title = context.title
+  headerText = context.savePool
