@@ -1,87 +1,84 @@
 package poolmate.pane
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-import poolmate.{Measurement, Model}
-import poolmate.Context.*
+import poolmate.{Context, Measurement, Model}
 import poolmate.dialog.{MeasurementChartDialog, MeasurementDialog}
 
-class MeasurementPane(conf: Config, model: Model) extends VBox:
+class MeasurementPane(context: Context, model: Model) extends VBox:
   val measurementTableView = new TableView[Measurement]:
     columns ++= List(
       new TableColumn[Measurement, String]:
-        text = conf.getString("measurement-header-on")
+        text = context.measurementHeaderOn
         cellValueFactory = {
           _.value.onProperty
         }
       ,
       new TableColumn[Measurement, String]:
-        text = conf.getString("measurement-header-temp")
+        text = context.measurementHeaderTemp
         cellValueFactory = {
           _.value.tempProperty
         }
       ,
       new TableColumn[Measurement, String]:
-        text = conf.getString("measurement-header-hardness")
+        text = context.measurementHeaderHardness
         cellValueFactory = {
           _.value.hardnessProperty
         }
       ,
       new TableColumn[Measurement, String]:
-        text = conf.getString("measurement-header-total-chlorine")
+        text = context.measurementHeaderTotalChlorine
         cellValueFactory = {
           _.value.totalChlorineProperty
         }
       ,
       new TableColumn[Measurement, String]:
-        text = conf.getString("measurement-header-bromine")
+        text = context.measurementHeaderBromine
         cellValueFactory = {
           _.value.bromineProperty
         }
       ,
       new TableColumn[Measurement, String]:
-        text = conf.getString("measurement-header-free-chlorine")
+        text = context.measurementHeaderFreeChlorine
         cellValueFactory = {
           _.value.freeChlorineProperty
         }
       ,
       new TableColumn[Measurement, String]:
-        text = conf.getString("measurement-header-ph")
+        text = context.measurementHeaderPh
         cellValueFactory = {
           _.value.pHProperty
         }
       ,
       new TableColumn[Measurement, String]:
-        text = conf.getString("measurement-header-alkalinity")
+        text = context.measurementHeaderAlkalinity
         cellValueFactory = {
           _.value.alkalinityProperty
         }
       ,
       new TableColumn[Measurement, String]:
-        text = conf.getString("measurement-header-cyanuric-acid")
+        text = context.measurementHeaderCyanuricAcid
         cellValueFactory = {
           _.value.cyanuricAcidProperty
         }
     )
-    prefHeight = conf.getInt("height").toDouble
+    prefHeight = context.height.toDouble
     items = model.measurementList
   measurementTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
   val measurementAddButton = new Button:
-    graphic = addImageView
+    graphic = context.addImageView
     disable = true
 
   val measurementEditButton = new Button:
-    graphic = editImageView
+    graphic = context.editImageView
     disable = true
 
   val measurementChartButton = new Button:
-    graphic = lineChartImageView
+    graphic = context.lineChartImageView
     disable = true
 
   val measurementToolBar = new HBox:
@@ -115,10 +112,10 @@ class MeasurementPane(conf: Config, model: Model) extends VBox:
 
   measurementEditButton.onAction = { _ => update() }
 
-  measurementChartButton.onAction = { _ => MeasurementChartDialog(conf, model).showAndWait() }
+  measurementChartButton.onAction = { _ => MeasurementChartDialog(context, model).showAndWait() }
 
   def add(): Unit =
-    MeasurementDialog(conf, Measurement(poolId = model.selectedPoolId.toInt)).showAndWait() match
+    MeasurementDialog(context, Measurement(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Measurement(id, poolId, on, temp, hardness, totalChlorine, bromine, freeChlorine, pH, alkalinity, cyanuricAcid)) =>
         val newMeasurement = model.addMeasurement(
           Measurement(id, poolId, on, temp, hardness, totalChlorine, bromine, freeChlorine, pH, alkalinity, cyanuricAcid)
@@ -129,7 +126,7 @@ class MeasurementPane(conf: Config, model: Model) extends VBox:
   def update(): Unit =
     val selectedIndex = measurementTableView.selectionModel().getSelectedIndex
     val measurement = measurementTableView.selectionModel().getSelectedItem.measurement
-    MeasurementDialog(conf, measurement).showAndWait() match
+    MeasurementDialog(context, measurement).showAndWait() match
       case Some(Measurement(id, poolId, on, temp, hardness, totalChlorine, bromine, freeChlorine, pH, alkalinity, cyanuricAcid)) =>
         model.updateMeasurement(
           selectedIndex,
