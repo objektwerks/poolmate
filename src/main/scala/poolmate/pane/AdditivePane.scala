@@ -1,57 +1,55 @@
 package poolmate.pane
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-import poolmate.{Additive, Model}
+import poolmate.{Additive, Context, Model}
 import poolmate.Context.*
 import poolmate.dialog.{AdditiveChartDialog, AdditiveDialog}
 
-class AdditivePane(conf: Config, model: Model) extends VBox:
+class AdditivePane(context: Context, model: Model) extends VBox:
   val additiveTableView = new TableView[Additive]:
     columns ++= List(
       new TableColumn[Additive, String]:
-        text = conf.getString("additive-header-on")
+        text = context.additiveHeaderOn
         cellValueFactory = {
           _.value.onProperty
         }
       ,
       new TableColumn[Additive, String]:
-        text = conf.getString("additive-header-chemical")
+        text = context.additiveHeaderChemical
         cellValueFactory = {
           _.value.chemicalProperty
         }
       ,
       new TableColumn[Additive, String]:
-        text = conf.getString("additive-header-unit")
+        text = context.additiveHeaderUnit
         cellValueFactory = {
           _.value.unitProperty
         }
       ,
       new TableColumn[Additive, String]:
-        text = conf.getString("additive-header-amount")
+        text = context.additiveHeaderAmount
         cellValueFactory = {
           _.value.amountProperty
         }
     )
-    prefHeight = conf.getInt("height").toDouble
+    prefHeight = context.height.toDouble
     items = model.additiveList
   additiveTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
   val additiveAddButton = new Button:
-    graphic = addImageView
+    graphic = context.addImageView
     disable = true
 
   val additiveEditButton = new Button:
-    graphic = editImageView
+    graphic = context.editImageView
     disable = true
 
   val additiveChartButton = new Button:
-    graphic = barChartImageView
+    graphic = context.barChartImageView
     disable = true
 
   val additiveToolBar = new HBox:
@@ -85,10 +83,10 @@ class AdditivePane(conf: Config, model: Model) extends VBox:
 
   additiveEditButton.onAction = { _ => update() }
 
-  additiveChartButton.onAction = { _ => AdditiveChartDialog(conf, model).showAndWait() }
+  additiveChartButton.onAction = { _ => AdditiveChartDialog(context, model).showAndWait() }
 
   def add(): Unit =
-    AdditiveDialog(conf, Additive(poolId = model.selectedPoolId.toInt)).showAndWait() match
+    AdditiveDialog(context, Additive(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Additive(id, poolId, on, chemical, unit, amount)) =>
         val newAdditive = model.addAdditive(
           Additive(id, poolId, on, chemical, unit, amount)
@@ -99,7 +97,7 @@ class AdditivePane(conf: Config, model: Model) extends VBox:
   def update(): Unit =
     val selectedIndex = additiveTableView.selectionModel().getSelectedIndex
     val additive = additiveTableView.selectionModel().getSelectedItem.additive
-    AdditiveDialog(conf, additive).showAndWait() match
+    AdditiveDialog(context, additive).showAndWait() match
       case Some(Additive(id, poolId, on, chemical, unit, amount)) =>
         model.updateAdditive(
           selectedIndex,
