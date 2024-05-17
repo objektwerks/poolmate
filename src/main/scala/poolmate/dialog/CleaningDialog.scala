@@ -46,7 +46,7 @@ class CleaningDialog(context: Context, cleaning: Cleaning) extends Dialog[Cleani
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(context.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.save, ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -54,16 +54,18 @@ class CleaningDialog(context: Context, cleaning: Cleaning) extends Dialog[Cleani
 
   resultConverter = dialogButton =>
     if (dialogButton == saveButtonType) then
-      cleaning.copy(on = onDatePicker.value.value.toString,
+      cleaning.copy(
+        on = onDatePicker.value.value.toString,
         deck = deckCheckBox.selected.value,
         brush = deckCheckBox.selected.value,
         net = netCheckBox.selected.value,
         vacuum = vacuumCheckBox.selected.value,
         skimmerBasket = skimmerBasketCheckBox.selected.value,
         pumpBasket = pumpBasketCheckBox.selected.value,
-        pumpFilter = pumpFilterCheckBox.selected.value)
+        pumpFilter = pumpFilterCheckBox.selected.value
+      )
     else null
 
   initOwner(App.stage)
-  title = context.getString("title")
-  headerText = context.getString("save-cleaning") 
+  title = context.title
+  headerText = context.saveCleaning 
