@@ -1,16 +1,14 @@
 package poolmate.dialog
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
-import poolmate.{App, Entity, Heater}
+import poolmate.{App, Context, Entity, Heater}
 import poolmate.pane.ControlGridPane
 
-class HeaterDialog(conf: Config, heater: Heater) extends Dialog[Heater]:
+class HeaterDialog(context: Context, heater: Heater) extends Dialog[Heater]:
   val installedDatePicker = new DatePicker:
     value = Entity.toLocalDate(heater.installed)
 
@@ -18,13 +16,13 @@ class HeaterDialog(conf: Config, heater: Heater) extends Dialog[Heater]:
     text = heater.model
 
   val controls = List[(String, Region)](
-    conf.getString("heater-installed") -> installedDatePicker,
-    conf.getString("heater-model") -> modelTextField
+    context.heaterInstalled -> installedDatePicker,
+    context.heaterModel -> modelTextField
   )
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(conf.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.save, ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -40,5 +38,5 @@ class HeaterDialog(conf: Config, heater: Heater) extends Dialog[Heater]:
     else null
 
   initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-heater")
+  title = context.getString("title")
+  headerText = context.getString("save-heater")
