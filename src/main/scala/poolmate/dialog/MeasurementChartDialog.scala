@@ -102,14 +102,14 @@ object MeasurementCharts:
     chart.padding = Insets(6)
     (chart, series)
 
-  def buildTempLineChart(conf: Config,
+  def buildTempLineChart(context: Context,
                          measurements: ObservableBuffer[Measurement], 
                          minDate: Double, 
                          maxDate: Double): LineChart[Number, Number] =
-    val (chart, series) = buildLineChart(conf,
+    val (chart, series) = buildLineChart(context,
                                          minDate, 
                                          maxDate, 
-                                         yLabel = conf.getString("measurement-chart-temp"), 
+                                         yLabel = context.measurementChartTemp, 
                                          yUpperBound = 100, 
                                          yTickUnit = 10)
     measurements foreach { measurement => 
@@ -119,7 +119,7 @@ object MeasurementCharts:
     val min = measurements.map(m => m.temp).min
     val max = measurements.map(m => m.temp).max
     val avg = measurements.map(m => m.temp).sum / measurements.length
-    series.name = s"${conf.getString("min")} $min  ${conf.getString("max")} $max  ${conf.getString("avg")} $avg"
+    series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
   def buildHardnessLineChart(conf: Config, 
