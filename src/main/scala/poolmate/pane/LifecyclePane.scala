@@ -35,7 +35,7 @@ class LifecyclePane(context: Context, model: Model) extends VBox:
           _.value.pumpOffProperty
         }
     )
-    prefHeight = context.height.toDouble
+    prefHeight = context.height
     items = model.lifecycleList
   lifecycleTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
