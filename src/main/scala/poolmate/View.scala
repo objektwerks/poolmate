@@ -88,7 +88,7 @@ class View(context: Context, model: Model):
 
   val splitPane = new SplitPane:
     orientation = Orientation.Horizontal; padding = Insets(6); items.addAll(westPane, eastPane)
-  splitPane.setDividerPositions(0.3, 0.7)
+  splitPane.setDividerPositions(0.4, 0.6)
 
   val contentPane = new VBox:
     prefHeight = context.height
