@@ -32,7 +32,7 @@ class LifecycleDialog(context: Context, lifecycle: Lifecycle) extends Dialog[Lif
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(context.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.save, ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -44,12 +44,14 @@ class LifecycleDialog(context: Context, lifecycle: Lifecycle) extends Dialog[Lif
 
   resultConverter = dialogButton =>
     if (dialogButton == saveButtonType) then
-      lifecycle.copy(created = createdDatePicker.value.value.toString,
+      lifecycle.copy(
+        created = createdDatePicker.value.value.toString,
         active = activeCheckBox.selected.value,
         pumpOn = pumpOnTimePicker.localTimeProperty.value.toString,
-        pumpOff = pumpOffTimePicker.localTimeProperty.value.toString)
+        pumpOff = pumpOffTimePicker.localTimeProperty.value.toString
+      )
     else null
 
   initOwner(App.stage)
-  title = context.getString("title")
-  headerText = context.getString("save-lifecycle") 
+  title = context.title
+  headerText = context.saveLifecycle 
