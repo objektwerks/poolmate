@@ -1,7 +1,5 @@
 package poolmate.dialog
 
-import com.typesafe.config.Config
-
 import jfxtras.scene.control.LocalTimePicker
 
 import scalafx.Includes.*
@@ -9,10 +7,10 @@ import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, CheckBox, Dialog, DatePicker}
 import scalafx.scene.layout.Region
 
-import poolmate.{App, Entity, Lifecycle}
+import poolmate.{App, Context, Entity, Lifecycle}
 import poolmate.pane.ControlGridPane
 
-class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecycle]:
+class LifecycleDialog(context: Context, lifecycle: Lifecycle) extends Dialog[Lifecycle]:
   val createdDatePicker = new DatePicker:
     value = Entity.toLocalDate(lifecycle.created)
 
@@ -26,15 +24,15 @@ class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecyc
     localTimeProperty.value = Entity.toLocalTime(lifecycle.pumpOff)
 
   val controls = List[(String, Region)](
-    conf.getString("lifecycle-created") -> createdDatePicker,
-    conf.getString("lifecycle-active") -> activeCheckBox,
-    conf.getString("lifecycle-pump-on") -> pumpOnTimePicker,
-    conf.getString("lifecycle-pump-off") -> pumpOffTimePicker
+    context.lifecycleCreated -> createdDatePicker,
+    context.lifecycleActive -> activeCheckBox,
+    context.lifecycleHeaderPumpOn -> pumpOnTimePicker,
+    context.lifecycleHeaderPumpOff -> pumpOffTimePicker
   )
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(conf.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -53,5 +51,5 @@ class LifecycleDialog(conf: Config, lifecycle: Lifecycle) extends Dialog[Lifecyc
     else null
 
   initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-lifecycle") 
+  title = context.getString("title")
+  headerText = context.getString("save-lifecycle") 
