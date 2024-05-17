@@ -1,7 +1,5 @@
 package poolmate.dialog
 
-import com.typesafe.config.Config
-
 import java.text.DecimalFormat
 
 import scalafx.Includes.*
@@ -9,10 +7,10 @@ import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, Label, Slider}
 import scalafx.scene.layout.{HBox, Region}
 
-import poolmate.{App, Entity, Measurement}
+import poolmate.{App, Context, Entity, Measurement}
 import poolmate.pane.ControlGridPane
 
-class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[Measurement]:
+class MeasurementDialog(context: Context, measurement: Measurement) extends Dialog[Measurement]:
   val doubleFormatter = new DecimalFormat("#.00")
 
   val onDatePicker = new DatePicker:
@@ -147,20 +145,20 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
     children = List(cyanuricAcidSlider, cyanuricAcidLabel)
 
   val controls = List[(String, Region)](
-    conf.getString("measurement-on") -> onDatePicker,
-    conf.getString("measurement-temp") -> tempControl,
-    conf.getString("measurement-hardness") -> hardnessControl,
-    conf.getString("measurement-total-chlorine") -> totalChlorineControl,
-    conf.getString("measurement-bromine") -> bromineControl,
-    conf.getString("measurement-free-chlorine") -> freeChlorineControl,
-    conf.getString("measurement-ph") -> phControl,
-    conf.getString("measurement-alkalinity") -> alkalinityControl,
-    conf.getString("measurement-cyanuric-acid") -> cyanuricAcidControl
+    context.measurementOn -> onDatePicker,
+    context.measurementTemp -> tempControl,
+    context.measurementHardness -> hardnessControl,
+    context.measurementTotalChlorine -> totalChlorineControl,
+    context.measurementBromine -> bromineControl,
+    context.measurementFreeChlorine -> freeChlorineControl,
+    context.measurementPh -> phControl,
+    context.measurementAlkalinity -> alkalinityControl,
+    context.measurementCyanuricAcid -> cyanuricAcidControl
   )
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(conf.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -188,5 +186,5 @@ class MeasurementDialog(conf: Config, measurement: Measurement) extends Dialog[M
     else null
 
   initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-measurement")
+  title = context.getString("title")
+  headerText = context.getString("save-measurement")
