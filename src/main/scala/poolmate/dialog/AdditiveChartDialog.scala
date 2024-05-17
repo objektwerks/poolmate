@@ -1,7 +1,5 @@
 package poolmate.dialog
 
-import com.typesafe.config.Config
-
 import java.time.format.DateTimeFormatter
 
 import scalafx.Includes.*
