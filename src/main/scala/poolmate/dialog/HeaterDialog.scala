@@ -38,5 +38,5 @@ class HeaterDialog(context: Context, heater: Heater) extends Dialog[Heater]:
     else null
 
   initOwner(App.stage)
-  title = context.getString("title")
-  headerText = context.getString("save-heater")
+  title = context.title
+  headerText = context.saveHeater
