@@ -202,14 +202,14 @@ object MeasurementCharts:
     series.name = s"${context.min} $min  ${context.max} $max  ${context.avg} $avg"
     chart
 
-  def buildPhLineChart(conf: Config, 
+  def buildPhLineChart(context: Context, 
                        measurements: ObservableBuffer[Measurement], 
                        minDate: Double, 
                        maxDate: Double): LineChart[Number, Number] =
-    val (chart, series) = buildLineChart(conf, 
+    val (chart, series) = buildLineChart(context, 
                                          minDate, 
                                          maxDate, 
-                                         yLabel = conf.getString("measurement-chart-ph"), 
+                                         yLabel = context.measurementChartPh, 
                                          yLowerBound = 6.2, 
                                          yUpperBound = 8.4, 
                                          yTickUnit = 0.2)
