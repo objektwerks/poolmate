@@ -1,64 +1,61 @@
 package poolmate.pane
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-import poolmate.{Model, Supply}
-import poolmate.Context.*
+import poolmate.{Context, Model, Supply}
 import poolmate.dialog.{SupplyChartDialog, SupplyDialog}
 
-class SupplyPane(conf: Config, model: Model) extends VBox:
+class SupplyPane(context: Context, model: Model) extends VBox:
   val supplyTableView = new TableView[Supply]:
     columns ++= List(
       new TableColumn[Supply, String]:
-        text = conf.getString("supply-header-purchased")
+        text = context.supplyHeaderPurchased
         cellValueFactory = {
           _.value.purchasedProperty
         }
       ,
       new TableColumn[Supply, String]:
-        text = conf.getString("supply-header-item")
+        text = context.supplyHeaderItem
         cellValueFactory = {
           _.value.itemProperty
         }
       ,
       new TableColumn[Supply, String]:
-        text = conf.getString("supply-header-unit")
+        text = context.supplyHeaderUnit
         cellValueFactory = {
           _.value.unitProperty
         }
       ,
       new TableColumn[Supply, String]:
-        text = conf.getString("supply-header-amount")
+        text = context.supplyHeaderAmount
         cellValueFactory = {
           _.value.amountProperty
         }
       ,
       new TableColumn[Supply, String]:
-        text = conf.getString("supply-header-cost")
+        text = context.supplyHeaderCost
         cellValueFactory = {
           _.value.costProperty
         }
     )
-    prefHeight = conf.getInt("height").toDouble
+    prefHeight = context.height.toDouble
     items = model.supplyList
 
   supplyTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
   val supplyAddButton = new Button:
-    graphic = addImageView
+    graphic = context.addImageView
     disable = true
 
   val supplyEditButton = new Button:
-    graphic = editImageView
+    graphic = context.editImageView
     disable = true
 
   val supplyChartButton = new Button:
-    graphic = barChartImageView
+    graphic = context.barChartImageView
     disable = true
 
   val supplyToolBar = new HBox:
@@ -92,10 +89,10 @@ class SupplyPane(conf: Config, model: Model) extends VBox:
 
   supplyEditButton.onAction = { _ => update() }
 
-  supplyChartButton.onAction = { _ => SupplyChartDialog(conf, model).showAndWait() }
+  supplyChartButton.onAction = { _ => SupplyChartDialog(context, model).showAndWait() }
 
   def add(): Unit =
-    SupplyDialog(conf, Supply(poolId = model.selectedPoolId.toInt)).showAndWait() match
+    SupplyDialog(context, Supply(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Supply(id, poolId, purchased, item, unit, amount, cost)) =>
         val newSupply = model.addSupply(
           Supply(id, poolId, purchased, item, unit, amount, cost)
@@ -106,7 +103,7 @@ class SupplyPane(conf: Config, model: Model) extends VBox:
   def update(): Unit = 
     val selectedIndex = supplyTableView.selectionModel().getSelectedIndex
     val supply = supplyTableView.selectionModel().getSelectedItem.supply
-    SupplyDialog(conf, supply).showAndWait() match
+    SupplyDialog(context, supply).showAndWait() match
       case Some(Supply(id, poolId, purchased, item, unit, amount, cost)) =>
         model.updateSupply(
           selectedIndex,
