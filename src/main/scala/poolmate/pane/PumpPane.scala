@@ -1,27 +1,24 @@
 package poolmate.pane
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-import poolmate.{Model, Pump}
-import poolmate.Context.*
+import poolmate.{Context, Model, Pump}
 import poolmate.dialog.PumpDialog
 
-class PumpPane(conf: Config, model: Model) extends VBox:
+class PumpPane(context: Context, model: Model) extends VBox:
   val pumpTableView = new TableView[Pump]:
     columns ++= List(
       new TableColumn[Pump, String]:
-        text = conf.getString("pump-header-installed")
+        text = context.pumpHeaderInstalled
         cellValueFactory = {
           _.value.installedProperty
         }
       ,
       new TableColumn[Pump, String]:
-        text = conf.getString("pump-header-model")
+        text = context.pumpHeaderModel
         cellValueFactory = {
           _.value.modelProperty
         }
@@ -30,11 +27,11 @@ class PumpPane(conf: Config, model: Model) extends VBox:
   pumpTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
   val pumpAddButton = new Button:
-    graphic = addImageView
+    graphic = context.addImageView
     disable = true
 
   val pumpEditButton = new Button:
-    graphic = editImageView
+    graphic = context.editImageView
     disable = true
 
   val pumpToolBar = new HBox:
@@ -67,7 +64,7 @@ class PumpPane(conf: Config, model: Model) extends VBox:
   pumpEditButton.onAction = { _ => update() }
 
   def add(): Unit = 
-    PumpDialog(conf, Pump(poolId = model.selectedPoolId.toInt)).showAndWait() match
+    PumpDialog(context, Pump(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Pump(id, poolId, installed, _model)) =>
         val newPump = model.addPump(
           Pump(id, poolId, installed, _model)
@@ -78,7 +75,7 @@ class PumpPane(conf: Config, model: Model) extends VBox:
   def update(): Unit =
     val selectedIndex = pumpTableView.selectionModel().getSelectedIndex
     val pump = pumpTableView.selectionModel().getSelectedItem.pump
-    PumpDialog(conf, pump).showAndWait() match
+    PumpDialog(context, pump).showAndWait() match
       case Some(Pump(id, poolId, installed, _model)) =>
         model.updatePump(
           selectedIndex,
