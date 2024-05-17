@@ -91,8 +91,8 @@ class View(context: Context, model: Model):
   splitPane.setDividerPositions(0.3, 0.7)
 
   val contentPane = new VBox:
-    prefHeight = context.getInt("height").toDouble
-    prefWidth = context.getInt("width").toDouble
+    prefHeight = context.height.toDouble
+    prefWidth = context.width.toDouble
     spacing = 6
     padding = Insets(6)
     children = List(menuPane, splitPane)
