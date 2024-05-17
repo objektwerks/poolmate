@@ -12,13 +12,13 @@ class HeaterPane(context: Context, model: Model) extends VBox:
   val heaterTableView = new TableView[Heater]:
     columns ++= List(
       new TableColumn[Heater, String]:
-        text = context.getString("heater-header-installed")
+        text = context.heaterHeaderInstalled
         cellValueFactory = {
           _.value.installedProperty
         }
       ,
       new TableColumn[Heater, String]:
-        text = context.getString("heater-header-model")
+        text = context.heaterHeaderModel
         cellValueFactory = {
           _.value.modelProperty
         }
@@ -27,11 +27,11 @@ class HeaterPane(context: Context, model: Model) extends VBox:
   heaterTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
   val heaterAddButton = new Button:
-    graphic = addImageView
+    graphic = context.addImageView
     disable = true
 
   val heaterEditButton = new Button:
-    graphic = editImageView
+    graphic = context.editImageView
     disable = true
 
   val heaterToolBar = new HBox:
