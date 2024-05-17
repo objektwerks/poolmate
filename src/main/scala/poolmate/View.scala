@@ -1,7 +1,5 @@
 package poolmate
 
-import com.typesafe.config.Config
-
 import scalafx.geometry.{Insets, Orientation}
 import scalafx.scene.Scene
 import scalafx.scene.control.{SplitPane, Tab, TabPane}
@@ -9,40 +7,40 @@ import scalafx.scene.layout.VBox
 
 import poolmate.pane.*
 
-class View(conf: Config, model: Model):
-  val cleaningPane = CleaningPane(conf, model)
+class View(context: Context, model: Model):
+  val cleaningPane = CleaningPane(context, model)
   val cleaningsTab = new Tab:
-    text = conf.getString("cleanings")
+    text = context.cleanings
     closable = false
     content = cleaningPane
 
-  val measurementPane = MeasurementPane(conf, model)
+  val measurementPane = MeasurementPane(context, model)
   val measurementsTab = new Tab:
-    text = conf.getString("measurements")
+    text = context.measurements
     closable = false
     content = measurementPane
 
-  val additivePane = AdditivePane(conf, model)
+  val additivePane = AdditivePane(context, model)
   val additivesTab = new Tab:
-    text = conf.getString("additives")
+    text = context.additives
     closable = false
     content = additivePane
 
-  val lifecyclePane = LifecyclePane(conf, model)
+  val lifecyclePane = LifecyclePane(context, model)
   val lifecyclesTab = new Tab:
-    text = conf.getString("lifecycles")
+    text = context.lifecycles
     closable = false
     content = lifecyclePane
 
-  val supplyPane = SupplyPane(conf, model)
+  val supplyPane = SupplyPane(context, model)
   val suppliesTab = new Tab:
-    text = conf.getString("supplies")
+    text = context.supplies
     closable = false
     content = supplyPane
 
-  val repairPane = RepairPane(conf, model)
+  val repairPane = RepairPane(context, model)
   val repairsTab = new Tab:
-    text = conf.getString("repairs")
+    text = context.repairs
     closable = false
     content = repairPane
 
@@ -51,27 +49,27 @@ class View(conf: Config, model: Model):
   val eastPane = new VBox:
     children = List(eastTabPane)
 
-  val surfacePane = SurfacePane(conf, model)
+  val surfacePane = SurfacePane(context, model)
   val surfacesTab = new Tab:
-    text = conf.getString("surfaces")
+    text = context.surfaces
     closable = false
     content = surfacePane
 
-  val timerPane = TimerPane(conf, model)
+  val timerPane = TimerPane(context, model)
   val timersTab = new Tab:
-    text = conf.getString("timers")
+    text = context.timers
     closable = false
     content = timerPane
 
-  val pumpPane = PumpPane(conf, model)
+  val pumpPane = PumpPane(context, model)
   val pumpsTab = new Tab:
-    text = conf.getString("pumps")
+    text = context.pumps
     closable = false
     content = pumpPane
 
-  val heaterPane = HeaterPane(conf, model)
+  val heaterPane = HeaterPane(context, model)
   val heatersTab = new Tab:
-    text = conf.getString("heaters")
+    text = context.heaters
     closable = false
     content = heaterPane
 
@@ -79,22 +77,22 @@ class View(conf: Config, model: Model):
     padding = Insets(6)
     tabs = Seq(surfacesTab, timersTab, pumpsTab, heatersTab)
 
-  val poolPane = PoolPane(conf, model)
+  val poolPane = PoolPane(context, model)
 
-  val ownerPane = OwnerPane(conf, model)
+  val ownerPane = OwnerPane(context, model)
 
   val westPane = new VBox:
     children = List(poolPane, ownerPane, westTabPane)
 
-  val menuPane = MenuPane(conf)
+  val menuPane = MenuPane(context)
 
   val splitPane = new SplitPane:
     orientation = Orientation.Horizontal; padding = Insets(6); items.addAll(westPane, eastPane)
   splitPane.setDividerPositions(0.3, 0.7)
 
   val contentPane = new VBox:
-    prefHeight = conf.getInt("height").toDouble
-    prefWidth = conf.getInt("width").toDouble
+    prefHeight = context.getInt("height").toDouble
+    prefWidth = context.getInt("width").toDouble
     spacing = 6
     padding = Insets(6)
     children = List(menuPane, splitPane)
