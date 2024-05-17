@@ -1,17 +1,15 @@
 package poolmate.dialog
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, DatePicker, Dialog, TextField}
 import scalafx.scene.layout.Region
 
 import Dialogs.*
-import poolmate.{App, Entity, Repair}
+import poolmate.{App, Context, Entity, Repair}
 import poolmate.pane.ControlGridPane
 
-class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair]:
+class RepairDialog(context: Context, repair: Repair) extends Dialog[Repair]:
   val onDatePicker = new DatePicker:
     value = Entity.toLocalDate(repair.on)
 
@@ -22,14 +20,14 @@ class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair]:
     text = repair.cost.toString
 
   val controls = List[(String, Region)](
-    conf.getString("repair-on") -> onDatePicker,
-    conf.getString("repair-item") -> itemTextField,
-    conf.getString("repair-cost") -> costTextField
+    context.repairOn -> onDatePicker,
+    context.repairItem -> itemTextField,
+    context.repairCost -> costTextField
   )
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(conf.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.save, ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -45,5 +43,5 @@ class RepairDialog(conf: Config, repair: Repair) extends Dialog[Repair]:
     else null
 
   initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-repair") 
+  title = context.title
+  headerText = context.saveRepair 
