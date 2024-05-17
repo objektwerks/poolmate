@@ -1,17 +1,15 @@
 package poolmate.dialog
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.scene.control.ButtonBar.ButtonData
 import scalafx.scene.control.{ButtonType, ComboBox, Dialog, DatePicker, TextField}
 import scalafx.scene.layout.Region
 
 import Dialogs.*
-import poolmate.{Additive, App, Entity, Context}
+import poolmate.{Additive, App, Context, Entity, Context}
 import poolmate.pane.ControlGridPane
 
-class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive]:
+class AdditiveDialog(context: Context, additive: Additive) extends Dialog[Additive]:
   val onDatePicker = new DatePicker:
     value = Entity.toLocalDate(additive.on)
 
@@ -19,22 +17,22 @@ class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive]:
     text = additive.chemical
 
   val unitComboBox = new ComboBox[String]:
-    items = Context.units
+    items = context.units
     selectionModel().select(additive.unit)
 
   val amountTextField = new TextField:
     text = additive.amount.toString
 
   val controls = List[(String, Region)](
-    conf.getString("additive-on") -> onDatePicker,
-    conf.getString("additive-chemical") -> chemicalTextField,
-    conf.getString("additive-unit") -> unitComboBox,
-    conf.getString("additive-amount") -> amountTextField
+    context.getString("additive-on") -> onDatePicker,
+    context.getString("additive-chemical") -> chemicalTextField,
+    context.getString("additive-unit") -> unitComboBox,
+    context.getString("additive-amount") -> amountTextField
   )
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(conf.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.getString("save"), ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -52,5 +50,5 @@ class AdditiveDialog(conf: Config, additive: Additive) extends Dialog[Additive]:
     else null
 
   initOwner(App.stage)
-  title = conf.getString("title")
-  headerText = conf.getString("save-additive")
+  title = context.getString("title")
+  headerText = context.getString("save-additive")
