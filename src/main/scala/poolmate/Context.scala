@@ -12,8 +12,8 @@ class Context(config: Config):
   val developer = config.getString("developer")
   val license = config.getString("license")
   val app = config.getString("app")
-  val height = config.getInt("height")
-  val width = config.getInt("width")
+  val height = config.getInt("height").toDouble
+  val width = config.getInt("width").toDouble
   val menu = config.getString("app")
   val about = config.getString("about")
   val exit = config.getString("exit")
