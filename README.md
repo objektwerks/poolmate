@@ -4,7 +4,6 @@ PoolMate
 
 TODO
 ----
-* Added Context, replacing Resources, refactoring now! **WIP!** as of 2024.5.14.
 * Design and build company, worker and routing panels and dialogs.
 
 Warning
