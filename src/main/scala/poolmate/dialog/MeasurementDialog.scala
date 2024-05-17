@@ -158,7 +158,7 @@ class MeasurementDialog(context: Context, measurement: Measurement) extends Dial
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(context.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.save, ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -174,7 +174,8 @@ class MeasurementDialog(context: Context, measurement: Measurement) extends Dial
   // Not usded! Why? val saveButton = dialog.lookupButton(saveButtonType)
   resultConverter = dialogButton =>
     if (dialogButton == saveButtonType) then
-      measurement.copy(on = onDatePicker.value.value.toString,
+      measurement.copy(
+        on = onDatePicker.value.value.toString,
         temp = tempSlider.value.get,
         hardness = hardnessSlider.value.get,
         totalChlorine = totalChlorineSlider.value.get,
@@ -182,9 +183,10 @@ class MeasurementDialog(context: Context, measurement: Measurement) extends Dial
         freeChlorine = freeChlorineSlider.value.get,
         pH = phLabel.text.value.toDouble,
         alkalinity = alkalinitySlider.value.get,
-        cyanuricAcid = cyanuricAcidSlider.value.get)
+        cyanuricAcid = cyanuricAcidSlider.value.get
+      )
     else null
 
   initOwner(App.stage)
-  title = context.getString("title")
-  headerText = context.getString("save-measurement")
+  title = context.title
+  headerText = context.saveMeasurement
