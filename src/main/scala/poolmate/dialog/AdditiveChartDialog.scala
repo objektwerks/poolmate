@@ -10,17 +10,17 @@ import scalafx.scene.chart.{BarChart, CategoryAxis, NumberAxis, XYChart}
 import scalafx.scene.control.{ButtonType, Dialog}
 import scalafx.scene.layout.VBox
 
-import poolmate.{App, Model}
+import poolmate.{App, Context, Model}
 
-class AdditiveChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
+class AdditiveChartDialog(context: Context, model: Model) extends Dialog[Unit]:
   val additives = model.additiveList
   
   val years = additives.map(a => a.on.format(dateFormatter)).distinct
 
   val xAxis = CategoryAxis(years)
-  xAxis.label = conf.getString("additive-chart-additives")
+  xAxis.label = context.additiveChartAdditives
 
-  val yAxis = NumberAxis(axisLabel = conf.getString("additive-chart-amounts"), lowerBound = 0.0, upperBound = 100.00, tickUnit = 10.00)
+  val yAxis = NumberAxis(axisLabel = context.additiveChartAmounts, lowerBound = 0.0, upperBound = 100.00, tickUnit = 10.00)
 
   val chart = BarChart[String, Number](xAxis, yAxis)
   chart.categoryGap = 25.0
@@ -45,5 +45,5 @@ class AdditiveChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
     spacing = 6; children = List(chart)
 
   initOwner(App.stage)
-  title = conf.getString("additive-chart")
-  headerText = conf.getString("additive-amounts")
+  title = context.additiveChart
+  headerText = context.additiveAmounts
