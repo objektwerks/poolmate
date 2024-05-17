@@ -1,27 +1,24 @@
 package poolmate.pane
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-import poolmate.{Model, Timer}
-import poolmate.Context.*
+import poolmate.{Context, Model, Timer}
 import poolmate.dialog.TimerDialog
 
-class TimerPane(conf: Config, model: Model) extends VBox:
+class TimerPane(context: Context, model: Model) extends VBox:
   val timerTableView = new TableView[Timer]:
     columns ++= List(
       new TableColumn[Timer, String]:
-        text = conf.getString("timer-header-installed")
+        text = context.timerHeaderInstalled
         cellValueFactory = {
           _.value.installedProperty
         }
       ,
       new TableColumn[Timer, String]:
-        text = conf.getString("timer-header-model")
+        text = context.timerHeaderModel
         cellValueFactory = {
           _.value.modelProperty
         }
@@ -30,11 +27,11 @@ class TimerPane(conf: Config, model: Model) extends VBox:
   timerTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
   val timerAddButton = new Button:
-    graphic = addImageView
+    graphic = context.addImageView
     disable = true
 
   val timerEditButton = new Button:
-    graphic = editImageView
+    graphic = context.editImageView
     disable = true
 
   val timerToolBar = new HBox:
@@ -67,7 +64,7 @@ class TimerPane(conf: Config, model: Model) extends VBox:
   timerEditButton.onAction = { _ => update() }
 
   def add(): Unit =
-    TimerDialog(conf, Timer(poolId = model.selectedPoolId.toInt)).showAndWait() match
+    TimerDialog(context, Timer(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Timer(id, poolId, installed, _model)) =>
         val newTimer = model.addTimer(
           Timer(id, poolId, installed, _model)
@@ -78,7 +75,7 @@ class TimerPane(conf: Config, model: Model) extends VBox:
   def update(): Unit =
     val selectedIndex = timerTableView.selectionModel().getSelectedIndex
     val timer = timerTableView.selectionModel().getSelectedItem.timer
-    TimerDialog(conf, timer).showAndWait() match
+    TimerDialog(context, timer).showAndWait() match
       case Some(Timer(id, poolId, installed, _model)) =>
         model.updateTimer(
           selectedIndex,
