@@ -1,7 +1,5 @@
 package poolmate.dialog
 
-import com.typesafe.config.Config
-
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -12,9 +10,9 @@ import scalafx.scene.chart.{LineChart, NumberAxis, XYChart}
 import scalafx.scene.control.{ButtonType, Dialog, Tab, TabPane}
 import scalafx.scene.layout.VBox
 
-import poolmate.{App, Measurement, Model}
+import poolmate.{App, Context, Measurement, Model}
 
-class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
+class MeasurementChartDialog(context: Context, model: Model) extends Dialog[Unit]:
   val measurements = model.measurementList
 
   val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
@@ -23,51 +21,51 @@ class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
 
   import MeasurementCharts.*
 
-  val tempLineChart = buildTempLineChart(conf, measurements, minDate, maxDate)
+  val tempLineChart = buildTempLineChart(context, measurements, minDate, maxDate)
   val tempTab = new Tab:
-    text = conf.getString("measurement-chart-temp")
+    text = context.measurementChartTemp
     closable = false
     content = tempLineChart
 
-  val hardnessLineChart = buildHardnessLineChart(conf, measurements, minDate, maxDate)
+  val hardnessLineChart = buildHardnessLineChart(context, measurements, minDate, maxDate)
   val hardnessTab = new Tab:
-    text = conf.getString("measurement-chart-hardness")
+    text = context.measurementChartHardness
     closable = false
     content = hardnessLineChart
 
-  val totalChlorineLineChart = buildTotalChlorineLineChart(conf, measurements, minDate, maxDate)
+  val totalChlorineLineChart = buildTotalChlorineLineChart(context, measurements, minDate, maxDate)
   val totalChlorineTab = new Tab:
-    text = conf.getString("measurement-chart-total-chlorine")
+    text = context.measurementChartTotalChlorine
     closable = false
     content = totalChlorineLineChart
 
-  val bromineLineChart = buildBromineLineChart(conf, measurements, minDate, maxDate)
+  val bromineLineChart = buildBromineLineChart(context, measurements, minDate, maxDate)
   val bromineTab = new Tab:
-    text = conf.getString("measurement-chart-bromine")
+    text = context.measurementChartBromine
     closable = false
     content = bromineLineChart
 
-  val freeChlorineLineChart = buildFreeChlorineLineChart(conf, measurements, minDate, maxDate)
+  val freeChlorineLineChart = buildFreeChlorineLineChart(context, measurements, minDate, maxDate)
   val freeChlorineTab = new Tab:
-    text = conf.getString("measurement-chart-free-chlorine")
+    text = context.measurementChartFreeChlorine
     closable = false
     content = freeChlorineLineChart
 
-  val phLineChart = buildPhLineChart(conf, measurements, minDate, maxDate)
+  val phLineChart = buildPhLineChart(context, measurements, minDate, maxDate)
   val phTab = new Tab:
-    text = conf.getString("measurement-chart-ph")
+    text = context.measurementChartPh
     closable = false
     content = phLineChart
 
-  val alkalinityLineChart = buildAlkalinityLineChart(conf, measurements, minDate, maxDate)
+  val alkalinityLineChart = buildAlkalinityLineChart(context, measurements, minDate, maxDate)
   val alkalinityTab = new Tab:
-    text = conf.getString("measurement-chart-alkalinity")
+    text = context.measurementChartAlkalinity
     closable = false
     content = alkalinityLineChart
 
-  val cyanuricAcidLineChart = buildCyanuricAcidLineChart(conf, measurements, minDate, maxDate)
+  val cyanuricAcidLineChart = buildCyanuricAcidLineChart(context, measurements, minDate, maxDate)
   val cyanuricAcidTab = new Tab:
-    text = conf.getString("measurement-chart-cyanuric-acid")
+    text = context.measurementChartCyanuricAcid
     closable = false
     content = cyanuricAcidLineChart
 
@@ -83,8 +81,8 @@ class MeasurementChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
     children = List(chartsTabPane)
 
   initOwner(App.stage)
-  title = conf.getString("measurement-chart")
-  headerText = conf.getString("measurement-charts")
+  title = context.getString("measurement-chart")
+  headerText = context.getString("measurement-charts")
 
 object MeasurementCharts:
   val dateFormatter = DateTimeFormatter.ofPattern("yy.D")
