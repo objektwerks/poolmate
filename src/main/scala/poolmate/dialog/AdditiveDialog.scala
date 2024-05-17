@@ -24,10 +24,10 @@ class AdditiveDialog(context: Context, additive: Additive) extends Dialog[Additi
     text = additive.amount.toString
 
   val controls = List[(String, Region)](
-    context.getString("additive-on") -> onDatePicker,
-    context.getString("additive-chemical") -> chemicalTextField,
-    context.getString("additive-unit") -> unitComboBox,
-    context.getString("additive-amount") -> amountTextField
+    context.additiveOn -> onDatePicker,
+    context.additiveChemical -> chemicalTextField,
+    context.additiveUnit -> unitComboBox,
+    context.additiveAmount -> amountTextField
   )
   val controlGridPane = ControlGridPane(controls)
 
