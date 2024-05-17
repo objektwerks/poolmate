@@ -1,49 +1,52 @@
 package poolmate.pane
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, Label, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-import poolmate.{Model, Owner}
-import poolmate.Context.*
+import poolmate.{Context, Model, Owner}
 import poolmate.dialog.OwnerDialog
 
-class OwnerPane(conf: Config, model: Model) extends VBox:
+class OwnerPane(context: Context, model: Model) extends VBox:
   val ownerLabel = new Label:
-    text = conf.getString("owners")
+    text = context.owners
 
   val ownerTableView = new TableView[Owner]:
     columns ++= List(
       new TableColumn[Owner, String]:
-        text = conf.getString("owner-header-since")
+        text = context.ownerHeaderSince
         cellValueFactory = {
           _.value.sinceProperty
         }
       ,
       new TableColumn[Owner, String]:
-        text = conf.getString("owner-header-first")
+        text = context.ownerHeaderFirst
         cellValueFactory = {
           _.value.firstProperty
         }
       ,
       new TableColumn[Owner, String]:
-        text = conf.getString("owner-header-last")
+        text = context.ownerHeaderLast
         cellValueFactory = {
-          _.value.lastroperty
+          _.value.lastProperty
+        }
+      ,
+      new TableColumn[Owner, String]:
+        text = context.ownerHeaderEmail
+        cellValueFactory = {
+          _.value.emailProperty
         }
     )
     items = model.ownerList
   ownerTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
   val ownerAddButton = new Button:
-    graphic = addImageView
+    graphic = context.addImageView
     disable = true
 
   val ownerEditButton = new Button:
-    graphic = editImageView
+    graphic = context.editImageView
     disable = true
 
   val ownerToolBar = new HBox:
@@ -76,7 +79,7 @@ class OwnerPane(conf: Config, model: Model) extends VBox:
   ownerEditButton.onAction = { _ => update() }
 
   def add(): Unit =
-    OwnerDialog(conf, Owner(poolId = model.selectedPoolId.toInt)).showAndWait() match
+    OwnerDialog(context, Owner(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Owner(id, poolId, since, first, last, email)) =>
         val newOwner = model.addOwner(
           Owner(id, poolId, since, first, last, email)
@@ -87,7 +90,7 @@ class OwnerPane(conf: Config, model: Model) extends VBox:
   def update(): Unit =
     val selectedIndex = ownerTableView.selectionModel().getSelectedIndex
     val owner = ownerTableView.selectionModel().getSelectedItem.owner
-    OwnerDialog(conf, owner).showAndWait() match
+    OwnerDialog(context, owner).showAndWait() match
       case Some(Owner(id, poolId, since, first, last, email)) =>
         model.updateOwner(
           selectedIndex,

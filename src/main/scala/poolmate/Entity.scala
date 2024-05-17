@@ -46,7 +46,8 @@ final case class Owner(id: Int = 0,
                        email: String = "your@email.org") extends Entity:
   val sinceProperty = new StringProperty(this, "since", since)
   val firstProperty = new StringProperty(this, "first", first)
-  val lastroperty = new StringProperty(this, "last", last)
+  val lastProperty = new StringProperty(this, "last", last)
+  val emailProperty = new StringProperty(this, "email", email)
   val owner = this
 
 final case class Surface(id: Int = 0, 
