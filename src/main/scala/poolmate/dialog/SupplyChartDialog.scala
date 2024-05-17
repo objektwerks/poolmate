@@ -1,7 +1,5 @@
 package poolmate.dialog
 
-import com.typesafe.config.Config
-
 import java.time.format.DateTimeFormatter
 
 import scalafx.Includes.*
@@ -10,18 +8,18 @@ import scalafx.scene.chart.{BarChart, CategoryAxis, NumberAxis, XYChart}
 import scalafx.scene.control.{ButtonType, Dialog}
 import scalafx.scene.layout.VBox
 
-import poolmate.{App, Model}
+import poolmate.{App, Context, Model}
 
-class SupplyChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
+class SupplyChartDialog(context: Context, model: Model) extends Dialog[Unit]:
   val supplies = model.supplyList
 
   val dateFormatter = DateTimeFormatter.ofPattern("yyyy")
   val years = supplies.map(s => s.purchased.format(dateFormatter)).distinct
 
   val xAxis = CategoryAxis(years)
-  xAxis.label = conf.getString("supply-chart-supplies")
+  xAxis.label = context.supplyChartSupplies
 
-  val yAxis = NumberAxis(axisLabel = conf.getString("supply-chart-costs"), lowerBound = 0.0, upperBound = 1000.00, tickUnit = 100.00)
+  val yAxis = NumberAxis(axisLabel = context.supplyChartCosts, lowerBound = 0.0, upperBound = 1000.00, tickUnit = 100.00)
 
   val chart = BarChart[String, Number](xAxis, yAxis)
   chart.categoryGap = 25.0
@@ -45,5 +43,5 @@ class SupplyChartDialog(conf: Config, model: Model) extends Dialog[Unit]:
     spacing = 6; children = List(chart)
 
   initOwner(App.stage)
-  title = conf.getString("supply-chart")
-  headerText = conf.getString("supply-costs")
+  title = context.supplyChart
+  headerText = context.supplyCosts
