@@ -30,7 +30,7 @@ class OwnerDialog(context: Context, owner: Owner) extends Dialog[Owner]:
   val controlGridPane = ControlGridPane(controls)
 
   val dialog = dialogPane()
-  val saveButtonType = ButtonType(context.getString("save"), ButtonData.OKDone)
+  val saveButtonType = ButtonType(context.save, ButtonData.OKDone)
   dialog.buttonTypes = List(saveButtonType, ButtonType.Cancel)
   dialog.content = controlGridPane
 
@@ -41,12 +41,14 @@ class OwnerDialog(context: Context, owner: Owner) extends Dialog[Owner]:
 
   resultConverter = dialogButton =>
     if (dialogButton == saveButtonType) then
-      owner.copy(since = sinceDatePicker.value.value.toString,
+      owner.copy(
+        since = sinceDatePicker.value.value.toString,
         first = firstTextField.text.value,
         last = lastTextField.text.value,
-        email = emailTextField.text.value)
+        email = emailTextField.text.value
+      )
     else null
 
   initOwner(App.stage)
-  title = context.getString("title")
-  headerText = context.getString("save-owner") 
+  title = context.title
+  headerText = context.saveOwner 
