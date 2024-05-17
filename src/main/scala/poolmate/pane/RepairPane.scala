@@ -29,7 +29,7 @@ class RepairPane(context: Context, model: Model) extends VBox:
           _.value.costProperty
         }
     )
-    prefHeight = context.height.toDouble
+    prefHeight = context.height
     items = model.repairList
   repairTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
