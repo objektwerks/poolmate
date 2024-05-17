@@ -17,8 +17,8 @@ object App extends JFXApp3:
 
   override def start(): Unit =
     stage = new JFXApp3.PrimaryStage:
-      scene = View(config, model).scene
-      title = config.getString("title")
+      scene = View(context, model).scene
+      title = context.title
       icons.add(context.appImage)
 
     model.listPools()
