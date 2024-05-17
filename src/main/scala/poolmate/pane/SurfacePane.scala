@@ -1,27 +1,24 @@
 package poolmate.pane
 
-import com.typesafe.config.Config
-
 import scalafx.Includes.*
 import scalafx.geometry.Insets
 import scalafx.scene.control.{Button, SelectionMode, TableColumn, TableView}
 import scalafx.scene.layout.{HBox, VBox}
 
-import poolmate.{Model, Surface}
-import poolmate.Context.*
+import poolmate.{Context, Model, Surface}
 import poolmate.dialog.SurfaceDialog
 
-class SurfacePane(conf: Config, model: Model) extends VBox:
+class SurfacePane(context: Context, model: Model) extends VBox:
   val surfaceTableView = new TableView[Surface]:
     columns ++= List(
       new TableColumn[Surface, String]:
-        text = conf.getString("surface-header-installed")
+        text = context.surfaceHeadedInstalled
         cellValueFactory = {
           _.value.installedProperty
         }
       ,
       new TableColumn[Surface, String]:
-        text = conf.getString("surface-header-kind")
+        text = context.surfaceHeaderKind
         cellValueFactory = {
           _.value.kindProperty
         }
@@ -31,11 +28,11 @@ class SurfacePane(conf: Config, model: Model) extends VBox:
   surfaceTableView.selectionModel().selectionModeProperty.value = SelectionMode.Single
 
   val surfaceAddButton = new Button:
-    graphic = addImageView
+    graphic = context.addImageView
     disable = true
 
   val surfaceEditButton = new Button:
-    graphic = editImageView
+    graphic = context.editImageView
     disable = true
 
   val surfaceToolBar = new HBox:
@@ -68,7 +65,7 @@ class SurfacePane(conf: Config, model: Model) extends VBox:
   surfaceEditButton.onAction = { _ => update() }
 
   def add(): Unit =
-    SurfaceDialog(conf, Surface(poolId = model.selectedPoolId.toInt)).showAndWait() match
+    SurfaceDialog(context, Surface(poolId = model.selectedPoolId.toInt)).showAndWait() match
       case Some(Surface(id, poolId, installed, kind)) =>
         val newSurface = model.addSurface(
           Surface(id, poolId, installed, kind)
@@ -79,7 +76,7 @@ class SurfacePane(conf: Config, model: Model) extends VBox:
   def update(): Unit =
     val selectedIndex = surfaceTableView.selectionModel().getSelectedIndex
     val surface = surfaceTableView.selectionModel().getSelectedItem.surface
-    SurfaceDialog(conf, surface).showAndWait() match
+    SurfaceDialog(context, surface).showAndWait() match
       case Some(Surface(id, poolId, installed, kind)) =>
         model.updateSurface(
           selectedIndex,
