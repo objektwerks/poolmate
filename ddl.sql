@@ -1,6 +1,6 @@
 create table pools (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  built DATE NOT NULL,
+  built VARCHAR NOT NULL,
   gallons INTEGER NOT NULL,
   street VARCHAR NOT NULL,
   city VARCHAR NOT NULL,
@@ -10,7 +10,7 @@ create table pools (
 create table owners (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pool_id INTEGER NOT NULL,
-  since DATE NOT NULL,
+  since VARCHAR NOT NULL,
   first VARCHAR NOT NULL,
   last VARCHAR NOT NULL,
   email VARCHAR NOT NULL,
@@ -19,35 +19,35 @@ create table owners (
 create table surfaces (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pool_id INTEGER NOT NULL,
-  installed DATE NOT NULL,
+  installed VARCHAR NOT NULL,
   kind VARCHAR NOT NULL,
   foreign key(pool_id) references pools(id)
 );
 create table pumps (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pool_id INTEGER NOT NULL,
-  installed DATE NOT NULL,
+  installed VARCHAR NOT NULL,
   model VARCHAR NOT NULL,
   foreign key(pool_id) references pools(id)
 );
 create table timers (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pool_id INTEGER NOT NULL,
-  installed DATE NOT NULL,
+  installed VARCHAR NOT NULL,
   model VARCHAR NOT NULL,
   foreign key(pool_id) references pools(id)
 );
 create table heaters (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pool_id INTEGER NOT NULL,
-  installed DATE NOT NULL,
+  installed VARCHAR NOT NULL,
   model VARCHAR NOT NULL,
   foreign key(pool_id) references pools(id)
 );
 create table lifecycles (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pool_id INTEGER NOT NULL,
-  created DATE NOT NULL,
+  created VARCHAR NOT NULL,
   active BOOLEAN NOT NULL,
   pump_on VARCHAR NOT NULL,
   pump_off VARCHAR NOT NULL,
@@ -56,7 +56,7 @@ create table lifecycles (
 create table cleanings (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pool_id INTEGER NOT NULL,
-  on DATE NOT NULL,
+  on VARCHAR NOT NULL,
   deck BOOLEAN NOT NULL,
   brush BOOLEAN NOT NULL,
   net BOOLEAN NOT NULL,
@@ -69,7 +69,7 @@ create table cleanings (
 create table measurements (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pool_id INTEGER NOT NULL,
-  on DATE NOT NULL,
+  on VARCHAR NOT NULL,
   temp DOUBLE NOT NULL,
   hardness DOUBLE NOT NULL,
   total_chlorine DOUBLE NOT NULL,
@@ -83,7 +83,7 @@ create table measurements (
 create table additives (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pool_id INTEGER NOT NULL,
-  on DATE NOT NULL,
+  on VARCHAR NOT NULL,
   chemical VARCHAR NOT NULL,
   unit VARCHAR NOT NULL,
   amount DOUBLE NOT NULL,
@@ -92,7 +92,7 @@ create table additives (
 create table supplies (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pool_id INTEGER NOT NULL,
-  purchased DATE NOT NULL,
+  purchased VARCHAR NOT NULL,
   item VARCHAR NOT NULL,
   unit VARCHAR NOT NULL,
   amount DOUBLE NOT NULL,
@@ -102,7 +102,7 @@ create table supplies (
 create table repairs (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   pool_id INTEGER NOT NULL,
-  on DATE NOT NULL,
+  on VARCHAR NOT NULL,
   item VARCHAR NOT NULL,
   cost DOUBLE NOT NULL,
   foreign key(pool_id) references pools(id)
