@@ -12,7 +12,7 @@ object App extends JFXApp3:
   val context = Context(config)
 
   val dbConfig = DatabaseConfig.forConfig[JdbcProfile]("repository", ConfigFactory.load("repository.conf"))
-  val repository = Repository(dbConfig, H2Profile).verify()
+  val repository = Repository(dbConfig, H2Profile).ifAbsentInstall()
   val model = Model(repository)
 
   override def start(): Unit =
