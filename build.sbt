@@ -9,7 +9,7 @@ libraryDependencies ++= {
     "org.jfxtras" % "jfxtras-controls" % "17-r1",
     "com.typesafe.slick" %% "slick" % slickVersion,
     "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
-    "com.h2database" % "h2" % "2.2.224",
+    "com.h2database" % "h2" % "2.3.230",
     "ch.qos.logback" % "logback-classic" % "1.5.6",
     "org.scalatest" %% "scalatest" % "3.2.19" % Test
   )
