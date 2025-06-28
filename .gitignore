@@ -5,3 +5,4 @@ project/metals.sbt
 project/project/
 project/target/
 target/
+sbt-launch.jar
