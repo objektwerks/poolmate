@@ -11,7 +11,7 @@ class MenuPane(context: Context) extends MenuBar:
     initOwner(App.stage)
     title = context.about
     headerText = context.developer
-    contentText = s"${context.menu} ${context.license}"
+    contentText = s"${context.app} ${context.license}"
 
   val aboutMenuItem = new MenuItem(context.about):
     onAction = { _ => aboutDialog.showAndWait() }
