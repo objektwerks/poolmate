@@ -19,7 +19,7 @@ object App extends JFXApp3:
     stage = new JFXApp3.PrimaryStage:
       scene = View(context, model).scene
       title = context.title
-      icons.add(context.appImage)
+      icons += context.appImage
 
     model.listPools()
     stage.show()
