@@ -189,7 +189,7 @@ class Context(config: Config):
 
   def units = ObservableBuffer[String]( config.getStringList("units").asScala.toSeq * )
 
-  def appImage = new Image( Image.getClass.getResourceAsStream("/images/pool.png") )
+  def appImage = new Image( Image.getClass.getResourceAsStream("/images/icon.png") )
 
   def addImageView = loadImageView("/images/add.png")
 
