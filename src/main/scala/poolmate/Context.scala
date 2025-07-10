@@ -9,8 +9,8 @@ import scalafx.scene.image.{Image, ImageView}
 
 class Context(config: Config):
   val title = config.getString("title")
-  val license = config.getString("license")
   val app = config.getString("app")
+
   val height = config.getInt("height").toDouble
   val width = config.getInt("width").toDouble
 
