@@ -99,3 +99,4 @@ class View(context: Context, model: Model):
 
   val scene = new Scene:
     root = contentPane
+    stylesheets = List("/style.css")
