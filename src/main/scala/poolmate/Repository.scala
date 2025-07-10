@@ -1,5 +1,7 @@
 package poolmate
 
+import ox.supervised
+
 import scala.concurrent.duration.*
 import scala.concurrent.Await
 import scala.language.postfixOps
@@ -30,7 +32,9 @@ class Repository(config: DatabaseConfig[JdbcProfile],
         createSchema()
         this
 
-  def await[T](action: DBIO[T]): T = Await.result(db.run(action), awaitDuration)
+  def await[T](action: DBIO[T]): T =
+    supervised:
+      Await.result(db.run(action), awaitDuration)
 
   def close() = db.close()
 
