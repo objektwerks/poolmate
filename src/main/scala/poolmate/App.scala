@@ -8,14 +8,14 @@ import java.awt.Taskbar.Feature
 import scalafx.application.JFXApp3
 
 import slick.basic.DatabaseConfig
-import slick.jdbc.{H2Profile, JdbcProfile}
+import slick.jdbc.JdbcProfile
 
 object App extends JFXApp3:
   val config = ConfigFactory.load("app.conf")
   val context = Context(config)
 
   val dbConfig = DatabaseConfig.forConfig[JdbcProfile]("repository", ConfigFactory.load("repository.conf"))
-  val repository = Repository(dbConfig, H2Profile).ifAbsentInstall()
+  val repository = Repository(dbConfig).ifAbsentInstall()
   val model = Model(repository)
 
   override def start(): Unit =
