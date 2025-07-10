@@ -14,9 +14,13 @@ class Context(config: Config):
   val app = config.getString("app")
   val height = config.getInt("height").toDouble
   val width = config.getInt("width").toDouble
+
   val menu = config.getString("menu")
   val about = config.getString("about")
+  val headerText = config.getString("headerText")
+  val contentText = config.getString("contentText")
   val exit = config.getString("exit")
+
   val min = config.getString("min")
   val max = config.getString("max")
   val avg = config.getString("avg")
