@@ -4,8 +4,6 @@ import java.time.{LocalDate, LocalTime}
 
 import scalafx.beans.property.StringProperty
 
-sealed trait Entity
-
 object Entity:
   given Ordering[Pool] = Ordering.by(p => (p.zip, p.city))
   given Ordering[Owner] = Ordering.by(o => (o.since, o.last))
@@ -22,6 +20,9 @@ object Entity:
 
   def toLocalDate(date: String): LocalDate = LocalDate.parse(date)
   def toLocalTime(time: String): LocalTime = LocalTime.parse(time)
+
+sealed trait Entity:
+  val id: Int
 
 final case class Pool(id: Int = 0, 
                       built: String = LocalDate.now.toString, 
