@@ -9,7 +9,6 @@ import scalafx.scene.image.{Image, ImageView}
 
 class Context(config: Config):
   val title = config.getString("title")
-  val app = config.getString("app")
 
   val height = config.getInt("height").toDouble
   val width = config.getInt("width").toDouble
