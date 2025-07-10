@@ -4,4 +4,6 @@ project/metals.sbt
 project/project/
 project/target/
 target/
+jdeploy
+jdeploy-bundle
 sbt-launch.jar
