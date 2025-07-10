@@ -6,17 +6,20 @@ import scala.language.postfixOps
 import scala.util.control.NonFatal
 
 import slick.basic.DatabaseConfig
-import slick.jdbc.JdbcProfile
+import slick.jdbc.{H2Profile, JdbcProfile}
 
-class Repository(val config: DatabaseConfig[JdbcProfile],
-                 val profile: JdbcProfile, 
-                 val awaitDuration: Duration = 1 second):
+object Repository:
+  val profile = H2Profile
+
+class Repository(config: DatabaseConfig[JdbcProfile],
+                 awaitDuration: Duration = 3 seconds):
+  import Repository.profile
   import profile.api.*
 
-  val schema = pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++ heaters.schema ++
+  private val schema = pools.schema ++ owners.schema ++ surfaces.schema ++ pumps.schema ++ timers.schema ++ heaters.schema ++
     lifecycles.schema ++ cleanings.schema ++ measurements.schema ++ additives.schema ++ supplies.schema ++ repairs.schema
 
-  val db = config.db
+  private val db = config.db
 
   def ifAbsentInstall(): Repository =
     try
