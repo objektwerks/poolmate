@@ -1,0 +1,38 @@
+{
+  "bin": {
+      "poolbalance": "jdeploy-bundle/jdeploy.js"
+  },
+  "author": "Objektwerks",
+  "description": "Pool cleaning, measurement and chemical balancing app.",
+  "main": "index.js",
+  "preferGlobal": true,
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/objektwerks/pool.balance.p.git"
+  },
+  "version": "3.1.0",
+  "jdeploy": {
+      "jdk": false,
+      "javaVersion": "24",
+      "jar": ".assembly/pool-balance-3.1.0.jar",
+      "javafx": true,
+      "javafxVersion": "24.0.1",
+      "title": "Pool Balance"
+  },
+  "dependencies": {
+      "command-exists-promise": "^2.0.2",
+      "node-fetch": "3.3.2",
+      "tar": "7.4.3",
+      "yauzl": "^2.10.0",
+      "shelljs": "^0.8.5"
+  },
+  "license": "Apache 2.0",
+  "name": "poolbalance",
+  "files": [
+      "jdeploy-bundle"
+  ],
+  "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://github.com/objektwerks/pool.balance.p"
+}
