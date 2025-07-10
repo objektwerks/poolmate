@@ -84,7 +84,7 @@ class View(context: Context, model: Model):
   val westPane = new VBox:
     children = List(poolPane, ownerPane, westTabPane)
 
-  val menuPane = MenuPane(context)
+  val menu = Menu(context)
 
   val splitPane = new SplitPane:
     orientation = Orientation.Horizontal; padding = Insets(6); items.addAll(westPane, eastPane)
@@ -95,7 +95,7 @@ class View(context: Context, model: Model):
     prefWidth = context.width
     spacing = 6
     padding = Insets(6)
-    children = List(menuPane, splitPane)
+    children = List(menu, splitPane)
 
   val scene = new Scene:
     root = contentPane
