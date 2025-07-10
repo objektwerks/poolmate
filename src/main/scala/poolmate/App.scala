@@ -2,6 +2,9 @@ package poolmate
 
 import com.typesafe.config.ConfigFactory
 
+import java.awt.{Taskbar, Toolkit}
+import java.awt.Taskbar.Feature
+
 import scalafx.application.JFXApp3
 
 import slick.basic.DatabaseConfig
