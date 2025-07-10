@@ -1,0 +1,6 @@
+* {
+  -fx-text-fill: navy;
+}
+.label {
+  -fx-font-weight: normal;
+}
