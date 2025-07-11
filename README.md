@@ -41,9 +41,9 @@ Deploy
 2. edit package.json ( version + jdeploy / jar )
 3. edit app.conf ( about > alert > contentText )
 4. sbt clean test assembly copyAssemblyJar
-5. perform github release ( from https://github.com/objektwerks/homeschooler )
+5. perform github release ( from https://github.com/objektwerks/poolmate )
 6. npm login
-7. jdeploy publish ( to https://www.jdeploy.com/~homeschooler )
+7. jdeploy publish ( to https://www.jdeploy.com/~poolmate )
 8. check email for npm message
 >See [jDeploy Docs](https://www.jdeploy.com/docs/manual/#_getting_started) for details.
 
