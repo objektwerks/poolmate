@@ -10,11 +10,11 @@
       "type": "git",
       "url": "git+https://github.com/objektwerks/poolmate.git"
   },
-  "version": "4.0.0",
+  "version": "5.0.0",
   "jdeploy": {
       "jdk": false,
       "javaVersion": "24",
-      "jar": ".assembly/poolmate-4.0.0.jar",
+      "jar": ".assembly/poolmate-5.0.0.jar",
       "javafx": true,
       "javafxVersion": "24.0.1",
       "title": "PoolMate"
