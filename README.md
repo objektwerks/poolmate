@@ -35,6 +35,18 @@ Execute
 -------
 1. java -jar .assembly/poolmate-4.0.0.jar ( or double-click executable jar )
 
+Deploy
+------
+1. edit build.sbt ( jarVersion + version )
+2. edit package.json ( version + jdeploy / jar )
+3. edit app.conf ( about > alert > contentText )
+4. sbt clean test assembly copyAssemblyJar
+5. perform github release ( from https://github.com/objektwerks/homeschooler )
+6. npm login
+7. jdeploy publish ( to https://www.jdeploy.com/~homeschooler )
+8. check email for npm message
+>See [jDeploy Docs](https://www.jdeploy.com/docs/manual/#_getting_started) for details.
+
 Object Model
 ------------
 * Pool(id, built, gallons, street, city, state, zip)
