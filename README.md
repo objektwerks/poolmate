@@ -57,6 +57,14 @@ jDeploy Install
 6. Add *jdeploy* and *jdeploy-bundle* to .gitignore
 >See [jDeploy Docs](https://www.jdeploy.com/docs/manual/#_getting_started) for details.
 
+jDeploy Issues
+--------------
+1. ***jDeploy publish*** fails due to npm *2fa* one-time password error.
+    1. See: [Github Solution](https://github.com/shannah/jdeploy/issues/74)
+2. ***macOS app icon*** not rendered correctly in Dock and Launchpad.
+    1. Ensure app icon ( ./icon.png + ./src/main/resources/image/icon.png ) is at least 256x256. 512x512 is recommended.
+    2. See objektwerks.App stage.icons, Taskbar and Toolkit code for details.
+
 Object Model
 ------------
 * Pool(id, built, gallons, street, city, state, zip)
