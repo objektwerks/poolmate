@@ -31,6 +31,10 @@ Assembly
 --------
 1. sbt clean test assembly copyAssemblyJar
 
+Execute
+-------
+1. java -jar .assembly/homeschooler-14.0.0.jar ( or double-click executable jar )
+
 Package
 -------
 1. sbt clean test universal:packageBin
