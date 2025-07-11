@@ -15,6 +15,10 @@ Install
 5. Select app icon to launch app.
 >This install has been tested on macOS.
 
+Build
+-----
+1. sbt clean compile
+
 Test
 ----
 1. sbt clean test
