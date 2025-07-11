@@ -35,10 +35,6 @@ Execute
 -------
 1. java -jar .assembly/homeschooler-14.0.0.jar ( or double-click executable jar )
 
-Execute
--------
-1. execute ${poolmate-directory}/poolmate-${version}/bin/poolmate
-
 Object Model
 ------------
 * Pool(id, built, gallons, street, city, state, zip)
