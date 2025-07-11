@@ -35,12 +35,6 @@ Execute
 -------
 1. java -jar .assembly/homeschooler-14.0.0.jar ( or double-click executable jar )
 
-Install
--------
-1. unzip ./target/universal/poolmate-${version}.zip
-2. copy unzipped poolmate-${version} directory to ${poolmate.directory}
-3. set executable permissions for ${poolmate.directory}/poolmate-${version}/bin/poolmate
-
 Execute
 -------
 1. execute ${poolmate-directory}/poolmate-${version}/bin/poolmate
