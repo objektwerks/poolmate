@@ -6,6 +6,15 @@ TODO
 ----
 * Design and build company, worker and routing panels and dialogs.
 
+Install
+-------
+1. Select [Homeschool](https://www.jdeploy.com/~poolmate)
+2. Select a platform to download a compressed app installer.
+3. Decompress app installer.
+4. Install app by double-clicking app installer.
+5. Select app icon to launch app.
+>This install has been tested on macOS.
+
 Test
 ----
 1. sbt clean test
