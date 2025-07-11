@@ -35,11 +35,6 @@ Execute
 -------
 1. java -jar .assembly/homeschooler-14.0.0.jar ( or double-click executable jar )
 
-Package
--------
-1. sbt clean test universal:packageBin
-2. verify ./target/universal/poolmate-${version}.zip
-
 Install
 -------
 1. unzip ./target/universal/poolmate-${version}.zip
