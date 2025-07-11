@@ -2,10 +2,6 @@ PoolMate
 --------
 >Open source pool management app using ScalaFx, H2, Ox and Scala 3.
 
-TODO
-----
-* Design and build company, worker and routing panels and dialogs.
-
 Install
 -------
 1. Select [Homeschool](https://www.jdeploy.com/~poolmate)
