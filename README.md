@@ -112,7 +112,7 @@ Assembly
 
 Execute
 -------
-1. java -jar .assembly/poolmate-4.0.0.jar ( or double-click executable jar )
+1. java -jar .assembly/poolmate-5.0.0.jar ( or double-click executable jar )
 
 Deploy
 ------
