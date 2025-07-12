@@ -1,6 +1,6 @@
 PoolMate
 --------
->Pool management app using ScalaFx, H2, Ox, jDeploy and Scala 3.
+>Pool management app using ScalaFx, Slick, H2, Ox, jDeploy and Scala 3.
 
 Install
 -------
