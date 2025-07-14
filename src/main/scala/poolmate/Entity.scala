@@ -70,7 +70,7 @@ final case class Pump(id: Int = 0,
 final case class Timer(id: Int = 0, 
                        poolId: Int, 
                        installed: String = LocalDate.now.toString, 
-                       model: String = "model") extends Entity:
+                       model: String = "model") extends Entity derives CanEqual:
   val installedProperty = new StringProperty(this, "installed", installed)
   val modelProperty = new StringProperty(this, "model", model)
   val timer = this
