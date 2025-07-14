@@ -54,7 +54,7 @@ final case class Owner(id: Int = 0,
 final case class Surface(id: Int = 0, 
                          poolId: Int, 
                          installed: String = LocalDate.now.toString, 
-                         kind: String = "kind") extends Entity:
+                         kind: String = "kind") extends Entity derives CanEqual:
   val installedProperty = new StringProperty(this, "installed", installed)
   val kindProperty = new StringProperty(this, "kind", kind)
   val surface = this
