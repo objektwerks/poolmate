@@ -1,6 +1,7 @@
 package poolmate
 
 import com.typesafe.config.ConfigFactory
+import com.typesafe.scalalogging.LazyLogging
 
 import java.awt.{Taskbar, Toolkit}
 import java.awt.Taskbar.Feature
@@ -10,7 +11,7 @@ import scalafx.application.JFXApp3
 import slick.basic.DatabaseConfig
 import slick.jdbc.JdbcProfile
 
-object App extends JFXApp3:
+object App extends JFXApp3 with LazyLogging:
   val config = ConfigFactory.load("app.conf")
   val context = Context(config)
 
@@ -32,8 +33,8 @@ object App extends JFXApp3:
 
     model.listPools()
     stage.show()
-    println("*** PoolMate app started.")
+    logger.info("*** PoolMate app started.")
 
   override def stopApp(): Unit =
     repository.close()
-    println("*** PoolMate app stopped.")
+    logger.info("*** PoolMate app stopped.")
