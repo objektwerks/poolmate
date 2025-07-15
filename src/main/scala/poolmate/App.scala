@@ -32,8 +32,8 @@ object App extends JFXApp3:
 
     model.listPools()
     stage.show()
-    println("*** Poolmate app started.")
+    println("*** PoolMate app started.")
 
   override def stopApp(): Unit =
     repository.close()
-    println("*** Poolmate app stopped.")
+    println("*** PoolMate app stopped.")
