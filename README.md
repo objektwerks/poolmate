@@ -150,7 +150,7 @@ NPM Versioning
 
 NPM Registry
 ------------
->Homeschooler is deployed to: https://www.npmjs.com/package/homeschooler
+>PoolMate is deployed to: https://www.npmjs.com/package/poolmate
 
 License
 -------
