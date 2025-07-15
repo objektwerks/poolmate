@@ -4,7 +4,7 @@ PoolMate
 
 Install
 -------
-1. Select [Homeschool](https://www.jdeploy.com/~poolmate)
+1. Select [PoolMate](https://www.jdeploy.com/~poolmate)
 2. Select a platform to download a compressed app installer.
 3. Decompress app installer.
 4. Install app by double-clicking app installer.
