@@ -112,7 +112,7 @@ Assembly
 
 Execute
 -------
-1. ```java -jar .assembly/poolmate-5.0.0.jar```
+1. ```java -jar .assembly/poolmate-$version.jar```
 
 Deploy
 ------
