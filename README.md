@@ -96,23 +96,23 @@ Solutions
 
 Build
 -----
-1. sbt clean compile
+1. ```sbt clean compile```
 
 Test
 ----
-1. sbt clean test
+1. ```sbt clean test```
 
 Run
 ---
-1. sbt run
+1. ```sbt run```
 
 Assembly
 --------
-1. sbt clean test assembly copyAssemblyJar
+1. ```sbt clean test assembly copyAssemblyJar```
 
 Execute
 -------
-1. java -jar .assembly/poolmate-5.0.0.jar ( or double-click executable jar )
+1. ```java -jar .assembly/poolmate-5.0.0.jar```
 
 Deploy
 ------
