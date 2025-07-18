@@ -12,6 +12,8 @@ import slick.basic.DatabaseConfig
 import slick.jdbc.JdbcProfile
 
 object App extends JFXApp3 with LazyLogging:
+  logger.info("*** PoolMate starting ...")
+
   val config = ConfigFactory.load("app.conf")
   val context = Context(config)
 
@@ -33,8 +35,8 @@ object App extends JFXApp3 with LazyLogging:
 
     model.listPools()
     stage.show()
-    logger.info("*** PoolMate app started.")
+    logger.info("*** PoolMate started.")
 
   override def stopApp(): Unit =
     repository.close()
-    logger.info("*** PoolMate app stopped.")
+    logger.info("*** PoolMate stopped.")
