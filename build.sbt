@@ -7,7 +7,7 @@ libraryDependencies ++= {
   Seq(
     "org.scalafx" %% "scalafx" % "24.0.2-R36",
     "org.jfxtras" % "jfxtras-controls" % "17-r1",
-    "com.softwaremill.ox" %% "core" % "1.0.0-RC1",
+    "com.softwaremill.ox" %% "core" % "1.0.0-RC2",
     "com.typesafe.slick" %% "slick" % slickVersion,
     "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
     "com.h2database" % "h2" % "2.3.232",
